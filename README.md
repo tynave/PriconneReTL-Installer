@@ -43,7 +43,7 @@ By checking / unchecking the *Show Logs* option, you can view/hide a detailed pr
 All the operations processed are always logged into the *ReTLInstaller.log* file in the application's folder, regardless of this option.
 
 ## Requirements
-- .NET 4.7.2
+- .NET 4.7.2 (should already be installed if you're running Windows 10 Version 1803 or above)
 
 ## Planned features
 - User configurable options, like exclusions, log file path, ability to set game path manually, etc..
