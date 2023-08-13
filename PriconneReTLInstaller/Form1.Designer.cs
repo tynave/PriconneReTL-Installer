@@ -238,6 +238,7 @@
             this.removeInteropsCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
             this.removeInteropsCheckBox.AutoSize = true;
             this.removeInteropsCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.removeInteropsCheckBox.Enabled = false;
             this.removeInteropsCheckBox.FlatAppearance.BorderSize = 0;
             this.removeInteropsCheckBox.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.removeInteropsCheckBox.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;

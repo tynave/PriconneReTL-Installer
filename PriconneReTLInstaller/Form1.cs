@@ -3,7 +3,6 @@ using Newtonsoft.Json.Linq;
 using PriconneReTLInstaller.Properties;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
@@ -12,15 +11,9 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.ComTypes;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 
 namespace PriconneReTLInstaller
 {
@@ -44,7 +37,7 @@ namespace PriconneReTLInstaller
             PriconneFont();
             SetFontForAllControls(Controls);
 
-            logger = new Logger("ReTLUpdater.log", outputTextBox, toolStripStatusLabel1);
+            logger = new Logger("ReTLInstaller.log", outputTextBox, toolStripStatusLabel1);
             logger.StartSession();
 
             this.Height = 480;
@@ -258,10 +251,10 @@ namespace PriconneReTLInstaller
                             if (!ignoreFiles.Contains(trimmedPath))
                             {
                                 filePathsList.Add(trimmedPath);
-                                Console.WriteLine($"File in 'src' Path: {trimmedPath}");
+                                // Console.WriteLine($"File in 'src' Path: {trimmedPath}");
                             }
-                            
-                            
+
+
                         }
                     }
                 }
@@ -281,7 +274,7 @@ namespace PriconneReTLInstaller
                 await Task.Run(() =>
                 {
                     string[] uninstallFiles = new string[Properties.Settings.Default.uninstallFiles.Count];
-                    
+
                     for (int i = 0; i < Properties.Settings.Default.uninstallFiles.Count; i++)
                     {
                         uninstallFiles[i] = Path.Combine(priconnePath, Properties.Settings.Default.uninstallFiles[i]);
@@ -332,11 +325,11 @@ namespace PriconneReTLInstaller
                                 File.Delete(file);
                             }
                         }
-                        
+
                         outputTextBox.Invoke((Action)(() =>
                         {
                             logger.Log("Removing " + file, "remove");
-                            
+
                         }));
                         // Thread.Sleep(500);
 
@@ -546,7 +539,7 @@ namespace PriconneReTLInstaller
                         if (File.Exists(filePath) && (!ignoreFiles.Contains(file)))
                         {
                             File.Delete(filePath);
-                            Console.WriteLine($"File deleted: {file}");
+                            // Console.WriteLine($"File deleted: {file}");
                             outputTextBox.Invoke((Action)(() =>
                             {
                                 logger.Log($"Removed file: {file}", "remove");
@@ -573,7 +566,7 @@ namespace PriconneReTLInstaller
             if (!Directory.EnumerateFileSystemEntries(directoryPath).Any())
             {
                 Directory.Delete(directoryPath);
-                Console.WriteLine($"Directory deleted: {directoryPath}");
+                // Console.WriteLine($"Directory deleted: {directoryPath}");
                 outputTextBox.Invoke((Action)(() =>
                 {
                     logger.Log($"Removed directory: {directoryPath}", "remove");
@@ -718,7 +711,7 @@ namespace PriconneReTLInstaller
             {
                 logger.Error("Error removing interop assemblies: " + ex.Message);
             }
-            
+
         }
         public void PriconneFont()
         {
@@ -802,12 +795,13 @@ namespace PriconneReTLInstaller
                 if (File.Exists(Path.Combine(priconnePath, configFile)))
                 {
                     isConfigPresent = true;
-                    outputTextBox.Invoke((Action)(() =>
-                    {
-                        logger.Log("Found config file(s). Adding them to the list of ignored/excluded files.", "error");
-                    }));
+
                 }
             }
+            if (isConfigPresent) outputTextBox.Invoke((Action)(() =>
+            {
+                logger.Log("Found config file(s). Adding them to the list of ignored/excluded files.", "error");
+            }));
             return isConfigPresent;
         }
 
@@ -828,7 +822,7 @@ namespace PriconneReTLInstaller
                 if (uninstallCheckBox.Checked) // Uninstall
                 {
                     // await RemoveMod(removeConfig: removeConfigCheckBox.Checked);
-                    await RemovePatchFiles(removeConfig: removeConfigCheckBox.Checked, removeIgnored: true, removeInterops: true);
+                    await RemovePatchFiles(removeConfig: removeConfigCheckBox.Checked, removeIgnored: removeIgnoredCheckBox.Checked, removeInterops: removeInteropsCheckBox.Checked);
                     UpdateUI();
                     return;
                 }
@@ -888,7 +882,7 @@ namespace PriconneReTLInstaller
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -907,7 +901,7 @@ namespace PriconneReTLInstaller
                     e.Cancel = true;
                 }
             }
-           
+
         }
 
         private void uninstallCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -1176,7 +1170,7 @@ namespace PriconneReTLInstaller
                 Console.WriteLine($"Error writing to log file: {ex.Message}");
             }
         }
-        
+
     }
 }
 
