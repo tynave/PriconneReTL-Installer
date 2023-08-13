@@ -131,7 +131,8 @@ All the operations processed are always logged into the ReTLUpdater.log file in 
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Installs the translation patch.\r\nKeeps the config files if already present.")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Installs the translation patch.\r\nKeeps config files, ignored files and \r\nany user" +
+            " created files already present.")]
         public string installModeDescription {
             get {
                 return ((string)(this["installModeDescription"]));
@@ -168,7 +169,8 @@ All the operations processed are always logged into the ReTLUpdater.log file in 
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Removes the translation patch, inculding the generated interop assemblies and the" +
-            "n installs the latest version.\r\nKeeps config files.")]
+            "n installs the latest version.\r\nKeeps config files and ignored files, as well as" +
+            " any user created files.")]
         public string fredownloadModeDescription {
             get {
                 return ((string)(this["fredownloadModeDescription"]));
@@ -214,7 +216,7 @@ All the operations processed are always logged into the ReTLUpdater.log file in 
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Deletes config files.")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Removes config files.")]
         public string deleteConfigText {
             get {
                 return ((string)(this["deleteConfigText"]));
@@ -232,7 +234,7 @@ All the operations processed are always logged into the ReTLUpdater.log file in 
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Deletes ignored files.")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Removes ignored files.")]
         public string deleteIgnoredText {
             get {
                 return ((string)(this["deleteIgnoredText"]));
@@ -250,7 +252,7 @@ All the operations processed are always logged into the ReTLUpdater.log file in 
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Deletes interops.")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Deletes interop assemblies.")]
         public string deleteInteropsText {
             get {
                 return ((string)(this["deleteInteropsText"]));
@@ -259,7 +261,7 @@ All the operations processed are always logged into the ReTLUpdater.log file in 
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Keeps interops.")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Keeps interop assemblies.")]
         public string keepInteropsText {
             get {
                 return ((string)(this["keepInteropsText"]));

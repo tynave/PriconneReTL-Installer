@@ -155,9 +155,9 @@
             this.startButton.FlatAppearance.BorderSize = 0;
             this.startButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.startButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.startButton.Location = new System.Drawing.Point(357, 368);
+            this.startButton.Location = new System.Drawing.Point(395, 377);
             this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(272, 78);
+            this.startButton.Size = new System.Drawing.Size(236, 66);
             this.startButton.TabIndex = 0;
             this.startButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolTip.SetToolTip(this.startButton, "Start operation with currently selected options");
@@ -230,7 +230,7 @@
             this.optionsPanel.Controls.Add(this.optionsLabel);
             this.optionsPanel.Location = new System.Drawing.Point(17, 177);
             this.optionsPanel.Name = "optionsPanel";
-            this.optionsPanel.Size = new System.Drawing.Size(263, 184);
+            this.optionsPanel.Size = new System.Drawing.Size(307, 184);
             this.optionsPanel.TabIndex = 16;
             // 
             // removeInteropsCheckBox
@@ -272,9 +272,9 @@
             this.removeIgnoredCheckBox.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.removeIgnoredCheckBox.Location = new System.Drawing.Point(24, 108);
             this.removeIgnoredCheckBox.Name = "removeIgnoredCheckBox";
-            this.removeIgnoredCheckBox.Size = new System.Drawing.Size(231, 36);
+            this.removeIgnoredCheckBox.Size = new System.Drawing.Size(284, 36);
             this.removeIgnoredCheckBox.TabIndex = 29;
-            this.removeIgnoredCheckBox.Text = " Remove Ignored Files";
+            this.removeIgnoredCheckBox.Text = " Remove Ignored Patch Files";
             this.removeIgnoredCheckBox.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.removeIgnoredCheckBox.UseVisualStyleBackColor = false;
             this.removeIgnoredCheckBox.CheckedChanged += new System.EventHandler(this.removeIgnoredCheckBox_CheckedChanged);
@@ -293,9 +293,9 @@
             this.removeConfigCheckBox.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.removeConfigCheckBox.Location = new System.Drawing.Point(24, 79);
             this.removeConfigCheckBox.Name = "removeConfigCheckBox";
-            this.removeConfigCheckBox.Size = new System.Drawing.Size(205, 36);
+            this.removeConfigCheckBox.Size = new System.Drawing.Size(218, 36);
             this.removeConfigCheckBox.TabIndex = 17;
-            this.removeConfigCheckBox.Text = " Delete Config Files";
+            this.removeConfigCheckBox.Text = " Remove Config Files";
             this.removeConfigCheckBox.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.removeConfigCheckBox.UseVisualStyleBackColor = true;
             this.removeConfigCheckBox.CheckedChanged += new System.EventHandler(this.removeConfigCheckBox_CheckedChanged);
@@ -323,7 +323,7 @@
             this.showLogCheckBox.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.showLogCheckBox.Image = global::PriconneReTLInstaller.Properties.Resources.check_empty_24x24_2;
             this.showLogCheckBox.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.showLogCheckBox.Location = new System.Drawing.Point(24, 410);
+            this.showLogCheckBox.Location = new System.Drawing.Point(24, 419);
             this.showLogCheckBox.Name = "showLogCheckBox";
             this.showLogCheckBox.Size = new System.Drawing.Size(144, 36);
             this.showLogCheckBox.TabIndex = 17;
@@ -474,19 +474,20 @@
             this.modeLabel.AutoSize = true;
             this.modeLabel.BackColor = System.Drawing.Color.Transparent;
             this.modeLabel.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.modeLabel.Location = new System.Drawing.Point(288, 176);
+            this.modeLabel.Location = new System.Drawing.Point(330, 173);
             this.modeLabel.Name = "modeLabel";
             this.modeLabel.Size = new System.Drawing.Size(172, 24);
             this.modeLabel.TabIndex = 27;
             this.modeLabel.Text = "Current Operation: ";
+            this.modeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // modeDescritpionLabel
             // 
             this.modeDescritpionLabel.BackColor = System.Drawing.Color.Transparent;
             this.modeDescritpionLabel.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.modeDescritpionLabel.Location = new System.Drawing.Point(288, 200);
+            this.modeDescritpionLabel.Location = new System.Drawing.Point(330, 200);
             this.modeDescritpionLabel.Name = "modeDescritpionLabel";
-            this.modeDescritpionLabel.Size = new System.Drawing.Size(421, 161);
+            this.modeDescritpionLabel.Size = new System.Drawing.Size(368, 174);
             this.modeDescritpionLabel.TabIndex = 28;
             this.modeDescritpionLabel.Text = "<operation description>";
             // 

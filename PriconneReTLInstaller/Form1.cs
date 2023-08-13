@@ -251,10 +251,10 @@ namespace PriconneReTLInstaller
                             if (!ignoreFiles.Contains(trimmedPath))
                             {
                                 filePathsList.Add(trimmedPath);
-                                // Console.WriteLine($"File in 'src' Path: {trimmedPath}");
+                                Console.WriteLine($"File in 'src' Path: {trimmedPath}");
                             }
-
-
+                            // filePathsList.Add(trimmedPath);
+                            // Console.WriteLine($"File in 'src' Path: {trimmedPath}");
                         }
                     }
                 }
@@ -262,7 +262,7 @@ namespace PriconneReTLInstaller
                 {
                     Console.WriteLine($"Failed to fetch tree for tag '{releaseTag}'. Status code: {response.StatusCode}");
                 }
-
+                
                 return filePathsList.ToArray();
             }
         }
@@ -453,7 +453,7 @@ namespace PriconneReTLInstaller
                     {
                         outputTextBox.Invoke((Action)(() =>
                         {
-                            logger.Log("Extracting files to game folder...", "info", true);
+                            logger.Log("Extracting files to game folder...", "add", true);
                             toolStripProgressBar1.Minimum = 0;
                             toolStripProgressBar1.Maximum = zip.Entries.Count;
                         }));
@@ -471,8 +471,6 @@ namespace PriconneReTLInstaller
                                 double percentage = (double)toolStripProgressBar1.Value / zip.Entries.Count * 100;
                                 toolStripStatusLabel3.Text = $"{Math.Truncate(percentage)}%";
                             }));
-
-
 
                             if (!ignoreFiles.Contains(fileName))
                             {
@@ -523,8 +521,16 @@ namespace PriconneReTLInstaller
             {
                 try
                 {
-                    string[] ignoreFiles = removeIgnored ? SetIgnoreFiles(addconfig: !removeConfig) : new string[0];
+                    // string[] ignoreFiles = removeIgnored ? SetIgnoreFiles(addconfig: !removeConfig) : new string[0];
+                    string[] configFiles = new string[Settings.Default.configFiles.Count];
+                    Settings.Default.configFiles.CopyTo(configFiles, 0);
+                    string[] ignoreFiles = new string[Settings.Default.ignoreFiles.Count];
+                    Settings.Default.ignoreFiles.CopyTo(ignoreFiles, 0);
+
                     string[] currentFiles = ProcessTree(localVersion).GetAwaiter().GetResult();
+
+                    if (removeConfig) currentFiles = currentFiles.Concat(configFiles).ToArray();
+                    if (removeIgnored) currentFiles = currentFiles.Concat(ignoreFiles).ToArray();
 
                     outputTextBox.Invoke((Action)(() =>
                     {
@@ -536,7 +542,8 @@ namespace PriconneReTLInstaller
                         string filePath = Path.Combine(priconnePath, file);
                         string directory = Path.GetDirectoryName(filePath);
 
-                        if (File.Exists(filePath) && (!ignoreFiles.Contains(file)))
+                        // if (File.Exists(filePath) && (!ignoreFiles.Contains(file)))
+                        if (File.Exists(filePath))
                         {
                             File.Delete(filePath);
                             // Console.WriteLine($"File deleted: {file}");
@@ -771,6 +778,29 @@ namespace PriconneReTLInstaller
         }
         private string[] SetIgnoreFiles(bool addconfig)
         {
+            string[] ignoreFiles = new string[Properties.Settings.Default.ignoreFiles.Count];
+            Properties.Settings.Default.ignoreFiles.CopyTo(ignoreFiles, 0);
+
+            if (addconfig)
+            {
+                List<string> ignoreFilesList = new List<string>(ignoreFiles);
+
+                foreach (var configFile in Settings.Default.configFiles)
+                {
+                    if (File.Exists(Path.Combine(priconnePath, configFile)))
+                    {
+                        ignoreFilesList.Add(configFile);
+                    }
+                }
+
+                ignoreFiles = ignoreFilesList.ToArray();
+            }
+
+            return ignoreFiles;
+        }
+
+        /*private string[] SetIgnoreFiles(bool addconfig)
+        {
             string[] ignoreFiles;
 
             if (addconfig)
@@ -786,7 +816,7 @@ namespace PriconneReTLInstaller
                 Properties.Settings.Default.ignoreFiles.CopyTo(ignoreFiles, 0);
             }
             return ignoreFiles;
-        }
+        }*/
         private bool IsConfigPresent()
         {
             bool isConfigPresent = false;
@@ -823,6 +853,7 @@ namespace PriconneReTLInstaller
                 {
                     // await RemoveMod(removeConfig: removeConfigCheckBox.Checked);
                     await RemovePatchFiles(removeConfig: removeConfigCheckBox.Checked, removeIgnored: removeIgnoredCheckBox.Checked, removeInterops: removeInteropsCheckBox.Checked);
+                    logger.Log("Uninstall Complete!", "success", true);
                     UpdateUI();
                     return;
                 }
@@ -1103,8 +1134,7 @@ namespace PriconneReTLInstaller
                 { "error", Color.Red},
                 { "success", Color.Green},
                 { "add", Color.Blue},
-                { "rename", Color.Blue },
-                { "remove", Color.Orange},
+                { "remove", Color.Red},
             };
         private RichTextBox outputTextBox;
         private ToolStripStatusLabel toolStripStatusLabel1;

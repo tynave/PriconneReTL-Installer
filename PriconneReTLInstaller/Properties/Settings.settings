@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PriconneReTLUpdater.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PriconneReTLInstaller.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="uninstallFiles" Type="System.Collections.Specialized.StringCollection" Scope="Application">
@@ -69,7 +69,8 @@ All assets used in this application are properties of CyberAgent, Inc., Cygames,
     </Setting>
     <Setting Name="installModeDescription" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Installs the translation patch.
-Keeps the config files if already present.</Value>
+Keeps config files, ignored files and 
+any user created files already present.</Value>
     </Setting>
     <Setting Name="uninstallMode" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Current Mode: Uninstall</Value>
@@ -82,7 +83,7 @@ Keeps the config files if already present.</Value>
     </Setting>
     <Setting Name="fredownloadModeDescription" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Removes the translation patch, inculding the generated interop assemblies and then installs the latest version.
-Keeps config files.</Value>
+Keeps config files and ignored files, as well as any user created files.</Value>
     </Setting>
     <Setting Name="updateMode" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Current Mode: Update</Value>
@@ -99,22 +100,22 @@ Keeps config files.</Value>
 See log for details.</Value>
     </Setting>
     <Setting Name="deleteConfigText" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Deletes config files.</Value>
+      <Value Profile="(Default)">Removes config files.</Value>
     </Setting>
     <Setting Name="keepConfigText" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Keeps config files.</Value>
     </Setting>
     <Setting Name="deleteIgnoredText" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Deletes ignored files.</Value>
+      <Value Profile="(Default)">Removes ignored files.</Value>
     </Setting>
     <Setting Name="keepIgnoredText" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Keeps ignored files.</Value>
     </Setting>
     <Setting Name="deleteInteropsText" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Deletes interops.</Value>
+      <Value Profile="(Default)">Deletes interop assemblies.</Value>
     </Setting>
     <Setting Name="keepInteropsText" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Keeps interops.</Value>
+      <Value Profile="(Default)">Keeps interop assemblies.</Value>
     </Setting>
   </Settings>
 </SettingsFile>
