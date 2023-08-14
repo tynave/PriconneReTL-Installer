@@ -253,6 +253,7 @@
             this.removeInteropsCheckBox.TabIndex = 29;
             this.removeInteropsCheckBox.Text = " Remove Interops";
             this.removeInteropsCheckBox.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip.SetToolTip(this.removeInteropsCheckBox, "Removes the generated interop assemblies at:\r\n%appdata%\\BepInEx");
             this.removeInteropsCheckBox.UseVisualStyleBackColor = false;
             this.removeInteropsCheckBox.CheckedChanged += new System.EventHandler(this.removeInteropsCheckBox_CheckedChanged);
             this.removeInteropsCheckBox.EnabledChanged += new System.EventHandler(this.removeInteropsCheckBox_EnabledChanged);
@@ -365,6 +366,10 @@
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             this.exitButton.MouseEnter += new System.EventHandler(this.exitButton_MouseEnter);
             this.exitButton.MouseLeave += new System.EventHandler(this.exitButton_MouseLeave);
+            // 
+            // toolTip
+            // 
+            this.toolTip.AutomaticDelay = 1000;
             // 
             // minimizeButton
             // 

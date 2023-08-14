@@ -3,6 +3,8 @@ using Newtonsoft.Json.Linq;
 using PriconneReTLInstaller.Properties;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
@@ -12,6 +14,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -534,7 +537,7 @@ namespace PriconneReTLInstaller
 
                     outputTextBox.Invoke((Action)(() =>
                     {
-                        logger.Log("Removing old patch files...", "remove", true);
+                        logger.Log(uninstallCheckBox.Checked ? "Removing patch files..." : "Removing old patch files...", "remove", true);
                     }));
 
                     foreach (var file in currentFiles)
@@ -710,7 +713,7 @@ namespace PriconneReTLInstaller
                     Directory.Delete(interopPath, true);
                     outputTextBox.Invoke((Action)(() =>
                     {
-                        logger.Log($"Removed interop assemblies from {interopPath}", "info");
+                        logger.Log($"Removed interop assemblies from {interopPath}", "remove");
                     }));
                 }
             }
@@ -775,6 +778,27 @@ namespace PriconneReTLInstaller
                     SetFontForToolStripItems(dropDownItem.DropDownItems);
                 }
             }
+        }
+
+        private void SetToolTips()
+        {
+            StringCollection ignoreCollection = Settings.Default.ignoreFiles;
+            StringCollection configCollection = Settings.Default.configFiles;
+
+            StringBuilder ignoreList = new StringBuilder();
+            foreach (string line in ignoreCollection)
+            {
+                ignoreList.AppendLine(line);
+            }
+
+            StringBuilder configList = new StringBuilder();
+            foreach (string line in configCollection)
+            {
+                configList.AppendLine(line);
+            }
+
+            toolTip.SetToolTip(removeConfigCheckBox, $"Removes the following config files also:\n\n{configList}");
+            toolTip.SetToolTip(removeIgnoredCheckBox, $"Removes the following ignored patch files also:\n\n{ignoreList}");
         }
         private string[] SetIgnoreFiles(bool addconfig)
         {
@@ -913,7 +937,7 @@ namespace PriconneReTLInstaller
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+            SetToolTips();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
