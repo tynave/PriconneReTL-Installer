@@ -1,0 +1,7 @@
+﻿namespace InstallerFunctions
+{
+    class InstallerFunctions
+    {
+
+    }
+}
