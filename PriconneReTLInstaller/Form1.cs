@@ -3,7 +3,6 @@ using Newtonsoft.Json.Linq;
 using PriconneReTLInstaller.Properties;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Drawing;
@@ -264,13 +263,15 @@ namespace PriconneReTLInstaller
                 else
                 {
                     Console.WriteLine($"Failed to fetch tree for tag '{releaseTag}'. Status code: {response.StatusCode}");
+                    logger.Error($"Failed to fetch tree for tag '{releaseTag}'. Status code: {response.StatusCode}");
+                    return null;
                 }
-                
+
                 return filePathsList.ToArray();
             }
         }
 
-        private async Task RemoveMod(bool removeConfig)
+        /*private async Task RemoveMod(bool removeConfig)
         {
             try
             {
@@ -353,7 +354,7 @@ namespace PriconneReTLInstaller
                     logger.Error("Error removing patch: " + ex.Message);
                 }));
             }
-        }
+        }*/
 
         private async Task GetTLMod(string tempFile, System.Windows.Forms.ToolStripProgressBar progressBar)
         {
@@ -524,13 +525,21 @@ namespace PriconneReTLInstaller
             {
                 try
                 {
-                    // string[] ignoreFiles = removeIgnored ? SetIgnoreFiles(addconfig: !removeConfig) : new string[0];
                     string[] configFiles = new string[Settings.Default.configFiles.Count];
                     Settings.Default.configFiles.CopyTo(configFiles, 0);
                     string[] ignoreFiles = new string[Settings.Default.ignoreFiles.Count];
                     Settings.Default.ignoreFiles.CopyTo(ignoreFiles, 0);
 
                     string[] currentFiles = ProcessTree(localVersion).GetAwaiter().GetResult();
+
+                    if (currentFiles == null)
+                    {
+                        /*outputTextBox.Invoke((Action)(() =>
+                        {
+                            logger.Error("Failed to get list of files to remove! Cannot continue.");
+                        }));*/
+                        throw new Exception("Failed to get list of files to remove! Cannot continue.");
+                    }
 
                     if (removeConfig) currentFiles = currentFiles.Concat(configFiles).ToArray();
                     if (removeIgnored) currentFiles = currentFiles.Concat(ignoreFiles).ToArray();
@@ -566,7 +575,12 @@ namespace PriconneReTLInstaller
                 }
                 catch (Exception ex)
                 {
-                    logger.Error("Error updating files: " + ex.Message);
+                    
+                    outputTextBox.Invoke((Action)(() =>
+                    {
+                        logger.Error("Error updating files: " + ex.Message);
+                    }));
+                    throw;
                 }
             });
         }
@@ -902,15 +916,20 @@ namespace PriconneReTLInstaller
 
                 if (versioncompare < 0) // Installed version < Latest version
                 {
-                    logger.Log("Updating translation patch...", "info", true);
-                    // await UpdateChangedFiles();
-                    await ProcessTree(localVersion);
-                    await RemovePatchFiles(removeConfig: false, removeIgnored: false, removeInterops: false);
-                    await GetTLMod(tempFile, toolStripProgressBar1);
-                    await ExtractAllFiles();
-                    logger.Log("Update complete!", "success", true);
-                    UpdateUI();
-                    return;
+                    try
+                    {
+                        logger.Log("Updating translation patch...", "info", true);
+                        await RemovePatchFiles(removeConfig: false, removeIgnored: false, removeInterops: false);
+                        await GetTLMod(tempFile, toolStripProgressBar1);
+                        await ExtractAllFiles();
+                        logger.Log("Update complete!", "success", true);
+                        UpdateUI();
+                        return;
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Error("Error updating translation patch: " + ex.Message);
+                    }    
                 }
 
                 // nothing installed / invalid
@@ -921,6 +940,10 @@ namespace PriconneReTLInstaller
                 UpdateUI();
 
 
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Error completing process: " + ex.Message);
             }
 
             finally
@@ -1105,7 +1128,8 @@ namespace PriconneReTLInstaller
 
         private void option1ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(Settings.Default.helpText, "How to use", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //MessageBox.Show(Settings.Default.helpText, "How to use", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Process.Start("https://github.com/tynave/PriconneReTL-Installer#readme");
         }
 
         private void option2ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1176,7 +1200,7 @@ namespace PriconneReTLInstaller
             {
                 using (StreamWriter writer = new StreamWriter(logFilePath, false))
                 {
-                    writer.WriteLine($"[PriconneReTL Updater version: {String.Format(System.Windows.Forms.Application.ProductVersion)}]");
+                    writer.WriteLine($"[PriconneReTL Installer version: {String.Format(System.Windows.Forms.Application.ProductVersion)}]");
                     writer.WriteLine($"[Log file created at: {DateTime.Now}]");
                 }
             }
