@@ -16,6 +16,9 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using InstallerFunctions;
+using HelperFunctions;
+using LoggerFunctions;
 
 namespace PriconneReTLInstaller
 {
@@ -28,24 +31,32 @@ namespace PriconneReTLInstaller
         private string assetLink;
         private string localVersion;
         private string tempFile;
-        PrivateFontCollection priconnefont = new PrivateFontCollection();
+        // PrivateFontCollection priconnefont = new PrivateFontCollection();
         private bool mouseDown;
         private Point lastLocation;
+
+        Helper helper = new Helper();
+        Installer installer = new Installer();
 
         public MainForm()
         {
             InitializeComponent();
+
+            installer.Log += OnLog;
+            installer.ErrorLog += OnErrorLog;
+            installer.DisableStart += OnDisableStart;
+
             Icon = Resources.jewel;
-            PriconneFont();
-            SetFontForAllControls(Controls);
+            helper.PriconneFont();
+            helper.SetFontForAllControls(Controls);
 
             logger = new Logger("ReTLInstaller.log", outputTextBox, toolStripStatusLabel1);
             logger.StartSession();
 
             this.Height = 480;
 
-            // priconnePath = GetGamePath();
-            priconnePath = "C:\\Test"; // -- set fixed path for testing purposes
+            priconnePath = installer.GetGamePath();
+            // priconnePath = "C:\\Test"; // -- set fixed path for testing purposes
 
             priconnePathLinkLabel.Text = priconnePath == null ? "ERROR!" : priconnePath;
 
@@ -54,6 +65,28 @@ namespace PriconneReTLInstaller
 
             tempFile = Path.GetTempFileName();
 
+        }
+
+        private void OnLog(string message, string color)
+        { 
+            logger.Log(message, color); 
+        }
+
+        private void OnErrorLog(string message)
+        {
+            logger.Error(message);
+        }
+
+        public void OnDisableStart()
+        {
+            startButton.Enabled = false;
+            startButton.BackgroundImage = Resources.start_disabled;
+        }
+
+        public static void DisableStartButton(Button startButton)
+        {
+            startButton.Enabled = false;
+            startButton.BackgroundImage = Resources.start_disabled;
         }
 
         // Functions
@@ -270,91 +303,6 @@ namespace PriconneReTLInstaller
                 return filePathsList.ToArray();
             }
         }
-
-        /*private async Task RemoveMod(bool removeConfig)
-        {
-            try
-            {
-                await Task.Run(() =>
-                {
-                    string[] uninstallFiles = new string[Properties.Settings.Default.uninstallFiles.Count];
-
-                    for (int i = 0; i < Properties.Settings.Default.uninstallFiles.Count; i++)
-                    {
-                        uninstallFiles[i] = Path.Combine(priconnePath, Properties.Settings.Default.uninstallFiles[i]);
-                    }
-
-                    List<string> uninstallFilesList = new List<string>(uninstallFiles);
-                    uninstallFilesList.Add(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "BepInEx"));
-                    uninstallFiles = uninstallFilesList.ToArray();
-
-                    if (removeConfig)
-                    {
-                        uninstallFilesList.Add(Path.Combine(priconnePath, "BepInEx"));
-                        uninstallFiles = uninstallFilesList.ToArray();
-                        outputTextBox.Invoke((Action)(() =>
-                        {
-                            logger.Log("Removing translation patch completely...", "remove", true);
-                        }));
-                    }
-                    else
-                    {
-                        outputTextBox.Invoke((Action)(() =>
-                        {
-                            logger.Log("Removing translation patch files...", "remove", true);
-                        }));
-
-                    }
-
-                    foreach (string file in uninstallFiles)
-                    {
-
-                        if (!File.Exists(file) && !Directory.Exists(file))
-                        {
-                            continue;
-                        }
-
-                        FileAttributes attributes = File.GetAttributes(file);
-                        if ((attributes & FileAttributes.Directory) == FileAttributes.Directory)
-                        {
-                            if (Directory.Exists(file))
-                            {
-                                Directory.Delete(file, true);
-                            }
-                        }
-                        else
-                        {
-                            if (File.Exists(file))
-                            {
-                                File.Delete(file);
-                            }
-                        }
-
-                        outputTextBox.Invoke((Action)(() =>
-                        {
-                            logger.Log("Removing " + file, "remove");
-
-                        }));
-                        // Thread.Sleep(500);
-
-                    }
-
-                    outputTextBox.Invoke((Action)(() =>
-                    {
-                        logger.Log("Uninstall complete!", "success", true);
-                    }));
-
-                });
-
-            }
-            catch (Exception ex)
-            {
-                outputTextBox.Invoke((Action)(() =>
-                {
-                    logger.Error("Error removing patch: " + ex.Message);
-                }));
-            }
-        }*/
 
         private async Task GetTLMod(string tempFile, System.Windows.Forms.ToolStripProgressBar progressBar)
         {
@@ -580,7 +528,6 @@ namespace PriconneReTLInstaller
                     {
                         logger.Error("Error updating files: " + ex.Message);
                     }));
-                    throw;
                 }
             });
         }
@@ -604,119 +551,6 @@ namespace PriconneReTLInstaller
             }
         }
 
-        /*private async Task UpdateChangedFiles()
-        {
-            try
-            {
-                string compareUri = $"{githubAPI}/compare/{localVersion}...{latestVersion}";
-                await GetTLMod(tempFile, toolStripProgressBar1);
-                using (HttpClient client = new HttpClient())
-                {
-                    client.DefaultRequestHeaders.Add("User-Agent", "request");
-                    string response = await client.GetStringAsync(compareUri);
-                    dynamic changedFiles = JsonConvert.DeserializeObject(response);
-
-                    string[] ignoreFiles = SetIgnoreFiles(addconfig: true);
-
-                    toolStripProgressBar1.Minimum = 0;
-                    toolStripProgressBar1.Maximum = changedFiles.files.Count;
-
-                    foreach (var file in changedFiles.files)
-                    {
-                        string fileName = file.filename;
-                        fileName = fileName.Replace("src/", "");
-                        if (!ignoreFiles.Contains(fileName))
-                        {
-                            string status = file.status;
-                            switch (status)
-                            {
-                                case "added":
-                                case "modified":
-                                    await ExtractFile(fileName);
-                                    logger.Log($"{status}: {fileName}", "add");
-                                    break;
-                                case "removed":
-                                    try
-                                    {
-                                        string fullPath = Path.Combine(priconnePath, fileName);
-                                        if (File.Exists(fullPath))
-                                        {
-                                            File.Delete(fullPath);
-                                            logger.Log($"removed: {fileName}", "remove");
-                                        }
-                                        else
-                                        {
-                                            logger.Log($"not found: {fileName}", "error");
-                                        }
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        logger.Error($"Error removing file: {fileName} - {ex.Message}");
-
-                                    }
-                                    break;
-                                case "renamed":
-                                    string previousFileName = file.previous_filename;
-                                    previousFileName = previousFileName.Replace("src/", "");
-                                    try
-                                    {
-                                        string newFullPath = Path.Combine(priconnePath, fileName);
-                                        string oldFullPath = Path.Combine(priconnePath, previousFileName);
-
-                                        string oldDirectory = Path.GetDirectoryName(oldFullPath);
-                                        string newDirectory = Path.GetDirectoryName(newFullPath);
-
-                                        if (File.Exists(oldFullPath))
-                                        {
-                                            if (!Directory.Exists(newDirectory)) 
-                                            {
-                                                try
-                                                {
-                                                    Directory.CreateDirectory(newDirectory);
-                                                    logger.Log($"Created new folder for move / rename: {newDirectory}", "add");
-                                                }
-                                                catch (Exception ex)
-                                                {
-                                                    logger.Error("Error creating new directory: " + ex.Message);
-                                                }
-                                            }
-
-                                            File.Move(oldFullPath, newFullPath);
-                                            if (!Directory.EnumerateFileSystemEntries(oldDirectory).Any()) Directory.Delete(oldDirectory);
-                                            logger.Log($"renamed: {fileName}", "rename");
-
-
-                                        }
-                                        else
-                                        {
-                                            await ExtractFile(fileName);
-                                            logger.Log($"{status}: {fileName}", "add");
-                                        }
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        logger.Error($"Error renaming file: {fileName} - {ex.Message}");
-
-                                    }
-                                    break;
-                            }
-                            toolStripProgressBar1.PerformStep();
-                        }
-                    }
-                    // Update Version.txt when updating, as compare list does not have it.
-                    await ExtractFile("BepInEx/Translation/en/Text/Version.txt");
-                    logger.Log($"Updating Version.txt file to actual version: {latestVersion}", "success");
-                    logger.Log("Update complete!", "success");
-
-                    File.Delete(tempFile);
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error("Error updating files: " + ex.Message);
-
-            }
-        } */
         private void RemoveInterops()
         {
             try
@@ -737,7 +571,7 @@ namespace PriconneReTLInstaller
             }
 
         }
-        public void PriconneFont()
+        /*public void PriconneFont()
         {
             //Select  font from the resources.
             int fontLength = Properties.Resources.Humming.Length;
@@ -792,7 +626,7 @@ namespace PriconneReTLInstaller
                     SetFontForToolStripItems(dropDownItem.DropDownItems);
                 }
             }
-        }
+        }*/
 
         private void SetToolTips()
         {
@@ -961,6 +795,7 @@ namespace PriconneReTLInstaller
         private void MainForm_Load(object sender, EventArgs e)
         {
             SetToolTips();
+            
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -1171,84 +1006,6 @@ namespace PriconneReTLInstaller
             box.AppendText(text);
             box.SelectionColor = box.ForeColor;
         }
-    }
-
-    public class Logger
-    {
-        private string logFilePath;
-        private Dictionary<string, Color> colors = new Dictionary<string, Color>
-            {
-                { "info", Color.Black},
-                { "error", Color.Red},
-                { "success", Color.Green},
-                { "add", Color.Blue},
-                { "remove", Color.Red},
-            };
-        private RichTextBox outputTextBox;
-        private ToolStripStatusLabel toolStripStatusLabel1;
-
-        public Logger(string logFilePath, RichTextBox outputTextBox, ToolStripStatusLabel toolStripStatusLabel1)
-        {
-            this.logFilePath = logFilePath;
-            this.outputTextBox = outputTextBox;
-            this.toolStripStatusLabel1 = toolStripStatusLabel1;
-        }
-
-        public void StartSession()
-        {
-            try
-            {
-                using (StreamWriter writer = new StreamWriter(logFilePath, false))
-                {
-                    writer.WriteLine($"[PriconneReTL Installer version: {String.Format(System.Windows.Forms.Application.ProductVersion)}]");
-                    writer.WriteLine($"[Log file created at: {DateTime.Now}]");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error clearing log file: {ex.Message}");
-            }
-        }
-
-        public void Log(string message, string level, bool writeToToolStrip = false)
-        {
-            try
-            {
-                using (StreamWriter writer = new StreamWriter(logFilePath, true)) writer.WriteLine($"[{DateTime.Now}] - {message}");
-
-                if (outputTextBox != null && !outputTextBox.IsDisposed) outputTextBox.AppendText($"[{DateTime.Now}] - {message}" + Environment.NewLine, colors[level]);
-
-                if (writeToToolStrip)
-                {
-                    toolStripStatusLabel1.ForeColor = colors[level];
-                    toolStripStatusLabel1.Text = message;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error writing to log file: {ex.Message}");
-            }
-        }
-
-        public void Error(string message)
-        {
-            try
-            {
-                using (StreamWriter writer = new StreamWriter(logFilePath, true)) writer.WriteLine($"[{DateTime.Now}] - ERROR: {message}");
-
-                if (outputTextBox != null && !outputTextBox.IsDisposed) outputTextBox.AppendText($"[{DateTime.Now}] - ERROR:" + Environment.NewLine + message + Environment.NewLine, colors["error"]);
-
-                toolStripStatusLabel1.ForeColor = colors["error"];
-                toolStripStatusLabel1.Text = $"ERROR! - See log for details.";
-
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error writing to log file: {ex.Message}");
-            }
-        }
-
     }
 }
 
