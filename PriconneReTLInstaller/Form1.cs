@@ -26,10 +26,13 @@ namespace PriconneReTLInstaller
     {
         private Logger logger;
         private string priconnePath;
+        private bool priconnePathValid;
         private string githubAPI = Properties.Settings.Default.githubApi;
         private string latestVersion;
+        private bool latestVersionValid;
         private string assetLink;
         private string localVersion;
+        private bool localVersionValid;
         private string tempFile;
         // PrivateFontCollection priconnefont = new PrivateFontCollection();
         private bool mouseDown;
@@ -41,40 +44,53 @@ namespace PriconneReTLInstaller
         public MainForm()
         {
             InitializeComponent();
-
+            
             installer.Log += OnLog;
             installer.ErrorLog += OnErrorLog;
+            helper.Log += OnLog;
+            helper.ErrorLog += OnErrorLog;
             installer.DisableStart += OnDisableStart;
+            installer.DownloadProgress += OnDownloadProgress;
+            
 
-            Icon = Resources.jewel;
-            helper.PriconneFont();
-            helper.SetFontForAllControls(Controls);
+            // Icon = Resources.jewel;
+            // helper.PriconneFont();
+            // helper.SetFontForAllControls(Controls);
 
             logger = new Logger("ReTLInstaller.log", outputTextBox, toolStripStatusLabel1);
             logger.StartSession();
 
-            this.Height = 480;
+            InitializeUI();
 
-            priconnePath = installer.GetGamePath();
+            // this.Height = 480;
+
+            // priconnePath = installer.GetGamePath();
             // priconnePath = "C:\\Test"; // -- set fixed path for testing purposes
 
-            priconnePathLinkLabel.Text = priconnePath == null ? "ERROR!" : priconnePath;
+            // priconnePathLinkLabel.Text = priconnePath == null ? "ERROR!" : priconnePath;
 
-            (latestVersion, assetLink) = GetLatestRelease();
-            UpdateUI();
+            // (latestVersion, assetLink) = GetLatestRelease();
+            // UpdateUI();
 
             tempFile = Path.GetTempFileName();
 
         }
-
-        private void OnLog(string message, string color)
-        { 
-            logger.Log(message, color); 
+        // Events
+        
+        private void OnLog(string message, string color, bool writeToToolStrip = false)
+        {
+            outputTextBox.Invoke((Action)(() =>
+            {
+                logger.Log(message, color, writeToToolStrip);
+            }));
         }
 
         private void OnErrorLog(string message)
         {
-            logger.Error(message);
+            outputTextBox.Invoke((Action)(() =>
+            {
+                logger.Error(message);
+            }));
         }
 
         public void OnDisableStart()
@@ -83,16 +99,43 @@ namespace PriconneReTLInstaller
             startButton.BackgroundImage = Resources.start_disabled;
         }
 
-        public static void DisableStartButton(Button startButton)
+        public void OnDownloadProgress(double progress)
         {
-            startButton.Enabled = false;
-            startButton.BackgroundImage = Resources.start_disabled;
+            statusStrip1.Invoke((Action)(() =>
+            {
+                toolStripProgressBar1.Value = (int)progress;
+                toolStripStatusLabel3.Text = $"{Math.Truncate(progress)}%";
+            }));
+        }
+
+        public void SetUninstallandForceredownloadCheckBox(bool enabledState)
+        {
+            forceRedownloadCheckBox.Enabled = enabledState;
+            uninstallCheckBox.Enabled = enabledState;
         }
 
         // Functions
+        private void InitializeUI ()
+        {
+            Icon = Resources.jewel; 
+            helper.PriconneFont();
+            helper.SetFontForAllControls(Controls);
+            Height = 480;
+
+            // (priconnePath, priconnePathValid) = installer.GetGamePath();
+            priconnePath = "C:\\Test"; // -- set fixed path for testing purposes
+            priconnePathValid = true; // -- set fixed path for testing purposes
+            priconnePathLinkLabel.Text = priconnePathValid ? priconnePath : "ERROR!";
+
+            (latestVersion, assetLink, latestVersionValid) = installer.GetLatestRelease();
+            latestReleaseLinkLabel.Text = latestVersionValid ? latestVersion : "ERROR!";
+
+            UpdateUI();
+
+        }
         private void UpdateUI()
         {
-            localVersion = GetLocalVersion();
+            (localVersion, localVersionValid) = installer.GetLocalVersion(priconnePath,priconnePathValid);
             labelCurrentVersion.Text = "Current (Local) Version: " + localVersion;
 
             newPictureBox.Visible = localVersion == latestVersion ? false : true;
@@ -133,7 +176,7 @@ namespace PriconneReTLInstaller
                 return;
             }
 
-            switch (priconnePath)
+            /*switch (priconnePath)
             {
                 case null:
                 case "Not found!":
@@ -142,6 +185,13 @@ namespace PriconneReTLInstaller
                     modeDescritpionLabel.Text = Settings.Default.disabledModeDescription;
                     return;
 
+            }*/
+
+            if (!priconnePathValid)
+            {
+                modeLabel.Text = Settings.Default.disabledMode;
+                modeDescritpionLabel.Text = Settings.Default.disabledModeDescription;
+                return;
             }
 
             if (localVersion == "None" || localVersion == "Invalid")
@@ -156,7 +206,7 @@ namespace PriconneReTLInstaller
             return;
         }
 
-        private string GetGamePath()
+        /*private string GetGamePath()
         {
             try
             {
@@ -195,15 +245,20 @@ namespace PriconneReTLInstaller
                 startButton.BackgroundImage = Resources.start_disabled;
                 return "ERROR!";
             }
-        }
+        }*/
 
-        private string GetLocalVersion()
+        /*private string GetLocalVersion()
         {
             try
             {
-                if (priconnePath == null || priconnePath == "Not found!")
+                /*if (priconnePath == null || priconnePath == "Not found!")
                 {
                     // startButton.Enabled = false;
+                    return "Unable to determine!";
+                }*/ /*
+
+                if (!priconnePathValid)
+                {
                     return "Unable to determine!";
                 }
 
@@ -232,9 +287,9 @@ namespace PriconneReTLInstaller
                 logger.Error("Error getting local version: " + ex.Message);
                 return "ERROR!";
             }
-        }
+        }*/
 
-        private (string, string) GetLatestRelease()
+        /*private (string, string) GetLatestRelease()
         {
             try
             {
@@ -256,11 +311,12 @@ namespace PriconneReTLInstaller
                 latestReleaseLinkLabel.Text = "ERROR!";
                 return (null, null);
             }
-        }
+        }*/
 
         private async Task<string[]> ProcessTree(string releaseTag)
         {
-            string[] ignoreFiles = SetIgnoreFiles(addconfig: true);
+            // string[] ignoreFiles = SetIgnoreFiles(addconfig: true);
+            string[] ignoreFiles = helper.SetIgnoreFiles(priconnePath, addconfig: true);
             List<string> filePathsList = new List<string>();
 
             using (HttpClient client = new HttpClient())
@@ -372,7 +428,8 @@ namespace PriconneReTLInstaller
 
                         string fileName = entry.FullName;
 
-                        string[] ignoreFiles = SetIgnoreFiles(addconfig: true);
+                        // string[] ignoreFiles = SetIgnoreFiles(addconfig: true);
+                        string[] ignoreFiles = helper.SetIgnoreFiles(priconnePath, addconfig: true);
 
                         if (!ignoreFiles.Contains(fileName))
                         {
@@ -411,7 +468,8 @@ namespace PriconneReTLInstaller
                         }));
 
                         // Keep config files if Force Redownload is selected or config files already present
-                        string[] ignoreFiles = SetIgnoreFiles(addconfig: forceRedownloadCheckBox.Checked || IsConfigPresent());
+                        // string[] ignoreFiles = SetIgnoreFiles(addconfig: forceRedownloadCheckBox.Checked || IsConfigPresent());
+                        string[] ignoreFiles = helper.SetIgnoreFiles(priconnePath, addconfig: forceRedownloadCheckBox.Checked || IsConfigPresent());
                         foreach (var entry in zip.Entries)
                         {
                             string fileName = entry.FullName;
@@ -648,7 +706,7 @@ namespace PriconneReTLInstaller
             toolTip.SetToolTip(removeConfigCheckBox, $"Removes the following config files also:\n\n{configList}");
             toolTip.SetToolTip(removeIgnoredCheckBox, $"Removes the following ignored patch files also:\n\n{ignoreList}");
         }
-        private string[] SetIgnoreFiles(bool addconfig)
+        /*private string[] SetIgnoreFiles(bool addconfig)
         {
             string[] ignoreFiles = new string[Properties.Settings.Default.ignoreFiles.Count];
             Properties.Settings.Default.ignoreFiles.CopyTo(ignoreFiles, 0);
@@ -669,9 +727,9 @@ namespace PriconneReTLInstaller
             }
 
             return ignoreFiles;
-        }
+        }*/
 
-        /*private string[] SetIgnoreFiles(bool addconfig)
+        /*private string[] SetIgnoreFiles(bool addconfig) // old, nem kell
         {
             string[] ignoreFiles;
 
@@ -724,7 +782,8 @@ namespace PriconneReTLInstaller
                 if (uninstallCheckBox.Checked) // Uninstall
                 {
                     // await RemoveMod(removeConfig: removeConfigCheckBox.Checked);
-                    await RemovePatchFiles(removeConfig: removeConfigCheckBox.Checked, removeIgnored: removeIgnoredCheckBox.Checked, removeInterops: removeInteropsCheckBox.Checked);
+                    // await RemovePatchFiles(removeConfig: removeConfigCheckBox.Checked, removeIgnored: removeIgnoredCheckBox.Checked, removeInterops: removeInteropsCheckBox.Checked);
+                    await installer.RemovePatchFiles(priconnePath, localVersion, uninstallCheckBox, removeConfig: removeConfigCheckBox.Checked, removeIgnored: removeIgnoredCheckBox.Checked, removeInterops: removeInteropsCheckBox.Checked);
                     logger.Log("Uninstall Complete!", "success", true);
                     UpdateUI();
                     return;
@@ -735,7 +794,7 @@ namespace PriconneReTLInstaller
                     logger.Log("Reinstalling translation patch...", "info", true);
                     // await RemoveMod(removeConfig: false);
                     await RemovePatchFiles(removeConfig: false, removeIgnored: false, removeInterops: true);
-                    await GetTLMod(tempFile, toolStripProgressBar1);
+                    await installer.GetTLMod(tempFile, assetLink);
                     await ExtractAllFiles();
                     logger.Log("Forced Redownload / Reinstall complete!", "success", true);
                     UpdateUI();
@@ -754,7 +813,7 @@ namespace PriconneReTLInstaller
                     {
                         logger.Log("Updating translation patch...", "info", true);
                         await RemovePatchFiles(removeConfig: false, removeIgnored: false, removeInterops: false);
-                        await GetTLMod(tempFile, toolStripProgressBar1);
+                        await installer.GetTLMod(tempFile, assetLink);
                         await ExtractAllFiles();
                         logger.Log("Update complete!", "success", true);
                         UpdateUI();
@@ -768,8 +827,9 @@ namespace PriconneReTLInstaller
 
                 // nothing installed / invalid
                 logger.Log("Downloading and installing translation patch...", "info", true);
-                await GetTLMod(tempFile, toolStripProgressBar1);
-                await ExtractAllFiles();
+                // await GetTLMod(tempFile, toolStripProgressBar1);
+                await installer.GetTLMod(tempFile, assetLink);
+                await installer.ExtractAllFiles(tempFile, priconnePath, forceRedownloadCheckBox);
                 logger.Log("Installation complete!", "success", true);
                 UpdateUI();
 
@@ -920,19 +980,44 @@ namespace PriconneReTLInstaller
             if (startButton.Enabled) startButton.BackgroundImage = Resources.start_idle;
         }
 
-        private void MainForm_MouseDown(object sender, MouseEventArgs e)
+        private async void MainForm_MouseDown(object sender, MouseEventArgs e)
         {
+            //mouseDown = true;
+            //lastLocation = e.Location;
             mouseDown = true;
             lastLocation = e.Location;
+
+            await Task.Run(() =>
+            {
+                while (mouseDown)
+                {
+                    this.Invoke((Action)(() =>
+                    {
+                        this.Location = new Point(
+                            (this.Location.X - lastLocation.X) + e.X, (this.Location.Y - lastLocation.Y) + e.Y);
+                        this.Update();
+                    }));
+                }
+            });
         }
+
 
         private void MainForm_MouseMove(object sender, MouseEventArgs e)
         {
-            if (mouseDown)
+            /*if (mouseDown)
             {
                 this.Location = new Point(
                     (this.Location.X - lastLocation.X) + e.X, (this.Location.Y - lastLocation.Y) + e.Y);
                 this.Update();
+            }*/
+            if (mouseDown)
+            {
+                this.Invoke((Action)(() =>
+                {
+                    this.Location = new Point(
+                        (this.Location.X - lastLocation.X) + e.X, (this.Location.Y - lastLocation.Y) + e.Y);
+                    this.Update();
+                }));
             }
         }
 
@@ -943,7 +1028,7 @@ namespace PriconneReTLInstaller
 
         private void priconnePathLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (priconnePath != null)
+            if (!priconnePathValid)
             {
                 ProcessStartInfo startInfo = new ProcessStartInfo("explorer.exe");
                 startInfo.Arguments = priconnePath;

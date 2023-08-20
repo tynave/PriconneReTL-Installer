@@ -1,5 +1,8 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Drawing.Text;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using PriconneReTLInstaller.Properties;
@@ -9,6 +12,9 @@ namespace HelperFunctions
 
     class Helper
     {
+        public event Action<string, string, bool> Log;
+        public event Action<string> ErrorLog;
+
         PrivateFontCollection priconnefont = new PrivateFontCollection();
         public void PriconneFont()
         {
@@ -65,6 +71,48 @@ namespace HelperFunctions
                     SetFontForToolStripItems(dropDownItem.DropDownItems);
                 }
             }
+        }
+
+        public string[] SetIgnoreFiles(string priconnePath, bool addconfig)
+        {
+            string[] ignoreFiles = new string[Settings.Default.ignoreFiles.Count];
+            Settings.Default.ignoreFiles.CopyTo(ignoreFiles, 0);
+
+            if (addconfig)
+            {
+                List<string> ignoreFilesList = new List<string>(ignoreFiles);
+
+                foreach (var configFile in Settings.Default.configFiles)
+                {
+                    if (File.Exists(Path.Combine(priconnePath, configFile)))
+                    {
+                        ignoreFilesList.Add(configFile);
+                    }
+                }
+
+                ignoreFiles = ignoreFilesList.ToArray();
+            }
+
+            return ignoreFiles;
+        }
+
+        public bool IsConfigPresent(string priconnePath)
+        {
+            bool isConfigPresent = false;
+            foreach (var configFile in Settings.Default.configFiles)
+            {
+                if (File.Exists(Path.Combine(priconnePath, configFile)))
+                {
+                    isConfigPresent = true;
+
+                }
+            }
+            /*if (isConfigPresent) outputTextBox.Invoke((Action)(() =>
+            {
+                logger.Log("Found config file(s). Adding them to the list of ignored/excluded files.", "error");
+            }));*/
+            if (isConfigPresent) Log?.Invoke("Found config file(s). Adding them to the list of ignored/excluded files.", "error", false);
+            return isConfigPresent;
         }
     }
 }
