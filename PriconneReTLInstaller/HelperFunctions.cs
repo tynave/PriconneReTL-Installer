@@ -15,8 +15,8 @@ namespace HelperFunctions
         public event Action<string, string, bool> Log;
         public event Action<string> ErrorLog;
 
-        PrivateFontCollection priconnefont = new PrivateFontCollection();
-        public void PriconneFont()
+        //PrivateFontCollection priconnefont = new PrivateFontCollection();
+        public void PriconneFont(PrivateFontCollection priconnefont)
         {
             //Select  font from the resources.
             int fontLength = Resources.Humming.Length;
@@ -34,14 +34,14 @@ namespace HelperFunctions
             priconnefont.AddMemoryFont(data, fontLength);
 
         }
-        public void SetFontForAllControls(Control.ControlCollection controls)
+        public void SetFontForAllControls(PrivateFontCollection priconnefont, Control.ControlCollection controls)
         {
             foreach (Control control in controls)
             {
                 // Check if the control is a ToolStrip
                 if (control is ToolStrip toolStrip)
                 {
-                    SetFontForToolStripItems(toolStrip.Items);
+                    SetFontForToolStripItems(priconnefont, toolStrip.Items);
                 }
                 else
                 {
@@ -52,11 +52,11 @@ namespace HelperFunctions
                 if (control.Controls.Count > 0)
                 {
                     // If it has child controls, call SetFontForAllControls recursively
-                    SetFontForAllControls(control.Controls);
+                    SetFontForAllControls(priconnefont, control.Controls);
                 }
             }
         }
-        public void SetFontForToolStripItems(ToolStripItemCollection items)
+        public void SetFontForToolStripItems(PrivateFontCollection priconnefont, ToolStripItemCollection items)
         {
             foreach (ToolStripItem item in items)
             {
@@ -68,7 +68,7 @@ namespace HelperFunctions
                 else if (item is ToolStripDropDownItem dropDownItem)
                 {
                     // If the item is a drop-down item (e.g., ToolStripDropDownButton, ToolStripMenuItem), handle its subitems recursively
-                    SetFontForToolStripItems(dropDownItem.DropDownItems);
+                    SetFontForToolStripItems(priconnefont, dropDownItem.DropDownItems);
                 }
             }
         }
@@ -107,10 +107,7 @@ namespace HelperFunctions
 
                 }
             }
-            /*if (isConfigPresent) outputTextBox.Invoke((Action)(() =>
-            {
-                logger.Log("Found config file(s). Adding them to the list of ignored/excluded files.", "error");
-            }));*/
+
             if (isConfigPresent) Log?.Invoke("Found config file(s). Adding them to the list of ignored/excluded files.", "error", false);
             return isConfigPresent;
         }

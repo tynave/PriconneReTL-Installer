@@ -41,11 +41,11 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
-            this.optionsPanel = new System.Windows.Forms.Panel();
+            this.operationsPanel = new System.Windows.Forms.Panel();
             this.removeInteropsCheckBox = new System.Windows.Forms.CheckBox();
             this.removeIgnoredCheckBox = new System.Windows.Forms.CheckBox();
             this.removeConfigCheckBox = new System.Windows.Forms.CheckBox();
-            this.optionsLabel = new System.Windows.Forms.Label();
+            this.operationsLabel = new System.Windows.Forms.Label();
             this.showLogCheckBox = new System.Windows.Forms.CheckBox();
             this.newPictureBox = new System.Windows.Forms.PictureBox();
             this.exitButton = new System.Windows.Forms.Button();
@@ -61,11 +61,14 @@
             this.option2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.modeLabel = new System.Windows.Forms.Label();
             this.modeDescritpionLabel = new System.Windows.Forms.Label();
+            this.optionsPanel = new System.Windows.Forms.Panel();
+            this.optionsLabel = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
-            this.optionsPanel.SuspendLayout();
+            this.operationsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.newPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
+            this.optionsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelCurrentVersion
@@ -110,7 +113,7 @@
             this.forceRedownloadCheckBox.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.forceRedownloadCheckBox.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.forceRedownloadCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.forceRedownloadCheckBox.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.forceRedownloadCheckBox.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.forceRedownloadCheckBox.Image = global::PriconneReTLInstaller.Properties.Resources.check_empty_24x24_2;
             this.forceRedownloadCheckBox.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.forceRedownloadCheckBox.Location = new System.Drawing.Point(6, 16);
@@ -118,7 +121,7 @@
             this.forceRedownloadCheckBox.Name = "forceRedownloadCheckBox";
             this.forceRedownloadCheckBox.Size = new System.Drawing.Size(207, 36);
             this.forceRedownloadCheckBox.TabIndex = 2;
-            this.forceRedownloadCheckBox.Text = " Force Redownload";
+            this.forceRedownloadCheckBox.Text = " Reinstall";
             this.forceRedownloadCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.forceRedownloadCheckBox.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.forceRedownloadCheckBox.UseVisualStyleBackColor = false;
@@ -194,7 +197,7 @@
             // 
             // toolStripStatusLabel1
             // 
-            this.toolStripStatusLabel1.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.toolStripStatusLabel1.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(62, 24);
             this.toolStripStatusLabel1.Text = "Ready";
@@ -202,7 +205,7 @@
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(508, 24);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(539, 24);
             this.toolStripStatusLabel2.Spring = true;
             // 
             // toolStripStatusLabel3
@@ -218,20 +221,17 @@
             this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 23);
             this.toolStripProgressBar1.Step = 1;
             // 
-            // optionsPanel
+            // operationsPanel
             // 
-            this.optionsPanel.BackColor = System.Drawing.Color.Transparent;
-            this.optionsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.optionsPanel.Controls.Add(this.removeInteropsCheckBox);
-            this.optionsPanel.Controls.Add(this.removeIgnoredCheckBox);
-            this.optionsPanel.Controls.Add(this.removeConfigCheckBox);
-            this.optionsPanel.Controls.Add(this.uninstallCheckBox);
-            this.optionsPanel.Controls.Add(this.forceRedownloadCheckBox);
-            this.optionsPanel.Controls.Add(this.optionsLabel);
-            this.optionsPanel.Location = new System.Drawing.Point(17, 177);
-            this.optionsPanel.Name = "optionsPanel";
-            this.optionsPanel.Size = new System.Drawing.Size(307, 184);
-            this.optionsPanel.TabIndex = 16;
+            this.operationsPanel.BackColor = System.Drawing.Color.Transparent;
+            this.operationsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.operationsPanel.Controls.Add(this.uninstallCheckBox);
+            this.operationsPanel.Controls.Add(this.forceRedownloadCheckBox);
+            this.operationsPanel.Controls.Add(this.operationsLabel);
+            this.operationsPanel.Location = new System.Drawing.Point(17, 173);
+            this.operationsPanel.Name = "operationsPanel";
+            this.operationsPanel.Size = new System.Drawing.Size(307, 93);
+            this.operationsPanel.TabIndex = 16;
             // 
             // removeInteropsCheckBox
             // 
@@ -247,7 +247,7 @@
             this.removeInteropsCheckBox.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.removeInteropsCheckBox.Image = global::PriconneReTLInstaller.Properties.Resources.check_empty_24x24_2;
             this.removeInteropsCheckBox.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.removeInteropsCheckBox.Location = new System.Drawing.Point(24, 139);
+            this.removeInteropsCheckBox.Location = new System.Drawing.Point(6, 84);
             this.removeInteropsCheckBox.Name = "removeInteropsCheckBox";
             this.removeInteropsCheckBox.Size = new System.Drawing.Size(188, 34);
             this.removeInteropsCheckBox.TabIndex = 29;
@@ -271,7 +271,7 @@
             this.removeIgnoredCheckBox.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.removeIgnoredCheckBox.Image = global::PriconneReTLInstaller.Properties.Resources.check_empty_24x24_2;
             this.removeIgnoredCheckBox.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.removeIgnoredCheckBox.Location = new System.Drawing.Point(24, 108);
+            this.removeIgnoredCheckBox.Location = new System.Drawing.Point(6, 52);
             this.removeIgnoredCheckBox.Name = "removeIgnoredCheckBox";
             this.removeIgnoredCheckBox.Size = new System.Drawing.Size(284, 36);
             this.removeIgnoredCheckBox.TabIndex = 29;
@@ -284,6 +284,7 @@
             // removeConfigCheckBox
             // 
             this.removeConfigCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
+            this.removeConfigCheckBox.BackColor = System.Drawing.Color.Transparent;
             this.removeConfigCheckBox.FlatAppearance.BorderSize = 0;
             this.removeConfigCheckBox.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.removeConfigCheckBox.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
@@ -292,25 +293,25 @@
             this.removeConfigCheckBox.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.removeConfigCheckBox.Image = global::PriconneReTLInstaller.Properties.Resources.check_empty_24x24_2;
             this.removeConfigCheckBox.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.removeConfigCheckBox.Location = new System.Drawing.Point(24, 79);
+            this.removeConfigCheckBox.Location = new System.Drawing.Point(6, 20);
             this.removeConfigCheckBox.Name = "removeConfigCheckBox";
             this.removeConfigCheckBox.Size = new System.Drawing.Size(218, 36);
             this.removeConfigCheckBox.TabIndex = 17;
             this.removeConfigCheckBox.Text = " Remove Config Files";
             this.removeConfigCheckBox.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.removeConfigCheckBox.UseVisualStyleBackColor = true;
+            this.removeConfigCheckBox.UseVisualStyleBackColor = false;
             this.removeConfigCheckBox.CheckedChanged += new System.EventHandler(this.removeConfigCheckBox_CheckedChanged);
             this.removeConfigCheckBox.EnabledChanged += new System.EventHandler(this.removeConfigCheckBox_EnabledChanged);
             // 
-            // optionsLabel
+            // operationsLabel
             // 
-            this.optionsLabel.AutoSize = true;
-            this.optionsLabel.BackColor = System.Drawing.Color.Transparent;
-            this.optionsLabel.Location = new System.Drawing.Point(3, 0);
-            this.optionsLabel.Name = "optionsLabel";
-            this.optionsLabel.Size = new System.Drawing.Size(56, 17);
-            this.optionsLabel.TabIndex = 17;
-            this.optionsLabel.Text = "Options";
+            this.operationsLabel.AutoSize = true;
+            this.operationsLabel.BackColor = System.Drawing.Color.Transparent;
+            this.operationsLabel.Location = new System.Drawing.Point(3, 0);
+            this.operationsLabel.Name = "operationsLabel";
+            this.operationsLabel.Size = new System.Drawing.Size(75, 17);
+            this.operationsLabel.TabIndex = 17;
+            this.operationsLabel.Text = "Operations";
             // 
             // showLogCheckBox
             // 
@@ -496,6 +497,30 @@
             this.modeDescritpionLabel.TabIndex = 28;
             this.modeDescritpionLabel.Text = "<operation description>";
             // 
+            // optionsPanel
+            // 
+            this.optionsPanel.BackColor = System.Drawing.Color.Transparent;
+            this.optionsPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.optionsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.optionsPanel.Controls.Add(this.optionsLabel);
+            this.optionsPanel.Controls.Add(this.removeConfigCheckBox);
+            this.optionsPanel.Controls.Add(this.removeInteropsCheckBox);
+            this.optionsPanel.Controls.Add(this.removeIgnoredCheckBox);
+            this.optionsPanel.Location = new System.Drawing.Point(17, 274);
+            this.optionsPanel.Name = "optionsPanel";
+            this.optionsPanel.Size = new System.Drawing.Size(307, 139);
+            this.optionsPanel.TabIndex = 30;
+            // 
+            // optionsLabel
+            // 
+            this.optionsLabel.AutoSize = true;
+            this.optionsLabel.BackColor = System.Drawing.Color.Transparent;
+            this.optionsLabel.Location = new System.Drawing.Point(3, 0);
+            this.optionsLabel.Name = "optionsLabel";
+            this.optionsLabel.Size = new System.Drawing.Size(56, 17);
+            this.optionsLabel.TabIndex = 31;
+            this.optionsLabel.Text = "Options";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -504,6 +529,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(718, 748);
             this.ControlBox = false;
+            this.Controls.Add(this.optionsPanel);
             this.Controls.Add(this.modeDescritpionLabel);
             this.Controls.Add(this.modeLabel);
             this.Controls.Add(this.showLogCheckBox);
@@ -514,7 +540,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.newPictureBox);
-            this.Controls.Add(this.optionsPanel);
+            this.Controls.Add(this.operationsPanel);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.outputTextBox);
             this.Controls.Add(this.labelLatestVersion);
@@ -533,11 +559,13 @@
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            this.optionsPanel.ResumeLayout(false);
-            this.optionsPanel.PerformLayout();
+            this.operationsPanel.ResumeLayout(false);
+            this.operationsPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.newPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
+            this.optionsPanel.ResumeLayout(false);
+            this.optionsPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -556,8 +584,8 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
-        private System.Windows.Forms.Panel optionsPanel;
-        private System.Windows.Forms.Label optionsLabel;
+        private System.Windows.Forms.Panel operationsPanel;
+        private System.Windows.Forms.Label operationsLabel;
         private System.Windows.Forms.CheckBox removeConfigCheckBox;
         private System.Windows.Forms.CheckBox showLogCheckBox;
         private System.Windows.Forms.PictureBox newPictureBox;
@@ -577,6 +605,8 @@
         private System.Windows.Forms.Label modeDescritpionLabel;
         private System.Windows.Forms.CheckBox removeIgnoredCheckBox;
         private System.Windows.Forms.CheckBox removeInteropsCheckBox;
+        private System.Windows.Forms.Panel optionsPanel;
+        private System.Windows.Forms.Label optionsLabel;
     }
 }
 

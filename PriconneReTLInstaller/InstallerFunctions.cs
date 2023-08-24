@@ -25,9 +25,8 @@ namespace InstallerFunctions
         Helper helper = new Helper();
 
         private string githubAPI = Settings.Default.githubApi;
-        private SynchronizationContext uiContext;
 
-        public event Action<double> DownloadProgress;
+        public event Action<double, double> DownloadProgress;
         public event Action<string, string, bool> Log;
         public event Action<string> ErrorLog;
         public event Action DisableStart;
@@ -47,70 +46,38 @@ namespace InstallerFunctions
                         if (content.productId == "priconner")
                         {
                             string priconnePath = content.detail.path;
-                            // logger.Log("Found Princess Connect Re:Dive in " + priconnePath, "info");
                             Log?.Invoke("Found Princess Connect Re:Dive in " + priconnePath, "info", false);
-                            // return priconnePath;
-                            // return SetGamePathResults(priconnePath, true);
                             return (priconnePath, true);
                         }
                     }
                 }
 
-                // logger.Error("Cannot find the game path! Did you install Princess Connect Re:Dive from DMMGamePlayer?");
                 ErrorLog?.Invoke("Cannot find the game path! Did you install Princess Connect Re:Dive from DMMGamePlayer?");
-                // startButton.Enabled = false;
-                // startButton.BackgroundImage = Resources.start_disabled;
                 DisableStart?.Invoke();
 
-                //return "Not found!";
-                //return SetGamePathResults("Not found", false);
                 return ("Not found", false);
             }
             catch (FileNotFoundException)
             {
-                // logger.Error("Cannot find the DMMGamePlayer config file! Do you have DMMGamePlayer installed?");
-                // mainForm.startButton.Enabled = false;
-                // mainForm.startButton.BackgroundImage = Resources.start_disabled;
                 ErrorLog?.Invoke("Cannot find the DMMGamePlayer config file! Do you have DMMGamePlayer installed?");
                 DisableStart?.Invoke();
-                // return null;
-                // return SetGamePathResults(null, false);
                 return (null, false); // --> necessery?
             }
             catch (Exception ex)
             {
-                // logger.Error("Error getting game path: " + ex.Message);
                 ErrorLog?.Invoke("Error getting game path: " + ex.Message);
-                // startButton.Enabled = false;
-                // startButton.BackgroundImage = Resources.start_disabled;
                 DisableStart?.Invoke();
-                // return "ERROR!";
-                // return SetGamePathResults("ERROR!", false);
                 return ("ERROR!", false);
             }
         }
-        /*public (string, bool) SetGamePathResults(string path, bool valid)
-        {
-            GamePathResults gamePathResults = new GamePathResults();
-            gamePathResults.Path = path;
-            gamePathResults.Valid = valid;
-            return (gamePathResults.Path, gamePathResults.Valid);
-        }*/
         public (string localVersion, bool localVersionValid ) GetLocalVersion(string priconnePath, bool priconnePathValid)
         {
 
             try
             {
-                /*if (priconnePath == null || priconnePath == "Not found!")
-                {
-                    // startButton.Enabled = false;
-                    return "Unable to determine!";
-                }*/
 
                 if (!priconnePathValid)
                 {
-                    // return "Unable to determine!";
-                    // return SetLocalVersionResults("Unable to determine!", false);
                     return ("Unable to determine!", false);
                 }
 
@@ -118,9 +85,6 @@ namespace InstallerFunctions
 
                 if (!File.Exists(versionFilePath))
                 {
-                    // startButton.Enabled = false;
-                    //return "None";
-                    // return SetLocalVersionResults("None", false);
                     return ("None", false);
                 }
                 string rawVersionFile = File.ReadAllText(versionFilePath);
@@ -128,34 +92,19 @@ namespace InstallerFunctions
 
                 if (localVersion == "")
                 {
-                    // startButton.Enabled = false;
-                    // return "Invalid";
-                    // return SetLocalVersionResults("Invalid", false);
                     return ("Invalid", false);
 
                 }
 
-                // return localVersion;
-                // return SetLocalVersionResults(localVersion, true);
                 return (localVersion, true);
 
             }
             catch (Exception ex)
             {
-                // logger.Error("Error getting local version: " + ex.Message);
                 ErrorLog?.Invoke("Error getting local version: " + ex.Message);
-                // return "ERROR!";
-                // return SetLocalVersionResults("ERROR!", false);
                 return ("ERROR!", false);
             }
         }
-        /*public (string, bool) SetLocalVersionResults(string path, bool valid)
-        {
-            LocalVersionResults localVersionResults = new LocalVersionResults();
-            localVersionResults.Path = path;
-            localVersionResults.Valid = valid;
-            return (localVersionResults.Path, localVersionResults.Valid);
-        }*/
         public (string latestVersion, string assetLink, bool latestVersionValid) GetLatestRelease()
         {
             try
@@ -189,6 +138,7 @@ namespace InstallerFunctions
                 {
                     logger.Log("Downloading compressed patch files...", "info", true);
                 }));*/
+                Log?.Invoke("Downloading compressed patch files...", "info", true);
 
                 // progressBar.Minimum = 0;
                 // progressBar.Maximum = 100;
@@ -215,8 +165,8 @@ namespace InstallerFunctions
 
                                 downloadedBytes += bytesRead;
 
-                                double progressPercentage = (double)downloadedBytes / totalBytes * 100;
-                                DownloadProgress?.Invoke(progressPercentage);
+                                // double progressPercentage = (double)downloadedBytes / totalBytes * 100;
+                                DownloadProgress?.Invoke(downloadedBytes, totalBytes);
                                 // progressBar.GetCurrentParent().Invoke((Action)(() => progressBar.Value = (int)progressPercentage));
                                 // toolStripStatusLabel3.Text = $"{Math.Truncate(progressPercentage)}%";
                             }
@@ -240,7 +190,7 @@ namespace InstallerFunctions
             }
         }
 
-        public async Task ExtractAllFiles(string tempFile, string priconnePath, CheckBox forceRedownloadCheckBox)
+        public async Task ExtractAllFiles(string tempFile, string priconnePath)
         {
             try
             {
@@ -256,12 +206,13 @@ namespace InstallerFunctions
                             toolStripProgressBar1.Maximum = zip.Entries.Count;
                         }));*/
                         Log?.Invoke("Extracting files to game folder...", "add", true);
-                        
 
-                        // Keep config files if Force Redownload is selected or config files already present
-                        // string[] ignoreFiles = SetIgnoreFiles(addconfig: forceRedownloadCheckBox.Checked || IsConfigPresent());
-                        string[] ignoreFiles = helper.SetIgnoreFiles(priconnePath, addconfig: forceRedownloadCheckBox.Checked || helper.IsConfigPresent(priconnePath));
-                        foreach (var entry in zip.Entries)
+
+                    // Keep config files if Force Redownload is selected or config files already present
+                    // string[] ignoreFiles = SetIgnoreFiles(addconfig: forceRedownloadCheckBox.Checked || IsConfigPresent());
+                    // string[] ignoreFiles = helper.SetIgnoreFiles(priconnePath, addconfig: forceRedownloadCheckBox.Checked || helper.IsConfigPresent(priconnePath));
+                    string[] ignoreFiles = helper.SetIgnoreFiles(priconnePath, addconfig: helper.IsConfigPresent(priconnePath));
+                    foreach (var entry in zip.Entries)
                         {
                             counter++;
                             string fileName = entry.FullName;
@@ -275,7 +226,7 @@ namespace InstallerFunctions
                             }));*/
                             Log?.Invoke("Extracting: " + entry.FullName, "add", false);
                             double percentage = ((double)counter / zip.Entries.Count) * 100;
-                            DownloadProgress?.Invoke(percentage);
+                            DownloadProgress?.Invoke(counter, zip.Entries.Count);
 
                             if (!ignoreFiles.Contains(fileName))
                             {
@@ -324,7 +275,6 @@ namespace InstallerFunctions
 
         public async Task<string[]> ProcessTree(string priconnePath, string releaseTag)
         {
-            // string[] ignoreFiles = SetIgnoreFiles(addconfig: true);
             string[] ignoreFiles = helper.SetIgnoreFiles(priconnePath, addconfig: true);
             List<string> filePathsList = new List<string>();
 
@@ -353,15 +303,12 @@ namespace InstallerFunctions
                                 filePathsList.Add(trimmedPath);
                                 Console.WriteLine($"File in 'src' Path: {trimmedPath}");
                             }
-                            // filePathsList.Add(trimmedPath);
-                            // Console.WriteLine($"File in 'src' Path: {trimmedPath}");
                         }
                     }
                 }
                 else
                 {
                     Console.WriteLine($"Failed to fetch tree for tag '{releaseTag}'. Status code: {response.StatusCode}");
-                    // logger.Error($"Failed to fetch tree for tag '{releaseTag}'. Status code: {response.StatusCode}");
                     ErrorLog?.Invoke($"Failed to fetch tree for tag '{releaseTag}'. Status code: {response.StatusCode}");
                     return null;
                 }
@@ -370,7 +317,7 @@ namespace InstallerFunctions
             }
         }
 
-        public async Task RemovePatchFiles(string priconnePath, string localVersion, CheckBox uninstallCheckBox, bool removeConfig, bool removeIgnored, bool removeInterops)
+        public async Task RemovePatchFiles(string priconnePath, string localVersion, bool removeConfig, bool removeIgnored, bool removeInterops)
         {
             await Task.Run(() =>
             {
@@ -382,7 +329,6 @@ namespace InstallerFunctions
                     Settings.Default.ignoreFiles.CopyTo(ignoreFiles, 0);
 
                 string[] currentFiles = ProcessTree(priconnePath, localVersion).GetAwaiter().GetResult();
-                //string[] currentFiles = await ProcessTree(priconnePath, localVersion);
 
                     /*if (currentFiles == null)
                 {
@@ -396,10 +342,7 @@ namespace InstallerFunctions
                     if (removeConfig) currentFiles = currentFiles.Concat(configFiles).ToArray();
                     if (removeIgnored) currentFiles = currentFiles.Concat(ignoreFiles).ToArray();
 
-                    //outputTextBox.Invoke((Action)(() =>
-                    //{
-                        Log?.Invoke(uninstallCheckBox.Checked ? "Removing patch files..." : "Removing old patch files...", "remove", true);
-                    //}));
+                    Log?.Invoke("Removing patch files..." , "remove", true);
 
                     int counter = 0;
 
@@ -409,24 +352,17 @@ namespace InstallerFunctions
                         string filePath = Path.Combine(priconnePath, file);
                         string directory = Path.GetDirectoryName(filePath);
 
-                        // if (File.Exists(filePath) && (!ignoreFiles.Contains(file)))
                         if (File.Exists(filePath))
                         {
                             File.Delete(filePath);
                             // Console.WriteLine($"File deleted: {file}");
-                            //outputTextBox.Invoke((Action)(() =>
-                            //{
-                                Log?.Invoke($"Removed file: {file}", "remove", false);
-                            //}));
+                            Log?.Invoke($"Removed file: {file}", "remove", false);
 
                             DeleteEmptyDirectories(directory);
 
                         }
-                        //outputTextBox.Invoke((Action)(() =>
-                        //{
                             double percentage = ((double)counter / currentFiles.Length) * 100;
-                            DownloadProgress?.Invoke(percentage);
-                        //}));
+                            DownloadProgress?.Invoke(counter, currentFiles.Length);
 
                     }
 
@@ -438,7 +374,6 @@ namespace InstallerFunctions
                 }
                 catch (Exception ex)
                 {
-                    // outputTextBox.Invoke((Action)(() => { ErrorLog?.Invoke("Error updating files: " + ex.Message); }));
                     ErrorLog?.Invoke("Error updating files: " + ex.Message);
                 }
             });
@@ -450,10 +385,6 @@ namespace InstallerFunctions
             {
                 Directory.Delete(directoryPath);
                 // Console.WriteLine($"Directory deleted: {directoryPath}");
-                // outputTextBox.Invoke((Action)(() =>
-                //{
-                    Log?.Invoke($"Removed directory: {directoryPath}", "remove", false);
-                //}));
                 Log?.Invoke($"Removed directory: {directoryPath}", "remove", false);
 
                 string parentDirectory = Path.GetDirectoryName(directoryPath);
@@ -472,39 +403,14 @@ namespace InstallerFunctions
                 if (Directory.Exists(interopPath))
                 {
                     Directory.Delete(interopPath, true);
-                    // outputTextBox.Invoke((Action)(() =>
-                    //{
-                        Log?.Invoke($"Removed interop assemblies from {interopPath}", "remove", false);
-                    //}));
-                    // Log?.Invoke($"Removed interop assemblies from {interopPath}", "remove", false);
+                    Log?.Invoke($"Removed interop assemblies from {interopPath}", "remove", false);
                 }
             }
             catch (Exception ex)
             {
-                // logger.Error("Error removing interop assemblies: " + ex.Message);
-                // outputTextBox.Invoke((Action)(() =>
-                // {
                     ErrorLog?.Invoke("Error removing interop assemblies: " + ex.Message);
-                // }));
-                
             }
 
         }
     }
-    /*public class GamePathResults
-    {
-        public string Path { get; set; }
-        public bool Valid { get; set; }
-    }
-    public class LocalVersionResults
-    {
-        public string Path { get; set; }
-        public bool Valid { get; set; }
-    }
-    public class LatestVersionResults
-    {
-        public string Version { get; set; }
-        public string AssetsLink { get; set; }
-        public bool Valid { get; set; }
-    }*/
 }
