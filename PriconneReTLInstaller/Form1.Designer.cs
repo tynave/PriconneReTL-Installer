@@ -32,7 +32,7 @@
             this.labelCurrentVersion = new System.Windows.Forms.Label();
             this.labelGamePath = new System.Windows.Forms.Label();
             this.labelLatestVersion = new System.Windows.Forms.Label();
-            this.forceRedownloadCheckBox = new System.Windows.Forms.CheckBox();
+            this.reinstallCheckBox = new System.Windows.Forms.CheckBox();
             this.uninstallCheckBox = new System.Windows.Forms.CheckBox();
             this.startButton = new System.Windows.Forms.Button();
             this.outputTextBox = new System.Windows.Forms.RichTextBox();
@@ -42,10 +42,10 @@
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.operationsPanel = new System.Windows.Forms.Panel();
+            this.operationsLabel = new System.Windows.Forms.Label();
             this.removeInteropsCheckBox = new System.Windows.Forms.CheckBox();
             this.removeIgnoredCheckBox = new System.Windows.Forms.CheckBox();
             this.removeConfigCheckBox = new System.Windows.Forms.CheckBox();
-            this.operationsLabel = new System.Windows.Forms.Label();
             this.showLogCheckBox = new System.Windows.Forms.CheckBox();
             this.newPictureBox = new System.Windows.Forms.PictureBox();
             this.exitButton = new System.Windows.Forms.Button();
@@ -104,29 +104,29 @@
             this.labelLatestVersion.TabIndex = 7;
             this.labelLatestVersion.Text = "Latest Release Version: ";
             // 
-            // forceRedownloadCheckBox
+            // reinstallCheckBox
             // 
-            this.forceRedownloadCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
-            this.forceRedownloadCheckBox.BackColor = System.Drawing.Color.Transparent;
-            this.forceRedownloadCheckBox.FlatAppearance.BorderSize = 0;
-            this.forceRedownloadCheckBox.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.forceRedownloadCheckBox.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.forceRedownloadCheckBox.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.forceRedownloadCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.forceRedownloadCheckBox.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.forceRedownloadCheckBox.Image = global::PriconneReTLInstaller.Properties.Resources.check_empty_24x24_2;
-            this.forceRedownloadCheckBox.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.forceRedownloadCheckBox.Location = new System.Drawing.Point(6, 16);
-            this.forceRedownloadCheckBox.Margin = new System.Windows.Forms.Padding(0);
-            this.forceRedownloadCheckBox.Name = "forceRedownloadCheckBox";
-            this.forceRedownloadCheckBox.Size = new System.Drawing.Size(207, 36);
-            this.forceRedownloadCheckBox.TabIndex = 2;
-            this.forceRedownloadCheckBox.Text = " Reinstall";
-            this.forceRedownloadCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.forceRedownloadCheckBox.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.forceRedownloadCheckBox.UseVisualStyleBackColor = false;
-            this.forceRedownloadCheckBox.CheckedChanged += new System.EventHandler(this.forceRedownloadCheckBox_CheckedChanged);
-            this.forceRedownloadCheckBox.EnabledChanged += new System.EventHandler(this.forceRedownloadCheckBox_EnabledChanged);
+            this.reinstallCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
+            this.reinstallCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.reinstallCheckBox.FlatAppearance.BorderSize = 0;
+            this.reinstallCheckBox.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.reinstallCheckBox.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.reinstallCheckBox.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.reinstallCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.reinstallCheckBox.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.reinstallCheckBox.Image = global::PriconneReTLInstaller.Properties.Resources.check_empty_24x24_2;
+            this.reinstallCheckBox.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.reinstallCheckBox.Location = new System.Drawing.Point(6, 16);
+            this.reinstallCheckBox.Margin = new System.Windows.Forms.Padding(0);
+            this.reinstallCheckBox.Name = "reinstallCheckBox";
+            this.reinstallCheckBox.Size = new System.Drawing.Size(207, 36);
+            this.reinstallCheckBox.TabIndex = 2;
+            this.reinstallCheckBox.Text = " Reinstall";
+            this.reinstallCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.reinstallCheckBox.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.reinstallCheckBox.UseVisualStyleBackColor = false;
+            this.reinstallCheckBox.CheckedChanged += new System.EventHandler(this.reinstallCheckBox_CheckedChanged);
+            this.reinstallCheckBox.EnabledChanged += new System.EventHandler(this.reinstallCheckBox_EnabledChanged);
             // 
             // uninstallCheckBox
             // 
@@ -226,12 +226,22 @@
             this.operationsPanel.BackColor = System.Drawing.Color.Transparent;
             this.operationsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.operationsPanel.Controls.Add(this.uninstallCheckBox);
-            this.operationsPanel.Controls.Add(this.forceRedownloadCheckBox);
+            this.operationsPanel.Controls.Add(this.reinstallCheckBox);
             this.operationsPanel.Controls.Add(this.operationsLabel);
             this.operationsPanel.Location = new System.Drawing.Point(17, 173);
             this.operationsPanel.Name = "operationsPanel";
             this.operationsPanel.Size = new System.Drawing.Size(307, 93);
             this.operationsPanel.TabIndex = 16;
+            // 
+            // operationsLabel
+            // 
+            this.operationsLabel.AutoSize = true;
+            this.operationsLabel.BackColor = System.Drawing.Color.Transparent;
+            this.operationsLabel.Location = new System.Drawing.Point(3, 0);
+            this.operationsLabel.Name = "operationsLabel";
+            this.operationsLabel.Size = new System.Drawing.Size(75, 17);
+            this.operationsLabel.TabIndex = 17;
+            this.operationsLabel.Text = "Operations";
             // 
             // removeInteropsCheckBox
             // 
@@ -285,6 +295,7 @@
             // 
             this.removeConfigCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
             this.removeConfigCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.removeConfigCheckBox.Enabled = false;
             this.removeConfigCheckBox.FlatAppearance.BorderSize = 0;
             this.removeConfigCheckBox.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.removeConfigCheckBox.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
@@ -302,16 +313,6 @@
             this.removeConfigCheckBox.UseVisualStyleBackColor = false;
             this.removeConfigCheckBox.CheckedChanged += new System.EventHandler(this.removeConfigCheckBox_CheckedChanged);
             this.removeConfigCheckBox.EnabledChanged += new System.EventHandler(this.removeConfigCheckBox_EnabledChanged);
-            // 
-            // operationsLabel
-            // 
-            this.operationsLabel.AutoSize = true;
-            this.operationsLabel.BackColor = System.Drawing.Color.Transparent;
-            this.operationsLabel.Location = new System.Drawing.Point(3, 0);
-            this.operationsLabel.Name = "operationsLabel";
-            this.operationsLabel.Size = new System.Drawing.Size(75, 17);
-            this.operationsLabel.TabIndex = 17;
-            this.operationsLabel.Text = "Operations";
             // 
             // showLogCheckBox
             // 
@@ -574,7 +575,7 @@
         #endregion
 
         private System.Windows.Forms.Button startButton;
-        private System.Windows.Forms.CheckBox forceRedownloadCheckBox;
+        private System.Windows.Forms.CheckBox reinstallCheckBox;
         private System.Windows.Forms.Label labelCurrentVersion;
         private System.Windows.Forms.Label labelGamePath;
         private System.Windows.Forms.Label labelLatestVersion;

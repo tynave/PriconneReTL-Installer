@@ -73,10 +73,11 @@ namespace PriconneReTLInstaller
 
         private void OnErrorLog(string message)
         {
-            outputTextBox.Invoke((Action)(() =>
+            /*outputTextBox.Invoke((Action)(() =>
             {
                 logger.Error(message);
-            }));
+            }));*/
+            logger.Error(message);
         }
 
         public void OnDisableStart()
@@ -95,9 +96,9 @@ namespace PriconneReTLInstaller
             }));
         }
 
-        public void SetUninstallandForceredownloadCheckBox(bool enabledState)
+        public void SetUninstallandReinstallCheckBox(bool enabledState)
         {
-            forceRedownloadCheckBox.Enabled = enabledState;
+            reinstallCheckBox.Enabled = enabledState;
             uninstallCheckBox.Enabled = enabledState;
         }
 
@@ -112,7 +113,7 @@ namespace PriconneReTLInstaller
             // (priconnePath, priconnePathValid) = installer.GetGamePath();
             priconnePath = "C:\\Test"; // -- set fixed path for testing purposes
             priconnePathValid = true; // -- set fixed path for testing purposes
-            priconnePathLinkLabel.Text = priconnePathValid ? priconnePath : "ERROR!";
+            priconnePathLinkLabel.Text = priconnePath;
 
             (latestVersion, assetLink, latestVersionValid) = installer.GetLatestRelease();
             latestReleaseLinkLabel.Text = latestVersionValid ? latestVersion : "ERROR!";
@@ -127,7 +128,7 @@ namespace PriconneReTLInstaller
 
             newPictureBox.Visible = localVersion == latestVersion ? false : true;
 
-            if (!localVersionValid)
+            /*if (!localVersionValid)
             {
                 forceRedownloadCheckBox.Enabled = false;
                 uninstallCheckBox.Enabled = false;
@@ -136,16 +137,17 @@ namespace PriconneReTLInstaller
             {
                 uninstallCheckBox.Enabled = true;
                 forceRedownloadCheckBox.Enabled = true;
-            }
+            }*/
+            SetUninstallandReinstallCheckBox(localVersionValid);
 
-            removeConfigCheckBox.Enabled = uninstallCheckBox.Checked ? true : false;
+            // removeConfigCheckBox.Enabled = uninstallCheckBox.Checked ? true : false;
 
             UpdateModeDescription();
         }
 
         private void UpdateModeDescription()
         {
-            if (forceRedownloadCheckBox.Checked)
+            if (reinstallCheckBox.Checked)
             {
                 modeLabel.Text = Settings.Default.fredownloadMode;
                 modeDescritpionLabel.Text = Settings.Default.fredownloadModeDescription;
@@ -218,19 +220,15 @@ namespace PriconneReTLInstaller
 
                 if (uninstallCheckBox.Checked) // Uninstall
                 {
-                    // await RemoveMod(removeConfig: removeConfigCheckBox.Checked);
-                    // await RemovePatchFiles(removeConfig: removeConfigCheckBox.Checked, removeIgnored: removeIgnoredCheckBox.Checked, removeInterops: removeInteropsCheckBox.Checked);
                     await installer.RemovePatchFiles(priconnePath, localVersion, removeConfig: removeConfigCheckBox.Checked, removeIgnored: removeIgnoredCheckBox.Checked, removeInterops: removeInteropsCheckBox.Checked);
                     logger.Log("Uninstall Complete!", "success", true);
                     UpdateUI();
                     return;
                 }
 
-                if (forceRedownloadCheckBox.Checked) // Force Redownload
+                if (reinstallCheckBox.Checked) // Reinstall
                 {
                     logger.Log("Reinstalling translation patch...", "info", true);
-                    // await RemoveMod(removeConfig: false);
-                    // await RemovePatchFiles(removeConfig: false, removeIgnored: false, removeInterops: true);
                     await installer.RemovePatchFiles(priconnePath, localVersion, removeConfig: removeConfigCheckBox.Checked, removeIgnored: removeIgnoredCheckBox.Checked, removeInterops: removeInteropsCheckBox.Checked);
                     await installer.GetTLMod(tempFile, assetLink);
                     await installer.ExtractAllFiles(tempFile, priconnePath);
@@ -265,7 +263,6 @@ namespace PriconneReTLInstaller
 
                 // nothing installed / invalid
                 logger.Log("Downloading and installing translation patch...", "info", true);
-                // await GetTLMod(tempFile, toolStripProgressBar1);
                 await installer.GetTLMod(tempFile, assetLink);
                 await installer.ExtractAllFiles(tempFile, priconnePath);
                 logger.Log("Installation complete!", "success", true);
@@ -282,18 +279,15 @@ namespace PriconneReTLInstaller
             {
                 startButton.Enabled = true;
                 startButton.BackgroundImage = Resources.start_complete;
-                forceRedownloadCheckBox.Checked = false;
+                reinstallCheckBox.Checked = false;
                 uninstallCheckBox.Checked = false;
             }
-
-
 
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             SetToolTips();
-            
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -314,44 +308,38 @@ namespace PriconneReTLInstaller
             }
 
         }
-
         private void uninstallCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             uninstallCheckBox.Image = uninstallCheckBox.Checked ? Resources.check_checked_24x24_2 : Resources.check_empty_24x24_2;
-            forceRedownloadCheckBox.Checked = uninstallCheckBox.Checked ? false : forceRedownloadCheckBox.Checked;
+            reinstallCheckBox.Checked = uninstallCheckBox.Checked ? false : reinstallCheckBox.Checked;
             removeConfigCheckBox.Enabled = uninstallCheckBox.Checked;
             removeIgnoredCheckBox.Enabled = uninstallCheckBox.Checked;
             removeInteropsCheckBox.Enabled = uninstallCheckBox.Checked;
             UpdateModeDescription();
         }
-
         private void uninstallCheckBox_EnabledChanged(object sender, EventArgs e)
         {
             uninstallCheckBox.Checked = false;
         }
-
-        private void forceRedownloadCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void reinstallCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            forceRedownloadCheckBox.Image = forceRedownloadCheckBox.Checked ? Resources.check_checked_24x24_2 : Resources.check_empty_24x24_2;
-            uninstallCheckBox.Checked = forceRedownloadCheckBox.Checked ? false : uninstallCheckBox.Checked;
-            removeConfigCheckBox.Enabled = forceRedownloadCheckBox.Checked;
-            removeIgnoredCheckBox.Enabled = forceRedownloadCheckBox.Checked;
-            removeInteropsCheckBox.Enabled = forceRedownloadCheckBox.Checked;
+            reinstallCheckBox.Image = reinstallCheckBox.Checked ? Resources.check_checked_24x24_2 : Resources.check_empty_24x24_2;
+            uninstallCheckBox.Checked = reinstallCheckBox.Checked ? false : uninstallCheckBox.Checked;
+            removeConfigCheckBox.Enabled = reinstallCheckBox.Checked;
+            removeIgnoredCheckBox.Enabled = reinstallCheckBox.Checked;
+            removeInteropsCheckBox.Enabled = reinstallCheckBox.Checked;
             UpdateModeDescription();
         }
-
-        private void forceRedownloadCheckBox_EnabledChanged(object sender, EventArgs e)
+        private void reinstallCheckBox_EnabledChanged(object sender, EventArgs e)
         {
-            forceRedownloadCheckBox.Checked = false;
+            reinstallCheckBox.Checked = false;
         }
 
         private void removeConfigCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             removeConfigCheckBox.Image = removeConfigCheckBox.Checked ? Resources.check_checked_24x24_2 : Resources.check_empty_24x24_2;
             UpdateModeDescription();
-
         }
-
         private void removeConfigCheckBox_EnabledChanged(object sender, EventArgs e)
         {
             removeConfigCheckBox.Checked = false;
@@ -370,7 +358,6 @@ namespace PriconneReTLInstaller
                 this.Height = 480;
             }
         }
-
         private void exitButton_MouseEnter(object sender, EventArgs e)
         {
             exitButton.BackgroundImage = Resources.door_open;
@@ -423,8 +410,6 @@ namespace PriconneReTLInstaller
 
         private async void MainForm_MouseDown(object sender, MouseEventArgs e)
         {
-            //mouseDown = true;
-            //lastLocation = e.Location;
             mouseDown = true;
             lastLocation = e.Location;
 
@@ -442,7 +427,6 @@ namespace PriconneReTLInstaller
             });
         }
 
-
         private void MainForm_MouseMove(object sender, MouseEventArgs e)
         {
             
@@ -456,7 +440,6 @@ namespace PriconneReTLInstaller
                 }));
             }
         }
-
         private void MainForm_MouseUp(object sender, MouseEventArgs e)
         {
             mouseDown = false;
@@ -471,7 +454,6 @@ namespace PriconneReTLInstaller
                 Process.Start(startInfo);
             }
         }
-
         private void latestReleaseLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             if (latestVersion != null) Process.Start("https://github.com/ImaterialC/PriconneRe-TL/releases/latest");
@@ -508,7 +490,6 @@ namespace PriconneReTLInstaller
             removeInteropsCheckBox.Image = removeInteropsCheckBox.Checked ? Resources.check_checked_24x24_2 : Resources.check_empty_24x24_2;
             UpdateModeDescription();
         }
-
         private void removeInteropsCheckBox_EnabledChanged(object sender, EventArgs e)
         {
             removeInteropsCheckBox.Checked = false;

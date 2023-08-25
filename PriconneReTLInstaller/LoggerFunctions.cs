@@ -11,11 +11,11 @@ namespace LoggerFunctions
         private string logFilePath;
         private Dictionary<string, Color> colors = new Dictionary<string, Color>
             {
-                { "info", Color.Black},
-                { "error", Color.Red},
-                { "success", Color.Green},
-                { "add", Color.Blue},
-                { "remove", Color.Red},
+                { "info", Color.Black },
+                { "error", Color.Red },
+                { "success", Color.Green },
+                { "add", Color.Blue },
+                { "remove", Color.Red },
             };
         private RichTextBox outputTextBox;
         private ToolStripStatusLabel toolStripStatusLabel1;

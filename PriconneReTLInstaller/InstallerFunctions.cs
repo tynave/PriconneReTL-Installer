@@ -17,6 +17,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Reflection;
 using System.Diagnostics;
+using System.Collections.Specialized;
 
 namespace InstallerFunctions
 {
@@ -61,7 +62,7 @@ namespace InstallerFunctions
             {
                 ErrorLog?.Invoke("Cannot find the DMMGamePlayer config file! Do you have DMMGamePlayer installed?");
                 DisableStart?.Invoke();
-                return (null, false); // --> necessery?
+                return ("Not found", false);
             }
             catch (Exception ex)
             {
@@ -117,15 +118,12 @@ namespace InstallerFunctions
                     dynamic releaseJson = JsonConvert.DeserializeObject(response);
                     string version = releaseJson.tag_name;
                     string assetsLink = releaseJson.assets[0].browser_download_url;
-                    // latestReleaseLinkLabel.Text = version;
                     return (version, assetsLink, true);
                 }
             }
             catch (Exception ex)
             {
-                // logger.Error("Error getting latest release: " + ex.Message);
                 ErrorLog?.Invoke("Error getting latest release: " + ex.Message);
-                // latestReleaseLinkLabel.Text = "ERROR!";
                 return (null, null, false);
             }
         }
@@ -199,14 +197,7 @@ namespace InstallerFunctions
                 int counter = 0;
                 using (var zip = ZipFile.OpenRead(tempFile))
                     {
-                        /*outputTextBox.Invoke((Action)(() =>
-                        {
-                            logger.Log("Extracting files to game folder...", "add", true);
-                            toolStripProgressBar1.Minimum = 0;
-                            toolStripProgressBar1.Maximum = zip.Entries.Count;
-                        }));*/
-                        Log?.Invoke("Extracting files to game folder...", "add", true);
-
+                       Log?.Invoke("Extracting files to game folder...", "add", true);
 
                     // Keep config files if Force Redownload is selected or config files already present
                     // string[] ignoreFiles = SetIgnoreFiles(addconfig: forceRedownloadCheckBox.Checked || IsConfigPresent());
@@ -217,13 +208,6 @@ namespace InstallerFunctions
                             counter++;
                             string fileName = entry.FullName;
 
-                            /*outputTextBox.Invoke((Action)(() =>
-                            {
-                                logger.Log("Extracting: " + entry.FullName, "add");
-                                toolStripProgressBar1.PerformStep();
-                                double percentage = (double)toolStripProgressBar1.Value / zip.Entries.Count * 100;
-                                toolStripStatusLabel3.Text = $"{Math.Truncate(percentage)}%";
-                            }));*/
                             Log?.Invoke("Extracting: " + entry.FullName, "add", false);
                             double percentage = ((double)counter / zip.Entries.Count) * 100;
                             DownloadProgress?.Invoke(counter, zip.Entries.Count);
@@ -245,11 +229,6 @@ namespace InstallerFunctions
             }
             catch (Exception ex)
             {
-
-                /*outputTextBox.Invoke((Action)(() =>
-                {
-                    logger.Error("Error extracting all files: " + ex.Message);
-                }));*/
                 ErrorLog?.Invoke("Error extracting all files: " + ex.Message);
             }
         }
@@ -339,8 +318,8 @@ namespace InstallerFunctions
                     throw new Exception("Failed to get list of files to remove! Cannot continue.");
                 }*/
 
-                    if (removeConfig) currentFiles = currentFiles.Concat(configFiles).ToArray();
-                    if (removeIgnored) currentFiles = currentFiles.Concat(ignoreFiles).ToArray();
+                    // if (removeConfig) currentFiles = currentFiles.Concat(configFiles).ToArray();
+                    // if (removeIgnored) currentFiles = currentFiles.Concat(ignoreFiles).ToArray();
 
                     Log?.Invoke("Removing patch files..." , "remove", true);
 
@@ -366,10 +345,11 @@ namespace InstallerFunctions
 
                     }
 
-                    if (removeInterops)
-                    {
-                        RemoveInterops();
-                    }
+                    if (removeConfig) RemoveConfigOrIgnoredFiles(priconnePath, "config", Settings.Default.configFiles);
+
+                    if (removeIgnored) RemoveConfigOrIgnoredFiles(priconnePath, "ignored", Settings.Default.ignoreFiles);
+
+                    if (removeInterops) RemoveInterops();
 
                 }
                 catch (Exception ex)
@@ -395,6 +375,30 @@ namespace InstallerFunctions
             }
         }
 
+        private void RemoveConfigOrIgnoredFiles(string priconnePath, string type, StringCollection collection)
+        {
+            try
+            {
+                Log?.Invoke($"Removing {type} files...", "remove", false);
+                foreach (var file in collection)
+                {
+                    string fullPath = Path.Combine(priconnePath, file);
+                    string directory = Path.GetDirectoryName(fullPath);
+                    if (File.Exists(fullPath))
+                    {
+                        File.Delete(fullPath);
+                        Log?.Invoke($"Removed {type} file: {file}", "remove", false);
+                        DeleteEmptyDirectories(directory);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorLog?.Invoke($"Error removing {type} files: " + ex.Message);
+            }
+
+        }
         private void RemoveInterops()
         {
             try
@@ -408,9 +412,10 @@ namespace InstallerFunctions
             }
             catch (Exception ex)
             {
-                    ErrorLog?.Invoke("Error removing interop assemblies: " + ex.Message);
+                ErrorLog?.Invoke("Error removing interop assemblies: " + ex.Message);
             }
 
         }
+
     }
 }
