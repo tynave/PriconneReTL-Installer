@@ -26,8 +26,7 @@ If you have never used the patch before, or you don't have it currently installe
 If you have files left over from a previous installation, the application will keep those.
 
 ### Update:
-If you already have a version of the translation patch applied, just press the *Start!* button, and the application will update it by deleting the files of the current patch version,  
-and downloading the latest files.  
+If you already have a version of the translation patch applied, just press the *Start!* button, and the application will update it by deleting the files of the current patch version, and downloading the latest files.  
 Important files are not touched during this process.
 
 ### Force Redownload / Reinstall:
