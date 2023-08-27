@@ -76,21 +76,24 @@ any user created files already present.</Value>
       <Value Profile="(Default)">Current Mode: Uninstall</Value>
     </Setting>
     <Setting Name="uninstallModeDescription" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Removes the translation patch files, but keeps any user files.</Value>
+      <Value Profile="(Default)">Removes the translation patch.
+Keeps any user created files.
+Depending on the options selected, keeps or removes config/ignored/interop files.</Value>
     </Setting>
-    <Setting Name="fredownloadMode" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Current Mode: Force Redownload / Reinstall</Value>
+    <Setting Name="reinstallMode" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Current Mode: Reinstall</Value>
     </Setting>
-    <Setting Name="fredownloadModeDescription" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Removes the translation patch, inculding the generated interop assemblies and then installs the latest version.
-Keeps config files and ignored files, as well as any user created files.</Value>
+    <Setting Name="reinstallModeDescription" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Removes the translation patch, and then installs the latest version.
+Keeps any user created files.
+Depending on the options selected, keeps or removes config/ignored/interop files.</Value>
     </Setting>
     <Setting Name="updateMode" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Current Mode: Update</Value>
     </Setting>
     <Setting Name="updateModeDescription" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Updates the current translation patch installation by adding/removing/renaming files compared to the current version.
-Keeps config files.</Value>
+      <Value Profile="(Default)">Updates the current translation patch installation by removing the the current version and installing the latest.
+Keeps user files, as well as config/ignored/interop files.</Value>
     </Setting>
     <Setting Name="disabledMode" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Current Mode: Disabled</Value>
@@ -98,24 +101,6 @@ Keeps config files.</Value>
     <Setting Name="disabledModeDescription" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Operation disabled due to an error.
 See log for details.</Value>
-    </Setting>
-    <Setting Name="deleteConfigText" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Removes config files.</Value>
-    </Setting>
-    <Setting Name="keepConfigText" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Keeps config files.</Value>
-    </Setting>
-    <Setting Name="deleteIgnoredText" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Removes ignored files.</Value>
-    </Setting>
-    <Setting Name="keepIgnoredText" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Keeps ignored files.</Value>
-    </Setting>
-    <Setting Name="deleteInteropsText" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Deletes interop assemblies.</Value>
-    </Setting>
-    <Setting Name="keepInteropsText" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Keeps interop assemblies.</Value>
     </Setting>
   </Settings>
 </SettingsFile>

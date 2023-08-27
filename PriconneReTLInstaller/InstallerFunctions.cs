@@ -26,6 +26,14 @@ namespace InstallerFunctions
         Helper helper = new Helper();
 
         private string githubAPI = Settings.Default.githubApi;
+        private string assetLink;
+        private string priconnePath;
+        private bool priconnePathValid;
+        private string localVersion;
+        private bool localVersionValid;
+        private string latestVersion;
+        private bool latestVersionValid;
+        private bool removeSuccess;
 
         public event Action<double, double> DownloadProgress;
         public event Action<string, string, bool> Log;
@@ -46,67 +54,66 @@ namespace InstallerFunctions
                     {
                         if (content.productId == "priconner")
                         {
-                            string priconnePath = content.detail.path;
+                            // priconnePath = content.detail.path;
+                            priconnePath = "C:\\Test"; // -- set fixed path for testing purposes
                             Log?.Invoke("Found Princess Connect Re:Dive in " + priconnePath, "info", false);
-                            return (priconnePath, true);
+                            return (priconnePath, priconnePathValid = true);
                         }
                     }
                 }
-
-                ErrorLog?.Invoke("Cannot find the game path! Did you install Princess Connect Re:Dive from DMMGamePlayer?");
-                DisableStart?.Invoke();
-
-                return ("Not found", false);
+                    ErrorLog?.Invoke("Cannot find the game path! Did you install Princess Connect Re:Dive from DMMGamePlayer?");
+                    DisableStart?.Invoke(); 
+                    return (priconnePath = "Not found", priconnePathValid = false);
             }
             catch (FileNotFoundException)
             {
                 ErrorLog?.Invoke("Cannot find the DMMGamePlayer config file! Do you have DMMGamePlayer installed?");
                 DisableStart?.Invoke();
-                return ("Not found", false);
+                return (priconnePath = "Not found", priconnePathValid = false);
             }
             catch (Exception ex)
             {
                 ErrorLog?.Invoke("Error getting game path: " + ex.Message);
                 DisableStart?.Invoke();
-                return ("ERROR!", false);
+                return (priconnePath = "ERROR!", priconnePathValid = false);
             }
         }
-        public (string localVersion, bool localVersionValid ) GetLocalVersion(string priconnePath, bool priconnePathValid)
+        //public (string localVersion, bool localVersionValid ) GetLocalVersion(string priconnePath, bool priconnePathValid)
+        public (string localVersion, bool localVersionValid) GetLocalVersion()
         {
-
             try
             {
 
                 if (!priconnePathValid)
                 {
-                    return ("Unable to determine!", false);
+                    return (localVersion = "Unable to determine!", localVersionValid = false);
                 }
 
                 string versionFilePath = Path.Combine(priconnePath, "BepInEx", "Translation", "en", "Text", "Version.txt");
 
                 if (!File.Exists(versionFilePath))
                 {
-                    return ("None", false);
+                    return (localVersion = "None", localVersionValid = false);
                 }
                 string rawVersionFile = File.ReadAllText(versionFilePath);
-                string localVersion = System.Text.RegularExpressions.Regex.Match(rawVersionFile, @"\d{8}[a-z]?").Value;
+                localVersion = System.Text.RegularExpressions.Regex.Match(rawVersionFile, @"\d{8}[a-z]?").Value;
 
                 if (localVersion == "")
                 {
-                    return ("Invalid", false);
+                    return (localVersion = "Invalid", localVersionValid = false);
 
                 }
 
-                return (localVersion, true);
+                return (localVersion, localVersionValid = true);
 
             }
             catch (Exception ex)
             {
                 ErrorLog?.Invoke("Error getting local version: " + ex.Message);
-                return ("ERROR!", false);
+                return (localVersion = "ERROR!", localVersionValid = false);
             }
         }
-        public (string latestVersion, string assetLink, bool latestVersionValid) GetLatestRelease()
+        public (string latestVersion, bool latestVersionValid) GetLatestRelease()
         {
             try
             {
@@ -117,18 +124,18 @@ namespace InstallerFunctions
                     string response = client.DownloadString(releaseUrl);
                     dynamic releaseJson = JsonConvert.DeserializeObject(response);
                     string version = releaseJson.tag_name;
-                    string assetsLink = releaseJson.assets[0].browser_download_url;
-                    return (version, assetsLink, true);
+                    assetLink = releaseJson.assets[0].browser_download_url;
+                    return (latestVersion = version, latestVersionValid = true);
                 }
             }
             catch (Exception ex)
             {
                 ErrorLog?.Invoke("Error getting latest release: " + ex.Message);
-                return (null, null, false);
+                return (latestVersion = null, latestVersionValid = false);
             }
         }
 
-        public async Task GetTLMod(string tempFile, string assetLink)
+        public async Task GetTLMod(string tempFile)
         {
             try
             {
@@ -162,33 +169,23 @@ namespace InstallerFunctions
                                 await fileStream.WriteAsync(buffer, 0, bytesRead);
 
                                 downloadedBytes += bytesRead;
-
-                                // double progressPercentage = (double)downloadedBytes / totalBytes * 100;
                                 DownloadProgress?.Invoke(downloadedBytes, totalBytes);
-                                // progressBar.GetCurrentParent().Invoke((Action)(() => progressBar.Value = (int)progressPercentage));
-                                // toolStripStatusLabel3.Text = $"{Math.Truncate(progressPercentage)}%";
                             }
                         }
                     }
                 }
 
-                /*outputTextBox.Invoke((Action)(() =>
-                {
-                    logger.Log("Download completed.", "info", true);
-                }));*/
                 Log?.Invoke("Download completed.", "info", true);
             }
             catch (Exception ex)
             {
-                /*outputTextBox.Invoke((Action)(() =>
-                {
-                    logger.Error("Error getting patch: " + ex.Message);
-                }));*/
                 ErrorLog?.Invoke("Error getting patch: " + ex.Message);
             }
         }
 
-        public async Task ExtractAllFiles(string tempFile, string priconnePath)
+        //public async Task ExtractAllFiles(string tempFile, string priconnePath)
+        public async Task ExtractAllFiles(string tempFile)
+
         {
             try
             {
@@ -296,19 +293,21 @@ namespace InstallerFunctions
             }
         }
 
-        public async Task RemovePatchFiles(string priconnePath, string localVersion, bool removeConfig, bool removeIgnored, bool removeInterops)
+        // public async Task RemovePatchFiles(string priconnePath, string localVersion, bool removeConfig, bool removeIgnored, bool removeInterops)
+        public async Task RemovePatchFiles(bool removeConfig, bool removeIgnored, bool removeInterops)
+
         {
             await Task.Run(() =>
             {
                 try
                 {
-                    string[] configFiles = new string[Settings.Default.configFiles.Count];
+                    /*string[] configFiles = new string[Settings.Default.configFiles.Count];
                     Settings.Default.configFiles.CopyTo(configFiles, 0);
                     string[] ignoreFiles = new string[Settings.Default.ignoreFiles.Count];
-                    Settings.Default.ignoreFiles.CopyTo(ignoreFiles, 0);
+                    Settings.Default.ignoreFiles.CopyTo(ignoreFiles, 0);*/
 
                 string[] currentFiles = ProcessTree(priconnePath, localVersion).GetAwaiter().GetResult();
-
+                    
                     /*if (currentFiles == null)
                 {
                     /*outputTextBox.Invoke((Action)(() =>
@@ -345,9 +344,9 @@ namespace InstallerFunctions
 
                     }
 
-                    if (removeConfig) RemoveConfigOrIgnoredFiles(priconnePath, "config", Settings.Default.configFiles);
+                    if (removeConfig) RemoveConfigOrIgnoredFiles("config", Settings.Default.configFiles);
 
-                    if (removeIgnored) RemoveConfigOrIgnoredFiles(priconnePath, "ignored", Settings.Default.ignoreFiles);
+                    if (removeIgnored) RemoveConfigOrIgnoredFiles("ignored", Settings.Default.ignoreFiles);
 
                     if (removeInterops) RemoveInterops();
 
@@ -375,7 +374,7 @@ namespace InstallerFunctions
             }
         }
 
-        private void RemoveConfigOrIgnoredFiles(string priconnePath, string type, StringCollection collection)
+        private void RemoveConfigOrIgnoredFiles(string type, StringCollection collection)
         {
             try
             {
@@ -415,6 +414,25 @@ namespace InstallerFunctions
                 ErrorLog?.Invoke("Error removing interop assemblies: " + ex.Message);
             }
 
+        }
+
+        public static void HandleFormClosing(MainForm form, FormClosingEventArgs e, string tempFile)
+        {
+            try
+            {
+                if (File.Exists(tempFile)) File.Delete(tempFile);
+            }
+            catch (IOException)
+            {
+                /*DialogResult result = MessageBox.Show("There is currently a file download process in progress.\nIf you close the application now, the file will be deleted.\nDo you want to exit anyway?", "Exit Application?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (result == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }*/
+                MessageBox.Show("There is currently a file download / extraction process in progress.\nPlease wait for the operation to complete", "Cannot Exit", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                e.Cancel = true;
+            }
         }
 
     }

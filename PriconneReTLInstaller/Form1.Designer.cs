@@ -158,7 +158,7 @@
             this.startButton.FlatAppearance.BorderSize = 0;
             this.startButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.startButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.startButton.Location = new System.Drawing.Point(395, 377);
+            this.startButton.Location = new System.Drawing.Point(399, 359);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(236, 66);
             this.startButton.TabIndex = 0;
@@ -266,7 +266,7 @@
             this.toolTip.SetToolTip(this.removeInteropsCheckBox, "Removes the generated interop assemblies at:\r\n%appdata%\\BepInEx");
             this.removeInteropsCheckBox.UseVisualStyleBackColor = false;
             this.removeInteropsCheckBox.CheckedChanged += new System.EventHandler(this.removeInteropsCheckBox_CheckedChanged);
-            this.removeInteropsCheckBox.EnabledChanged += new System.EventHandler(this.removeInteropsCheckBox_EnabledChanged);
+            // this.removeInteropsCheckBox.EnabledChanged += new System.EventHandler(this.removeInteropsCheckBox_EnabledChanged);
             // 
             // removeIgnoredCheckBox
             // 
@@ -494,7 +494,7 @@
             this.modeDescritpionLabel.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.modeDescritpionLabel.Location = new System.Drawing.Point(330, 200);
             this.modeDescritpionLabel.Name = "modeDescritpionLabel";
-            this.modeDescritpionLabel.Size = new System.Drawing.Size(368, 174);
+            this.modeDescritpionLabel.Size = new System.Drawing.Size(368, 149);
             this.modeDescritpionLabel.TabIndex = 28;
             this.modeDescritpionLabel.Text = "<operation description>";
             // 
@@ -555,9 +555,9 @@
             this.Name = "MainForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseDown);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseMove);
-            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
+            //this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseDown);
+            //this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseMove);
+            //this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.operationsPanel.ResumeLayout(false);
