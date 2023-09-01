@@ -33,7 +33,8 @@ namespace InstallerFunctions
         private bool localVersionValid;
         private string latestVersion;
         private bool latestVersionValid;
-        private bool removeSuccess;
+        private bool removeSuccess = true;
+        private bool downloadSuccess = true;
 
         public event Action<double, double> DownloadProgress;
         public event Action<string, string, bool> Log;
@@ -137,6 +138,12 @@ namespace InstallerFunctions
 
         public async Task GetTLMod(string tempFile)
         {
+            if (removeSuccess == false)
+            {
+                downloadSuccess = false;
+                return;
+            }
+
             try
             {
                 /*outputTextBox.Invoke((Action)(() =>
@@ -176,10 +183,12 @@ namespace InstallerFunctions
                 }
 
                 Log?.Invoke("Download completed.", "info", true);
+                downloadSuccess = true;
             }
             catch (Exception ex)
             {
                 ErrorLog?.Invoke("Error getting patch: " + ex.Message);
+                downloadSuccess = false;
             }
         }
 
@@ -187,6 +196,8 @@ namespace InstallerFunctions
         public async Task ExtractAllFiles(string tempFile)
 
         {
+            if (!downloadSuccess) return;
+
             try
             {
                 //await Task.Run(() =>
@@ -308,14 +319,11 @@ namespace InstallerFunctions
 
                 string[] currentFiles = ProcessTree(priconnePath, localVersion).GetAwaiter().GetResult();
                     
-                    /*if (currentFiles == null)
-                {
-                    /*outputTextBox.Invoke((Action)(() =>
+                    if (currentFiles == null)
                     {
-                        logger.Error("Failed to get list of files to remove! Cannot continue.");
-                    }));
-                    throw new Exception("Failed to get list of files to remove! Cannot continue.");
-                }*/
+                        removeSuccess = false;
+                        throw new Exception("Failed to get list of files to remove! Cannot continue.");
+                    }
 
                     // if (removeConfig) currentFiles = currentFiles.Concat(configFiles).ToArray();
                     // if (removeIgnored) currentFiles = currentFiles.Concat(ignoreFiles).ToArray();
@@ -350,10 +358,13 @@ namespace InstallerFunctions
 
                     if (removeInterops) RemoveInterops();
 
+                    removeSuccess = true;
+
                 }
                 catch (Exception ex)
                 {
                     ErrorLog?.Invoke("Error updating files: " + ex.Message);
+                    removeSuccess = false;
                 }
             });
         }
@@ -395,6 +406,7 @@ namespace InstallerFunctions
             catch (Exception ex)
             {
                 ErrorLog?.Invoke($"Error removing {type} files: " + ex.Message);
+                removeSuccess = false;
             }
 
         }
@@ -412,6 +424,7 @@ namespace InstallerFunctions
             catch (Exception ex)
             {
                 ErrorLog?.Invoke("Error removing interop assemblies: " + ex.Message);
+                removeSuccess = false;
             }
 
         }

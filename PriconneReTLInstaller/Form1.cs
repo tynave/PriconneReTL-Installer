@@ -202,6 +202,25 @@ namespace PriconneReTLInstaller
             mouseDown = false;
         }
 
+        private void OnProcessStart()
+        {
+            toolStripProgressBar1.Value = 0;
+            toolStripStatusLabel3.Text = "";
+            outputTextBox.Clear();
+            startButton.Enabled = false;
+            startButton.BackgroundImage = Resources.start_working;
+            logger.Log("Starting process...", "info");
+        }
+
+        private void OnProcessFinish()
+        {
+            startButton.Enabled = true;
+            startButton.BackgroundImage = Resources.start_complete;
+            reinstallCheckBox.Checked = false;
+            uninstallCheckBox.Checked = false;
+            UpdateUI();
+        }
+
         // Functions
         private void InitializeUI ()
         {
@@ -309,12 +328,7 @@ namespace PriconneReTLInstaller
 
             try
             {
-                toolStripProgressBar1.Value = 0;
-                toolStripStatusLabel3.Text = "";
-                outputTextBox.Clear();
-                startButton.Enabled = false;
-                startButton.BackgroundImage = Resources.start_working;
-                logger.Log("Starting process...", "info");
+                OnProcessStart();
 
                 if (uninstallCheckBox.Checked) // Uninstall
                 {
@@ -381,11 +395,7 @@ namespace PriconneReTLInstaller
 
             finally
             {
-                startButton.Enabled = true;
-                startButton.BackgroundImage = Resources.start_complete;
-                reinstallCheckBox.Checked = false;
-                uninstallCheckBox.Checked = false;
-                UpdateUI();
+                OnProcessFinish();
             }
 
         }
@@ -554,7 +564,7 @@ namespace PriconneReTLInstaller
 
         private void priconnePathLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (!priconnePathValid)
+            if (priconnePathValid)
             {
                 ProcessStartInfo startInfo = new ProcessStartInfo("explorer.exe");
                 startInfo.Arguments = priconnePath;
