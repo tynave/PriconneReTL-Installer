@@ -111,5 +111,11 @@ namespace HelperFunctions
             if (isConfigPresent) Log?.Invoke("Found config file(s). Adding them to the list of ignored/excluded files.", "error", false);
             return isConfigPresent;
         }
+
+        public void CannotExitNotification(FormClosingEventArgs e, string type)
+        {
+            MessageBox.Show($"There is currently a {type} process in progress.\nPlease wait for the operation to complete.", "Cannot Exit", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            e.Cancel = true;
+        }
     }
 }

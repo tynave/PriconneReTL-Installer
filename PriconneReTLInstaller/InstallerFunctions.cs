@@ -33,13 +33,17 @@ namespace InstallerFunctions
         private bool localVersionValid;
         private string latestVersion;
         private bool latestVersionValid;
+        private string tempFile = Path.GetTempFileName();
         private bool removeSuccess = true;
         private bool downloadSuccess = true;
+        private bool removeProgress = false;
 
         public event Action<double, double> DownloadProgress;
         public event Action<string, string, bool> Log;
         public event Action<string> ErrorLog;
         public event Action DisableStart;
+        public event Action ProcessStart;
+        public event Action ProcessFinish;
 
         public (string priconnePath, bool priconnePathValid) GetGamePath()
         {
@@ -136,7 +140,7 @@ namespace InstallerFunctions
             }
         }
 
-        public async Task GetTLMod(string tempFile)
+        public async Task GetTLMod(/*string tempFile*/)
         {
             if (removeSuccess == false)
             {
@@ -193,7 +197,7 @@ namespace InstallerFunctions
         }
 
         //public async Task ExtractAllFiles(string tempFile, string priconnePath)
-        public async Task ExtractAllFiles(string tempFile)
+        public async Task ExtractAllFiles(/*string tempFile*/)
 
         {
             if (!downloadSuccess) return;
@@ -312,6 +316,7 @@ namespace InstallerFunctions
             {
                 try
                 {
+                    removeProgress = true;
                     /*string[] configFiles = new string[Settings.Default.configFiles.Count];
                     Settings.Default.configFiles.CopyTo(configFiles, 0);
                     string[] ignoreFiles = new string[Settings.Default.ignoreFiles.Count];
@@ -359,12 +364,15 @@ namespace InstallerFunctions
                     if (removeInterops) RemoveInterops();
 
                     removeSuccess = true;
+                    removeProgress = false;
 
                 }
                 catch (Exception ex)
                 {
                     ErrorLog?.Invoke("Error updating files: " + ex.Message);
                     removeSuccess = false;
+                    removeProgress = false;
+
                 }
             });
         }
@@ -429,22 +437,86 @@ namespace InstallerFunctions
 
         }
 
-        public static void HandleFormClosing(MainForm form, FormClosingEventArgs e, string tempFile)
+        public async void ProcessOperation(bool uninstall, bool reinstall, bool removeConfig, bool removeIgnored, bool removeInterops/*, string tempFile*/)
+        {
+            int versioncompare = localVersion.CompareTo(latestVersion);
+
+            try
+            {
+                ProcessStart?.Invoke();
+
+                if (uninstall) // Uninstall
+                {
+                    await RemovePatchFiles(removeConfig: removeConfig, removeIgnored: removeIgnored, removeInterops: removeInterops);
+                    Log?.Invoke("Uninstall Complete!", "success", true);
+                    return;
+                }
+
+                if (reinstall) // Reinstall
+                {
+                    Log?.Invoke("Reinstalling translation patch...", "info", true);
+                    await RemovePatchFiles(removeConfig: removeConfig, removeIgnored: removeIgnored, removeInterops: removeInterops);
+                    await GetTLMod(/*tempFile*/);
+                    await ExtractAllFiles(/*tempFile*/);
+                    Log?.Invoke("Reinstall complete!", "success", true);
+                    return;
+                }
+
+                if (versioncompare == 0) // Installed version = Latest version
+                {
+                    Log?.Invoke("You already have the latest version installed!", "success", true);
+                    return;
+                }
+
+                if (versioncompare < 0) // Installed version < Latest version
+                {
+                    try
+                    {
+                        Log?.Invoke("Updating translation patch...", "info", true);
+                        await RemovePatchFiles(removeConfig: removeConfig, removeIgnored: removeIgnored, removeInterops: removeInterops);
+                        await GetTLMod(/*tempFile*/);
+                        await ExtractAllFiles(/*tempFile*/);
+                        Log?.Invoke("Update complete!", "success", true);
+                        return;
+                    }
+                    catch (Exception ex)
+                    {
+                        ErrorLog?.Invoke("Error updating translation patch: " + ex.Message);
+                    }
+                }
+
+                // nothing installed / invalid
+                Log?.Invoke("Downloading and installing translation patch...", "info", true);
+                await GetTLMod(/*tempFile*/);
+                await ExtractAllFiles(/*tempFile*/);
+                Log?.Invoke("Installation complete!", "success", true);
+
+
+            }
+            catch (Exception ex)
+            {
+                ErrorLog?.Invoke("Error completing process: " + ex.Message);
+            }
+
+            finally
+            {
+                ProcessFinish?.Invoke();
+            }
+        }
+
+        public void HandleFormClosing(MainForm form, FormClosingEventArgs e/*, string tempFile*/)
         {
             try
             {
+                if (removeProgress)
+                {
+                    helper.CannotExitNotification(e, "file removal");
+                }
                 if (File.Exists(tempFile)) File.Delete(tempFile);
             }
             catch (IOException)
             {
-                /*DialogResult result = MessageBox.Show("There is currently a file download process in progress.\nIf you close the application now, the file will be deleted.\nDo you want to exit anyway?", "Exit Application?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (result == DialogResult.No)
-                {
-                    e.Cancel = true;
-                }*/
-                MessageBox.Show("There is currently a file download / extraction process in progress.\nPlease wait for the operation to complete", "Cannot Exit", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                e.Cancel = true;
+                helper.CannotExitNotification(e, "file download / extraction");
             }
         }
 

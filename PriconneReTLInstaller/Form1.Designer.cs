@@ -125,8 +125,6 @@
             this.reinstallCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.reinstallCheckBox.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.reinstallCheckBox.UseVisualStyleBackColor = false;
-            this.reinstallCheckBox.CheckedChanged += new System.EventHandler(this.reinstallCheckBox_CheckedChanged);
-            this.reinstallCheckBox.EnabledChanged += new System.EventHandler(this.reinstallCheckBox_EnabledChanged);
             // 
             // uninstallCheckBox
             // 
@@ -147,8 +145,6 @@
             this.uninstallCheckBox.Text = " Uninstall";
             this.uninstallCheckBox.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.uninstallCheckBox.UseVisualStyleBackColor = false;
-            this.uninstallCheckBox.CheckedChanged += new System.EventHandler(this.uninstallCheckBox_CheckedChanged);
-            this.uninstallCheckBox.EnabledChanged += new System.EventHandler(this.uninstallCheckBox_EnabledChanged);
             // 
             // startButton
             // 
@@ -166,8 +162,6 @@
             this.toolTip.SetToolTip(this.startButton, "Start operation with currently selected options");
             this.startButton.UseVisualStyleBackColor = false;
             this.startButton.Click += new System.EventHandler(this.startButton_Click_1);
-            this.startButton.MouseEnter += new System.EventHandler(this.startButton_MouseEnter);
-            this.startButton.MouseLeave += new System.EventHandler(this.startButton_MouseLeave);
             // 
             // outputTextBox
             // 
@@ -265,8 +259,6 @@
             this.removeInteropsCheckBox.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip.SetToolTip(this.removeInteropsCheckBox, "Removes the generated interop assemblies at:\r\n%appdata%\\BepInEx");
             this.removeInteropsCheckBox.UseVisualStyleBackColor = false;
-            this.removeInteropsCheckBox.CheckedChanged += new System.EventHandler(this.removeInteropsCheckBox_CheckedChanged);
-            // this.removeInteropsCheckBox.EnabledChanged += new System.EventHandler(this.removeInteropsCheckBox_EnabledChanged);
             // 
             // removeIgnoredCheckBox
             // 
@@ -288,8 +280,6 @@
             this.removeIgnoredCheckBox.Text = " Remove Ignored Patch Files";
             this.removeIgnoredCheckBox.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.removeIgnoredCheckBox.UseVisualStyleBackColor = false;
-            this.removeIgnoredCheckBox.CheckedChanged += new System.EventHandler(this.removeIgnoredCheckBox_CheckedChanged);
-            this.removeIgnoredCheckBox.EnabledChanged += new System.EventHandler(this.removeIgnoredCheckBox_EnabledChanged);
             // 
             // removeConfigCheckBox
             // 
@@ -311,8 +301,6 @@
             this.removeConfigCheckBox.Text = " Remove Config Files";
             this.removeConfigCheckBox.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.removeConfigCheckBox.UseVisualStyleBackColor = false;
-            this.removeConfigCheckBox.CheckedChanged += new System.EventHandler(this.removeConfigCheckBox_CheckedChanged);
-            this.removeConfigCheckBox.EnabledChanged += new System.EventHandler(this.removeConfigCheckBox_EnabledChanged);
             // 
             // showLogCheckBox
             // 
@@ -335,7 +323,6 @@
             this.showLogCheckBox.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip.SetToolTip(this.showLogCheckBox, "Show / hide logs");
             this.showLogCheckBox.UseVisualStyleBackColor = false;
-            this.showLogCheckBox.CheckedChanged += new System.EventHandler(this.showLogCheckBox_CheckedChanged);
             // 
             // newPictureBox
             // 
@@ -366,8 +353,6 @@
             this.toolTip.SetToolTip(this.exitButton, "Exit Application");
             this.exitButton.UseVisualStyleBackColor = false;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
-            this.exitButton.MouseEnter += new System.EventHandler(this.exitButton_MouseEnter);
-            this.exitButton.MouseLeave += new System.EventHandler(this.exitButton_MouseLeave);
             // 
             // toolTip
             // 
@@ -389,8 +374,6 @@
             this.toolTip.SetToolTip(this.minimizeButton, "Minimize");
             this.minimizeButton.UseVisualStyleBackColor = false;
             this.minimizeButton.Click += new System.EventHandler(this.minimizeButton_Click);
-            this.minimizeButton.MouseEnter += new System.EventHandler(this.minimizeButton_MouseEnter);
-            this.minimizeButton.MouseLeave += new System.EventHandler(this.minimizeButton_MouseLeave);
             // 
             // aboutButton
             // 
@@ -408,8 +391,6 @@
             this.toolTip.SetToolTip(this.aboutButton, "Help / About");
             this.aboutButton.UseVisualStyleBackColor = false;
             this.aboutButton.Click += new System.EventHandler(this.aboutButton_Click);
-            this.aboutButton.MouseEnter += new System.EventHandler(this.aboutButton_MouseEnter);
-            this.aboutButton.MouseLeave += new System.EventHandler(this.aboutButton_MouseLeave);
             // 
             // pictureBox1
             // 
@@ -555,9 +536,6 @@
             this.Name = "MainForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
-            //this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseDown);
-            //this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseMove);
-            //this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MainForm_MouseUp);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.operationsPanel.ResumeLayout(false);
