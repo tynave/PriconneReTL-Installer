@@ -150,7 +150,8 @@ All the operations processed are always logged into the ReTLUpdater.log file in 
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Removes the translation patch files, but keeps any user files.")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Removes the translation patch.\r\nKeeps any user created files.\r\nDepending on the o" +
+            "ptions selected, keeps or removes config/ignored/interop files.")]
         public string uninstallModeDescription {
             get {
                 return ((string)(this["uninstallModeDescription"]));
@@ -159,21 +160,21 @@ All the operations processed are always logged into the ReTLUpdater.log file in 
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Current Mode: Force Redownload / Reinstall")]
-        public string fredownloadMode {
+        [global::System.Configuration.DefaultSettingValueAttribute("Current Mode: Reinstall")]
+        public string reinstallMode {
             get {
-                return ((string)(this["fredownloadMode"]));
+                return ((string)(this["reinstallMode"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Removes the translation patch, inculding the generated interop assemblies and the" +
-            "n installs the latest version.\r\nKeeps config files and ignored files, as well as" +
-            " any user created files.")]
-        public string fredownloadModeDescription {
+        [global::System.Configuration.DefaultSettingValueAttribute("Removes the translation patch, and then installs the latest version.\r\nKeeps any u" +
+            "ser created files.\r\nDepending on the options selected, keeps or removes config/i" +
+            "gnored/interop files.")]
+        public string reinstallModeDescription {
             get {
-                return ((string)(this["fredownloadModeDescription"]));
+                return ((string)(this["reinstallModeDescription"]));
             }
         }
         
@@ -188,8 +189,9 @@ All the operations processed are always logged into the ReTLUpdater.log file in 
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Updates the current translation patch installation by adding/removing/renaming fi" +
-            "les compared to the current version.\r\nKeeps config files.")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Updates the current translation patch installation by removing the the current ve" +
+            "rsion and installing the latest.\r\nKeeps user files, as well as config/ignored/in" +
+            "terop files.")]
         public string updateModeDescription {
             get {
                 return ((string)(this["updateModeDescription"]));
@@ -211,60 +213,6 @@ All the operations processed are always logged into the ReTLUpdater.log file in 
         public string disabledModeDescription {
             get {
                 return ((string)(this["disabledModeDescription"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Removes config files.")]
-        public string deleteConfigText {
-            get {
-                return ((string)(this["deleteConfigText"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Keeps config files.")]
-        public string keepConfigText {
-            get {
-                return ((string)(this["keepConfigText"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Removes ignored files.")]
-        public string deleteIgnoredText {
-            get {
-                return ((string)(this["deleteIgnoredText"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Keeps ignored files.")]
-        public string keepIgnoredText {
-            get {
-                return ((string)(this["keepIgnoredText"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Deletes interop assemblies.")]
-        public string deleteInteropsText {
-            get {
-                return ((string)(this["deleteInteropsText"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Keeps interop assemblies.")]
-        public string keepInteropsText {
-            get {
-                return ((string)(this["keepInteropsText"]));
             }
         }
     }
