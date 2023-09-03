@@ -58,4 +58,9 @@ The two main differences however remain:
 ## Possible future features
 - User configurable options (set game path manually, set log file path, add files to the ignored files, etc..)
 - Verify option to check the files of the current installation without actual modifications
-- Command line arguments and an autoupdater pre-load plugin for BepInEx 
+- Command line arguments and an autoupdater pre-load plugin for BepInEx
+
+## Disclaimer
+Use at your own risk.  
+Although the application has been thoroughly tested, bugs, errors or undesired operation may happen.  
+The author takes no responsibility for any eventual damage, data loss or any other negative effect cause by the above listed occurences or any misuse of the application.
