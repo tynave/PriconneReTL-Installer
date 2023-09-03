@@ -59,8 +59,8 @@ namespace InstallerFunctions
                     {
                         if (content.productId == "priconner")
                         {
-                            // priconnePath = content.detail.path;
-                            priconnePath = "C:\\Test"; // -- set fixed path for testing purposes
+                            priconnePath = content.detail.path;
+                            // priconnePath = "C:\\Test"; // -- set fixed path for testing purposes
                             Log?.Invoke("Found Princess Connect Re:Dive in " + priconnePath, "info", false);
                             return (priconnePath, priconnePathValid = true);
                         }
@@ -83,7 +83,6 @@ namespace InstallerFunctions
                 return (priconnePath = "ERROR!", priconnePathValid = false);
             }
         }
-        //public (string localVersion, bool localVersionValid ) GetLocalVersion(string priconnePath, bool priconnePathValid)
         public (string localVersion, bool localVersionValid) GetLocalVersion()
         {
             try
@@ -140,24 +139,16 @@ namespace InstallerFunctions
             }
         }
 
-        public async Task GetTLMod(/*string tempFile*/)
+        public async Task DLandInstallPatchFiles()
         {
             if (removeSuccess == false)
             {
-                downloadSuccess = false;
                 return;
             }
 
             try
             {
-                /*outputTextBox.Invoke((Action)(() =>
-                {
-                    logger.Log("Downloading compressed patch files...", "info", true);
-                }));*/
                 Log?.Invoke("Downloading compressed patch files...", "info", true);
-
-                // progressBar.Minimum = 0;
-                // progressBar.Maximum = 100;
 
                 using (HttpClient client = new HttpClient())
                 {
@@ -187,6 +178,9 @@ namespace InstallerFunctions
                 }
 
                 Log?.Invoke("Download completed.", "info", true);
+
+                await ExtractAllFiles();
+
                 downloadSuccess = true;
             }
             catch (Exception ex)
@@ -196,24 +190,18 @@ namespace InstallerFunctions
             }
         }
 
-        //public async Task ExtractAllFiles(string tempFile, string priconnePath)
-        public async Task ExtractAllFiles(/*string tempFile*/)
+        public async Task ExtractAllFiles()
 
         {
-            if (!downloadSuccess) return;
 
             try
             {
-                //await Task.Run(() =>
-                //{
                 int counter = 0;
                 using (var zip = ZipFile.OpenRead(tempFile))
                     {
                        Log?.Invoke("Extracting files to game folder...", "add", true);
 
                     // Keep config files if Force Redownload is selected or config files already present
-                    // string[] ignoreFiles = SetIgnoreFiles(addconfig: forceRedownloadCheckBox.Checked || IsConfigPresent());
-                    // string[] ignoreFiles = helper.SetIgnoreFiles(priconnePath, addconfig: forceRedownloadCheckBox.Checked || helper.IsConfigPresent(priconnePath));
                     string[] ignoreFiles = helper.SetIgnoreFiles(priconnePath, addconfig: helper.IsConfigPresent(priconnePath));
                     foreach (var entry in zip.Entries)
                         {
@@ -237,7 +225,6 @@ namespace InstallerFunctions
 
                     File.Delete(tempFile);
 
-                //});
             }
             catch (Exception ex)
             {
@@ -259,7 +246,6 @@ namespace InstallerFunctions
             }
             catch (Exception ex)
             {
-                // logger.Error("Error extracting file: " + ex.Message);
                 ErrorLog?.Invoke("Error extracting file: " + ex.Message);
             }
         }
@@ -308,7 +294,6 @@ namespace InstallerFunctions
             }
         }
 
-        // public async Task RemovePatchFiles(string priconnePath, string localVersion, bool removeConfig, bool removeIgnored, bool removeInterops)
         public async Task RemovePatchFiles(bool removeConfig, bool removeIgnored, bool removeInterops)
 
         {
@@ -317,10 +302,6 @@ namespace InstallerFunctions
                 try
                 {
                     removeProgress = true;
-                    /*string[] configFiles = new string[Settings.Default.configFiles.Count];
-                    Settings.Default.configFiles.CopyTo(configFiles, 0);
-                    string[] ignoreFiles = new string[Settings.Default.ignoreFiles.Count];
-                    Settings.Default.ignoreFiles.CopyTo(ignoreFiles, 0);*/
 
                 string[] currentFiles = ProcessTree(priconnePath, localVersion).GetAwaiter().GetResult();
                     
@@ -329,9 +310,6 @@ namespace InstallerFunctions
                         removeSuccess = false;
                         throw new Exception("Failed to get list of files to remove! Cannot continue.");
                     }
-
-                    // if (removeConfig) currentFiles = currentFiles.Concat(configFiles).ToArray();
-                    // if (removeIgnored) currentFiles = currentFiles.Concat(ignoreFiles).ToArray();
 
                     Log?.Invoke("Removing patch files..." , "remove", true);
 
@@ -346,7 +324,6 @@ namespace InstallerFunctions
                         if (File.Exists(filePath))
                         {
                             File.Delete(filePath);
-                            // Console.WriteLine($"File deleted: {file}");
                             Log?.Invoke($"Removed file: {file}", "remove", false);
 
                             DeleteEmptyDirectories(directory);
@@ -369,7 +346,7 @@ namespace InstallerFunctions
                 }
                 catch (Exception ex)
                 {
-                    ErrorLog?.Invoke("Error updating files: " + ex.Message);
+                    ErrorLog?.Invoke("Error removing files: " + ex.Message);
                     removeSuccess = false;
                     removeProgress = false;
 
@@ -382,7 +359,6 @@ namespace InstallerFunctions
             if (!Directory.EnumerateFileSystemEntries(directoryPath).Any())
             {
                 Directory.Delete(directoryPath);
-                // Console.WriteLine($"Directory deleted: {directoryPath}");
                 Log?.Invoke($"Removed directory: {directoryPath}", "remove", false);
 
                 string parentDirectory = Path.GetDirectoryName(directoryPath);
@@ -437,7 +413,7 @@ namespace InstallerFunctions
 
         }
 
-        public async void ProcessOperation(bool uninstall, bool reinstall, bool removeConfig, bool removeIgnored, bool removeInterops/*, string tempFile*/)
+        public async void ProcessOperation(bool uninstall, bool reinstall, bool removeConfig, bool removeIgnored, bool removeInterops)
         {
             int versioncompare = localVersion.CompareTo(latestVersion);
 
@@ -448,7 +424,7 @@ namespace InstallerFunctions
                 if (uninstall) // Uninstall
                 {
                     await RemovePatchFiles(removeConfig: removeConfig, removeIgnored: removeIgnored, removeInterops: removeInterops);
-                    Log?.Invoke("Uninstall Complete!", "success", true);
+                    if (!removeSuccess || !downloadSuccess) ErrorLog?.Invoke("Uninstall failed!"); else Log?.Invoke("Uninstall complete!", "success", true);
                     return;
                 }
 
@@ -456,9 +432,9 @@ namespace InstallerFunctions
                 {
                     Log?.Invoke("Reinstalling translation patch...", "info", true);
                     await RemovePatchFiles(removeConfig: removeConfig, removeIgnored: removeIgnored, removeInterops: removeInterops);
-                    await GetTLMod(/*tempFile*/);
-                    await ExtractAllFiles(/*tempFile*/);
-                    Log?.Invoke("Reinstall complete!", "success", true);
+                    await DLandInstallPatchFiles();
+
+                    if (!removeSuccess || !downloadSuccess) ErrorLog?.Invoke("Reinstall failed!"); else Log?.Invoke("Reinstall complete!", "success", true);
                     return;
                 }
 
@@ -468,15 +444,14 @@ namespace InstallerFunctions
                     return;
                 }
 
-                if (versioncompare < 0) // Installed version < Latest version
+                if (versioncompare < 0) // Installed version < Latest version --> Update
                 {
                     try
                     {
                         Log?.Invoke("Updating translation patch...", "info", true);
                         await RemovePatchFiles(removeConfig: removeConfig, removeIgnored: removeIgnored, removeInterops: removeInterops);
-                        await GetTLMod(/*tempFile*/);
-                        await ExtractAllFiles(/*tempFile*/);
-                        Log?.Invoke("Update complete!", "success", true);
+                        await DLandInstallPatchFiles();
+                        if (!removeSuccess || !downloadSuccess) ErrorLog?.Invoke("Update failed!"); else Log?.Invoke("Update complete!", "success", true);
                         return;
                     }
                     catch (Exception ex)
@@ -487,9 +462,8 @@ namespace InstallerFunctions
 
                 // nothing installed / invalid
                 Log?.Invoke("Downloading and installing translation patch...", "info", true);
-                await GetTLMod(/*tempFile*/);
-                await ExtractAllFiles(/*tempFile*/);
-                Log?.Invoke("Installation complete!", "success", true);
+                await DLandInstallPatchFiles();
+                if (!removeSuccess || !downloadSuccess) ErrorLog?.Invoke("Installation failed!"); else Log?.Invoke("Installation complete!", "success", true);
 
 
             }
@@ -504,7 +478,7 @@ namespace InstallerFunctions
             }
         }
 
-        public void HandleFormClosing(MainForm form, FormClosingEventArgs e/*, string tempFile*/)
+        public void HandleFormClosing(MainForm form, FormClosingEventArgs e)
         {
             try
             {

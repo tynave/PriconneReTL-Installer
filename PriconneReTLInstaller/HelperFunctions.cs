@@ -5,6 +5,7 @@ using System.Drawing.Text;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using PriconneReTLInstaller;
 using PriconneReTLInstaller.Properties;
 
 namespace HelperFunctions

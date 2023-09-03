@@ -32,7 +32,6 @@ namespace PriconneReTLInstaller
         private bool latestVersionValid;
         private string localVersion;
         private bool localVersionValid;
-        //private string tempFile;
         PrivateFontCollection priconnefont = new PrivateFontCollection();
         private bool mouseDown;
         private Point lastLocation;
