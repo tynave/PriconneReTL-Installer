@@ -352,9 +352,6 @@
     <None Include="Resources\q_bubble.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\bg2.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\logo3.png" />
   </ItemGroup>
   <ItemGroup>
@@ -365,6 +362,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\start_disabled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bg2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.6.8.0\build\Fody.targets" Condition="Exists('..\packages\Fody.6.8.0\build\Fody.targets')" />

@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.labelCurrentVersion = new System.Windows.Forms.Label();
-            this.labelGamePath = new System.Windows.Forms.Label();
-            this.labelLatestVersion = new System.Windows.Forms.Label();
+            this.localVersionLabel = new System.Windows.Forms.Label();
+            this.gamePathLabel = new System.Windows.Forms.Label();
+            this.latestVersionLabel = new System.Windows.Forms.Label();
             this.reinstallCheckBox = new System.Windows.Forms.CheckBox();
             this.uninstallCheckBox = new System.Windows.Forms.CheckBox();
             this.startButton = new System.Windows.Forms.Button();
@@ -54,8 +54,8 @@
             this.aboutButton = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.priconnePathLinkLabel = new System.Windows.Forms.LinkLabel();
-            this.latestReleaseLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.gamePathLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.latestVersionLinkLabel = new System.Windows.Forms.LinkLabel();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.option1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.option2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -71,38 +71,38 @@
             this.optionsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
-            // labelCurrentVersion
+            // localVersionLabel
             // 
-            this.labelCurrentVersion.AutoSize = true;
-            this.labelCurrentVersion.BackColor = System.Drawing.Color.Transparent;
-            this.labelCurrentVersion.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelCurrentVersion.Location = new System.Drawing.Point(12, 112);
-            this.labelCurrentVersion.Name = "labelCurrentVersion";
-            this.labelCurrentVersion.Size = new System.Drawing.Size(209, 24);
-            this.labelCurrentVersion.TabIndex = 5;
-            this.labelCurrentVersion.Text = "Current (Local) Version:";
+            this.localVersionLabel.AutoSize = true;
+            this.localVersionLabel.BackColor = System.Drawing.Color.Transparent;
+            this.localVersionLabel.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.localVersionLabel.Location = new System.Drawing.Point(12, 112);
+            this.localVersionLabel.Name = "localVersionLabel";
+            this.localVersionLabel.Size = new System.Drawing.Size(209, 24);
+            this.localVersionLabel.TabIndex = 5;
+            this.localVersionLabel.Text = "Current (Local) Version:";
             // 
-            // labelGamePath
+            // gamePathLabel
             // 
-            this.labelGamePath.AutoSize = true;
-            this.labelGamePath.BackColor = System.Drawing.Color.Transparent;
-            this.labelGamePath.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelGamePath.Location = new System.Drawing.Point(13, 88);
-            this.labelGamePath.Name = "labelGamePath";
-            this.labelGamePath.Size = new System.Drawing.Size(107, 24);
-            this.labelGamePath.TabIndex = 6;
-            this.labelGamePath.Text = "Game Path:";
+            this.gamePathLabel.AutoSize = true;
+            this.gamePathLabel.BackColor = System.Drawing.Color.Transparent;
+            this.gamePathLabel.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.gamePathLabel.Location = new System.Drawing.Point(13, 88);
+            this.gamePathLabel.Name = "gamePathLabel";
+            this.gamePathLabel.Size = new System.Drawing.Size(107, 24);
+            this.gamePathLabel.TabIndex = 6;
+            this.gamePathLabel.Text = "Game Path:";
             // 
-            // labelLatestVersion
+            // latestVersionLabel
             // 
-            this.labelLatestVersion.AutoSize = true;
-            this.labelLatestVersion.BackColor = System.Drawing.Color.Transparent;
-            this.labelLatestVersion.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelLatestVersion.Location = new System.Drawing.Point(13, 136);
-            this.labelLatestVersion.Name = "labelLatestVersion";
-            this.labelLatestVersion.Size = new System.Drawing.Size(210, 24);
-            this.labelLatestVersion.TabIndex = 7;
-            this.labelLatestVersion.Text = "Latest Release Version: ";
+            this.latestVersionLabel.AutoSize = true;
+            this.latestVersionLabel.BackColor = System.Drawing.Color.Transparent;
+            this.latestVersionLabel.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.latestVersionLabel.Location = new System.Drawing.Point(13, 136);
+            this.latestVersionLabel.Name = "latestVersionLabel";
+            this.latestVersionLabel.Size = new System.Drawing.Size(210, 24);
+            this.latestVersionLabel.TabIndex = 7;
+            this.latestVersionLabel.Text = "Latest Release Version: ";
             // 
             // reinstallCheckBox
             // 
@@ -403,37 +403,37 @@
             this.pictureBox1.TabIndex = 21;
             this.pictureBox1.TabStop = false;
             // 
-            // priconnePathLinkLabel
+            // gamePathLinkLabel
             // 
-            this.priconnePathLinkLabel.AutoSize = true;
-            this.priconnePathLinkLabel.BackColor = System.Drawing.Color.Transparent;
-            this.priconnePathLinkLabel.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.priconnePathLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.priconnePathLinkLabel.LinkColor = System.Drawing.Color.Black;
-            this.priconnePathLinkLabel.Location = new System.Drawing.Point(117, 88);
-            this.priconnePathLinkLabel.Name = "priconnePathLinkLabel";
-            this.priconnePathLinkLabel.Size = new System.Drawing.Size(120, 24);
-            this.priconnePathLinkLabel.TabIndex = 22;
-            this.priconnePathLinkLabel.TabStop = true;
-            this.priconnePathLinkLabel.Text = "priconnepath";
-            this.priconnePathLinkLabel.VisitedLinkColor = System.Drawing.Color.Black;
-            this.priconnePathLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.priconnePathLinkLabel_LinkClicked);
+            this.gamePathLinkLabel.AutoSize = true;
+            this.gamePathLinkLabel.BackColor = System.Drawing.Color.Transparent;
+            this.gamePathLinkLabel.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.gamePathLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.gamePathLinkLabel.LinkColor = System.Drawing.Color.Black;
+            this.gamePathLinkLabel.Location = new System.Drawing.Point(117, 88);
+            this.gamePathLinkLabel.Name = "gamePathLinkLabel";
+            this.gamePathLinkLabel.Size = new System.Drawing.Size(120, 24);
+            this.gamePathLinkLabel.TabIndex = 22;
+            this.gamePathLinkLabel.TabStop = true;
+            this.gamePathLinkLabel.Text = "priconnepath";
+            this.gamePathLinkLabel.VisitedLinkColor = System.Drawing.Color.Black;
+            this.gamePathLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.priconnePathLinkLabel_LinkClicked);
             // 
-            // latestReleaseLinkLabel
+            // latestVersionLinkLabel
             // 
-            this.latestReleaseLinkLabel.AutoSize = true;
-            this.latestReleaseLinkLabel.BackColor = System.Drawing.Color.Transparent;
-            this.latestReleaseLinkLabel.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.latestReleaseLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.latestReleaseLinkLabel.LinkColor = System.Drawing.Color.Black;
-            this.latestReleaseLinkLabel.Location = new System.Drawing.Point(216, 136);
-            this.latestReleaseLinkLabel.Name = "latestReleaseLinkLabel";
-            this.latestReleaseLinkLabel.Size = new System.Drawing.Size(87, 24);
-            this.latestReleaseLinkLabel.TabIndex = 23;
-            this.latestReleaseLinkLabel.TabStop = true;
-            this.latestReleaseLinkLabel.Text = "<version>";
-            this.latestReleaseLinkLabel.VisitedLinkColor = System.Drawing.Color.Black;
-            this.latestReleaseLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.latestReleaseLinkLabel_LinkClicked);
+            this.latestVersionLinkLabel.AutoSize = true;
+            this.latestVersionLinkLabel.BackColor = System.Drawing.Color.Transparent;
+            this.latestVersionLinkLabel.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.latestVersionLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.latestVersionLinkLabel.LinkColor = System.Drawing.Color.Black;
+            this.latestVersionLinkLabel.Location = new System.Drawing.Point(216, 136);
+            this.latestVersionLinkLabel.Name = "latestVersionLinkLabel";
+            this.latestVersionLinkLabel.Size = new System.Drawing.Size(87, 24);
+            this.latestVersionLinkLabel.TabIndex = 23;
+            this.latestVersionLinkLabel.TabStop = true;
+            this.latestVersionLinkLabel.Text = "<version>";
+            this.latestVersionLinkLabel.VisitedLinkColor = System.Drawing.Color.Black;
+            this.latestVersionLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.latestReleaseLinkLabel_LinkClicked);
             // 
             // contextMenuStrip1
             // 
@@ -508,7 +508,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.bg2;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(718, 748);
             this.ControlBox = false;
             this.Controls.Add(this.optionsPanel);
@@ -517,17 +517,17 @@
             this.Controls.Add(this.showLogCheckBox);
             this.Controls.Add(this.aboutButton);
             this.Controls.Add(this.minimizeButton);
-            this.Controls.Add(this.latestReleaseLinkLabel);
-            this.Controls.Add(this.priconnePathLinkLabel);
+            this.Controls.Add(this.latestVersionLinkLabel);
+            this.Controls.Add(this.gamePathLinkLabel);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.newPictureBox);
             this.Controls.Add(this.operationsPanel);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.outputTextBox);
-            this.Controls.Add(this.labelLatestVersion);
-            this.Controls.Add(this.labelGamePath);
-            this.Controls.Add(this.labelCurrentVersion);
+            this.Controls.Add(this.latestVersionLabel);
+            this.Controls.Add(this.gamePathLabel);
+            this.Controls.Add(this.localVersionLabel);
             this.Controls.Add(this.startButton);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -554,9 +554,9 @@
 
         private System.Windows.Forms.Button startButton;
         private System.Windows.Forms.CheckBox reinstallCheckBox;
-        private System.Windows.Forms.Label labelCurrentVersion;
-        private System.Windows.Forms.Label labelGamePath;
-        private System.Windows.Forms.Label labelLatestVersion;
+        private System.Windows.Forms.Label localVersionLabel;
+        private System.Windows.Forms.Label gamePathLabel;
+        private System.Windows.Forms.Label latestVersionLabel;
         private System.Windows.Forms.CheckBox uninstallCheckBox;
         private System.Windows.Forms.RichTextBox outputTextBox;
         private System.Windows.Forms.StatusStrip statusStrip1;
@@ -572,8 +572,8 @@
         private System.Windows.Forms.ToolTip toolTip;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.LinkLabel priconnePathLinkLabel;
-        private System.Windows.Forms.LinkLabel latestReleaseLinkLabel;
+        private System.Windows.Forms.LinkLabel gamePathLinkLabel;
+        private System.Windows.Forms.LinkLabel latestVersionLinkLabel;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem option1ToolStripMenuItem;

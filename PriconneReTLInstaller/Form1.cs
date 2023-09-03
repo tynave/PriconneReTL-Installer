@@ -101,10 +101,10 @@ namespace PriconneReTLInstaller
             Height = 480;
 
             (priconnePath, priconnePathValid) = installer.GetGamePath();
-            priconnePathLinkLabel.Text = priconnePath;
+            gamePathLinkLabel.Text = priconnePath;
 
             (latestVersion, latestVersionValid) = installer.GetLatestRelease();
-            latestReleaseLinkLabel.Text = latestVersionValid ? latestVersion : "ERROR!";
+            latestVersionLinkLabel.Text = latestVersionValid ? latestVersion : "ERROR!";
 
             UpdateUI();
 
@@ -113,7 +113,7 @@ namespace PriconneReTLInstaller
         {
             (localVersion, localVersionValid) = installer.GetLocalVersion();
 
-            labelCurrentVersion.Text = "Current (Local) Version: " + localVersion;
+            localVersionLabel.Text = "Current (Local) Version: " + localVersion;
 
             newPictureBox.Visible = localVersion == latestVersion ? false : true;
 
