@@ -16,7 +16,6 @@ namespace HelperFunctions
         public event Action<string, string, bool> Log;
         public event Action<string> ErrorLog;
 
-        //PrivateFontCollection priconnefont = new PrivateFontCollection();
         public void PriconneFont(PrivateFontCollection priconnefont)
         {
             //Select  font from the resources.
