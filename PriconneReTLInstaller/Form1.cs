@@ -340,7 +340,7 @@ namespace PriconneReTLInstaller
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            installer.HandleFormClosing(this, e/*, tempFile*/);
+            installer.HandleFormClosing(this, e);
         }
 
         private void exitButton_Click(object sender, EventArgs e)
