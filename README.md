@@ -44,12 +44,12 @@ Please note, that even a full uninstall does NOT remove any files created by the
 By checking / unchecking the *Show Logs* option, you can view/hide a detailed progress/output log.  
 All the operations processed are always logged into the *ReTLInstaller.log* file in the application's folder, regardless of this option.
 
-_**Update and Reinstall do the same thing, why having both of them then..?**_
-When starting to develop the application, Update and Reinstall operations followed different logics.
-However, during the development, it turned out, that the github API has certain limitations, which would have made the Update logic have issues if the user skips a few versions of the translation patch and wants to do a bigger update.
-So in order to avoid this, the Update logic needed to be changed to the approach that actually matches that of the Reinstall process.
+_**Update and Reinstall do the same thing, why having both of them then..?**_  
+When starting to develop the application, Update and Reinstall operations followed different logics.  
+However, during the development, it turned out, that the github API has certain limitations, which would have made the Update logic have issues if the user skips a few versions of the translation patch and wants to do a bigger update.  
+So in order to avoid this, the Update logic needed to be changed to the approach that actually matches that of the Reinstall process.  
 The two main differences however remain:
- - Update never touches the user important files (config/ignored/interops/user created files) while for Reinstall, you can select to have some of these removed / replaced by defulat ones present in the translation patch.
+ - Update never touches the user important files (config/ignored/interops/user created files) while for Reinstall, you can select to have some of these removed / replaced by the ones present in the translation patch files.
  - Update cannot be performed when you already have the latest translation patch release installed, while Reinstall, as the name implies allows you to even reinstall the latest version.
 
 ## Requirements
