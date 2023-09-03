@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PriconneTLUpdater")]
+[assembly: AssemblyTitle("PriconneReTLInstaller")]
 [assembly: AssemblyDescription("An installer GUI for the PriconneRe-TL english patch")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("PriconneTLUpdater")]
+[assembly: AssemblyProduct("PriconneReTLInstaller")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
