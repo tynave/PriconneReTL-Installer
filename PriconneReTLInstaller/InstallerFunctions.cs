@@ -181,7 +181,6 @@ namespace InstallerFunctions
 
                 await ExtractAllFiles();
 
-                downloadSuccess = true;
             }
             catch (Exception ex)
             {
@@ -222,13 +221,14 @@ namespace InstallerFunctions
                             }
                         }
                     }
-
-                    File.Delete(tempFile);
+                downloadSuccess = true;
+                File.Delete(tempFile);
 
             }
             catch (Exception ex)
             {
                 ErrorLog?.Invoke("Error extracting all files: " + ex.Message);
+                downloadSuccess = false;
             }
         }
 
