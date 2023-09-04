@@ -18,7 +18,9 @@ Based on [PriconneTL_Updater](https://github.com/touanu/PriconeTL_Updater) by [t
   - Configuration files:
       - AutoTranslatorConfig.ini
       - BepInEx.cfg
-  - User created files in the patch folders
+  - User **created** files in the patch folders  
+(Please note that due to the logic of the operations, any **user edited** files that originally are part of the translation patch **DO NOT** persist.
+    So if you would like to make personal alterations of the patch files and want to keep those across the versions, it is advised to have those on seperate files.)
 
 ## Installation
 The application is portable. Just copy it where you would like, and run it.  
