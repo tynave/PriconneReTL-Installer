@@ -20,9 +20,17 @@ Based on [PriconneTL_Updater](https://github.com/touanu/PriconeTL_Updater) by [t
       - BepInEx.cfg
   - User created files in the patch folders
 
-## Usage
+## Installation
+The application is portable. Just copy it where you would like, and run it.  
+All the operations processed are always logged into the *ReTLInstaller.log* file, which resides in the application's folder.  
+If the file is not present, it gets created. If the file is already present, it's content is purges/reset on every run.
+
+## Usage / Operations  
+
+### The application is capable of the following operations (regarding the translation patch):  
+
 ### First / Fresh Install:
-If you have never used the patch before, or you don't have it currently installed, just press the *Start!* button, and the application will download and install the translation patch for you.  
+If you have never used the translation patch before, or you don't have it currently installed, just press the *Start!* button, and the application will download and install it for you.  
 If you have files left over from a previous installation, the application will keep those.
 
 ### Update:
@@ -41,8 +49,7 @@ Depending on any other options selected, it will either keep or delete config fi
 For a full uninstall, select all options.  
 Please note, that even a full uninstall does NOT remove any files created by the user in the patch directories.
 
-By checking / unchecking the *Show Logs* option, you can view/hide a detailed progress/output log.  
-All the operations processed are always logged into the *ReTLInstaller.log* file in the application's folder, regardless of this option.
+By checking / unchecking the *Show Logs* option, you can view/hide a detailed progress/output log. Please note that logging to file always happens regardless of this option.
 
 _**Update and Reinstall do the same thing, why having both of them then..?**_  
 When starting to develop the application, Update and Reinstall operations followed different logics.  
