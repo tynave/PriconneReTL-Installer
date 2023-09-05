@@ -1,15 +1,25 @@
-﻿using HelperFunctions;
-using InstallerFunctions;
-using LoggerFunctions;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using PriconneReTLInstaller.Properties;
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
+using System.IO;
+using System.IO.Compression;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using InstallerFunctions;
+using HelperFunctions;
+using LoggerFunctions;
+using System.Reflection;
 
 namespace PriconneReTLInstaller
 {
@@ -29,12 +39,10 @@ namespace PriconneReTLInstaller
         Helper helper = new Helper();
         Installer installer = new Installer();
 
-
-
         public MainForm()
         {
             InitializeComponent();
-
+            
             installer.Log += OnLog;
             installer.ErrorLog += OnErrorLog;
             helper.Log += OnLog;
@@ -85,9 +93,9 @@ namespace PriconneReTLInstaller
         }
 
         // Functions
-        private void InitializeUI()
+        private void InitializeUI ()
         {
-            Icon = Resources.jewel;
+            Icon = Resources.jewel; 
             helper.PriconneFont(priconnefont);
             helper.SetFontForAllControls(priconnefont, Controls);
             Height = 480;

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using PriconneReTLInstaller;
@@ -16,9 +15,6 @@ namespace HelperFunctions
     {
         public event Action<string, string, bool> Log;
         public event Action<string> ErrorLog;
-
-        [DllImport("gdi32.dll")]
-        private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont, IntPtr pdv, [In] ref uint pcFonts);
 
         public void PriconneFont(PrivateFontCollection priconnefont)
         {
@@ -34,16 +30,10 @@ namespace HelperFunctions
             // copy the bytes to the unsafe memory block
             Marshal.Copy(fontdata, 0, data, fontLength);
 
-            uint cFonts = 0;
-            AddFontMemResourceEx(data, (uint)fontdata.Length, IntPtr.Zero, ref cFonts);
-
             // pass the font to the font collection
             priconnefont.AddMemoryFont(data, fontLength);
 
-            Marshal.FreeCoTaskMem(data);
-
         }
-
         public void SetFontForAllControls(PrivateFontCollection priconnefont, Control.ControlCollection controls)
         {
             foreach (Control control in controls)
@@ -66,7 +56,6 @@ namespace HelperFunctions
                 }
             }
         }
-
         public void SetFontForToolStripItems(PrivateFontCollection priconnefont, ToolStripItemCollection items)
         {
             foreach (ToolStripItem item in items)
