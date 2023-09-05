@@ -39,10 +39,12 @@ namespace PriconneReTLInstaller
         Helper helper = new Helper();
         Installer installer = new Installer();
 
+
+
         public MainForm()
         {
             InitializeComponent();
-            
+
             installer.Log += OnLog;
             installer.ErrorLog += OnErrorLog;
             helper.Log += OnLog;
