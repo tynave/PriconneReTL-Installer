@@ -1,23 +1,18 @@
 ﻿using HelperFunctions;
-using LoggerFunctions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PriconneReTLInstaller;
 using PriconneReTLInstaller.Properties;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
-using System.Threading;
 using System.Windows.Forms;
-using System.Reflection;
-using System.Diagnostics;
-using System.Collections.Specialized;
 
 namespace InstallerFunctions
 {
@@ -66,9 +61,9 @@ namespace InstallerFunctions
                         }
                     }
                 }
-                    ErrorLog?.Invoke("Cannot find the game path! Did you install Princess Connect Re:Dive from DMMGamePlayer?");
-                    DisableStart?.Invoke(); 
-                    return (priconnePath = "Not found", priconnePathValid = false);
+                ErrorLog?.Invoke("Cannot find the game path! Did you install Princess Connect Re:Dive from DMMGamePlayer?");
+                DisableStart?.Invoke();
+                return (priconnePath = "Not found", priconnePathValid = false);
             }
             catch (FileNotFoundException)
             {
@@ -197,30 +192,30 @@ namespace InstallerFunctions
             {
                 int counter = 0;
                 using (var zip = ZipFile.OpenRead(tempFile))
-                    {
-                       Log?.Invoke("Extracting files to game folder...", "add", true);
+                {
+                    Log?.Invoke("Extracting files to game folder...", "add", true);
 
                     // Keep config files if Force Redownload is selected or config files already present
                     string[] ignoreFiles = helper.SetIgnoreFiles(priconnePath, addconfig: helper.IsConfigPresent(priconnePath));
                     foreach (var entry in zip.Entries)
+                    {
+                        counter++;
+                        string fileName = entry.FullName;
+
+                        Log?.Invoke("Extracting: " + entry.FullName, "add", false);
+                        double percentage = ((double)counter / zip.Entries.Count) * 100;
+                        DownloadProgress?.Invoke(counter, zip.Entries.Count);
+
+                        if (!ignoreFiles.Contains(fileName))
                         {
-                            counter++;
-                            string fileName = entry.FullName;
+                            string destinationPath = Path.Combine(priconnePath, Path.GetDirectoryName(fileName));
+                            if (!Directory.Exists(destinationPath))
+                                Directory.CreateDirectory(destinationPath);
 
-                            Log?.Invoke("Extracting: " + entry.FullName, "add", false);
-                            double percentage = ((double)counter / zip.Entries.Count) * 100;
-                            DownloadProgress?.Invoke(counter, zip.Entries.Count);
-
-                            if (!ignoreFiles.Contains(fileName))
-                            {
-                                string destinationPath = Path.Combine(priconnePath, Path.GetDirectoryName(fileName));
-                                if (!Directory.Exists(destinationPath))
-                                    Directory.CreateDirectory(destinationPath);
-
-                                await Task.Run(() => ExtractZipEntry(entry, Path.Combine(priconnePath, fileName)));
-                            }
+                            await Task.Run(() => ExtractZipEntry(entry, Path.Combine(priconnePath, fileName)));
                         }
                     }
+                }
                 downloadSuccess = true;
                 File.Delete(tempFile);
 
@@ -303,15 +298,15 @@ namespace InstallerFunctions
                 {
                     removeProgress = true;
 
-                string[] currentFiles = ProcessTree(priconnePath, localVersion).GetAwaiter().GetResult();
-                    
+                    string[] currentFiles = ProcessTree(priconnePath, localVersion).GetAwaiter().GetResult();
+
                     if (currentFiles == null)
                     {
                         removeSuccess = false;
                         throw new Exception("Failed to get list of files to remove! Cannot continue.");
                     }
 
-                    Log?.Invoke("Removing patch files..." , "remove", true);
+                    Log?.Invoke("Removing patch files...", "remove", true);
 
                     int counter = 0;
 
@@ -329,8 +324,8 @@ namespace InstallerFunctions
                             DeleteEmptyDirectories(directory);
 
                         }
-                            double percentage = ((double)counter / currentFiles.Length) * 100;
-                            DownloadProgress?.Invoke(counter, currentFiles.Length);
+                        double percentage = ((double)counter / currentFiles.Length) * 100;
+                        DownloadProgress?.Invoke(counter, currentFiles.Length);
 
                     }
 
