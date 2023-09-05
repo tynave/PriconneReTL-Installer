@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using System;
 
-namespace LoggerFunctions 
+namespace LoggerFunctions
 {
     public class Logger
     {
