@@ -75,10 +75,10 @@
             // 
             this.localVersionLabel.AutoSize = true;
             this.localVersionLabel.BackColor = System.Drawing.Color.Transparent;
-            this.localVersionLabel.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.localVersionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.localVersionLabel.Location = new System.Drawing.Point(12, 112);
             this.localVersionLabel.Name = "localVersionLabel";
-            this.localVersionLabel.Size = new System.Drawing.Size(209, 24);
+            this.localVersionLabel.Size = new System.Drawing.Size(189, 18);
             this.localVersionLabel.TabIndex = 5;
             this.localVersionLabel.Text = "Current (Local) Version:";
             // 
@@ -86,10 +86,10 @@
             // 
             this.gamePathLabel.AutoSize = true;
             this.gamePathLabel.BackColor = System.Drawing.Color.Transparent;
-            this.gamePathLabel.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.gamePathLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.gamePathLabel.Location = new System.Drawing.Point(13, 88);
             this.gamePathLabel.Name = "gamePathLabel";
-            this.gamePathLabel.Size = new System.Drawing.Size(107, 24);
+            this.gamePathLabel.Size = new System.Drawing.Size(97, 18);
             this.gamePathLabel.TabIndex = 6;
             this.gamePathLabel.Text = "Game Path:";
             // 
@@ -97,10 +97,10 @@
             // 
             this.latestVersionLabel.AutoSize = true;
             this.latestVersionLabel.BackColor = System.Drawing.Color.Transparent;
-            this.latestVersionLabel.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.latestVersionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.latestVersionLabel.Location = new System.Drawing.Point(13, 136);
             this.latestVersionLabel.Name = "latestVersionLabel";
-            this.latestVersionLabel.Size = new System.Drawing.Size(210, 24);
+            this.latestVersionLabel.Size = new System.Drawing.Size(192, 18);
             this.latestVersionLabel.TabIndex = 7;
             this.latestVersionLabel.Text = "Latest Release Version: ";
             // 
@@ -113,7 +113,7 @@
             this.reinstallCheckBox.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.reinstallCheckBox.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.reinstallCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.reinstallCheckBox.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.reinstallCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.reinstallCheckBox.Image = global::PriconneReTLInstaller.Properties.Resources.check_empty_24x24_2;
             this.reinstallCheckBox.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.reinstallCheckBox.Location = new System.Drawing.Point(6, 16);
@@ -135,7 +135,7 @@
             this.uninstallCheckBox.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.uninstallCheckBox.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.uninstallCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.uninstallCheckBox.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.uninstallCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.uninstallCheckBox.Image = global::PriconneReTLInstaller.Properties.Resources.check_empty_24x24_2;
             this.uninstallCheckBox.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.uninstallCheckBox.Location = new System.Drawing.Point(6, 49);
@@ -165,7 +165,7 @@
             // 
             // outputTextBox
             // 
-            this.outputTextBox.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.outputTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.outputTextBox.HideSelection = false;
             this.outputTextBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.outputTextBox.Location = new System.Drawing.Point(15, 461);
@@ -191,15 +191,15 @@
             // 
             // toolStripStatusLabel1
             // 
-            this.toolStripStatusLabel1.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripStatusLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(62, 24);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(55, 24);
             this.toolStripStatusLabel1.Text = "Ready";
             // 
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(539, 24);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(546, 24);
             this.toolStripStatusLabel2.Spring = true;
             // 
             // toolStripStatusLabel3
@@ -233,9 +233,10 @@
             this.operationsLabel.BackColor = System.Drawing.Color.Transparent;
             this.operationsLabel.Location = new System.Drawing.Point(3, 0);
             this.operationsLabel.Name = "operationsLabel";
-            this.operationsLabel.Size = new System.Drawing.Size(75, 17);
+            this.operationsLabel.Size = new System.Drawing.Size(62, 17);
             this.operationsLabel.TabIndex = 17;
             this.operationsLabel.Text = "Operations";
+            this.operationsLabel.UseCompatibleTextRendering = true;
             // 
             // removeInteropsCheckBox
             // 
@@ -248,12 +249,12 @@
             this.removeInteropsCheckBox.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.removeInteropsCheckBox.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.removeInteropsCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.removeInteropsCheckBox.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.removeInteropsCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.removeInteropsCheckBox.Image = global::PriconneReTLInstaller.Properties.Resources.check_empty_24x24_2;
             this.removeInteropsCheckBox.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.removeInteropsCheckBox.Location = new System.Drawing.Point(6, 84);
             this.removeInteropsCheckBox.Name = "removeInteropsCheckBox";
-            this.removeInteropsCheckBox.Size = new System.Drawing.Size(188, 34);
+            this.removeInteropsCheckBox.Size = new System.Drawing.Size(175, 30);
             this.removeInteropsCheckBox.TabIndex = 29;
             this.removeInteropsCheckBox.Text = " Remove Interops";
             this.removeInteropsCheckBox.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -270,7 +271,7 @@
             this.removeIgnoredCheckBox.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.removeIgnoredCheckBox.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.removeIgnoredCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.removeIgnoredCheckBox.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.removeIgnoredCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.removeIgnoredCheckBox.Image = global::PriconneReTLInstaller.Properties.Resources.check_empty_24x24_2;
             this.removeIgnoredCheckBox.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.removeIgnoredCheckBox.Location = new System.Drawing.Point(6, 52);
@@ -291,7 +292,7 @@
             this.removeConfigCheckBox.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.removeConfigCheckBox.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.removeConfigCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.removeConfigCheckBox.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.removeConfigCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.removeConfigCheckBox.Image = global::PriconneReTLInstaller.Properties.Resources.check_empty_24x24_2;
             this.removeConfigCheckBox.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.removeConfigCheckBox.Location = new System.Drawing.Point(6, 20);
@@ -311,7 +312,7 @@
             this.showLogCheckBox.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.showLogCheckBox.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.showLogCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.showLogCheckBox.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.showLogCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.showLogCheckBox.Image = global::PriconneReTLInstaller.Properties.Resources.check_empty_24x24_2;
             this.showLogCheckBox.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.showLogCheckBox.Location = new System.Drawing.Point(24, 419);
@@ -407,12 +408,12 @@
             // 
             this.gamePathLinkLabel.AutoSize = true;
             this.gamePathLinkLabel.BackColor = System.Drawing.Color.Transparent;
-            this.gamePathLinkLabel.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.gamePathLinkLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.gamePathLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.gamePathLinkLabel.LinkColor = System.Drawing.Color.Black;
             this.gamePathLinkLabel.Location = new System.Drawing.Point(117, 88);
             this.gamePathLinkLabel.Name = "gamePathLinkLabel";
-            this.gamePathLinkLabel.Size = new System.Drawing.Size(120, 24);
+            this.gamePathLinkLabel.Size = new System.Drawing.Size(105, 18);
             this.gamePathLinkLabel.TabIndex = 22;
             this.gamePathLinkLabel.TabStop = true;
             this.gamePathLinkLabel.Text = "priconnepath";
@@ -423,12 +424,12 @@
             // 
             this.latestVersionLinkLabel.AutoSize = true;
             this.latestVersionLinkLabel.BackColor = System.Drawing.Color.Transparent;
-            this.latestVersionLinkLabel.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.latestVersionLinkLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.latestVersionLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.latestVersionLinkLabel.LinkColor = System.Drawing.Color.Black;
             this.latestVersionLinkLabel.Location = new System.Drawing.Point(216, 136);
             this.latestVersionLinkLabel.Name = "latestVersionLinkLabel";
-            this.latestVersionLinkLabel.Size = new System.Drawing.Size(87, 24);
+            this.latestVersionLinkLabel.Size = new System.Drawing.Size(83, 18);
             this.latestVersionLinkLabel.TabIndex = 23;
             this.latestVersionLinkLabel.TabStop = true;
             this.latestVersionLinkLabel.Text = "<version>";
@@ -461,10 +462,10 @@
             // 
             this.modeLabel.AutoSize = true;
             this.modeLabel.BackColor = System.Drawing.Color.Transparent;
-            this.modeLabel.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.modeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.modeLabel.Location = new System.Drawing.Point(330, 173);
             this.modeLabel.Name = "modeLabel";
-            this.modeLabel.Size = new System.Drawing.Size(172, 24);
+            this.modeLabel.Size = new System.Drawing.Size(153, 18);
             this.modeLabel.TabIndex = 27;
             this.modeLabel.Text = "Current Operation: ";
             this.modeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -472,7 +473,7 @@
             // modeDescritpionLabel
             // 
             this.modeDescritpionLabel.BackColor = System.Drawing.Color.Transparent;
-            this.modeDescritpionLabel.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.modeDescritpionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.modeDescritpionLabel.Location = new System.Drawing.Point(330, 200);
             this.modeDescritpionLabel.Name = "modeDescritpionLabel";
             this.modeDescritpionLabel.Size = new System.Drawing.Size(368, 149);
@@ -499,7 +500,7 @@
             this.optionsLabel.BackColor = System.Drawing.Color.Transparent;
             this.optionsLabel.Location = new System.Drawing.Point(3, 0);
             this.optionsLabel.Name = "optionsLabel";
-            this.optionsLabel.Size = new System.Drawing.Size(56, 17);
+            this.optionsLabel.Size = new System.Drawing.Size(50, 13);
             this.optionsLabel.TabIndex = 31;
             this.optionsLabel.Text = "Options";
             // 
@@ -530,7 +531,7 @@
             this.Controls.Add(this.localVersionLabel);
             this.Controls.Add(this.startButton);
             this.DoubleBuffered = true;
-            this.Font = new System.Drawing.Font("nintendoP_Humming-E_002pr", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "MainForm";
