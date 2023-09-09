@@ -83,34 +83,6 @@ namespace PriconneReTLInstaller.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(@"How to use:
-
-First / Fresh Install:
-If you have never used the patch before, or you don't have it currently installed, just press the Start button, and the application will donwload and install the translation patch for you.
-If you have config files left over from a previous installation, the application will keep those.
-
-Update:
-If you already have a version of the translation patch applied, just press the Start button, and the application will update it by comparing the latest with the currently applied version, and adding/removing/renaming the necessery files.
-Important configuration files are not touched during this process.
-
-Force Redownload / Reinstall:
-If you check the ""Force Redownload"" option befor pressing the Start button, the application will delete the currently installed translation patch version, and donwload and install the latest release. It's like and Uninstall + Install
-Force Redownload keeps the important config files untouched.
-
-Uninstall:
-If you check the ""Uninstall"" option before pressing the Start button, the application will remove the currently installed translation patch.
-Depending on if you checked the ""Delete config files"" option, it will either keep or delete the important config files too.
-
-By checking / unchecking the ""Show Logs"" option, you can view/hide a detailed progress/output log.
-All the operations processed are always logged into the ReTLUpdater.log file in the application's folder, regardless of this option.")]
-        public string helpText {
-            get {
-                return ((string)(this["helpText"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("\r\nInspired by https://github.com/touanu/PriconeTL_Updater\r\n\r\nAll assets used in t" +
             "his application are properties of CyberAgent, Inc., Cygames, Inc. / their respec" +
             "tive creators.")]
@@ -122,7 +94,7 @@ All the operations processed are always logged into the ReTLUpdater.log file in 
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Current Mode: Install")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Current Operation: Install")]
         public string installMode {
             get {
                 return ((string)(this["installMode"]));
@@ -141,7 +113,7 @@ All the operations processed are always logged into the ReTLUpdater.log file in 
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Current Mode: Uninstall")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Current Operation: Uninstall")]
         public string uninstallMode {
             get {
                 return ((string)(this["uninstallMode"]));
@@ -160,7 +132,7 @@ All the operations processed are always logged into the ReTLUpdater.log file in 
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Current Mode: Reinstall")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Current Operation: Reinstall")]
         public string reinstallMode {
             get {
                 return ((string)(this["reinstallMode"]));
@@ -180,7 +152,7 @@ All the operations processed are always logged into the ReTLUpdater.log file in 
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Current Mode: Update")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Current Operation: Update")]
         public string updateMode {
             get {
                 return ((string)(this["updateMode"]));
@@ -200,7 +172,7 @@ All the operations processed are always logged into the ReTLUpdater.log file in 
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Current Mode: Disabled")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Current Operation: Disabled")]
         public string disabledMode {
             get {
                 return ((string)(this["disabledMode"]));

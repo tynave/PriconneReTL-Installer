@@ -31,6 +31,7 @@ namespace InstallerFunctions
         private string tempFile = Path.GetTempFileName();
         private bool removeSuccess = true;
         private bool downloadSuccess = true;
+        private bool extractSuccess = true;
         private bool removeProgress = false;
 
         public event Action<double, double> DownloadProgress;
@@ -134,12 +135,8 @@ namespace InstallerFunctions
             }
         }
 
-        public async Task DLandInstallPatchFiles()
+        public async Task DownloadPatchFiles()
         {
-            if (removeSuccess == false)
-            {
-                return;
-            }
 
             try
             {
@@ -173,23 +170,24 @@ namespace InstallerFunctions
                 }
 
                 Log?.Invoke("Download completed.", "info", true);
-
-                await ExtractAllFiles();
+                downloadSuccess = true;
 
             }
             catch (Exception ex)
             {
-                ErrorLog?.Invoke("Error getting patch: " + ex.Message);
+                ErrorLog?.Invoke("Error downloading patch files: " + ex.Message);
                 downloadSuccess = false;
             }
         }
 
-        public async Task ExtractAllFiles()
+        public async Task ExtractPatchFiles()
 
         {
+            if (!removeSuccess || !downloadSuccess) return;
 
             try
             {
+
                 int counter = 0;
                 using (var zip = ZipFile.OpenRead(tempFile))
                 {
@@ -216,14 +214,13 @@ namespace InstallerFunctions
                         }
                     }
                 }
-                downloadSuccess = true;
-                File.Delete(tempFile);
+                extractSuccess = true;
 
             }
             catch (Exception ex)
             {
                 ErrorLog?.Invoke("Error extracting all files: " + ex.Message);
-                downloadSuccess = false;
+                extractSuccess = false;
             }
         }
 
@@ -252,7 +249,7 @@ namespace InstallerFunctions
 
             using (HttpClient client = new HttpClient())
             {
-                client.DefaultRequestHeaders.UserAgent.ParseAdd("YourAppName");
+                client.DefaultRequestHeaders.UserAgent.ParseAdd("PriconneReTLInstaller");
 
                 string treeUrl = $"{Settings.Default.githubApi}/git/trees/{releaseTag}?recursive=1";
 
@@ -289,9 +286,16 @@ namespace InstallerFunctions
             }
         }
 
-        public async Task RemovePatchFiles(bool removeConfig, bool removeIgnored, bool removeInterops)
+        public async Task RemovePatchFiles(bool uninstall, bool removeConfig, bool removeIgnored, bool removeInterops)
 
         {
+            if (downloadSuccess == false) 
+            {
+                extractSuccess = false;
+                return;
+            }
+
+
             await Task.Run(() =>
             {
                 try
@@ -306,7 +310,7 @@ namespace InstallerFunctions
                         throw new Exception("Failed to get list of files to remove! Cannot continue.");
                     }
 
-                    Log?.Invoke("Removing patch files...", "remove", true);
+                    Log?.Invoke(uninstall ? "Removing patch files..." : "Removing old patch files...", "remove", true);
 
                     int counter = 0;
 
@@ -341,10 +345,9 @@ namespace InstallerFunctions
                 }
                 catch (Exception ex)
                 {
-                    ErrorLog?.Invoke("Error removing files: " + ex.Message);
                     removeSuccess = false;
                     removeProgress = false;
-
+                    ErrorLog?.Invoke("Error removing files: " + ex.Message);
                 }
             });
         }
@@ -410,56 +413,51 @@ namespace InstallerFunctions
 
         public async void ProcessOperation(bool uninstall, bool reinstall, bool removeConfig, bool removeIgnored, bool removeInterops)
         {
+            string processName = null;
             int versioncompare = localVersion.CompareTo(latestVersion);
 
             try
             {
                 ProcessStart?.Invoke();
 
-                if (uninstall) // Uninstall
+                if (uninstall)
                 {
-                    await RemovePatchFiles(removeConfig: removeConfig, removeIgnored: removeIgnored, removeInterops: removeInterops);
-                    if (!removeSuccess || !downloadSuccess) ErrorLog?.Invoke("Uninstall failed!"); else Log?.Invoke("Uninstall complete!", "success", true);
+                    processName = "Uninstall";
+                    Log?.Invoke("Uninstalling translation patch...", "info", true);
+                    await RemovePatchFiles(uninstall: uninstall, removeConfig: removeConfig, removeIgnored: removeIgnored, removeInterops: removeInterops);
                     return;
                 }
 
-                if (reinstall) // Reinstall
+                if (reinstall)
                 {
+                    processName = "Reinstall";
                     Log?.Invoke("Reinstalling translation patch...", "info", true);
-                    await RemovePatchFiles(removeConfig: removeConfig, removeIgnored: removeIgnored, removeInterops: removeInterops);
-                    await DLandInstallPatchFiles();
-
-                    if (!removeSuccess || !downloadSuccess) ErrorLog?.Invoke("Reinstall failed!"); else Log?.Invoke("Reinstall complete!", "success", true);
+                    await DownloadPatchFiles();
+                    await RemovePatchFiles(uninstall: uninstall, removeConfig: removeConfig, removeIgnored: removeIgnored, removeInterops: removeInterops);
+                    await ExtractPatchFiles();
                     return;
                 }
 
-                if (versioncompare == 0) // Installed version = Latest version
+                if (versioncompare == 0)
                 {
                     Log?.Invoke("You already have the latest version installed!", "success", true);
                     return;
                 }
 
-                if (versioncompare < 0) // Installed version < Latest version --> Update
+                if (versioncompare < 0) 
                 {
-                    try
-                    {
-                        Log?.Invoke("Updating translation patch...", "info", true);
-                        await RemovePatchFiles(removeConfig: removeConfig, removeIgnored: removeIgnored, removeInterops: removeInterops);
-                        await DLandInstallPatchFiles();
-                        if (!removeSuccess || !downloadSuccess) ErrorLog?.Invoke("Update failed!"); else Log?.Invoke("Update complete!", "success", true);
-                        return;
-                    }
-                    catch (Exception ex)
-                    {
-                        ErrorLog?.Invoke("Error updating translation patch: " + ex.Message);
-                    }
+                     processName = "Update";
+                     Log?.Invoke("Updating translation patch...", "info", true);
+                     await DownloadPatchFiles();
+                     await RemovePatchFiles(uninstall: uninstall, removeConfig: removeConfig, removeIgnored: removeIgnored, removeInterops: removeInterops);
+                     await ExtractPatchFiles();
+                     return;
                 }
 
-                // nothing installed / invalid
+                processName = "Install";
                 Log?.Invoke("Downloading and installing translation patch...", "info", true);
-                await DLandInstallPatchFiles();
-                if (!removeSuccess || !downloadSuccess) ErrorLog?.Invoke("Installation failed!"); else Log?.Invoke("Installation complete!", "success", true);
-
+                await DownloadPatchFiles();
+                await ExtractPatchFiles();
 
             }
             catch (Exception ex)
@@ -469,6 +467,12 @@ namespace InstallerFunctions
 
             finally
             {
+                bool processSuccess = removeSuccess && downloadSuccess && extractSuccess;
+
+                if (processName != null) 
+                {
+                    if (!processSuccess) ErrorLog?.Invoke($"{processName} failed!"); else Log?.Invoke($"{processName} complete!", "success", true);
+                }
                 ProcessFinish?.Invoke();
             }
         }
