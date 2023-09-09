@@ -15,7 +15,6 @@ namespace HelperFunctions
     class Helper
     {
         public event Action<string, string, bool> Log;
-        public event Action<string> ErrorLog;
 
         [DllImport("gdi32.dll")]
         private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont, IntPtr pdv, [In] ref uint pcFonts);
@@ -126,5 +125,6 @@ namespace HelperFunctions
             MessageBox.Show($"There is currently a {type} process in progress.\nPlease wait for the operation to complete.", "Cannot Exit", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             e.Cancel = true;
         }
+
     }
 }

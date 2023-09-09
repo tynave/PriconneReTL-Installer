@@ -36,28 +36,6 @@
     <Setting Name="githubApi" Type="System.String" Scope="Application">
       <Value Profile="(Default)">https://api.github.com/repos/ImaterialC/PriconneRe-TL</Value>
     </Setting>
-    <Setting Name="helpText" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">How to use:
-
-First / Fresh Install:
-If you have never used the patch before, or you don't have it currently installed, just press the Start button, and the application will donwload and install the translation patch for you.
-If you have config files left over from a previous installation, the application will keep those.
-
-Update:
-If you already have a version of the translation patch applied, just press the Start button, and the application will update it by comparing the latest with the currently applied version, and adding/removing/renaming the necessery files.
-Important configuration files are not touched during this process.
-
-Force Redownload / Reinstall:
-If you check the "Force Redownload" option befor pressing the Start button, the application will delete the currently installed translation patch version, and donwload and install the latest release. It's like and Uninstall + Install
-Force Redownload keeps the important config files untouched.
-
-Uninstall:
-If you check the "Uninstall" option before pressing the Start button, the application will remove the currently installed translation patch.
-Depending on if you checked the "Delete config files" option, it will either keep or delete the important config files too.
-
-By checking / unchecking the "Show Logs" option, you can view/hide a detailed progress/output log.
-All the operations processed are always logged into the ReTLUpdater.log file in the application's folder, regardless of this option.</Value>
-    </Setting>
     <Setting Name="aboutText" Type="System.String" Scope="Application">
       <Value Profile="(Default)">
 Inspired by https://github.com/touanu/PriconeTL_Updater
@@ -65,7 +43,7 @@ Inspired by https://github.com/touanu/PriconeTL_Updater
 All assets used in this application are properties of CyberAgent, Inc., Cygames, Inc. / their respective creators.</Value>
     </Setting>
     <Setting Name="installMode" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Current Mode: Install</Value>
+      <Value Profile="(Default)">Current Operation: Install</Value>
     </Setting>
     <Setting Name="installModeDescription" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Installs the translation patch.
@@ -73,7 +51,7 @@ Keeps config files, ignored files and
 any user created files already present.</Value>
     </Setting>
     <Setting Name="uninstallMode" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Current Mode: Uninstall</Value>
+      <Value Profile="(Default)">Current Operation: Uninstall</Value>
     </Setting>
     <Setting Name="uninstallModeDescription" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Removes the translation patch.
@@ -81,7 +59,7 @@ Keeps any user created files.
 Depending on the options selected, keeps or removes config/ignored/interop files.</Value>
     </Setting>
     <Setting Name="reinstallMode" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Current Mode: Reinstall</Value>
+      <Value Profile="(Default)">Current Operation: Reinstall</Value>
     </Setting>
     <Setting Name="reinstallModeDescription" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Removes the translation patch, and then installs the latest version.
@@ -89,14 +67,14 @@ Keeps any user created files.
 Depending on the options selected, keeps or removes config/ignored/interop files.</Value>
     </Setting>
     <Setting Name="updateMode" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Current Mode: Update</Value>
+      <Value Profile="(Default)">Current Operation: Update</Value>
     </Setting>
     <Setting Name="updateModeDescription" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Updates the current translation patch installation by removing the the current version and installing the latest.
 Keeps user files, as well as config/ignored/interop files.</Value>
     </Setting>
     <Setting Name="disabledMode" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Current Mode: Disabled</Value>
+      <Value Profile="(Default)">Current Operation: Disabled</Value>
     </Setting>
     <Setting Name="disabledModeDescription" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Operation disabled due to an error.

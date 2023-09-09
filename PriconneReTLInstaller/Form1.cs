@@ -38,7 +38,6 @@ namespace PriconneReTLInstaller
             installer.Log += OnLog;
             installer.ErrorLog += OnErrorLog;
             helper.Log += OnLog;
-            helper.ErrorLog += OnErrorLog;
             installer.DisableStart += OnDisableStart;
             installer.DownloadProgress += OnDownloadProgress;
             installer.ProcessStart += OnProcessStart;
