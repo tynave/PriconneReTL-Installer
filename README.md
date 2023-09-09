@@ -41,7 +41,7 @@ Config files/ignored files/user files as well as interop aseemblies are not touc
 
 ### Reinstall:
 If you check the *Reinstall* option before pressing the *Start* button, the application will delete the currently installed translation patch version, and download and install the latest release.  
-It's like and Uninstall + Install. 
+It's like an Uninstall + Install.   
 Depending on any other options selected, it will either keep or delete config files, ignored files and/or the interop assemblies.  
 Does not touch user files.
 
