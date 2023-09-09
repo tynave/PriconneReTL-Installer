@@ -23,7 +23,7 @@ Based on [PriconneTL_Updater](https://github.com/touanu/PriconeTL_Updater) by [t
     So if you would like to make personal alterations of the patch files and want to keep those across the versions, it is advised to have those on seperate files.)
 
 ## Installation
-The application is portable. Just copy it where you would like, and run it.  
+The application is portable, does not require installation, just extract the released .zip archive anywhere.  
 All the operations processed are always logged into the *ReTLInstaller.log* file, which resides in the application's folder.  
 If the file is not present, it gets created. If the file is already present, it's content is purges/reset on every run.
 
