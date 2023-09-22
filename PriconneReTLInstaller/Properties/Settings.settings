@@ -80,5 +80,17 @@ Keeps user files, as well as config/ignored/interop files.</Value>
       <Value Profile="(Default)">Operation disabled due to an error.
 See log for details.</Value>
     </Setting>
+    <Setting Name="launchMode" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Current Operation: Launch Game</Value>
+    </Setting>
+    <Setting Name="launchModeDescrption" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Launches the game without any translation patch related operation.</Value>
+    </Setting>
+    <Setting Name="noOperationMode" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Current Operation: No Operation</Value>
+    </Setting>
+    <Setting Name="noOperationModeDescription" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">No operation selected.</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -6,11 +6,15 @@ using PriconneReTLInstaller.Properties;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.NetworkInformation;
+using System.Runtime.Remoting.Messaging;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -55,8 +59,8 @@ namespace InstallerFunctions
                     {
                         if (content.productId == "priconner")
                         {
-                            priconnePath = content.detail.path;
-                            // priconnePath = "C:\\Test"; // -- set fixed path for testing purposes
+                            //priconnePath = content.detail.path;
+                            priconnePath = "C:\\Test"; // -- set fixed path for testing purposes
                             Log?.Invoke("Found Princess Connect Re:Dive in " + priconnePath, "info", false);
                             return (priconnePath, priconnePathValid = true);
                         }
@@ -411,7 +415,7 @@ namespace InstallerFunctions
 
         }
 
-        public async void ProcessOperation(bool uninstall, bool reinstall, bool removeConfig, bool removeIgnored, bool removeInterops)
+        public async void ProcessOperation(bool install, bool uninstall, bool reinstall, bool launch, bool removeConfig, bool removeIgnored, bool removeInterops)
         {
             string processName = null;
             int versioncompare = localVersion.CompareTo(latestVersion);
@@ -438,26 +442,32 @@ namespace InstallerFunctions
                     return;
                 }
 
-                if (versioncompare == 0)
+                if (install)
                 {
-                    Log?.Invoke("You already have the latest version installed!", "success", true);
+                    if (versioncompare == 0)
+                    {
+                        Log?.Invoke("You already have the latest version installed!", "success", true);
+                        return;
+                    }
+
+                    if (versioncompare < 0)
+                    {
+                        processName = "Update";
+                        Log?.Invoke("Updating translation patch...", "info", true);
+                        await DownloadPatchFiles();
+                        await RemovePatchFiles(uninstall: uninstall, removeConfig: removeConfig, removeIgnored: removeIgnored, removeInterops: removeInterops);
+                        await ExtractPatchFiles();
+                        return;
+                    }
+
+                    processName = "Install";
+                    Log?.Invoke("Downloading and installing translation patch...", "info", true);
+                    await DownloadPatchFiles();
+                    await ExtractPatchFiles();
                     return;
                 }
 
-                if (versioncompare < 0) 
-                {
-                     processName = "Update";
-                     Log?.Invoke("Updating translation patch...", "info", true);
-                     await DownloadPatchFiles();
-                     await RemovePatchFiles(uninstall: uninstall, removeConfig: removeConfig, removeIgnored: removeIgnored, removeInterops: removeInterops);
-                     await ExtractPatchFiles();
-                     return;
-                }
-
-                processName = "Install";
-                Log?.Invoke("Downloading and installing translation patch...", "info", true);
-                await DownloadPatchFiles();
-                await ExtractPatchFiles();
+                // Log?.Invoke("No patch operation selected!", "info", true);
 
             }
             catch (Exception ex)
@@ -474,6 +484,51 @@ namespace InstallerFunctions
                     if (!processSuccess) ErrorLog?.Invoke($"{processName} failed!"); else Log?.Invoke($"{processName} complete!", "success", true);
                 }
                 ProcessFinish?.Invoke();
+
+                if (launch)
+                {
+                    bool DMMFastLauncherStartSuccess = StartDMMFastLauncher();
+                    if (!DMMFastLauncherStartSuccess) StartDMMGamePlayer();
+                    await Task.Delay(5000);
+                    Application.Exit();
+                }
+            }
+        }
+
+        private bool StartDMMFastLauncher()
+        {
+            try
+            {
+                string dmmFastLauncherPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DMMGamePlayerFastLauncher");
+                string dmmFastLauncherExe = Path.Combine(dmmFastLauncherPath, "DMMGamePlayerFastLauncher.exe");
+
+                if (File.Exists(dmmFastLauncherExe))
+                {
+                    Log?.Invoke("Starting PriconneR game...", "info", true);
+                    Process.Start(dmmFastLauncherExe, "priconner");
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                ErrorLog?.Invoke("Error starting DMMFastLauncher: " + ex.Message);
+                return false;
+            }
+        }
+
+        private void StartDMMGamePlayer()
+        {
+            try
+            {
+                Log?.Invoke("Starting Pricess Connect Re:Dive game...", "info", true);
+                Process.Start("dmmgameplayer://play/GCL/priconner/cl/win");
+                
+                return;
+            }
+            catch (Exception ex)
+            {
+                ErrorLog?.Invoke("Error starting DMMGamePlayer: " + ex.Message);
             }
         }
 

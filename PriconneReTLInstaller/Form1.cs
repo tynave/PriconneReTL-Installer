@@ -3,6 +3,7 @@ using InstallerFunctions;
 using LoggerFunctions;
 using PriconneReTLInstaller.Properties;
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Drawing;
@@ -22,15 +23,15 @@ namespace PriconneReTLInstaller
         private bool latestVersionValid;
         private string localVersion;
         private bool localVersionValid;
+        private int versioncompare;
         PrivateFontCollection priconnefont = new PrivateFontCollection();
         private bool mouseDown;
         private Point lastLocation;
+        private CheckBox[] exclusiveCheckboxes;
+        private CheckBox[] operationCheckboxes;
 
         Helper helper = new Helper();
         Installer installer = new Installer();
-
-
-
         public MainForm()
         {
             InitializeComponent();
@@ -43,11 +44,15 @@ namespace PriconneReTLInstaller
             installer.ProcessStart += OnProcessStart;
             installer.ProcessFinish += OnProcessFinish;
 
+            installCheckBox.CheckedChanged += OnCheckedChange;
             uninstallCheckBox.CheckedChanged += OnCheckedChange;
             reinstallCheckBox.CheckedChanged += OnCheckedChange;
+            launchCheckBox.CheckedChanged += OnCheckedChange;
 
-            uninstallCheckBox.EnabledChanged += OnEnabledChange;
-            removeConfigCheckBox.EnabledChanged += OnEnabledChange;
+            //uninstallCheckBox.EnabledChanged += OnEnabledChange;
+            //removeConfigCheckBox.EnabledChanged += OnEnabledChange;
+            installCheckBox.EnabledChanged += OnEnabledChange;
+            launchCheckBox.EnabledChanged += OnEnabledChange;
 
             removeConfigCheckBox.CheckedChanged += OnCheckedChange;
             removeIgnoredCheckBox.CheckedChanged += OnCheckedChange;
@@ -58,8 +63,8 @@ namespace PriconneReTLInstaller
             removeIgnoredCheckBox.EnabledChanged += OnEnabledChange;
             removeInteropsCheckBox.EnabledChanged += OnEnabledChange;
 
-            uninstallCheckBox.CheckedChanged += OnCheckBoxToggle;
-            reinstallCheckBox.CheckedChanged += OnCheckBoxToggle;
+            //uninstallCheckBox.CheckedChanged += OnCheckBoxToggle;
+            //reinstallCheckBox.CheckedChanged += OnCheckBoxToggle;
 
             startButton.MouseEnter += OnButtonMouseEnter;
             startButton.MouseLeave += OnButtonMouseLeave;
@@ -94,17 +99,39 @@ namespace PriconneReTLInstaller
             (priconnePath, priconnePathValid) = installer.GetGamePath();
             gamePathLinkLabel.Text = priconnePath;
 
+            launchCheckBox.Enabled = priconnePathValid;
+
             (latestVersion, latestVersionValid) = installer.GetLatestRelease();
             latestVersionLinkLabel.Text = latestVersionValid ? latestVersion : "ERROR!";
 
+            exclusiveCheckboxes = new CheckBox[] { installCheckBox, reinstallCheckBox, uninstallCheckBox };
+            operationCheckboxes = new CheckBox[] { installCheckBox, reinstallCheckBox, uninstallCheckBox, launchCheckBox };
+
+            foreach (CheckBox checkBox in exclusiveCheckboxes)
+            {
+                checkBox.CheckedChanged += ExclusiveCheckbox_CheckedChanged;
+            }
+
+            foreach (CheckBox checkBox in operationCheckboxes)
+            {
+                checkBox.CheckedChanged += OperationCheckbox_CheckedChanged;
+            }
+
             UpdateUI();
+
+            versioncompare = localVersion.CompareTo(latestVersion);
+            if (versioncompare == 0) logger.Log("You already have the latest version installed!", "success", true); else logger.Log("Ready!", "info", true);
 
         }
         private void UpdateUI()
         {
             (localVersion, localVersionValid) = installer.GetLocalVersion();
 
+            installCheckBox.Text = localVersionValid ? " Update" : " Install";
+
             localVersionLabel.Text = "Current (Local) Version: " + localVersion;
+
+            installCheckBox.Enabled = !localVersionValid;
 
             newPictureBox.Visible = localVersion == latestVersion ? false : true;
 
@@ -113,40 +140,85 @@ namespace PriconneReTLInstaller
             UpdateModeDescription();
         }
 
-        private void UpdateModeDescription()
+        /*private void UpdateModeDescription()
         {
+            if (installCheckBox.Checked) 
+            {
+                if (!localVersionValid)
+                {
+                    modeLabel.Text = Settings.Default.installMode;
+                    toolTip.SetToolTip(modeLabel, Settings.Default.installModeDescription);
+                    return;
+                }
+
+                modeLabel.Text = Settings.Default.updateMode;
+                toolTip.SetToolTip(modeLabel, Settings.Default.updateModeDescription);
+                return;
+            }
+
             if (reinstallCheckBox.Checked)
             {
                 modeLabel.Text = Settings.Default.reinstallMode;
-                modeDescritpionLabel.Text = Settings.Default.reinstallModeDescription;
+                toolTip.SetToolTip(modeLabel, Settings.Default.reinstallModeDescription);
                 return;
             }
 
             if (uninstallCheckBox.Checked)
             {
                 modeLabel.Text = Settings.Default.uninstallMode;
-                modeDescritpionLabel.Text = Settings.Default.uninstallModeDescription;
+                toolTip.SetToolTip(modeLabel, Settings.Default.uninstallModeDescription);
                 return;
             }
 
-            if (!priconnePathValid)
+            if (!priconnePathValid || !latestVersionValid)
             {
                 modeLabel.Text = Settings.Default.disabledMode;
-                modeDescritpionLabel.Text = Settings.Default.disabledModeDescription;
+                toolTip.SetToolTip(modeLabel, Settings.Default.disabledMode);
                 return;
             }
 
-            if (!localVersionValid)
+            if (launchCheckBox.Checked && !helper.isAnyChecked(exclusiveCheckboxes))
             {
-                modeLabel.Text = Settings.Default.installMode;
-                modeDescritpionLabel.Text = Settings.Default.installModeDescription;
+                modeLabel.Text = Settings.Default.launchMode;
+                toolTip.SetToolTip(modeLabel, Settings.Default.launchModeDescrption);
                 return;
             }
 
-            modeLabel.Text = Settings.Default.updateMode;
-            modeDescritpionLabel.Text = Settings.Default.updateModeDescription;
+            modeLabel.Text = Settings.Default.noOperationMode;
+            toolTip.SetToolTip(modeLabel, Settings.Default.noOperationModeDescription);
+            return;
+
+        }*/
+
+        private void UpdateModeDescription()
+        {
+            bool exclusiveCheckboxChecked = helper.isAnyChecked(exclusiveCheckboxes);
+           
+            var modes = new List<(bool condition, string mode, string description)>
+                {
+                    (installCheckBox.Checked && !localVersionValid, Settings.Default.installMode, Settings.Default.installModeDescription),
+                    (installCheckBox.Checked && localVersionValid, Settings.Default.updateMode, Settings.Default.updateModeDescription),
+                    (reinstallCheckBox.Checked, Settings.Default.reinstallMode, Settings.Default.reinstallModeDescription),
+                    (uninstallCheckBox.Checked, Settings.Default.uninstallMode, Settings.Default.uninstallModeDescription),
+                    (!priconnePathValid || !latestVersionValid, Settings.Default.disabledMode, Settings.Default.disabledModeDescription),
+                    (launchCheckBox.Checked && !exclusiveCheckboxChecked, Settings.Default.launchMode, Settings.Default.launchModeDescrption)
+                };
+  
+            foreach (var (condition, mode, description) in modes)
+            {
+                if (condition)
+                {
+                    modeLabel.Text = mode;
+                    toolTip.SetToolTip(modeLabel, description);
+                    return;
+                }
+            }
+
+            modeLabel.Text = Settings.Default.noOperationMode;
+            toolTip.SetToolTip(modeLabel, Settings.Default.noOperationModeDescription);
             return;
         }
+
         private void SetToolTips()
         {
             StringCollection ignoreCollection = Settings.Default.ignoreFiles;
@@ -241,6 +313,35 @@ namespace PriconneReTLInstaller
             }
         }
 
+        private void ExclusiveCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox clickedCheckbox = (CheckBox)sender;
+
+            // If the clicked checkbox is checked, uncheck all other checkboxes.
+            if (clickedCheckbox.Checked)
+            {
+                foreach (CheckBox checkbox in exclusiveCheckboxes)
+                {
+                    if (checkbox != clickedCheckbox)
+                    {
+                        checkbox.Checked = false;
+                    }
+                }
+            }
+            if (clickedCheckbox == reinstallCheckBox || clickedCheckbox == uninstallCheckBox)
+            {
+                removeConfigCheckBox.Enabled = clickedCheckbox.Checked;
+                removeIgnoredCheckBox.Enabled = clickedCheckbox.Checked;
+                removeInteropsCheckBox.Enabled = clickedCheckbox.Checked;
+            }
+            
+        }
+
+        private void OperationCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            startButton.Enabled = helper.isAnyChecked(operationCheckboxes);
+        }
+
         private async void OnMouseDown(object sender, MouseEventArgs e)
         {
             mouseDown = true;
@@ -307,7 +408,7 @@ namespace PriconneReTLInstaller
             outputTextBox.Clear();
             startButton.Enabled = false;
             startButton.BackgroundImage = Resources.start_working;
-            logger.Log("Starting process...", "info");
+            logger.Log("Starting selected operation(s)...", "info");
         }
 
         private void OnProcessFinish()
@@ -320,7 +421,7 @@ namespace PriconneReTLInstaller
         }
         private void startButton_Click_1(object sender, EventArgs e)
         {
-            installer.ProcessOperation(uninstallCheckBox.Checked, reinstallCheckBox.Checked, removeConfigCheckBox.Checked, removeIgnoredCheckBox.Checked, removeInteropsCheckBox.Checked/*, tempFile*/);
+            installer.ProcessOperation(installCheckBox.Checked, uninstallCheckBox.Checked, reinstallCheckBox.Checked, launchCheckBox.Checked, removeConfigCheckBox.Checked, removeIgnoredCheckBox.Checked, removeInteropsCheckBox.Checked);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -373,6 +474,10 @@ namespace PriconneReTLInstaller
             MessageBox.Show($"[PriconneReTL Updater version: {String.Format(System.Windows.Forms.Application.ProductVersion)}]\n" + Settings.Default.aboutText, "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private void startButton_EnabledChanged(object sender, EventArgs e)
+        {
+            startButton.BackgroundImage = startButton.Enabled ? Resources.start_idle : Resources.start_disabled;
+        }
     }
 }
 

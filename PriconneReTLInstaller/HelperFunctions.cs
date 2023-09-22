@@ -83,6 +83,12 @@ namespace HelperFunctions
             }
         }
 
+        public bool isAnyChecked(CheckBox[] checkboxes)
+        {
+            foreach (CheckBox checkbox in checkboxes) if (checkbox.Checked) return true; 
+            return false;
+        }
+
         public string[] SetIgnoreFiles(string priconnePath, bool addconfig)
         {
             string[] ignoreFiles = new string[Settings.Default.ignoreFiles.Count];

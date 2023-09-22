@@ -187,5 +187,41 @@ namespace PriconneReTLInstaller.Properties {
                 return ((string)(this["disabledModeDescription"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Current Operation: Launch Game")]
+        public string launchMode {
+            get {
+                return ((string)(this["launchMode"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Launches the game without any translation patch related operation.")]
+        public string launchModeDescrption {
+            get {
+                return ((string)(this["launchModeDescrption"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Current Operation: No Operation")]
+        public string noOperationMode {
+            get {
+                return ((string)(this["noOperationMode"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("No operation selected.")]
+        public string noOperationModeDescription {
+            get {
+                return ((string)(this["noOperationModeDescription"]));
+            }
+        }
     }
 }
