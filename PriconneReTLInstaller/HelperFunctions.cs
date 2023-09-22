@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
@@ -15,6 +16,7 @@ namespace HelperFunctions
     class Helper
     {
         public event Action<string, string, bool> Log;
+        public event Action<string> ErrorLog;
 
         [DllImport("gdi32.dll")]
         private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont, IntPtr pdv, [In] ref uint pcFonts);
@@ -85,7 +87,10 @@ namespace HelperFunctions
 
         public bool isAnyChecked(CheckBox[] checkboxes)
         {
-            foreach (CheckBox checkbox in checkboxes) if (checkbox.Checked) return true; 
+            if (checkboxes != null)
+            {
+                foreach (CheckBox checkbox in checkboxes) if (checkbox.Checked) return true;
+            }
             return false;
         }
 
@@ -132,5 +137,32 @@ namespace HelperFunctions
             e.Cancel = true;
         }
 
+        public bool IsFastLauncherInstalled()
+        {
+            try
+            {
+                string dmmFastLauncherPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DMMGamePlayerFastLauncher");
+                string dmmFastLauncherExe = Path.Combine(dmmFastLauncherPath, "DMMGamePlayerFastLauncher.exe");
+
+                if (File.Exists(dmmFastLauncherExe)) return true; else return false;
+            }
+            catch (Exception ex)
+            {
+                ErrorLog?.Invoke("Error checking DMM Fastlauncher: " + ex.Message);
+                return false;
+            }
+        }
+
+        public void PopulateComboBox(ComboBox comboBox)
+        {
+            comboBox.Items.Clear();
+            comboBox.Items.Add("DMMGamePlayer");
+            if (IsFastLauncherInstalled())
+            {
+                comboBox.Items.Add("DMMGamesFastLauncher");
+                Log?.Invoke("Found DMMGamesFastLauncher", "info", false);
+            }
+            if (comboBox.Items.Count > 0) comboBox.SelectedIndex = IsFastLauncherInstalled() ? 1 : 0;
+        }
     }
 }

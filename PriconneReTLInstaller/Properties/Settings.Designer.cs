@@ -223,5 +223,17 @@ namespace PriconneReTLInstaller.Properties {
                 return ((string)(this["noOperationModeDescription"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool launchState {
+            get {
+                return ((bool)(this["launchState"]));
+            }
+            set {
+                this["launchState"] = value;
+            }
+        }
     }
 }

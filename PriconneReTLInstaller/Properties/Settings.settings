@@ -92,5 +92,8 @@ See log for details.</Value>
     <Setting Name="noOperationModeDescription" Type="System.String" Scope="Application">
       <Value Profile="(Default)">No operation selected.</Value>
     </Setting>
+    <Setting Name="launchState" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

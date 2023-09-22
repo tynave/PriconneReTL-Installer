@@ -42,7 +42,6 @@
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.operationsPanel = new System.Windows.Forms.Panel();
-            this.launchCheckBox = new System.Windows.Forms.CheckBox();
             this.installCheckBox = new System.Windows.Forms.CheckBox();
             this.operationsLabel = new System.Windows.Forms.Label();
             this.removeInteropsCheckBox = new System.Windows.Forms.CheckBox();
@@ -64,6 +63,8 @@
             this.modeLabel = new System.Windows.Forms.Label();
             this.optionsPanel = new System.Windows.Forms.Panel();
             this.optionsLabel = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.launchCheckBox = new System.Windows.Forms.CheckBox();
             this.statusStrip1.SuspendLayout();
             this.operationsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.newPictureBox)).BeginInit();
@@ -226,32 +227,10 @@
             this.operationsPanel.Controls.Add(this.uninstallCheckBox);
             this.operationsPanel.Controls.Add(this.reinstallCheckBox);
             this.operationsPanel.Controls.Add(this.operationsLabel);
-            this.operationsPanel.Location = new System.Drawing.Point(17, 173);
+            this.operationsPanel.Location = new System.Drawing.Point(17, 175);
             this.operationsPanel.Name = "operationsPanel";
-            this.operationsPanel.Size = new System.Drawing.Size(307, 149);
+            this.operationsPanel.Size = new System.Drawing.Size(307, 154);
             this.operationsPanel.TabIndex = 16;
-            // 
-            // launchCheckBox
-            // 
-            this.launchCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
-            this.launchCheckBox.BackColor = System.Drawing.Color.Transparent;
-            this.launchCheckBox.Checked = true;
-            this.launchCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.launchCheckBox.FlatAppearance.BorderSize = 0;
-            this.launchCheckBox.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.launchCheckBox.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.launchCheckBox.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.launchCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.launchCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.launchCheckBox.Image = global::PriconneReTLInstaller.Properties.Resources.check_checked_24x24_2;
-            this.launchCheckBox.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.launchCheckBox.Location = new System.Drawing.Point(6, 112);
-            this.launchCheckBox.Name = "launchCheckBox";
-            this.launchCheckBox.Size = new System.Drawing.Size(177, 36);
-            this.launchCheckBox.TabIndex = 19;
-            this.launchCheckBox.Text = " Launch Game";
-            this.launchCheckBox.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.launchCheckBox.UseVisualStyleBackColor = false;
             // 
             // installCheckBox
             // 
@@ -302,7 +281,7 @@
             this.removeInteropsCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.removeInteropsCheckBox.Image = global::PriconneReTLInstaller.Properties.Resources.check_empty_24x24_2;
             this.removeInteropsCheckBox.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.removeInteropsCheckBox.Location = new System.Drawing.Point(6, 82);
+            this.removeInteropsCheckBox.Location = new System.Drawing.Point(6, 80);
             this.removeInteropsCheckBox.Name = "removeInteropsCheckBox";
             this.removeInteropsCheckBox.Size = new System.Drawing.Size(175, 30);
             this.removeInteropsCheckBox.TabIndex = 29;
@@ -324,7 +303,7 @@
             this.removeIgnoredCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.removeIgnoredCheckBox.Image = global::PriconneReTLInstaller.Properties.Resources.check_empty_24x24_2;
             this.removeIgnoredCheckBox.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.removeIgnoredCheckBox.Location = new System.Drawing.Point(6, 50);
+            this.removeIgnoredCheckBox.Location = new System.Drawing.Point(6, 49);
             this.removeIgnoredCheckBox.Name = "removeIgnoredCheckBox";
             this.removeIgnoredCheckBox.Size = new System.Drawing.Size(284, 36);
             this.removeIgnoredCheckBox.TabIndex = 29;
@@ -513,7 +492,7 @@
             this.modeLabel.AutoSize = true;
             this.modeLabel.BackColor = System.Drawing.Color.Transparent;
             this.modeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.modeLabel.Location = new System.Drawing.Point(18, 334);
+            this.modeLabel.Location = new System.Drawing.Point(338, 302);
             this.modeLabel.Name = "modeLabel";
             this.modeLabel.Size = new System.Drawing.Size(153, 18);
             this.modeLabel.TabIndex = 27;
@@ -529,9 +508,9 @@
             this.optionsPanel.Controls.Add(this.removeConfigCheckBox);
             this.optionsPanel.Controls.Add(this.removeInteropsCheckBox);
             this.optionsPanel.Controls.Add(this.removeIgnoredCheckBox);
-            this.optionsPanel.Location = new System.Drawing.Point(341, 174);
+            this.optionsPanel.Location = new System.Drawing.Point(341, 175);
             this.optionsPanel.Name = "optionsPanel";
-            this.optionsPanel.Size = new System.Drawing.Size(307, 148);
+            this.optionsPanel.Size = new System.Drawing.Size(307, 118);
             this.optionsPanel.TabIndex = 30;
             // 
             // optionsLabel
@@ -544,6 +523,38 @@
             this.optionsLabel.TabIndex = 31;
             this.optionsLabel.Text = "Options";
             // 
+            // comboBox1
+            // 
+            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(21, 335);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(303, 24);
+            this.comboBox1.TabIndex = 33;
+            // 
+            // launchCheckBox
+            // 
+            this.launchCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
+            this.launchCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.launchCheckBox.Checked = true;
+            this.launchCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.launchCheckBox.FlatAppearance.BorderSize = 0;
+            this.launchCheckBox.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.launchCheckBox.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.launchCheckBox.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.launchCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.launchCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.launchCheckBox.Image = global::PriconneReTLInstaller.Properties.Resources.check_checked_24x24_2;
+            this.launchCheckBox.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.launchCheckBox.Location = new System.Drawing.Point(6, 113);
+            this.launchCheckBox.Name = "launchCheckBox";
+            this.launchCheckBox.Size = new System.Drawing.Size(177, 36);
+            this.launchCheckBox.TabIndex = 19;
+            this.launchCheckBox.Text = " Launch Game";
+            this.launchCheckBox.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.launchCheckBox.UseVisualStyleBackColor = false;
+            this.launchCheckBox.CheckedChanged += new System.EventHandler(this.launchCheckBox_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -552,6 +563,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(718, 748);
             this.ControlBox = false;
+            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.optionsPanel);
             this.Controls.Add(this.modeLabel);
             this.Controls.Add(this.showLogCheckBox);
@@ -626,6 +638,7 @@
         private System.Windows.Forms.Panel optionsPanel;
         private System.Windows.Forms.Label optionsLabel;
         private System.Windows.Forms.CheckBox installCheckBox;
+        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.CheckBox launchCheckBox;
     }
 }

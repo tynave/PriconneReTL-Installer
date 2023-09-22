@@ -4,6 +4,7 @@ using Newtonsoft.Json.Linq;
 using PriconneReTLInstaller;
 using PriconneReTLInstaller.Properties;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
@@ -415,7 +416,7 @@ namespace InstallerFunctions
 
         }
 
-        public async void ProcessOperation(bool install, bool uninstall, bool reinstall, bool launch, bool removeConfig, bool removeIgnored, bool removeInterops)
+        public async void ProcessOperation(bool install, bool uninstall, bool reinstall, bool launch, bool removeConfig, bool removeIgnored, bool removeInterops, ComboBox combobox)
         {
             string processName = null;
             int versioncompare = localVersion.CompareTo(latestVersion);
@@ -487,8 +488,14 @@ namespace InstallerFunctions
 
                 if (launch)
                 {
-                    bool DMMFastLauncherStartSuccess = StartDMMFastLauncher();
-                    if (!DMMFastLauncherStartSuccess) StartDMMGamePlayer();
+                    switch (combobox.SelectedIndex)
+                    {
+                        case 0: StartDMMGamePlayer(); break;    
+                        case 1: StartDMMFastLauncher(); break;
+                        default:
+                            break;
+                    }
+
                     await Task.Delay(5000);
                     Application.Exit();
                 }
