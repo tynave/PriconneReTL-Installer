@@ -82,6 +82,9 @@ namespace PriconneReTLInstaller
             pictureBox1.MouseMove += OnMouseMove;
             pictureBox1.MouseUp += OnMouseUp;
 
+            this.Layout += OnOperationLabelChange;
+            operationLabel.TextChanged += OnOperationLabelChange;
+
             logger = new Logger("ReTLInstaller.log", outputTextBox, toolStripStatusLabel1);
             logger.StartSession();
 
@@ -158,14 +161,14 @@ namespace PriconneReTLInstaller
             {
                 if (condition)
                 {
-                    modeLabel.Text = mode;
-                    toolTip.SetToolTip(modeLabel, description);
+                    operationLabel.Text = mode;
+                    toolTip.SetToolTip(operationToolTipPicture, description);
                     return;
                 }
             }
 
-            modeLabel.Text = Settings.Default.noOperationMode;
-            toolTip.SetToolTip(modeLabel, Settings.Default.noOperationModeDescription);
+            operationLabel.Text = Settings.Default.noOperationMode;
+            toolTip.SetToolTip(operationToolTipPicture, Settings.Default.noOperationModeDescription);
             return;
         }
 
@@ -276,6 +279,11 @@ namespace PriconneReTLInstaller
         private void OperationCheckbox_CheckedChanged(object sender, EventArgs e)
         {
             startButton.Enabled = helper.isAnyChecked(operationCheckboxes);
+        }
+
+        private void OnOperationLabelChange(object sender, EventArgs e)
+        {
+            operationToolTipPicture.Location = new Point(operationLabel.Right + 5, operationToolTipPicture.Top);
         }
 
         private async void OnMouseDown(object sender, MouseEventArgs e)
@@ -420,6 +428,11 @@ namespace PriconneReTLInstaller
         {
             comboBox1.Visible = launchCheckBox.Checked;
             Settings.Default.launchState = launchCheckBox.Checked;
+        }
+
+        private void modeLabel_TextChanged(object sender, EventArgs e)
+        {
+            operationToolTipPicture.Location = new Point(operationLabel.Right + 10, operationToolTipPicture.Top);
         }
     }
 }

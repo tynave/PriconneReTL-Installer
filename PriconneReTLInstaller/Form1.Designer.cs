@@ -42,6 +42,7 @@
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.operationsPanel = new System.Windows.Forms.Panel();
+            this.launchCheckBox = new System.Windows.Forms.CheckBox();
             this.installCheckBox = new System.Windows.Forms.CheckBox();
             this.operationsLabel = new System.Windows.Forms.Label();
             this.removeInteropsCheckBox = new System.Windows.Forms.CheckBox();
@@ -60,17 +61,18 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.option1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.option2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.modeLabel = new System.Windows.Forms.Label();
+            this.operationLabel = new System.Windows.Forms.Label();
             this.optionsPanel = new System.Windows.Forms.Panel();
             this.optionsLabel = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.launchCheckBox = new System.Windows.Forms.CheckBox();
+            this.operationToolTipPicture = new System.Windows.Forms.PictureBox();
             this.statusStrip1.SuspendLayout();
             this.operationsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.newPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             this.optionsPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.operationToolTipPicture)).BeginInit();
             this.SuspendLayout();
             // 
             // localVersionLabel
@@ -232,6 +234,29 @@
             this.operationsPanel.Size = new System.Drawing.Size(307, 154);
             this.operationsPanel.TabIndex = 16;
             // 
+            // launchCheckBox
+            // 
+            this.launchCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
+            this.launchCheckBox.BackColor = System.Drawing.Color.Transparent;
+            this.launchCheckBox.Checked = true;
+            this.launchCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.launchCheckBox.FlatAppearance.BorderSize = 0;
+            this.launchCheckBox.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
+            this.launchCheckBox.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.launchCheckBox.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.launchCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.launchCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.launchCheckBox.Image = global::PriconneReTLInstaller.Properties.Resources.check_checked_24x24_2;
+            this.launchCheckBox.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.launchCheckBox.Location = new System.Drawing.Point(6, 113);
+            this.launchCheckBox.Name = "launchCheckBox";
+            this.launchCheckBox.Size = new System.Drawing.Size(177, 36);
+            this.launchCheckBox.TabIndex = 19;
+            this.launchCheckBox.Text = " Launch Game";
+            this.launchCheckBox.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.launchCheckBox.UseVisualStyleBackColor = false;
+            this.launchCheckBox.CheckedChanged += new System.EventHandler(this.launchCheckBox_CheckedChanged);
+            // 
             // installCheckBox
             // 
             this.installCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
@@ -364,6 +389,7 @@
             this.newPictureBox.Size = new System.Drawing.Size(50, 18);
             this.newPictureBox.TabIndex = 19;
             this.newPictureBox.TabStop = false;
+            this.toolTip.SetToolTip(this.newPictureBox, "New version available!");
             this.newPictureBox.Visible = false;
             // 
             // exitButton
@@ -387,6 +413,9 @@
             // toolTip
             // 
             this.toolTip.AutomaticDelay = 1000;
+            this.toolTip.AutoPopDelay = 10000;
+            this.toolTip.InitialDelay = 500;
+            this.toolTip.ReshowDelay = 200;
             // 
             // minimizeButton
             // 
@@ -446,6 +475,7 @@
             this.gamePathLinkLabel.TabIndex = 22;
             this.gamePathLinkLabel.TabStop = true;
             this.gamePathLinkLabel.Text = "priconnepath";
+            this.toolTip.SetToolTip(this.gamePathLinkLabel, "Click to open game folder in file explorer.");
             this.gamePathLinkLabel.VisitedLinkColor = System.Drawing.Color.Black;
             this.gamePathLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.priconnePathLinkLabel_LinkClicked);
             // 
@@ -462,6 +492,7 @@
             this.latestVersionLinkLabel.TabIndex = 23;
             this.latestVersionLinkLabel.TabStop = true;
             this.latestVersionLinkLabel.Text = "<version>";
+            this.toolTip.SetToolTip(this.latestVersionLinkLabel, "Click to open latest release webpage.");
             this.latestVersionLinkLabel.VisitedLinkColor = System.Drawing.Color.Black;
             this.latestVersionLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.latestReleaseLinkLabel_LinkClicked);
             // 
@@ -487,17 +518,18 @@
             this.option2ToolStripMenuItem.Text = "About";
             this.option2ToolStripMenuItem.Click += new System.EventHandler(this.option2ToolStripMenuItem_Click);
             // 
-            // modeLabel
+            // operationLabel
             // 
-            this.modeLabel.AutoSize = true;
-            this.modeLabel.BackColor = System.Drawing.Color.Transparent;
-            this.modeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.modeLabel.Location = new System.Drawing.Point(338, 302);
-            this.modeLabel.Name = "modeLabel";
-            this.modeLabel.Size = new System.Drawing.Size(153, 18);
-            this.modeLabel.TabIndex = 27;
-            this.modeLabel.Text = "Current Operation: ";
-            this.modeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.operationLabel.AutoSize = true;
+            this.operationLabel.BackColor = System.Drawing.Color.Transparent;
+            this.operationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.operationLabel.Location = new System.Drawing.Point(338, 307);
+            this.operationLabel.Name = "operationLabel";
+            this.operationLabel.Size = new System.Drawing.Size(153, 18);
+            this.operationLabel.TabIndex = 27;
+            this.operationLabel.Text = "Current Operation: ";
+            this.operationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.operationLabel.TextChanged += new System.EventHandler(this.modeLabel_TextChanged);
             // 
             // optionsPanel
             // 
@@ -532,28 +564,16 @@
             this.comboBox1.Size = new System.Drawing.Size(303, 24);
             this.comboBox1.TabIndex = 33;
             // 
-            // launchCheckBox
+            // operationToolTipPicture
             // 
-            this.launchCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
-            this.launchCheckBox.BackColor = System.Drawing.Color.Transparent;
-            this.launchCheckBox.Checked = true;
-            this.launchCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.launchCheckBox.FlatAppearance.BorderSize = 0;
-            this.launchCheckBox.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.launchCheckBox.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.launchCheckBox.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.launchCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.launchCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.launchCheckBox.Image = global::PriconneReTLInstaller.Properties.Resources.check_checked_24x24_2;
-            this.launchCheckBox.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.launchCheckBox.Location = new System.Drawing.Point(6, 113);
-            this.launchCheckBox.Name = "launchCheckBox";
-            this.launchCheckBox.Size = new System.Drawing.Size(177, 36);
-            this.launchCheckBox.TabIndex = 19;
-            this.launchCheckBox.Text = " Launch Game";
-            this.launchCheckBox.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.launchCheckBox.UseVisualStyleBackColor = false;
-            this.launchCheckBox.CheckedChanged += new System.EventHandler(this.launchCheckBox_CheckedChanged);
+            this.operationToolTipPicture.BackColor = System.Drawing.Color.Transparent;
+            this.operationToolTipPicture.Image = global::PriconneReTLInstaller.Properties.Resources.q_bubble;
+            this.operationToolTipPicture.Location = new System.Drawing.Point(578, 299);
+            this.operationToolTipPicture.Name = "operationToolTipPicture";
+            this.operationToolTipPicture.Size = new System.Drawing.Size(32, 32);
+            this.operationToolTipPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.operationToolTipPicture.TabIndex = 34;
+            this.operationToolTipPicture.TabStop = false;
             // 
             // MainForm
             // 
@@ -563,9 +583,10 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(718, 748);
             this.ControlBox = false;
+            this.Controls.Add(this.operationToolTipPicture);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.optionsPanel);
-            this.Controls.Add(this.modeLabel);
+            this.Controls.Add(this.operationLabel);
             this.Controls.Add(this.showLogCheckBox);
             this.Controls.Add(this.aboutButton);
             this.Controls.Add(this.minimizeButton);
@@ -597,6 +618,7 @@
             this.contextMenuStrip1.ResumeLayout(false);
             this.optionsPanel.ResumeLayout(false);
             this.optionsPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.operationToolTipPicture)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -632,7 +654,7 @@
         private System.Windows.Forms.ToolStripMenuItem option2ToolStripMenuItem;
         private System.Windows.Forms.Button minimizeButton;
         private System.Windows.Forms.Button aboutButton;
-        private System.Windows.Forms.Label modeLabel;
+        private System.Windows.Forms.Label operationLabel;
         private System.Windows.Forms.CheckBox removeIgnoredCheckBox;
         private System.Windows.Forms.CheckBox removeInteropsCheckBox;
         private System.Windows.Forms.Panel optionsPanel;
@@ -640,6 +662,7 @@
         private System.Windows.Forms.CheckBox installCheckBox;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.CheckBox launchCheckBox;
+        private System.Windows.Forms.PictureBox operationToolTipPicture;
     }
 }
 
