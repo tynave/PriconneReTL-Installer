@@ -16,6 +16,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Runtime.Remoting.Messaging;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -101,14 +102,13 @@ namespace InstallerFunctions
                     return (localVersion = "None", localVersionValid = false);
                 }
                 string rawVersionFile = File.ReadAllText(versionFilePath);
-                localVersion = System.Text.RegularExpressions.Regex.Match(rawVersionFile, @"\d{8}[a-z]?").Value;
+                Match match = Regex.Match(rawVersionFile, @"\d{8}[a-z]?");
 
-                if (localVersion == "")
+                if (match == null || !match.Success)
                 {
                     return (localVersion = "Invalid", localVersionValid = false);
-
                 }
-
+                localVersion = match.Value;
                 return (localVersion, localVersionValid = true);
 
             }

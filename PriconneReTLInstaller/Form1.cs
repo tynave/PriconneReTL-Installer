@@ -129,17 +129,14 @@ namespace PriconneReTLInstaller
             (localVersion, localVersionValid) = installer.GetLocalVersion();
 
             installCheckBox.Text = localVersionValid ? " Update" : " Install";
-
             localVersionLabel.Text = "Current (Local) Version: " + localVersion;
 
             versioncompare = localVersion.CompareTo(latestVersion);
-
             if ((!localVersionValid || versioncompare != 0) && priconnePathValid) installCheckBox.Enabled = true; else installCheckBox.Enabled = false;
 
             newPictureBox.Visible = localVersion == latestVersion ? false : true;
 
             SetUninstallandReinstallCheckBox(localVersionValid);
-
             UpdateModeDescription();
         }
 
