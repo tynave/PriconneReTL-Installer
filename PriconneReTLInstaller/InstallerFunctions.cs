@@ -61,7 +61,7 @@ namespace InstallerFunctions
                     {
                         if (content.productId == "priconner")
                         {
-                            //priconnePath = content.detail.path;
+                            // priconnePath = content.detail.path;
                             priconnePath = "C:\\Test"; // -- set fixed path for testing purposes
                             Log?.Invoke("Found Princess Connect Re:Dive in " + priconnePath, "info", false);
                             return (priconnePath, priconnePathValid = true);
@@ -206,7 +206,7 @@ namespace InstallerFunctions
                         string fileName = entry.FullName;
 
                         Log?.Invoke("Extracting: " + entry.FullName, "add", false);
-                        double percentage = ((double)counter / zip.Entries.Count) * 100;
+                        // double percentage = ((double)counter / zip.Entries.Count) * 100;
                         DownloadProgress?.Invoke(counter, zip.Entries.Count);
 
                         if (!ignoreFiles.Contains(fileName))
@@ -547,7 +547,8 @@ namespace InstallerFunctions
                 {
                     helper.CannotExitNotification(e, "file removal");
                 }
-                if (File.Exists(tempFile)) File.Delete(tempFile);
+                else if (File.Exists(tempFile)) File.Delete(tempFile);
+                Settings.Default.Save();
             }
             catch (IOException)
             {

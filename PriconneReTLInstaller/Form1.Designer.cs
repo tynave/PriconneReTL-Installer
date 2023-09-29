@@ -54,10 +54,10 @@
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.minimizeButton = new System.Windows.Forms.Button();
             this.aboutButton = new System.Windows.Forms.Button();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.gamePathLinkLabel = new System.Windows.Forms.LinkLabel();
             this.latestVersionLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.option1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.option2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -451,17 +451,6 @@
             this.aboutButton.UseVisualStyleBackColor = false;
             this.aboutButton.Click += new System.EventHandler(this.aboutButton_Click);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.ReTLlogo;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Location = new System.Drawing.Point(15, 7);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(330, 79);
-            this.pictureBox1.TabIndex = 21;
-            this.pictureBox1.TabStop = false;
-            // 
             // gamePathLinkLabel
             // 
             this.gamePathLinkLabel.AutoSize = true;
@@ -496,6 +485,17 @@
             this.latestVersionLinkLabel.VisitedLinkColor = System.Drawing.Color.Black;
             this.latestVersionLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.latestReleaseLinkLabel_LinkClicked);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.ReTLlogo;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Location = new System.Drawing.Point(15, 7);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(330, 79);
+            this.pictureBox1.TabIndex = 21;
+            this.pictureBox1.TabStop = false;
+            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -523,7 +523,7 @@
             this.operationLabel.AutoSize = true;
             this.operationLabel.BackColor = System.Drawing.Color.Transparent;
             this.operationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.operationLabel.Location = new System.Drawing.Point(338, 307);
+            this.operationLabel.Location = new System.Drawing.Point(21, 342);
             this.operationLabel.Name = "operationLabel";
             this.operationLabel.Size = new System.Drawing.Size(153, 18);
             this.operationLabel.TabIndex = 27;
@@ -538,11 +538,12 @@
             this.optionsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.optionsPanel.Controls.Add(this.optionsLabel);
             this.optionsPanel.Controls.Add(this.removeConfigCheckBox);
+            this.optionsPanel.Controls.Add(this.comboBox1);
             this.optionsPanel.Controls.Add(this.removeInteropsCheckBox);
             this.optionsPanel.Controls.Add(this.removeIgnoredCheckBox);
             this.optionsPanel.Location = new System.Drawing.Point(341, 175);
             this.optionsPanel.Name = "optionsPanel";
-            this.optionsPanel.Size = new System.Drawing.Size(307, 118);
+            this.optionsPanel.Size = new System.Drawing.Size(317, 154);
             this.optionsPanel.TabIndex = 30;
             // 
             // optionsLabel
@@ -557,18 +558,20 @@
             // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(21, 335);
+            this.comboBox1.Location = new System.Drawing.Point(7, 120);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(303, 24);
             this.comboBox1.TabIndex = 33;
+            this.toolTip.SetToolTip(this.comboBox1, "Select launcher.");
             // 
             // operationToolTipPicture
             // 
             this.operationToolTipPicture.BackColor = System.Drawing.Color.Transparent;
             this.operationToolTipPicture.Image = global::PriconneReTLInstaller.Properties.Resources.q_bubble;
-            this.operationToolTipPicture.Location = new System.Drawing.Point(578, 299);
+            this.operationToolTipPicture.Location = new System.Drawing.Point(292, 335);
             this.operationToolTipPicture.Name = "operationToolTipPicture";
             this.operationToolTipPicture.Size = new System.Drawing.Size(32, 32);
             this.operationToolTipPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -584,7 +587,6 @@
             this.ClientSize = new System.Drawing.Size(718, 748);
             this.ControlBox = false;
             this.Controls.Add(this.operationToolTipPicture);
-            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.optionsPanel);
             this.Controls.Add(this.operationLabel);
             this.Controls.Add(this.showLogCheckBox);

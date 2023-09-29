@@ -29,7 +29,6 @@ namespace PriconneReTLInstaller
         private Point lastLocation;
         private CheckBox[] exclusiveCheckboxes;
         private CheckBox[] operationCheckboxes;
-        private CheckBox[] launcherCheckboxes;
 
         Helper helper = new Helper();
         Installer installer = new Installer();
@@ -51,8 +50,6 @@ namespace PriconneReTLInstaller
             reinstallCheckBox.CheckedChanged += OnCheckedChange;
             launchCheckBox.CheckedChanged += OnCheckedChange;
 
-            //uninstallCheckBox.EnabledChanged += OnEnabledChange;
-            //removeConfigCheckBox.EnabledChanged += OnEnabledChange;
             installCheckBox.EnabledChanged += OnEnabledChange;
             launchCheckBox.EnabledChanged += OnEnabledChange;
 
@@ -101,10 +98,11 @@ namespace PriconneReTLInstaller
             (priconnePath, priconnePathValid) = installer.GetGamePath();
             gamePathLinkLabel.Text = priconnePath;
 
-            helper.PopulateComboBox(comboBox1);
+            if (priconnePathValid) helper.PopulateComboBox(comboBox1);
 
             launchCheckBox.Enabled = priconnePathValid && comboBox1.Items.Count > 0;
             launchCheckBox.Checked = Settings.Default.launchState;
+            optionsPanel.Height = launchCheckBox.Checked ? 154 : 118;
 
             (latestVersion, latestVersionValid) = installer.GetLatestRelease();
             latestVersionLinkLabel.Text = latestVersionValid ? latestVersion : "ERROR!";
@@ -377,7 +375,6 @@ namespace PriconneReTLInstaller
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             installer.HandleFormClosing(this, e);
-            Settings.Default.Save();
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -416,7 +413,7 @@ namespace PriconneReTLInstaller
 
         private void option2ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show($"[PriconneReTL Updater version: {String.Format(System.Windows.Forms.Application.ProductVersion)}]\n" + Settings.Default.aboutText, "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"[PriconneReTL Updater version: {String.Format(Application.ProductVersion)}]\n" + Settings.Default.aboutText, "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void startButton_EnabledChanged(object sender, EventArgs e)
@@ -427,6 +424,7 @@ namespace PriconneReTLInstaller
         private void launchCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             comboBox1.Visible = launchCheckBox.Checked;
+            optionsPanel.Height = launchCheckBox.Checked ? 154 : 118; 
             Settings.Default.launchState = launchCheckBox.Checked;
         }
 
