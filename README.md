@@ -23,7 +23,7 @@ If the file is not present, it gets created. If the file is already present, it'
 
 ## Usage / Operations  
 
-### The application is capable of the following operations (regarding the translation patch):  
+### The application is capable of the following operations:  
 
 ### Install:
 If you have never used the translation patch before, or you don't have it currently installed, select the *Install* operation press the *Start!* button, and the application will download and install it for you.  
