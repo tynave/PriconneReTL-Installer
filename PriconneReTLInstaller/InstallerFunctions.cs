@@ -508,7 +508,7 @@ namespace InstallerFunctions
 
                 if (File.Exists(dmmFastLauncherExe))
                 {
-                    Log?.Invoke("Starting PriconneR game...", "info", true);
+                    Log?.Invoke("Starting Princess Connect Re:Dive...", "info", true);
                     Process.Start(dmmFastLauncherExe, "priconner");
                     return true;
                 }
@@ -516,7 +516,7 @@ namespace InstallerFunctions
             }
             catch (Exception ex)
             {
-                ErrorLog?.Invoke("Error starting DMMFastLauncher: " + ex.Message);
+                ErrorLog?.Invoke("Error starting DMMGamePlayerFastLauncher: " + ex.Message);
                 return false;
             }
         }
@@ -525,7 +525,7 @@ namespace InstallerFunctions
         {
             try
             {
-                Log?.Invoke("Starting Pricess Connect Re:Dive game...", "info", true);
+                Log?.Invoke("Starting Princess Connect Re:Dive...", "info", true);
                 Process.Start("dmmgameplayer://play/GCL/priconner/cl/win");
                 
                 return;

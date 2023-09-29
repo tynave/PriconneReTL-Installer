@@ -148,7 +148,7 @@ namespace HelperFunctions
             }
             catch (Exception ex)
             {
-                ErrorLog?.Invoke("Error checking DMM Fastlauncher: " + ex.Message);
+                ErrorLog?.Invoke("Error checking DMMGamePlayerFastlauncher: " + ex.Message);
                 return false;
             }
         }
@@ -159,8 +159,8 @@ namespace HelperFunctions
             comboBox.Items.Add("DMMGamePlayer");
             if (IsFastLauncherInstalled())
             {
-                comboBox.Items.Add("DMMGamesFastLauncher");
-                Log?.Invoke("Found DMMGamesFastLauncher", "info", false);
+                comboBox.Items.Add("DMMGamePlayerFastLauncher");
+                Log?.Invoke("Found DMMGamePlayerFastLauncher", "info", false);
             }
             if (comboBox.Items.Count > 0) comboBox.SelectedIndex = IsFastLauncherInstalled() ? 1 : 0;
         }
