@@ -93,7 +93,7 @@ See log for details.</Value>
       <Value Profile="(Default)">No operation selected.</Value>
     </Setting>
     <Setting Name="launchState" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>
