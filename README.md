@@ -49,8 +49,8 @@ Please note, that even a full uninstall does NOT remove any files created by the
 
 ### Launch Game:
 By selection this option, the installer launches the game. You can select this option either together with any install/update/uninstall/reinstall option, or just by itself.  
-If you select this option, a dropdown menu will become visible, and you have the option to select either the default DMM Game Player launcher, or the DMMGamesFastLauncher.  
-The installer detects if you have the DMMGamesFastlauncher installed, and defaults to that if it is, but you can change it anytime.  
+If you select this option, a dropdown menu will become visible, and you have the option to select either the default DMM Game Player launcher, or the [DMMGamePlayerFastLauncher](https://github.com/fa0311/DMMGamePlayerFastLauncher).  
+The installer detects if you have the DMMGamePlayerFastLauncher installed, and defaults to that if it is, but you can change it anytime.  
 If you have the Launch Game option selected, the installer will close itself 5 seconds after the game launch has been initiated.
 The Launch Game option is a user setting, meaning the state of the option is saved even when you close the application.
 
