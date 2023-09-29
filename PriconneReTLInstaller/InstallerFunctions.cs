@@ -61,8 +61,8 @@ namespace InstallerFunctions
                     {
                         if (content.productId == "priconner")
                         {
-                            // priconnePath = content.detail.path;
-                            priconnePath = "C:\\Test"; // -- set fixed path for testing purposes
+                            priconnePath = content.detail.path;
+                            // priconnePath = "C:\\Test"; // -- set fixed path for testing purposes
                             Log?.Invoke("Found Princess Connect Re:Dive in " + priconnePath, "info", false);
                             return (priconnePath, priconnePathValid = true);
                         }
@@ -206,7 +206,6 @@ namespace InstallerFunctions
                         string fileName = entry.FullName;
 
                         Log?.Invoke("Extracting: " + entry.FullName, "add", false);
-                        // double percentage = ((double)counter / zip.Entries.Count) * 100;
                         DownloadProgress?.Invoke(counter, zip.Entries.Count);
 
                         if (!ignoreFiles.Contains(fileName))
@@ -467,8 +466,6 @@ namespace InstallerFunctions
                     await ExtractPatchFiles();
                     return;
                 }
-
-                // Log?.Invoke("No patch operation selected!", "info", true);
 
             }
             catch (Exception ex)
