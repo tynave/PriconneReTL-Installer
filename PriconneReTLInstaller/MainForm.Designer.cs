@@ -56,7 +56,8 @@
             this.aboutButton = new System.Windows.Forms.Button();
             this.gamePathLinkLabel = new System.Windows.Forms.LinkLabel();
             this.latestVersionLinkLabel = new System.Windows.Forms.LinkLabel();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.launcherComboBox = new System.Windows.Forms.ComboBox();
+            this.settingsButton = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.helpMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -66,7 +67,6 @@
             this.optionsPanel = new System.Windows.Forms.Panel();
             this.optionsLabel = new System.Windows.Forms.Label();
             this.operationToolTipPicture = new System.Windows.Forms.PictureBox();
-            this.settingsButton = new System.Windows.Forms.Button();
             this.settingsMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.autoUpdaterInstallerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
@@ -489,16 +489,33 @@
             this.latestVersionLinkLabel.VisitedLinkColor = System.Drawing.Color.Black;
             this.latestVersionLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.latestReleaseLinkLabel_LinkClicked);
             // 
-            // comboBox1
+            // launcherComboBox
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(7, 120);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(303, 24);
-            this.comboBox1.TabIndex = 33;
-            this.toolTip.SetToolTip(this.comboBox1, "Select launcher.");
+            this.launcherComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.launcherComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.launcherComboBox.FormattingEnabled = true;
+            this.launcherComboBox.Location = new System.Drawing.Point(7, 120);
+            this.launcherComboBox.Name = "launcherComboBox";
+            this.launcherComboBox.Size = new System.Drawing.Size(303, 24);
+            this.launcherComboBox.TabIndex = 33;
+            this.toolTip.SetToolTip(this.launcherComboBox, "Select launcher.");
+            // 
+            // settingsButton
+            // 
+            this.settingsButton.BackColor = System.Drawing.Color.Transparent;
+            this.settingsButton.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.scroll_closed_res2;
+            this.settingsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.settingsButton.FlatAppearance.BorderSize = 0;
+            this.settingsButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.settingsButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.settingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.settingsButton.Location = new System.Drawing.Point(513, 9);
+            this.settingsButton.Name = "settingsButton";
+            this.settingsButton.Size = new System.Drawing.Size(44, 30);
+            this.settingsButton.TabIndex = 35;
+            this.toolTip.SetToolTip(this.settingsButton, "Settings");
+            this.settingsButton.UseVisualStyleBackColor = false;
+            this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
             // 
             // pictureBox1
             // 
@@ -522,14 +539,14 @@
             // helpMenuItem
             // 
             this.helpMenuItem.Name = "helpMenuItem";
-            this.helpMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.helpMenuItem.Size = new System.Drawing.Size(107, 22);
             this.helpMenuItem.Text = "Help";
             this.helpMenuItem.Click += new System.EventHandler(this.helpMenuItem_Click);
             // 
             // aboutMenuItem
             // 
             this.aboutMenuItem.Name = "aboutMenuItem";
-            this.aboutMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutMenuItem.Text = "About";
             this.aboutMenuItem.Click += new System.EventHandler(this.aboutMenuItem_Click);
             // 
@@ -553,7 +570,7 @@
             this.optionsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.optionsPanel.Controls.Add(this.optionsLabel);
             this.optionsPanel.Controls.Add(this.removeConfigCheckBox);
-            this.optionsPanel.Controls.Add(this.comboBox1);
+            this.optionsPanel.Controls.Add(this.launcherComboBox);
             this.optionsPanel.Controls.Add(this.removeInteropsCheckBox);
             this.optionsPanel.Controls.Add(this.removeIgnoredCheckBox);
             this.optionsPanel.Location = new System.Drawing.Point(341, 175);
@@ -582,29 +599,12 @@
             this.operationToolTipPicture.TabIndex = 34;
             this.operationToolTipPicture.TabStop = false;
             // 
-            // settingsButton
-            // 
-            this.settingsButton.BackColor = System.Drawing.Color.Transparent;
-            this.settingsButton.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.scroll_closed_res2;
-            this.settingsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.settingsButton.FlatAppearance.BorderSize = 0;
-            this.settingsButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.settingsButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.settingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.settingsButton.Location = new System.Drawing.Point(513, 9);
-            this.settingsButton.Name = "settingsButton";
-            this.settingsButton.Size = new System.Drawing.Size(44, 30);
-            this.settingsButton.TabIndex = 35;
-            this.toolTip.SetToolTip(this.settingsButton, "Settings");
-            this.settingsButton.UseVisualStyleBackColor = false;
-            this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
-            // 
             // settingsMenuStrip
             // 
             this.settingsMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.autoUpdaterInstallerToolStripMenuItem});
             this.settingsMenuStrip.Name = "settingsMenuStrip";
-            this.settingsMenuStrip.Size = new System.Drawing.Size(187, 48);
+            this.settingsMenuStrip.Size = new System.Drawing.Size(187, 26);
             // 
             // autoUpdaterInstallerToolStripMenuItem
             // 
@@ -699,7 +699,7 @@
         private System.Windows.Forms.Panel optionsPanel;
         private System.Windows.Forms.Label optionsLabel;
         private System.Windows.Forms.CheckBox installCheckBox;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox launcherComboBox;
         private System.Windows.Forms.CheckBox launchCheckBox;
         private System.Windows.Forms.PictureBox operationToolTipPicture;
         private System.Windows.Forms.Button settingsButton;

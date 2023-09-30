@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -101,9 +102,9 @@ namespace PriconneReTLInstaller
             (priconnePath, priconnePathValid) = installer.GetGamePath();
             gamePathLinkLabel.Text = priconnePath;
 
-            if (priconnePathValid) helper.PopulateComboBox(comboBox1);
+            if (priconnePathValid) helper.PopulateComboBox(launcherComboBox);
 
-            launchCheckBox.Enabled = priconnePathValid && comboBox1.Items.Count > 0;
+            launchCheckBox.Enabled = priconnePathValid && launcherComboBox.Items.Count > 0;
             launchCheckBox.Checked = Settings.Default.launchState;
             optionsPanel.Height = launchCheckBox.Checked ? 154 : 118;
 
@@ -368,7 +369,17 @@ namespace PriconneReTLInstaller
         }
         private void startButton_Click_1(object sender, EventArgs e)
         {
-            installer.ProcessOperation(installCheckBox.Checked, uninstallCheckBox.Checked, reinstallCheckBox.Checked, launchCheckBox.Checked, removeConfigCheckBox.Checked, removeIgnoredCheckBox.Checked, removeInteropsCheckBox.Checked, comboBox1);
+            
+            if (helper.IsGameRunning())
+            {
+                MessageBox.Show($"The game is currently running.\nPlease exit the game before performing any operations.", "Cannot Start", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            else
+            {
+               installer.ProcessOperation(installCheckBox.Checked, uninstallCheckBox.Checked, reinstallCheckBox.Checked, launchCheckBox.Checked, removeConfigCheckBox.Checked, removeIgnoredCheckBox.Checked, removeInteropsCheckBox.Checked, launcherComboBox);
+            }
+
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -428,7 +439,7 @@ namespace PriconneReTLInstaller
 
         private void launchCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            comboBox1.Visible = launchCheckBox.Checked;
+            launcherComboBox.Visible = launchCheckBox.Checked;
             optionsPanel.Height = launchCheckBox.Checked ? 154 : 118; 
             Settings.Default.launchState = launchCheckBox.Checked;
         }

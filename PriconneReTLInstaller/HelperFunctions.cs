@@ -153,6 +153,15 @@ namespace HelperFunctions
             }
         }
 
+        public bool IsGameRunning()
+        {
+            // Get a list of all running processes with the specified name
+            Process[] processes = Process.GetProcessesByName("PrincessConnectReDive");
+            
+            // Check if any processes with the given name are running
+            return processes.Length > 0;
+        }
+
         public void PopulateComboBox(ComboBox comboBox)
         {
             comboBox.Items.Clear();

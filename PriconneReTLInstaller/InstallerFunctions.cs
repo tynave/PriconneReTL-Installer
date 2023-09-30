@@ -61,8 +61,8 @@ namespace InstallerFunctions
                     {
                         if (content.productId == "priconner")
                         {
-                            priconnePath = content.detail.path;
-                            // priconnePath = "C:\\Test"; // -- set fixed path for testing purposes
+                            // priconnePath = content.detail.path;
+                            priconnePath = "C:\\Test"; // -- set fixed path for testing purposes
                             Log?.Invoke("Found Princess Connect Re:Dive in " + priconnePath, "info", false);
                             return (priconnePath, priconnePathValid = true);
                         }
@@ -274,7 +274,7 @@ namespace InstallerFunctions
                             if (!ignoreFiles.Contains(trimmedPath))
                             {
                                 filePathsList.Add(trimmedPath);
-                                Console.WriteLine($"File in 'src' Path: {trimmedPath}");
+                                // Console.WriteLine($"File in 'src' Path: {trimmedPath}");
                             }
                         }
                     }
