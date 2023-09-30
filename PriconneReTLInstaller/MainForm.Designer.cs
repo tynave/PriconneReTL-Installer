@@ -56,23 +56,27 @@
             this.aboutButton = new System.Windows.Forms.Button();
             this.gamePathLinkLabel = new System.Windows.Forms.LinkLabel();
             this.latestVersionLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.option1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.option2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.helpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.operationLabel = new System.Windows.Forms.Label();
             this.optionsPanel = new System.Windows.Forms.Panel();
             this.optionsLabel = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.operationToolTipPicture = new System.Windows.Forms.PictureBox();
+            this.settingsButton = new System.Windows.Forms.Button();
+            this.settingsMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.autoUpdaterInstallerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.operationsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.newPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.contextMenuStrip1.SuspendLayout();
+            this.helpMenuStrip.SuspendLayout();
             this.optionsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.operationToolTipPicture)).BeginInit();
+            this.settingsMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // localVersionLabel
@@ -402,7 +406,7 @@
             this.exitButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.exitButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.exitButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.exitButton.Location = new System.Drawing.Point(647, 3);
+            this.exitButton.Location = new System.Drawing.Point(648, 4);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(62, 32);
             this.exitButton.TabIndex = 20;
@@ -426,7 +430,7 @@
             this.minimizeButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.minimizeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.minimizeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.minimizeButton.Location = new System.Drawing.Point(621, 7);
+            this.minimizeButton.Location = new System.Drawing.Point(616, 7);
             this.minimizeButton.Name = "minimizeButton";
             this.minimizeButton.Size = new System.Drawing.Size(27, 30);
             this.minimizeButton.TabIndex = 25;
@@ -443,7 +447,7 @@
             this.aboutButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.aboutButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.aboutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.aboutButton.Location = new System.Drawing.Point(578, 5);
+            this.aboutButton.Location = new System.Drawing.Point(571, 5);
             this.aboutButton.Name = "aboutButton";
             this.aboutButton.Size = new System.Drawing.Size(32, 32);
             this.aboutButton.TabIndex = 26;
@@ -485,6 +489,17 @@
             this.latestVersionLinkLabel.VisitedLinkColor = System.Drawing.Color.Black;
             this.latestVersionLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.latestReleaseLinkLabel_LinkClicked);
             // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(7, 120);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(303, 24);
+            this.comboBox1.TabIndex = 33;
+            this.toolTip.SetToolTip(this.comboBox1, "Select launcher.");
+            // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
@@ -496,27 +511,27 @@
             this.pictureBox1.TabIndex = 21;
             this.pictureBox1.TabStop = false;
             // 
-            // contextMenuStrip1
+            // helpMenuStrip
             // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.option1ToolStripMenuItem,
-            this.option2ToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(108, 48);
+            this.helpMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.helpMenuItem,
+            this.aboutMenuItem});
+            this.helpMenuStrip.Name = "contextMenuStrip1";
+            this.helpMenuStrip.Size = new System.Drawing.Size(108, 48);
             // 
-            // option1ToolStripMenuItem
+            // helpMenuItem
             // 
-            this.option1ToolStripMenuItem.Name = "option1ToolStripMenuItem";
-            this.option1ToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.option1ToolStripMenuItem.Text = "Help";
-            this.option1ToolStripMenuItem.Click += new System.EventHandler(this.option1ToolStripMenuItem_Click);
+            this.helpMenuItem.Name = "helpMenuItem";
+            this.helpMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.helpMenuItem.Text = "Help";
+            this.helpMenuItem.Click += new System.EventHandler(this.helpMenuItem_Click);
             // 
-            // option2ToolStripMenuItem
+            // aboutMenuItem
             // 
-            this.option2ToolStripMenuItem.Name = "option2ToolStripMenuItem";
-            this.option2ToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.option2ToolStripMenuItem.Text = "About";
-            this.option2ToolStripMenuItem.Click += new System.EventHandler(this.option2ToolStripMenuItem_Click);
+            this.aboutMenuItem.Name = "aboutMenuItem";
+            this.aboutMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutMenuItem.Text = "About";
+            this.aboutMenuItem.Click += new System.EventHandler(this.aboutMenuItem_Click);
             // 
             // operationLabel
             // 
@@ -556,17 +571,6 @@
             this.optionsLabel.TabIndex = 31;
             this.optionsLabel.Text = "Options";
             // 
-            // comboBox1
-            // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(7, 120);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(303, 24);
-            this.comboBox1.TabIndex = 33;
-            this.toolTip.SetToolTip(this.comboBox1, "Select launcher.");
-            // 
             // operationToolTipPicture
             // 
             this.operationToolTipPicture.BackColor = System.Drawing.Color.Transparent;
@@ -578,6 +582,37 @@
             this.operationToolTipPicture.TabIndex = 34;
             this.operationToolTipPicture.TabStop = false;
             // 
+            // settingsButton
+            // 
+            this.settingsButton.BackColor = System.Drawing.Color.Transparent;
+            this.settingsButton.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.scroll_closed_res2;
+            this.settingsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.settingsButton.FlatAppearance.BorderSize = 0;
+            this.settingsButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.settingsButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.settingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.settingsButton.Location = new System.Drawing.Point(513, 9);
+            this.settingsButton.Name = "settingsButton";
+            this.settingsButton.Size = new System.Drawing.Size(44, 30);
+            this.settingsButton.TabIndex = 35;
+            this.toolTip.SetToolTip(this.settingsButton, "Settings");
+            this.settingsButton.UseVisualStyleBackColor = false;
+            this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
+            // 
+            // settingsMenuStrip
+            // 
+            this.settingsMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.autoUpdaterInstallerToolStripMenuItem});
+            this.settingsMenuStrip.Name = "settingsMenuStrip";
+            this.settingsMenuStrip.Size = new System.Drawing.Size(187, 48);
+            // 
+            // autoUpdaterInstallerToolStripMenuItem
+            // 
+            this.autoUpdaterInstallerToolStripMenuItem.Name = "autoUpdaterInstallerToolStripMenuItem";
+            this.autoUpdaterInstallerToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
+            this.autoUpdaterInstallerToolStripMenuItem.Text = "AutoUpdater Installer";
+            this.autoUpdaterInstallerToolStripMenuItem.Click += new System.EventHandler(this.autoUpdaterInstallerToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -586,6 +621,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(718, 748);
             this.ControlBox = false;
+            this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.operationToolTipPicture);
             this.Controls.Add(this.optionsPanel);
             this.Controls.Add(this.operationLabel);
@@ -617,10 +653,11 @@
             this.operationsPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.newPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.contextMenuStrip1.ResumeLayout(false);
+            this.helpMenuStrip.ResumeLayout(false);
             this.optionsPanel.ResumeLayout(false);
             this.optionsPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.operationToolTipPicture)).EndInit();
+            this.settingsMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -651,9 +688,9 @@
         private System.Windows.Forms.LinkLabel gamePathLinkLabel;
         private System.Windows.Forms.LinkLabel latestVersionLinkLabel;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem option1ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem option2ToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip helpMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem helpMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutMenuItem;
         private System.Windows.Forms.Button minimizeButton;
         private System.Windows.Forms.Button aboutButton;
         private System.Windows.Forms.Label operationLabel;
@@ -665,6 +702,9 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.CheckBox launchCheckBox;
         private System.Windows.Forms.PictureBox operationToolTipPicture;
+        private System.Windows.Forms.Button settingsButton;
+        private System.Windows.Forms.ContextMenuStrip settingsMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem autoUpdaterInstallerToolStripMenuItem;
     }
 }
 

@@ -167,6 +167,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AUForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AUForm.Designer.cs">
+      <DependentUpon>AUForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoggerFunctions.cs" />
     <Compile Include="HelperFunctions.cs" />
     <Compile Include="InstallerFunctions.cs" />
@@ -179,6 +185,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
+    <EmbeddedResource Include="AUForm.resx">
+      <DependentUpon>AUForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -297,6 +306,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\bg2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\back_arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\install_button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\uninstall_button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scroll_closed_res.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scroll_open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scroll_closed_res2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

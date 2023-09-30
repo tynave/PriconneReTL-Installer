@@ -32,6 +32,7 @@ namespace PriconneReTLInstaller
 
         Helper helper = new Helper();
         Installer installer = new Installer();
+        AUForm auForm = new AUForm();
         public MainForm()
         {
             InitializeComponent();
@@ -70,6 +71,8 @@ namespace PriconneReTLInstaller
             minimizeButton.MouseLeave += OnButtonMouseLeave;
             exitButton.MouseEnter += OnButtonMouseEnter;
             exitButton.MouseLeave += OnButtonMouseLeave;
+            settingsButton.MouseEnter += OnButtonMouseEnter;
+            settingsButton.MouseLeave += OnButtonMouseLeave;
 
             this.MouseDown += OnMouseDown;
             this.MouseMove += OnMouseMove;
@@ -329,6 +332,7 @@ namespace PriconneReTLInstaller
                 if (button == exitButton) button.BackgroundImage = Resources.door_open;
                 if (button == minimizeButton) button.BackgroundImage = Resources.arrow_yellow;
                 if (button == aboutButton) button.BackgroundImage = Resources.q_bubble;
+                if (button == settingsButton) button.BackgroundImage = Resources.scroll_open;
             }
         }
 
@@ -340,6 +344,7 @@ namespace PriconneReTLInstaller
                 if (button == exitButton) button.BackgroundImage = Resources.door_closed;
                 if (button == minimizeButton) button.BackgroundImage = Resources.arrow_blue;
                 if (button == aboutButton) button.BackgroundImage = Resources.i_bubble;
+                if (button == settingsButton) button.BackgroundImage = Resources.scroll_closed_res2;
             }
         }
 
@@ -403,15 +408,15 @@ namespace PriconneReTLInstaller
 
         private void aboutButton_Click(object sender, EventArgs e)
         {
-            contextMenuStrip1.Show(aboutButton, new System.Drawing.Point(0, aboutButton.Height));
+            helpMenuStrip.Show(aboutButton, new System.Drawing.Point(0, aboutButton.Height));
         }
 
-        private void option1ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void helpMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start("https://github.com/tynave/PriconneReTL-Installer#readme");
         }
 
-        private void option2ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void aboutMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show($"[PriconneReTL Updater version: {String.Format(Application.ProductVersion)}]\n" + Settings.Default.aboutText, "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -431,6 +436,16 @@ namespace PriconneReTLInstaller
         private void modeLabel_TextChanged(object sender, EventArgs e)
         {
             operationToolTipPicture.Location = new Point(operationLabel.Right + 10, operationToolTipPicture.Top);
+        }
+
+        private void settingsButton_Click(object sender, EventArgs e)
+        {
+            settingsMenuStrip.Show(settingsButton, new System.Drawing.Point(0, settingsButton.Height));
+        }
+
+        private void autoUpdaterInstallerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            auForm.ShowDialog();
         }
     }
 }
