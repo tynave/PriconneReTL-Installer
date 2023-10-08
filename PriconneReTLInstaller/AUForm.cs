@@ -99,6 +99,9 @@ namespace PriconneReTLInstaller
 
             auVersionLabel.Text = $"AutoUpdater Version: Local: {auLocalVersion} | Latest: {auLatestVersion}";
             auAppVersionLabel.Text = $"AutoUpdaterApp Version: Local: {auAppLocalVersion} | Latest: {auAppLatestVersion}";
+
+            installButton.Enabled = (auLocalVersion == auLatestVersion) && (auAppLocalVersion == auAppLatestVersion) ? false : true ;
+            uninstallButton.Enabled = auAppLocalVersionValid && auAppLatestVersionValid;
         }
 
         private void OnButtonMouseEnter(object sender, EventArgs e)
@@ -128,11 +131,6 @@ namespace PriconneReTLInstaller
             (auLatestVersion, auLatestVersionValid, auAssetLink) = installer.GetLatestRelease(auGithubApi);
             (auAppLatestVersion, auAppLatestVersionValid,auAppAssetLink) = installer.GetLatestRelease(auAppGithubApi);
 
-            /*(auLocalVersion, auLocalVersionValid) = installer.GetAULocalVersion(priconnePath,"PriconneReTLAutoUpdater.dll");
-            (auAppLocalVersion, auAppLocalVersionValid) = installer.GetAULocalVersion(priconnePath,"PriconneReTLAutoUpdaterApp.exe");
-
-            auVersionLabel.Text = $"AutoUpdater Version: Local: {auLocalVersion} | Latest: {auLatestVersion}";
-            auAppVersionLabel.Text = $"AutoUpdaterApp Version: Local: {auAppLocalVersion} | Latest: {auAppLatestVersion}";*/
             UpdateUI();
         }
 
@@ -144,6 +142,16 @@ namespace PriconneReTLInstaller
         private void uninstallButton_Click(object sender, EventArgs e)
         {
             installer.ProcessAuUninstallOperation();
+        }
+
+        private void installButton_EnabledChanged(object sender, EventArgs e)
+        {
+            installButton.BackgroundImage = installButton.Enabled ? Resources.install_button : Resources.install_button_disabled;
+        }
+
+        private void uninstallButton_EnabledChanged(object sender, EventArgs e)
+        {
+            uninstallButton.BackgroundImage = uninstallButton.Enabled ? Resources.uninstall_button : Resources.uninstall_button_disabled;
         }
     }
 }

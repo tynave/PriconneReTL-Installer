@@ -57,6 +57,7 @@
             this.installButton.Size = new System.Drawing.Size(266, 72);
             this.installButton.TabIndex = 0;
             this.installButton.UseVisualStyleBackColor = false;
+            this.installButton.EnabledChanged += new System.EventHandler(this.installButton_EnabledChanged);
             this.installButton.Click += new System.EventHandler(this.installButton_Click);
             // 
             // uninstallButton
@@ -74,6 +75,7 @@
             this.uninstallButton.Size = new System.Drawing.Size(266, 72);
             this.uninstallButton.TabIndex = 1;
             this.uninstallButton.UseVisualStyleBackColor = false;
+            this.uninstallButton.EnabledChanged += new System.EventHandler(this.uninstallButton_EnabledChanged);
             this.uninstallButton.Click += new System.EventHandler(this.uninstallButton_Click);
             // 
             // backButton
@@ -151,7 +153,7 @@
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(478, 24);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(509, 24);
             this.toolStripStatusLabel2.Spring = true;
             // 
             // toolStripStatusLabel3
