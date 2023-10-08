@@ -33,7 +33,7 @@
   &lt;string&gt;BepInEx/config/BepInEx.cfg&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
-    <Setting Name="githubApi" Type="System.String" Scope="Application">
+    <Setting Name="patchGithubApi" Type="System.String" Scope="Application">
       <Value Profile="(Default)">https://api.github.com/repos/ImaterialC/PriconneRe-TL</Value>
     </Setting>
     <Setting Name="aboutText" Type="System.String" Scope="Application">
@@ -94,6 +94,12 @@ See log for details.</Value>
     </Setting>
     <Setting Name="launchState" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="auGithubApi" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://api.github.com/repos/tynave/PriconneReTL-AutoUpdater</Value>
+    </Setting>
+    <Setting Name="auAppGithubApi" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://api.github.com/repos/tynave/PriconneReTL-AutoUpdaterApp</Value>
     </Setting>
   </Settings>
 </SettingsFile>

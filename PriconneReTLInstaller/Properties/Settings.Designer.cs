@@ -75,9 +75,9 @@ namespace PriconneReTLInstaller.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("https://api.github.com/repos/ImaterialC/PriconneRe-TL")]
-        public string githubApi {
+        public string patchGithubApi {
             get {
-                return ((string)(this["githubApi"]));
+                return ((string)(this["patchGithubApi"]));
             }
         }
         
@@ -233,6 +233,24 @@ namespace PriconneReTLInstaller.Properties {
             }
             set {
                 this["launchState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://api.github.com/repos/tynave/PriconneReTL-AutoUpdater")]
+        public string auGithubApi {
+            get {
+                return ((string)(this["auGithubApi"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://api.github.com/repos/tynave/PriconneReTL-AutoUpdaterApp")]
+        public string auAppGithubApi {
+            get {
+                return ((string)(this["auAppGithubApi"]));
             }
         }
     }

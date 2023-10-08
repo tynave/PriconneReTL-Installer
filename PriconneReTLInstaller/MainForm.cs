@@ -15,9 +15,10 @@ using System.Windows.Forms;
 
 namespace PriconneReTLInstaller
 {
-    public partial class MainForm : Form
+    public partial class MainForm : BaseForm
     {
-        private Logger logger;
+        private string patchgithubAPI = Settings.Default.patchGithubApi;
+        private string assetLink;
         private string priconnePath;
         private bool priconnePathValid;
         private string latestVersion;
@@ -25,15 +26,16 @@ namespace PriconneReTLInstaller
         private string localVersion;
         private bool localVersionValid;
         private int versioncompare;
-        PrivateFontCollection priconnefont = new PrivateFontCollection();
-        private bool mouseDown;
-        private Point lastLocation;
+        //PrivateFontCollection priconnefont = new PrivateFontCollection();
+        //private bool mouseDown;
+        //private Point lastLocation;
         private CheckBox[] exclusiveCheckboxes;
         private CheckBox[] operationCheckboxes;
 
-        Helper helper = new Helper();
-        Installer installer = new Installer();
-        AUForm auForm = new AUForm();
+        //Helper helper = new Helper();
+        //Installer installer = new Installer();
+        
+        
         public MainForm()
         {
             InitializeComponent();
@@ -47,24 +49,26 @@ namespace PriconneReTLInstaller
             installer.ProcessStart += OnProcessStart;
             installer.ProcessFinish += OnProcessFinish;
 
-            installCheckBox.CheckedChanged += OnCheckedChange;
+            /*installCheckBox.CheckedChanged += OnCheckedChange;
             uninstallCheckBox.CheckedChanged += OnCheckedChange;
             reinstallCheckBox.CheckedChanged += OnCheckedChange;
             launchCheckBox.CheckedChanged += OnCheckedChange;
-
-            installCheckBox.EnabledChanged += OnEnabledChange;
-            launchCheckBox.EnabledChanged += OnEnabledChange;
-
             removeConfigCheckBox.CheckedChanged += OnCheckedChange;
             removeIgnoredCheckBox.CheckedChanged += OnCheckedChange;
             removeInteropsCheckBox.CheckedChanged += OnCheckedChange;
-            showLogCheckBox.CheckedChanged += OnCheckedChange;
+            showLogCheckBox.CheckedChanged += OnCheckedChange;*/
 
+            /*installCheckBox.EnabledChanged += OnEnabledChange;
+            launchCheckBox.EnabledChanged += OnEnabledChange;
+            reinstallCheckBox.EnabledChanged += OnEnabledChange;
+            uninstallCheckBox.EnabledChanged += OnEnabledChange;   
             removeConfigCheckBox.EnabledChanged += OnEnabledChange;
             removeIgnoredCheckBox.EnabledChanged += OnEnabledChange;
-            removeInteropsCheckBox.EnabledChanged += OnEnabledChange;
+            removeInteropsCheckBox.EnabledChanged += OnEnabledChange;*/
 
-            startButton.MouseEnter += OnButtonMouseEnter;
+            SubscribeToCheckBoxes(this.Controls);
+
+            /*startButton.MouseEnter += OnButtonMouseEnter;
             startButton.MouseLeave += OnButtonMouseLeave;
             aboutButton.MouseEnter += OnButtonMouseEnter;
             aboutButton.MouseLeave += OnButtonMouseLeave;
@@ -74,10 +78,14 @@ namespace PriconneReTLInstaller
             exitButton.MouseLeave += OnButtonMouseLeave;
             settingsButton.MouseEnter += OnButtonMouseEnter;
             settingsButton.MouseLeave += OnButtonMouseLeave;
+            auButton.MouseEnter += OnButtonMouseEnter;
+            auButton.MouseLeave += OnButtonMouseLeave;*/
 
-            this.MouseDown += OnMouseDown;
-            this.MouseMove += OnMouseMove;
-            this.MouseUp += OnMouseUp;
+            SubscribeToButtons(this.Controls);
+
+            //this.MouseDown += OnMouseDown;
+            //this.MouseMove += OnMouseMove;
+            //this.MouseUp += OnMouseUp;
 
             pictureBox1.MouseDown += OnMouseDown;
             pictureBox1.MouseMove += OnMouseMove;
@@ -92,12 +100,53 @@ namespace PriconneReTLInstaller
         }
 
         // Functions
+
+        void SubscribeToCheckBoxes(Control.ControlCollection controls)
+        {
+            foreach (Control control in controls)
+            {
+                if (control is CheckBox checkbox)
+                {
+                    Console.WriteLine(checkbox.Name);
+                    checkbox.CheckedChanged += OnCheckedChange;
+                    checkbox.EnabledChanged += OnEnabledChange;
+                }
+                else if (control.HasChildren)
+                {
+                    // Recursively search for checkboxes in child controls
+                    SubscribeToCheckBoxes(control.Controls);
+                }
+            }
+        }
+
+        void SubscribeToButtons(Control.ControlCollection controls)
+        {
+            foreach (Control control in controls)
+            {
+                if (control is Button button)
+                {
+                    Console.WriteLine(button.Name);
+                    button.MouseEnter += OnButtonMouseEnter;
+                    button.MouseLeave += OnButtonMouseLeave;
+                }
+                else if (control.HasChildren)
+                {
+                    // Recursively search for checkboxes in child controls
+                    SubscribeToButtons(control.Controls);
+                }
+            }
+        }
+
         private void InitializeUI()
         {
             Icon = Resources.jewel;
-            helper.PriconneFont(priconnefont);
-            helper.SetFontForAllControls(priconnefont, Controls);
+            //helper.PriconneFont(priconnefont);
+            //helper.SetFontForAllControls(priconnefont, Controls);
             Height = 480;
+
+            removeConfigCheckBox.Enabled = false;
+            removeIgnoredCheckBox.Enabled = false;
+            removeInteropsCheckBox.Enabled = false;
 
             (priconnePath, priconnePathValid) = installer.GetGamePath();
             gamePathLinkLabel.Text = priconnePath;
@@ -108,7 +157,7 @@ namespace PriconneReTLInstaller
             launchCheckBox.Checked = Settings.Default.launchState;
             optionsPanel.Height = launchCheckBox.Checked ? 154 : 118;
 
-            (latestVersion, latestVersionValid) = installer.GetLatestRelease();
+            (latestVersion, latestVersionValid, assetLink) = installer.GetLatestRelease(patchgithubAPI);
             latestVersionLinkLabel.Text = latestVersionValid ? latestVersion : "ERROR!";
 
             exclusiveCheckboxes = new CheckBox[] { installCheckBox, reinstallCheckBox, uninstallCheckBox };
@@ -131,7 +180,7 @@ namespace PriconneReTLInstaller
         }
         private void UpdateUI()
         {
-            (localVersion, localVersionValid) = installer.GetLocalVersion();
+            (localVersion, localVersionValid) = installer.GetPatchLocalVersion();
 
             installCheckBox.Text = localVersionValid ? " Update" : " Install";
             localVersionLabel.Text = "Current (Local) Version: " + localVersion;
@@ -251,7 +300,12 @@ namespace PriconneReTLInstaller
 
         public void OnEnabledChange(object sender, EventArgs e)
         {
-            if (sender is CheckBox checkBox) checkBox.Checked = false;
+            if (sender is CheckBox checkBox)
+            {
+                checkBox.Checked = false;
+                checkBox.Image = checkBox.Enabled ? Resources.check_empty_24x24_2 : Resources._lock;
+            }
+                
         }
 
         private void ExclusiveCheckbox_CheckedChanged(object sender, EventArgs e)
@@ -288,7 +342,7 @@ namespace PriconneReTLInstaller
             operationToolTipPicture.Location = new Point(operationLabel.Right + 5, operationToolTipPicture.Top);
         }
 
-        private async void OnMouseDown(object sender, MouseEventArgs e)
+        /*private async void OnMouseDown(object sender, MouseEventArgs e)
         {
             mouseDown = true;
             lastLocation = e.Location;
@@ -323,7 +377,7 @@ namespace PriconneReTLInstaller
         private void OnMouseUp(object sender, MouseEventArgs e)
         {
             mouseDown = false;
-        }
+        }*/
 
         private void OnButtonMouseEnter(object sender, EventArgs e)
         {
@@ -334,6 +388,7 @@ namespace PriconneReTLInstaller
                 if (button == minimizeButton) button.BackgroundImage = Resources.arrow_yellow;
                 if (button == aboutButton) button.BackgroundImage = Resources.q_bubble;
                 if (button == settingsButton) button.BackgroundImage = Resources.scroll_open;
+                if (button == auButton) button.BackgroundImage = Resources.crystal_lit;
             }
         }
 
@@ -346,6 +401,7 @@ namespace PriconneReTLInstaller
                 if (button == minimizeButton) button.BackgroundImage = Resources.arrow_blue;
                 if (button == aboutButton) button.BackgroundImage = Resources.i_bubble;
                 if (button == settingsButton) button.BackgroundImage = Resources.scroll_closed_res2;
+                if (button == auButton) button.BackgroundImage = Resources.crystal_normal_res;
             }
         }
 
@@ -355,6 +411,8 @@ namespace PriconneReTLInstaller
             toolStripStatusLabel3.Text = "";
             outputTextBox.Clear();
             startButton.Enabled = false;
+            auButton.Enabled = false;
+            settingsButton.Enabled = false;
             startButton.BackgroundImage = Resources.start_working;
             logger.Log("Starting selected operation(s)...", "info");
         }
@@ -362,6 +420,8 @@ namespace PriconneReTLInstaller
         private void OnProcessFinish()
         {
             startButton.Enabled = true;
+            auButton.Enabled = true; 
+            settingsButton.Enabled= true;   
             startButton.BackgroundImage = Resources.start_complete;
             reinstallCheckBox.Checked = false;
             uninstallCheckBox.Checked = false;
@@ -377,7 +437,7 @@ namespace PriconneReTLInstaller
             }
             else
             {
-               installer.ProcessOperation(installCheckBox.Checked, uninstallCheckBox.Checked, reinstallCheckBox.Checked, launchCheckBox.Checked, removeConfigCheckBox.Checked, removeIgnoredCheckBox.Checked, removeInteropsCheckBox.Checked, launcherComboBox);
+               installer.ProcessOperation(assetLink, installCheckBox.Checked, uninstallCheckBox.Checked, reinstallCheckBox.Checked, launchCheckBox.Checked, removeConfigCheckBox.Checked, removeIgnoredCheckBox.Checked, removeInteropsCheckBox.Checked, launcherComboBox);
             }
 
         }
@@ -454,9 +514,25 @@ namespace PriconneReTLInstaller
             settingsMenuStrip.Show(settingsButton, new System.Drawing.Point(0, settingsButton.Height));
         }
 
-        private void autoUpdaterInstallerToolStripMenuItem_Click(object sender, EventArgs e)
+        private void editFilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //placeholder
+        }
+
+        private void auButton_Click(object sender, EventArgs e)
+        {
+            AUForm auForm = new AUForm(priconnePath);
             auForm.ShowDialog();
+        }
+
+        private void settingsButton_EnabledChanged(object sender, EventArgs e)
+        {
+            settingsButton.BackgroundImage = settingsButton.Enabled ? Resources.scroll_closed_res2 : Resources.scroll_disabled;
+        }
+
+        private void auButton_EnabledChanged(object sender, EventArgs e)
+        {
+            auButton.BackgroundImage = auButton.Enabled ? Resources.crystal_normal_res : Resources.crystal_disabled;
         }
     }
 }

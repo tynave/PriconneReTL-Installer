@@ -173,6 +173,12 @@
     <Compile Include="AUForm.Designer.cs">
       <DependentUpon>AUForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BaseForm.Designer.cs">
+      <DependentUpon>BaseForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoggerFunctions.cs" />
     <Compile Include="HelperFunctions.cs" />
     <Compile Include="InstallerFunctions.cs" />
@@ -187,6 +193,9 @@
     <Compile Include="Settings.cs" />
     <EmbeddedResource Include="AUForm.resx">
       <DependentUpon>AUForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseForm.resx">
+      <DependentUpon>BaseForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -324,6 +333,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\scroll_closed_res2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\back_arrow_lit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\crystal_normal_res.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\crystal_lit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\uninstall_button_disabled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\crystal_disabled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\scroll_disabled.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -178,9 +178,6 @@
   <data name="install_button" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\install_button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="scroll_closed_res" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\scroll_closed_res.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="scroll_closed_res2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\scroll_closed_res2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -189,5 +186,26 @@
   </data>
   <data name="uninstall_button" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\uninstall_button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="back_arrow_lit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\back_arrow_lit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="crystal_lit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\crystal_lit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="crystal_normal_res" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\crystal_normal_res.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="uninstall_button_disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\uninstall_button_disabled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_lock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="crystal_disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\crystal_disabled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="scroll_disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\scroll_disabled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

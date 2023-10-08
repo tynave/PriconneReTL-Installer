@@ -1,4 +1,5 @@
 ﻿using HelperFunctions;
+using LoggerFunctions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using PriconneReTLInstaller;
@@ -9,6 +10,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Text;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -22,11 +24,12 @@ using System.Windows.Forms;
 
 namespace InstallerFunctions
 {
-    class Installer
+    public class Installer
     {
         Helper helper = new Helper();
 
-        private string githubAPI = Settings.Default.githubApi;
+        private string patchgithubAPI = Settings.Default.patchGithubApi;
+
         private string assetLink;
         private string priconnePath;
         private bool priconnePathValid;
@@ -61,9 +64,9 @@ namespace InstallerFunctions
                     {
                         if (content.productId == "priconner")
                         {
-                            priconnePath = content.detail.path;
-                            // priconnePath = "C:\\Test"; // -- set fixed path for testing purposes
-                            Log?.Invoke("Found Princess Connect Re:Dive in " + priconnePath, "info", false);
+                            //priconnePath = content.detail.path;
+                            priconnePath = "C:\\Test"; // -- set fixed path for testing purposes
+                            //Log?.Invoke("Found Princess Connect Re:Dive in " + priconnePath, "info", false);
                             return (priconnePath, priconnePathValid = true);
                         }
                     }
@@ -85,7 +88,7 @@ namespace InstallerFunctions
                 return (priconnePath = "ERROR!", priconnePathValid = false);
             }
         }
-        public (string localVersion, bool localVersionValid) GetLocalVersion()
+        public (string localVersion, bool localVersionValid) GetPatchLocalVersion()
         {
             try
             {
@@ -93,6 +96,7 @@ namespace InstallerFunctions
                 if (!priconnePathValid)
                 {
                     return (localVersion = "Unable to determine!", localVersionValid = false);
+                    //return ("Unable to determine!", false);
                 }
 
                 string versionFilePath = Path.Combine(priconnePath, "BepInEx", "Translation", "en", "Text", "Version.txt");
@@ -100,6 +104,7 @@ namespace InstallerFunctions
                 if (!File.Exists(versionFilePath))
                 {
                     return (localVersion = "None", localVersionValid = false);
+                    //return ("None", false);
                 }
                 string rawVersionFile = File.ReadAllText(versionFilePath);
                 Match match = Regex.Match(rawVersionFile, @"\d{8}[a-z]?");
@@ -107,45 +112,66 @@ namespace InstallerFunctions
                 if (match == null || !match.Success)
                 {
                     return (localVersion = "Invalid", localVersionValid = false);
+                    //return ("Invalid", false);
                 }
                 localVersion = match.Value;
                 return (localVersion, localVersionValid = true);
+                //return (match.Value, true);
 
             }
             catch (Exception ex)
             {
                 ErrorLog?.Invoke("Error getting local version: " + ex.Message);
                 return (localVersion = "ERROR!", localVersionValid = false);
+                //return ("ERROR!", false);
             }
         }
-        public (string latestVersion, bool latestVersionValid) GetLatestRelease()
+
+        public (string localVersion, bool localVersionValid) GetAULocalVersion(string priconnePath, string filename)
         {
+            string filePath = Path.Combine(priconnePath, "BepInEx", "patchers", "PriconneReTLAutoUpdater", filename);
+
+            if (!File.Exists(filePath))
+            {
+                return ("None", false);
+            }
+
+            string fullVersion = FileVersionInfo.GetVersionInfo(filePath).FileVersion;
+            string[] versionParts = fullVersion.Split('.');
+            string trimmedVersion = string.Join(".", versionParts.Take(3));
+            return (trimmedVersion, true);
+        }
+        public (string latestVersion, bool latestVersionValid, string assetLink) GetLatestRelease(string githubAPI)
+        {
+ 
             try
             {
                 string releaseUrl = githubAPI + "/releases/latest";
                 using (WebClient client = new WebClient())
                 {
-                    client.Headers.Add("User-Agent", "PriconneTLUpdater");
+                    client.Headers.Add("User-Agent", "PriconneReTLInstaller");
                     string response = client.DownloadString(releaseUrl);
                     dynamic releaseJson = JsonConvert.DeserializeObject(response);
                     string version = releaseJson.tag_name;
                     assetLink = releaseJson.assets[0].browser_download_url;
-                    return (latestVersion = version, latestVersionValid = true);
+                    return (latestVersion = version, latestVersionValid = true, assetLink);
+                    //return (version, true, assetLink);
                 }
             }
             catch (Exception ex)
             {
                 ErrorLog?.Invoke("Error getting latest release: " + ex.Message);
-                return (latestVersion = null, latestVersionValid = false);
+                return (latestVersion = null, latestVersionValid = false, null);
+                //return (null, false, null);
             }
         }
 
-        public async Task DownloadPatchFiles()
+        public async Task DownloadFiles(string assetLink)
         {
 
             try
             {
-                Log?.Invoke("Downloading compressed patch files...", "info", true);
+                Log?.Invoke("Downloading compressed files...", "info", true);
 
                 using (HttpClient client = new HttpClient())
                 {
@@ -180,7 +206,7 @@ namespace InstallerFunctions
             }
             catch (Exception ex)
             {
-                ErrorLog?.Invoke("Error downloading patch files: " + ex.Message);
+                ErrorLog?.Invoke("Error downloading files: " + ex.Message);
                 downloadSuccess = false;
             }
         }
@@ -228,6 +254,44 @@ namespace InstallerFunctions
             }
         }
 
+        public async Task ExtractAUFiles()
+
+        {
+            if (!removeSuccess || !downloadSuccess) return;
+
+            try
+            {
+                int counter = 0;
+                using (var zip = ZipFile.OpenRead(tempFile))
+                {
+                    Log?.Invoke("Extracting files to game folder...", "add", true);
+                  
+                    foreach (var entry in zip.Entries)
+                    {
+                        counter++;
+                        string fileName = entry.FullName;
+
+                        Log?.Invoke("Extracting: " + entry.FullName, "add", false);
+                        DownloadProgress?.Invoke(counter, zip.Entries.Count);
+
+                        
+                            string destinationPath = Path.Combine(priconnePath, Path.GetDirectoryName(fileName));
+                            if (!Directory.Exists(destinationPath))
+                                Directory.CreateDirectory(destinationPath);
+
+                            await Task.Run(() => ExtractZipEntry(entry, Path.Combine(priconnePath, fileName)));
+                    }
+                }
+                extractSuccess = true;
+                Log?.Invoke("Extraction complete!", "success", true);
+            }
+            catch (Exception ex)
+            {
+                ErrorLog?.Invoke("Error extracting all files: " + ex.Message);
+                extractSuccess = false;
+            }
+        }
+
         public void ExtractZipEntry(ZipArchiveEntry entry, string destinationPath)
         {
             try
@@ -255,7 +319,7 @@ namespace InstallerFunctions
             {
                 client.DefaultRequestHeaders.UserAgent.ParseAdd("PriconneReTLInstaller");
 
-                string treeUrl = $"{Settings.Default.githubApi}/git/trees/{releaseTag}?recursive=1";
+                string treeUrl = $"{Settings.Default.patchGithubApi}/git/trees/{releaseTag}?recursive=1";
 
                 HttpResponseMessage response = await client.GetAsync(treeUrl);
                 if (response.IsSuccessStatusCode)
@@ -415,7 +479,7 @@ namespace InstallerFunctions
 
         }
 
-        public async void ProcessOperation(bool install, bool uninstall, bool reinstall, bool launch, bool removeConfig, bool removeIgnored, bool removeInterops, ComboBox combobox)
+        public async void ProcessOperation(string assetLink, bool install, bool uninstall, bool reinstall, bool launch, bool removeConfig, bool removeIgnored, bool removeInterops, ComboBox combobox)
         {
             string processName = null;
             int versioncompare = localVersion.CompareTo(latestVersion);
@@ -436,7 +500,7 @@ namespace InstallerFunctions
                 {
                     processName = "Reinstall";
                     Log?.Invoke("Reinstalling translation patch...", "info", true);
-                    await DownloadPatchFiles();
+                    await DownloadFiles(assetLink);
                     await RemovePatchFiles(uninstall: uninstall, removeConfig: removeConfig, removeIgnored: removeIgnored, removeInterops: removeInterops);
                     await ExtractPatchFiles();
                     return;
@@ -454,7 +518,7 @@ namespace InstallerFunctions
                     {
                         processName = "Update";
                         Log?.Invoke("Updating translation patch...", "info", true);
-                        await DownloadPatchFiles();
+                        await DownloadFiles(assetLink);
                         await RemovePatchFiles(uninstall: uninstall, removeConfig: removeConfig, removeIgnored: removeIgnored, removeInterops: removeInterops);
                         await ExtractPatchFiles();
                         return;
@@ -462,7 +526,7 @@ namespace InstallerFunctions
 
                     processName = "Install";
                     Log?.Invoke("Downloading and installing translation patch...", "info", true);
-                    await DownloadPatchFiles();
+                    await DownloadFiles(assetLink);
                     await ExtractPatchFiles();
                     return;
                 }
@@ -499,6 +563,57 @@ namespace InstallerFunctions
             }
         }
 
+        public async void ProcessAuInstallOperation(string auAssetLink, string auAppAssetLink)
+        {
+            ProcessStart?.Invoke();
+            try
+            {
+                Log?.Invoke("Downloading and installing AutoUpdater...", "info", true);
+                await DownloadFiles(auAssetLink);
+                await ExtractAUFiles();
+
+                Log?.Invoke("Downloading and installing AutoUpdaterApp...", "info", true);
+                await DownloadFiles(auAppAssetLink);
+                await ExtractAUFiles();
+            }
+            catch (Exception ex)
+            {
+                ErrorLog?.Invoke("Error installing AutoUpdater: " + ex.Message);
+            }
+            finally
+            {
+                bool processSuccess = removeSuccess && downloadSuccess && extractSuccess;
+                if (!processSuccess) ErrorLog?.Invoke($"Installation failed!"); else Log?.Invoke($"Installation complete!", "success", true);
+                ProcessFinish?.Invoke();
+            }
+        }
+
+        public void ProcessAuUninstallOperation()
+        {
+            ProcessStart?.Invoke();
+            Log?.Invoke("Removing AutoUpdater / AutoUpdaterApp...", "remove", true);
+            string filePath = Path.Combine(priconnePath, "BepInEx", "patchers", "PriconneReTLAutoUpdater");
+
+            try
+            {
+                if (Directory.Exists(filePath))
+                {
+                    Directory.Delete(filePath, true);
+                    Log?.Invoke("Uninstall complete!", "success", true);
+                    return;
+                }
+                Log?.Invoke("Nothing to uninstall!", "success", true);
+            }
+
+            catch (Exception ex)
+            {
+                ErrorLog?.Invoke("Error deleting AutoUpdater:" + ex.Message);
+            }
+            finally
+            {
+                ProcessFinish?.Invoke();
+            }
+        }
         private bool StartDMMFastLauncher()
         {
             try

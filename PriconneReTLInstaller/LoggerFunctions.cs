@@ -83,6 +83,7 @@ namespace LoggerFunctions
         }
 
     }
+
     public static class RichTextBoxExtensions
     {
         public static void AppendText(this RichTextBox box, string text, Color color)
