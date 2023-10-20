@@ -28,6 +28,10 @@ namespace PriconneReTLInstaller
             fileListbox.MouseMove += OnMouseMove;
             fileListbox.MouseUp += OnMouseUp;
 
+            ignoreFilesLabel.MouseDown += OnMouseDown;
+            ignoreFilesLabel.MouseMove += OnMouseMove;
+            ignoreFilesLabel.MouseUp += OnMouseUp;
+
             defaultPath = arg;
             openFileDialog1.InitialDirectory = defaultPath;
         }

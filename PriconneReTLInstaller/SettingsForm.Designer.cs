@@ -31,7 +31,7 @@
             this.defaultsButton = new System.Windows.Forms.Button();
             this.removeButton = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
-            this.ignorFilesLabel = new System.Windows.Forms.Label();
+            this.ignoreFilesLabel = new System.Windows.Forms.Label();
             this.fileListbox = new System.Windows.Forms.ListBox();
             this.backButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
@@ -89,16 +89,16 @@
             this.addButton.EnabledChanged += new System.EventHandler(this.addButton_EnabledChanged);
             this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
-            // ignorFilesLabel
+            // ignoreFilesLabel
             // 
-            this.ignorFilesLabel.AutoSize = true;
-            this.ignorFilesLabel.BackColor = System.Drawing.Color.Transparent;
-            this.ignorFilesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.ignorFilesLabel.Location = new System.Drawing.Point(12, 12);
-            this.ignorFilesLabel.Name = "ignorFilesLabel";
-            this.ignorFilesLabel.Size = new System.Drawing.Size(451, 16);
-            this.ignorFilesLabel.TabIndex = 6;
-            this.ignorFilesLabel.Text = "Ignored Files (paths relative to the Princess Connect Re:Dive game folder): ";
+            this.ignoreFilesLabel.AutoSize = true;
+            this.ignoreFilesLabel.BackColor = System.Drawing.Color.Transparent;
+            this.ignoreFilesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.ignoreFilesLabel.Location = new System.Drawing.Point(12, 12);
+            this.ignoreFilesLabel.Name = "ignoreFilesLabel";
+            this.ignoreFilesLabel.Size = new System.Drawing.Size(451, 16);
+            this.ignoreFilesLabel.TabIndex = 6;
+            this.ignoreFilesLabel.Text = "Ignored Files (paths relative to the Princess Connect Re:Dive game folder): ";
             // 
             // fileListbox
             // 
@@ -160,7 +160,7 @@
             this.Controls.Add(this.defaultsButton);
             this.Controls.Add(this.removeButton);
             this.Controls.Add(this.addButton);
-            this.Controls.Add(this.ignorFilesLabel);
+            this.Controls.Add(this.ignoreFilesLabel);
             this.Controls.Add(this.fileListbox);
             this.Controls.Add(this.backButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -176,7 +176,7 @@
 
         private System.Windows.Forms.Button backButton;
         private System.Windows.Forms.ListBox fileListbox;
-        private System.Windows.Forms.Label ignorFilesLabel;
+        private System.Windows.Forms.Label ignoreFilesLabel;
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.Button removeButton;
         private System.Windows.Forms.Button defaultsButton;
