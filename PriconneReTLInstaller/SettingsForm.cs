@@ -62,6 +62,9 @@ namespace PriconneReTLInstaller
        
         private static string GetRelativePath(string fromPath, string toPath)
         {
+            fromPath = fromPath.Replace("\\", "/");
+            toPath = toPath.Replace("\\", "/");
+
             if (!toPath.StartsWith(fromPath, StringComparison.OrdinalIgnoreCase))
             {
                 // If toPath is not under fromPath, return the full toPath.
@@ -72,7 +75,7 @@ namespace PriconneReTLInstaller
             if (fromPathLength < toPath.Length)
             {
                 // Exclude the common portion and the path separator if it exists
-                string relativePath = toPath.Substring(fromPathLength).TrimStart('\\');
+                string relativePath = toPath.Substring(fromPathLength).TrimStart('/');
                 return relativePath;
             }
 
