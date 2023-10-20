@@ -83,6 +83,26 @@ namespace PriconneReTLInstaller.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap add_button {
+            get {
+                object obj = ResourceManager.GetObject("add_button", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap add_button_disabled {
+            get {
+                object obj = ResourceManager.GetObject("add_button_disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap arrow_blue {
             get {
                 object obj = ResourceManager.GetObject("arrow_blue", resourceCulture);
@@ -183,6 +203,26 @@ namespace PriconneReTLInstaller.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap defaults_button {
+            get {
+                object obj = ResourceManager.GetObject("defaults_button", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap defaults_button_disabled {
+            get {
+                object obj = ResourceManager.GetObject("defaults_button_disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap door_closed {
             get {
                 object obj = ResourceManager.GetObject("door_closed", resourceCulture);
@@ -263,9 +303,49 @@ namespace PriconneReTLInstaller.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap remove_button {
+            get {
+                object obj = ResourceManager.GetObject("remove_button", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap remove_button_disabled {
+            get {
+                object obj = ResourceManager.GetObject("remove_button_disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ReTLlogo {
             get {
                 object obj = ResourceManager.GetObject("ReTLlogo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap save_button {
+            get {
+                object obj = ResourceManager.GetObject("save_button", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap save_button_disabled {
+            get {
+                object obj = ResourceManager.GetObject("save_button_disabled", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

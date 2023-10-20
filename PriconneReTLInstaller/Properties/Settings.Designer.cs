@@ -44,7 +44,7 @@ namespace PriconneReTLInstaller.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
 <ArrayOfString xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
@@ -56,6 +56,9 @@ namespace PriconneReTLInstaller.Properties {
         public global::System.Collections.Specialized.StringCollection ignoreFiles {
             get {
                 return ((global::System.Collections.Specialized.StringCollection)(this["ignoreFiles"]));
+            }
+            set {
+                this["ignoreFiles"] = value;
             }
         }
         
@@ -94,7 +97,7 @@ namespace PriconneReTLInstaller.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Current Operation: Install")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Install")]
         public string installMode {
             get {
                 return ((string)(this["installMode"]));
@@ -113,7 +116,7 @@ namespace PriconneReTLInstaller.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Current Operation: Uninstall")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Uninstall")]
         public string uninstallMode {
             get {
                 return ((string)(this["uninstallMode"]));
@@ -132,7 +135,7 @@ namespace PriconneReTLInstaller.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Current Operation: Reinstall")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Reinstall")]
         public string reinstallMode {
             get {
                 return ((string)(this["reinstallMode"]));
@@ -152,7 +155,7 @@ namespace PriconneReTLInstaller.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Current Operation: Update")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Update")]
         public string updateMode {
             get {
                 return ((string)(this["updateMode"]));
@@ -172,7 +175,7 @@ namespace PriconneReTLInstaller.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Current Operation: Disabled")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Disabled")]
         public string disabledMode {
             get {
                 return ((string)(this["disabledMode"]));
@@ -190,7 +193,7 @@ namespace PriconneReTLInstaller.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Current Operation: Launch Game")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Launch Game")]
         public string launchMode {
             get {
                 return ((string)(this["launchMode"]));
@@ -199,7 +202,7 @@ namespace PriconneReTLInstaller.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Launches the game without any translation patch related operation.")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Launches the game using the selected launcher.")]
         public string launchModeDescrption {
             get {
                 return ((string)(this["launchModeDescrption"]));
@@ -208,7 +211,7 @@ namespace PriconneReTLInstaller.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Current Operation: No Operation")]
+        [global::System.Configuration.DefaultSettingValueAttribute("No Operation")]
         public string noOperationMode {
             get {
                 return ((string)(this["noOperationMode"]));

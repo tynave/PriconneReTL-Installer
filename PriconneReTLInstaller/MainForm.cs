@@ -8,6 +8,7 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,6 +32,7 @@ namespace PriconneReTLInstaller
         //private Point lastLocation;
         private CheckBox[] exclusiveCheckboxes;
         private CheckBox[] operationCheckboxes;
+        private Button[] menuButtons;
 
         //Helper helper = new Helper();
         //Installer installer = new Installer();
@@ -162,6 +164,8 @@ namespace PriconneReTLInstaller
 
             exclusiveCheckboxes = new CheckBox[] { installCheckBox, reinstallCheckBox, uninstallCheckBox };
             operationCheckboxes = new CheckBox[] { installCheckBox, reinstallCheckBox, uninstallCheckBox, launchCheckBox };
+            menuButtons = new Button[] { exitButton, minimizeButton, aboutButton, auButton, settingsButton };
+
 
             foreach (CheckBox checkBox in exclusiveCheckboxes)
             {
@@ -176,6 +180,8 @@ namespace PriconneReTLInstaller
             UpdateUI();
 
             if (versioncompare == 0) logger.Log("You already have the latest version installed!", "success", true);
+
+            startButton.Enabled = helper.isAnyChecked(operationCheckboxes);
 
         }
         private void UpdateUI()
@@ -212,13 +218,19 @@ namespace PriconneReTLInstaller
             {
                 if (condition)
                 {
-                    operationLabel.Text = mode;
+                    if (launchCheckBox.Checked && exclusiveCheckboxChecked)
+                    {
+                        operationLabel.Text = $"Current Operation: {mode} + {Settings.Default.launchMode}";
+                        toolTip.SetToolTip(operationToolTipPicture, description + "\n\n" + Settings.Default.launchModeDescrption);
+                        return;
+                    }
+                    operationLabel.Text = $"Current Operation: {mode}";
                     toolTip.SetToolTip(operationToolTipPicture, description);
                     return;
                 }
             }
 
-            operationLabel.Text = Settings.Default.noOperationMode;
+            operationLabel.Text = $"Current Operation: {Settings.Default.noOperationMode}";
             toolTip.SetToolTip(operationToolTipPicture, Settings.Default.noOperationModeDescription);
             return;
         }
@@ -381,6 +393,15 @@ namespace PriconneReTLInstaller
 
         private void OnButtonMouseEnter(object sender, EventArgs e)
         {
+            var menuButtonLabels = new List<(Button menuButton, string name)>
+                {
+                    (exitButton, "Exit Application"),
+                    (minimizeButton, "Minimize Application"),
+                    (aboutButton, "Help / About"),
+                    (auButton, "AutoUpdater Installer"),
+                    (settingsButton, "Settings")
+                };
+
             if (sender is Button button)
             {
                 if (button == startButton && button.Enabled) button.BackgroundImage = Resources.start_hover;
@@ -389,6 +410,15 @@ namespace PriconneReTLInstaller
                 if (button == aboutButton) button.BackgroundImage = Resources.q_bubble;
                 if (button == settingsButton) button.BackgroundImage = Resources.scroll_open;
                 if (button == auButton) button.BackgroundImage = Resources.crystal_lit;
+                
+                foreach (var (menuButton, name) in menuButtonLabels)
+                    {
+                        if (button == menuButton)
+                        {
+                            menuButtonLabel.Visible = true;
+                            menuButtonLabel.Text = name;
+                        }
+                    }
             }
         }
 
@@ -402,6 +432,7 @@ namespace PriconneReTLInstaller
                 if (button == aboutButton) button.BackgroundImage = Resources.i_bubble;
                 if (button == settingsButton) button.BackgroundImage = Resources.scroll_closed_res2;
                 if (button == auButton) button.BackgroundImage = Resources.crystal_normal_res;
+                menuButtonLabel.Visible = false;
             }
         }
 
@@ -511,12 +542,8 @@ namespace PriconneReTLInstaller
 
         private void settingsButton_Click(object sender, EventArgs e)
         {
-            settingsMenuStrip.Show(settingsButton, new System.Drawing.Point(0, settingsButton.Height));
-        }
-
-        private void editFilesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //placeholder
+            SettingsForm settingsForm = new SettingsForm(priconnePath);
+            settingsForm.ShowDialog();
         }
 
         private void auButton_Click(object sender, EventArgs e)

@@ -52,12 +52,13 @@
             this.newPictureBox = new System.Windows.Forms.PictureBox();
             this.exitButton = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.minimizeButton = new System.Windows.Forms.Button();
-            this.aboutButton = new System.Windows.Forms.Button();
             this.gamePathLinkLabel = new System.Windows.Forms.LinkLabel();
             this.latestVersionLinkLabel = new System.Windows.Forms.LinkLabel();
             this.launcherComboBox = new System.Windows.Forms.ComboBox();
+            this.minimizeButton = new System.Windows.Forms.Button();
+            this.aboutButton = new System.Windows.Forms.Button();
             this.settingsButton = new System.Windows.Forms.Button();
+            this.auButton = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.helpMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -67,9 +68,7 @@
             this.optionsPanel = new System.Windows.Forms.Panel();
             this.optionsLabel = new System.Windows.Forms.Label();
             this.operationToolTipPicture = new System.Windows.Forms.PictureBox();
-            this.settingsMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.editFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.auButton = new System.Windows.Forms.Button();
+            this.menuButtonLabel = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.operationsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.newPictureBox)).BeginInit();
@@ -77,7 +76,6 @@
             this.helpMenuStrip.SuspendLayout();
             this.optionsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.operationToolTipPicture)).BeginInit();
-            this.settingsMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // localVersionLabel
@@ -209,7 +207,7 @@
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(515, 24);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(546, 24);
             this.toolStripStatusLabel2.Spring = true;
             // 
             // toolStripStatusLabel3
@@ -266,15 +264,13 @@
             // 
             this.installCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
             this.installCheckBox.BackColor = System.Drawing.Color.Transparent;
-            this.installCheckBox.Checked = true;
-            this.installCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.installCheckBox.FlatAppearance.BorderSize = 0;
             this.installCheckBox.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
             this.installCheckBox.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.installCheckBox.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.installCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.installCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.installCheckBox.Image = global::PriconneReTLInstaller.Properties.Resources.check_checked_24x24_2;
+            this.installCheckBox.Image = global::PriconneReTLInstaller.Properties.Resources.check_empty_24x24_2;
             this.installCheckBox.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
             this.installCheckBox.Location = new System.Drawing.Point(6, 20);
             this.installCheckBox.Margin = new System.Windows.Forms.Padding(0);
@@ -408,7 +404,6 @@
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(62, 32);
             this.exitButton.TabIndex = 20;
-            this.toolTip.SetToolTip(this.exitButton, "Exit Application");
             this.exitButton.UseVisualStyleBackColor = false;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
@@ -418,41 +413,6 @@
             this.toolTip.AutoPopDelay = 10000;
             this.toolTip.InitialDelay = 500;
             this.toolTip.ReshowDelay = 200;
-            // 
-            // minimizeButton
-            // 
-            this.minimizeButton.BackColor = System.Drawing.Color.Transparent;
-            this.minimizeButton.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.arrow_blue;
-            this.minimizeButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.minimizeButton.FlatAppearance.BorderSize = 0;
-            this.minimizeButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.minimizeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.minimizeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.minimizeButton.Location = new System.Drawing.Point(616, 7);
-            this.minimizeButton.Name = "minimizeButton";
-            this.minimizeButton.Size = new System.Drawing.Size(27, 30);
-            this.minimizeButton.TabIndex = 25;
-            this.toolTip.SetToolTip(this.minimizeButton, "Minimize");
-            this.minimizeButton.UseVisualStyleBackColor = false;
-            this.minimizeButton.Click += new System.EventHandler(this.minimizeButton_Click);
-            // 
-            // aboutButton
-            // 
-            this.aboutButton.BackColor = System.Drawing.Color.Transparent;
-            this.aboutButton.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.i_bubble;
-            this.aboutButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.aboutButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.aboutButton.FlatAppearance.BorderSize = 0;
-            this.aboutButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.aboutButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.aboutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.aboutButton.Location = new System.Drawing.Point(571, 5);
-            this.aboutButton.Name = "aboutButton";
-            this.aboutButton.Size = new System.Drawing.Size(32, 32);
-            this.aboutButton.TabIndex = 26;
-            this.toolTip.SetToolTip(this.aboutButton, "Help / About");
-            this.aboutButton.UseVisualStyleBackColor = false;
-            this.aboutButton.Click += new System.EventHandler(this.aboutButton_Click);
             // 
             // gamePathLinkLabel
             // 
@@ -499,23 +459,75 @@
             this.launcherComboBox.TabIndex = 33;
             this.toolTip.SetToolTip(this.launcherComboBox, "Select launcher.");
             // 
+            // minimizeButton
+            // 
+            this.minimizeButton.BackColor = System.Drawing.Color.Transparent;
+            this.minimizeButton.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.arrow_blue;
+            this.minimizeButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.minimizeButton.FlatAppearance.BorderSize = 0;
+            this.minimizeButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.minimizeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.minimizeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.minimizeButton.Location = new System.Drawing.Point(616, 7);
+            this.minimizeButton.Name = "minimizeButton";
+            this.minimizeButton.Size = new System.Drawing.Size(27, 30);
+            this.minimizeButton.TabIndex = 25;
+            this.minimizeButton.UseVisualStyleBackColor = false;
+            this.minimizeButton.Click += new System.EventHandler(this.minimizeButton_Click);
+            // 
+            // aboutButton
+            // 
+            this.aboutButton.BackColor = System.Drawing.Color.Transparent;
+            this.aboutButton.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.i_bubble;
+            this.aboutButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.aboutButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.aboutButton.FlatAppearance.BorderSize = 0;
+            this.aboutButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.aboutButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.aboutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.aboutButton.Location = new System.Drawing.Point(571, 5);
+            this.aboutButton.Name = "aboutButton";
+            this.aboutButton.Size = new System.Drawing.Size(32, 32);
+            this.aboutButton.TabIndex = 26;
+            this.aboutButton.UseVisualStyleBackColor = false;
+            this.aboutButton.Click += new System.EventHandler(this.aboutButton_Click);
+            // 
             // settingsButton
             // 
             this.settingsButton.BackColor = System.Drawing.Color.Transparent;
             this.settingsButton.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.scroll_closed_res2;
             this.settingsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.settingsButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.settingsButton.FlatAppearance.BorderSize = 0;
             this.settingsButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.settingsButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.settingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.settingsButton.ForeColor = System.Drawing.Color.Transparent;
             this.settingsButton.Location = new System.Drawing.Point(469, 8);
             this.settingsButton.Name = "settingsButton";
             this.settingsButton.Size = new System.Drawing.Size(44, 30);
             this.settingsButton.TabIndex = 35;
-            this.toolTip.SetToolTip(this.settingsButton, "Settings");
             this.settingsButton.UseVisualStyleBackColor = false;
             this.settingsButton.EnabledChanged += new System.EventHandler(this.settingsButton_EnabledChanged);
             this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
+            // 
+            // auButton
+            // 
+            this.auButton.BackColor = System.Drawing.Color.Transparent;
+            this.auButton.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.crystal_normal_res;
+            this.auButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.auButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.auButton.FlatAppearance.BorderSize = 0;
+            this.auButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.auButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.auButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.auButton.Location = new System.Drawing.Point(515, 6);
+            this.auButton.Name = "auButton";
+            this.auButton.Size = new System.Drawing.Size(53, 32);
+            this.auButton.TabIndex = 36;
+            this.auButton.UseVisualStyleBackColor = false;
+            this.auButton.EnabledChanged += new System.EventHandler(this.auButton_EnabledChanged);
+            this.auButton.Click += new System.EventHandler(this.auButton_Click);
             // 
             // pictureBox1
             // 
@@ -599,37 +611,16 @@
             this.operationToolTipPicture.TabIndex = 34;
             this.operationToolTipPicture.TabStop = false;
             // 
-            // settingsMenuStrip
+            // menuButtonLabel
             // 
-            this.settingsMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.editFilesToolStripMenuItem});
-            this.settingsMenuStrip.Name = "settingsMenuStrip";
-            this.settingsMenuStrip.Size = new System.Drawing.Size(165, 26);
-            // 
-            // editFilesToolStripMenuItem
-            // 
-            this.editFilesToolStripMenuItem.Name = "editFilesToolStripMenuItem";
-            this.editFilesToolStripMenuItem.Size = new System.Drawing.Size(164, 22);
-            this.editFilesToolStripMenuItem.Text = "Edit Ignored Files";
-            this.editFilesToolStripMenuItem.Click += new System.EventHandler(this.editFilesToolStripMenuItem_Click);
-            // 
-            // auButton
-            // 
-            this.auButton.BackColor = System.Drawing.Color.Transparent;
-            this.auButton.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.crystal_normal_res;
-            this.auButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.auButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.auButton.FlatAppearance.BorderSize = 0;
-            this.auButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.auButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.auButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.auButton.Location = new System.Drawing.Point(515, 6);
-            this.auButton.Name = "auButton";
-            this.auButton.Size = new System.Drawing.Size(53, 32);
-            this.auButton.TabIndex = 36;
-            this.auButton.UseVisualStyleBackColor = false;
-            this.auButton.EnabledChanged += new System.EventHandler(this.auButton_EnabledChanged);
-            this.auButton.Click += new System.EventHandler(this.auButton_Click);
+            this.menuButtonLabel.BackColor = System.Drawing.Color.Transparent;
+            this.menuButtonLabel.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.menuButtonLabel.Location = new System.Drawing.Point(472, 51);
+            this.menuButtonLabel.Name = "menuButtonLabel";
+            this.menuButtonLabel.Size = new System.Drawing.Size(228, 19);
+            this.menuButtonLabel.TabIndex = 37;
+            this.menuButtonLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.menuButtonLabel.Visible = false;
             // 
             // MainForm
             // 
@@ -639,6 +630,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(718, 748);
             this.ControlBox = false;
+            this.Controls.Add(this.menuButtonLabel);
             this.Controls.Add(this.auButton);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.operationToolTipPicture);
@@ -676,7 +668,6 @@
             this.optionsPanel.ResumeLayout(false);
             this.optionsPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.operationToolTipPicture)).EndInit();
-            this.settingsMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -722,9 +713,8 @@
         private System.Windows.Forms.CheckBox launchCheckBox;
         private System.Windows.Forms.PictureBox operationToolTipPicture;
         private System.Windows.Forms.Button settingsButton;
-        private System.Windows.Forms.ContextMenuStrip settingsMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem editFilesToolStripMenuItem;
         private System.Windows.Forms.Button auButton;
+        private System.Windows.Forms.Label menuButtonLabel;
     }
 }
 
