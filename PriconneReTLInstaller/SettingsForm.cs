@@ -10,8 +10,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml;
-using System.Xml.Serialization;
 
 namespace PriconneReTLInstaller
 {
@@ -60,54 +58,6 @@ namespace PriconneReTLInstaller
             }
         }
        
-        private static string GetRelativePath(string fromPath, string toPath)
-        {
-            fromPath = fromPath.Replace("\\", "/");
-            toPath = toPath.Replace("\\", "/");
-
-            if (!toPath.StartsWith(fromPath, StringComparison.OrdinalIgnoreCase))
-            {
-                // If toPath is not under fromPath, return the full toPath.
-                return toPath;
-            }
-
-            int fromPathLength = fromPath.Length;
-            if (fromPathLength < toPath.Length)
-            {
-                // Exclude the common portion and the path separator if it exists
-                string relativePath = toPath.Substring(fromPathLength).TrimStart('/');
-                return relativePath;
-            }
-
-            // If fromPath is the same as toPath, return an empty string
-            return string.Empty;
-        }
-
-        private static StringCollection DeserializeStringCollection(string serializedValue)
-        {
-            var stringCollection = new StringCollection();
-            var serializer = new XmlSerializer(stringCollection.GetType());
-
-            using (var reader = new XmlTextReader(new System.IO.StringReader(serializedValue)))
-            {
-                if (serializer.CanDeserialize(reader))
-                {
-                    stringCollection = (StringCollection)serializer.Deserialize(reader);
-                }
-            }
-
-            return stringCollection;
-        }
-
-        private static bool IsFileInSubfolder(string folderPath, string filePath)
-        {
-            folderPath = Path.GetFullPath(folderPath); // Ensure the folder path is full.
-            filePath = Path.GetFullPath(filePath);     // Ensure the file path is full.
-
-            // Check if the file path starts with the folder path.
-            return filePath.StartsWith(folderPath, StringComparison.OrdinalIgnoreCase);
-        }
-
         private void backButton_Click(object sender, EventArgs e)
         {
             this.Close();
@@ -151,7 +101,7 @@ namespace PriconneReTLInstaller
 
                 var serializedDefaultValue = Settings.Default.Properties["ignoreFiles"].DefaultValue as string;
 
-                var defaultValue = DeserializeStringCollection(serializedDefaultValue);
+                var defaultValue = HelperFunctions.Helper.DeserializeStringCollection(serializedDefaultValue);
 
                 fileListbox.Items.Clear();
 
@@ -170,7 +120,6 @@ namespace PriconneReTLInstaller
             }
             
         }
-
         private void addButton_Click(object sender, EventArgs e)
         {
             try
@@ -178,12 +127,12 @@ namespace PriconneReTLInstaller
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
                     string selectedFile = openFileDialog1.FileName;
-                    if (!IsFileInSubfolder(defaultPath, selectedFile)) 
+                    if (!HelperFunctions.Helper.IsFileInSubfolder(defaultPath, selectedFile)) 
                     {
                         MessageBox.Show("Invalid selection!\nPlease select a file that is in the Princess Connect Re:Dive game folder!", "Invalid selection", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     } 
-                    string relativePath = GetRelativePath(defaultPath, selectedFile);
+                    string relativePath = HelperFunctions.Helper.GetRelativePath(defaultPath, selectedFile);
                     fileListbox.Items.Add(relativePath);
                     saveButton.Enabled = true;
                 }

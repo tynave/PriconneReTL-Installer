@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
@@ -7,6 +8,8 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
 using PriconneReTLInstaller;
 using PriconneReTLInstaller.Properties;
 
@@ -176,6 +179,53 @@ namespace HelperFunctions
                 Log?.Invoke("Found DMMGamePlayerFastLauncher", "info", false);
             }
             if (comboBox.Items.Count > 0) comboBox.SelectedIndex = IsFastLauncherInstalled() ? 1 : 0;
+        }
+
+        public static bool IsFileInSubfolder(string folderPath, string filePath)
+        {
+            folderPath = Path.GetFullPath(folderPath); // Ensure the folder path is full.
+            filePath = Path.GetFullPath(filePath);     // Ensure the file path is full.
+
+            // Check if the file path starts with the folder path.
+            return filePath.StartsWith(folderPath, StringComparison.OrdinalIgnoreCase);
+        }
+
+        public static StringCollection DeserializeStringCollection(string serializedValue)
+        {
+            var stringCollection = new StringCollection();
+            var serializer = new XmlSerializer(stringCollection.GetType());
+
+            using (var reader = new XmlTextReader(new System.IO.StringReader(serializedValue)))
+            {
+                if (serializer.CanDeserialize(reader))
+                {
+                    stringCollection = (StringCollection)serializer.Deserialize(reader);
+                }
+            }
+
+            return stringCollection;
+        }
+        public static string GetRelativePath(string fromPath, string toPath)
+        {
+            fromPath = fromPath.Replace("\\", "/");
+            toPath = toPath.Replace("\\", "/");
+
+            if (!toPath.StartsWith(fromPath, StringComparison.OrdinalIgnoreCase))
+            {
+                // If toPath is not under fromPath, return the full toPath.
+                return toPath;
+            }
+
+            int fromPathLength = fromPath.Length;
+            if (fromPathLength < toPath.Length)
+            {
+                // Exclude the common portion and the path separator if it exists
+                string relativePath = toPath.Substring(fromPathLength).TrimStart('/');
+                return relativePath;
+            }
+
+            // If fromPath is the same as toPath, return an empty string
+            return string.Empty;
         }
     }
 }
