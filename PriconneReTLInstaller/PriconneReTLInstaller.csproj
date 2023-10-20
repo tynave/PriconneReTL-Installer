@@ -179,11 +179,11 @@
     <Compile Include="BaseForm.Designer.cs">
       <DependentUpon>BaseForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SettingsForm.cs">
+    <Compile Include="IgnoreForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SettingsForm.Designer.cs">
-      <DependentUpon>SettingsForm.cs</DependentUpon>
+    <Compile Include="IgnoreForm.Designer.cs">
+      <DependentUpon>IgnoreForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LoggerFunctions.cs" />
     <Compile Include="HelperFunctions.cs" />
@@ -217,8 +217,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="SettingsForm.resx">
-      <DependentUpon>SettingsForm.cs</DependentUpon>
+    <EmbeddedResource Include="IgnoreForm.resx">
+      <DependentUpon>IgnoreForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="PriconneReTLInstaller_TemporaryKey.pfx" />

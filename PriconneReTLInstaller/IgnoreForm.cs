@@ -13,11 +13,11 @@ using System.Windows.Forms;
 
 namespace PriconneReTLInstaller
 {
-    public partial class SettingsForm : BaseForm
+    public partial class IgnoreForm : BaseForm
     {
         private string defaultPath;
         private StringCollection ignoreFilesCollection;
-        public SettingsForm(string arg)
+        public IgnoreForm(string arg)
         {
             InitializeComponent();
 

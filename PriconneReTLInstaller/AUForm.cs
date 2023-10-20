@@ -69,7 +69,6 @@ namespace PriconneReTLInstaller
             }));
 
         }
-
         public void OnDownloadProgress(double currentValue, double maxValue)
         {
             double percentage = ((double)currentValue / (double)maxValue) * 100;
@@ -91,7 +90,6 @@ namespace PriconneReTLInstaller
         {
             UpdateUI();
         }
-
         public void UpdateUI()
         {
             (auLocalVersion, auLocalVersionValid) = installer.GetAULocalVersion(priconnePath, "PriconneReTLAutoUpdater.dll");
@@ -143,7 +141,6 @@ namespace PriconneReTLInstaller
         {
             installer.ProcessAuUninstallOperation();
         }
-
         private void installButton_EnabledChanged(object sender, EventArgs e)
         {
             installButton.BackgroundImage = installButton.Enabled ? Resources.install_button : Resources.install_button_disabled;

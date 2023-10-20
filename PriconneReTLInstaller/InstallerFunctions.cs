@@ -66,7 +66,7 @@ namespace InstallerFunctions
                         {
                             //priconnePath = content.detail.path;
                             priconnePath = "C:\\Test"; // -- set fixed path for testing purposes
-                            //Log?.Invoke("Found Princess Connect Re:Dive in " + priconnePath, "info", false);
+                            Log?.Invoke("Found Princess Connect Re:Dive in " + priconnePath, "info", false);
                             return (priconnePath, priconnePathValid = true);
                         }
                     }
@@ -96,7 +96,6 @@ namespace InstallerFunctions
                 if (!priconnePathValid)
                 {
                     return (localVersion = "Unable to determine!", localVersionValid = false);
-                    //return ("Unable to determine!", false);
                 }
 
                 string versionFilePath = Path.Combine(priconnePath, "BepInEx", "Translation", "en", "Text", "Version.txt");
@@ -104,7 +103,6 @@ namespace InstallerFunctions
                 if (!File.Exists(versionFilePath))
                 {
                     return (localVersion = "None", localVersionValid = false);
-                    //return ("None", false);
                 }
                 string rawVersionFile = File.ReadAllText(versionFilePath);
                 Match match = Regex.Match(rawVersionFile, @"\d{8}[a-z]?");
@@ -112,18 +110,15 @@ namespace InstallerFunctions
                 if (match == null || !match.Success)
                 {
                     return (localVersion = "Invalid", localVersionValid = false);
-                    //return ("Invalid", false);
                 }
                 localVersion = match.Value;
                 return (localVersion, localVersionValid = true);
-                //return (match.Value, true);
 
             }
             catch (Exception ex)
             {
                 ErrorLog?.Invoke("Error getting local version: " + ex.Message);
                 return (localVersion = "ERROR!", localVersionValid = false);
-                //return ("ERROR!", false);
             }
         }
 
@@ -155,14 +150,12 @@ namespace InstallerFunctions
                     string version = releaseJson.tag_name;
                     assetLink = releaseJson.assets[0].browser_download_url;
                     return (latestVersion = version, latestVersionValid = true, assetLink);
-                    //return (version, true, assetLink);
                 }
             }
             catch (Exception ex)
             {
                 ErrorLog?.Invoke("Error getting latest release: " + ex.Message);
                 return (latestVersion = null, latestVersionValid = false, null);
-                //return (null, false, null);
             }
         }
 

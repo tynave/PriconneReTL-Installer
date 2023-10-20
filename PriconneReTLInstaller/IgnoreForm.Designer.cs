@@ -1,6 +1,6 @@
 ﻿namespace PriconneReTLInstaller
 {
-    partial class SettingsForm
+    partial class IgnoreForm
     {
         /// <summary>
         /// Required designer variable.

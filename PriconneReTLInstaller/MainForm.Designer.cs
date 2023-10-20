@@ -57,7 +57,7 @@
             this.launcherComboBox = new System.Windows.Forms.ComboBox();
             this.minimizeButton = new System.Windows.Forms.Button();
             this.aboutButton = new System.Windows.Forms.Button();
-            this.settingsButton = new System.Windows.Forms.Button();
+            this.ignoreButton = new System.Windows.Forms.Button();
             this.auButton = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -492,24 +492,24 @@
             this.aboutButton.UseVisualStyleBackColor = false;
             this.aboutButton.Click += new System.EventHandler(this.aboutButton_Click);
             // 
-            // settingsButton
+            // ignoreButton
             // 
-            this.settingsButton.BackColor = System.Drawing.Color.Transparent;
-            this.settingsButton.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.scroll_closed_res2;
-            this.settingsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.settingsButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.settingsButton.FlatAppearance.BorderSize = 0;
-            this.settingsButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.settingsButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.settingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.settingsButton.ForeColor = System.Drawing.Color.Transparent;
-            this.settingsButton.Location = new System.Drawing.Point(469, 8);
-            this.settingsButton.Name = "settingsButton";
-            this.settingsButton.Size = new System.Drawing.Size(44, 30);
-            this.settingsButton.TabIndex = 35;
-            this.settingsButton.UseVisualStyleBackColor = false;
-            this.settingsButton.EnabledChanged += new System.EventHandler(this.settingsButton_EnabledChanged);
-            this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
+            this.ignoreButton.BackColor = System.Drawing.Color.Transparent;
+            this.ignoreButton.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.scroll_closed_res2;
+            this.ignoreButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ignoreButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.ignoreButton.FlatAppearance.BorderSize = 0;
+            this.ignoreButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.ignoreButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.ignoreButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ignoreButton.ForeColor = System.Drawing.Color.Transparent;
+            this.ignoreButton.Location = new System.Drawing.Point(469, 8);
+            this.ignoreButton.Name = "ignoreButton";
+            this.ignoreButton.Size = new System.Drawing.Size(44, 30);
+            this.ignoreButton.TabIndex = 35;
+            this.ignoreButton.UseVisualStyleBackColor = false;
+            this.ignoreButton.EnabledChanged += new System.EventHandler(this.settingsButton_EnabledChanged);
+            this.ignoreButton.Click += new System.EventHandler(this.settingsButton_Click);
             // 
             // auButton
             // 
@@ -632,7 +632,7 @@
             this.ControlBox = false;
             this.Controls.Add(this.menuButtonLabel);
             this.Controls.Add(this.auButton);
-            this.Controls.Add(this.settingsButton);
+            this.Controls.Add(this.ignoreButton);
             this.Controls.Add(this.operationToolTipPicture);
             this.Controls.Add(this.optionsPanel);
             this.Controls.Add(this.operationLabel);
@@ -712,7 +712,7 @@
         private System.Windows.Forms.ComboBox launcherComboBox;
         private System.Windows.Forms.CheckBox launchCheckBox;
         private System.Windows.Forms.PictureBox operationToolTipPicture;
-        private System.Windows.Forms.Button settingsButton;
+        private System.Windows.Forms.Button ignoreButton;
         private System.Windows.Forms.Button auButton;
         private System.Windows.Forms.Label menuButtonLabel;
     }
