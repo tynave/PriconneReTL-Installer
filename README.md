@@ -115,6 +115,9 @@ Closes the application.
 You can use this interface to edit the list of files that are ignored by the updater during an install/update/uninstall/reinstall operation.  
 This means these files never get overwritten or deleted when performing any of the above operations.
 
+**NOTE: editing the list of ignored files only applies to manual operations performed via this application!  
+The AutoUpdater plugin and app still operates with the default ignore list!**
+
 The listbox on the interface contains the files currently on the list. Paths are relative to the Princess Connect Re:Dive game folder.
 
 ### <img src="PriconneReTLInstaller/Resources/add_button.png" height="30"> Add File
