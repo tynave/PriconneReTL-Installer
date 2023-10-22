@@ -49,13 +49,6 @@ Depending on selected options, it will either keep or delete config files, ignor
 For a full uninstall, select all options.  
 Please note, that even a full uninstall does NOT remove any files created by the user in the patch directories.
 
-### <img src="PriconneReTLInstaller/Resources/check_checked_24x24_2.png"> Launch Game:
-By selection this option, the installer launches the game. You can select this option either together with any install/update/uninstall/reinstall option, or just by itself.  
-If you select this option, a dropdown menu will become visible, and you have the option to select either the default DMM Game Player launcher, or the [DMMGamePlayerFastLauncher](https://github.com/fa0311/DMMGamePlayerFastLauncher).  
-The installer detects if you have the DMMGamePlayerFastLauncher installed, and defaults to that if it is, but you can change it anytime.  
-If you have the Launch Game option selected, the installer will close itself 5 seconds after the game launch has been initiated.
-The Launch Game option is a user setting, meaning the state of the option is saved even when you close the application.
-
 _**Update and Reinstall do the same thing, why having both of them then..?**_  
 When starting to develop the application, Update and Reinstall operations followed different logics.  
 However, during the development, it turned out, that the github API has certain limitations, which would have made the Update logic have issues if the user skips a few versions of the translation patch and wants to do a bigger update.  
@@ -63,6 +56,18 @@ So in order to avoid this, the Update logic needed to be changed to the approach
 The two main differences however remain:
  - Update never touches the user important files (config/ignored/interops/user created files) while for Reinstall, you can select to have some of these removed / replaced by the ones present in the translation patch files.
  - Update cannot be performed when you already have the latest translation patch release installed, while Reinstall, as the name implies allows you to even reinstall the latest version.
+
+### <img src="PriconneReTLInstaller/Resources/check_checked_24x24_2.png"> Launch Game:
+By selection this option, the installer launches the game. You can select this option either together with any install/update/uninstall/reinstall option, or just by itself.  
+
+If you select this option, a dropdown menu will become visible, and you have the option to select either the default DMM Game Player launcher, or the [DMMGamePlayerFastLauncher](https://github.com/fa0311/DMMGamePlayerFastLauncher).  
+The installer detects if you have the DMMGamePlayerFastLauncher installed, and defaults to it if possible, but you can change it anytime.  
+
+If you have the Launch Game option selected, the installer will close itself 5 seconds after the game launch has been initiated.
+
+The Launch Game option is a user setting, meaning the state of the option is saved even when you close the application.  
+
+If you have issues with the launch option, like the game not launching, try running the PriconneReTL-Installer in administrator mode.
 
 You can also see a brief explanation of the currently selected operation if you hover over the <img src="PriconneReTLInstaller/Resources/q_bubble.png" height="25"> bubble icon beside the current operation's name.
 
