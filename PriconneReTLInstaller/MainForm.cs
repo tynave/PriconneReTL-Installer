@@ -478,6 +478,11 @@ namespace PriconneReTLInstaller
         {
             auButton.BackgroundImage = auButton.Enabled ? Resources.crystal_normal_res : Resources.crystal_disabled;
         }
+
+        private void MainForm_Activated(object sender, EventArgs e)
+        {
+            SetToolTips();
+        }
     }
 }
 
