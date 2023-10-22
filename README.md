@@ -125,6 +125,20 @@ Finalizes changes made to the list. Exiting the interface without saving cancels
 Restored the default values to the list.  
 WARNING! After restoration, the list needs to be saved to finalize the defaulting.
 
+
+## <img src="PriconneReTLInstaller/Resources/crystal_normal_res.png" height="30"> AutoUpdater Installer menu
+Use this interface to install/update/uninstall [PriconneReTL-AutoUpdater](https://github.com/tynave/PriconneReTL-AutoUpdater) and [PriconneReTL-AutoUpdaterApp](https://github.com/tynave/PriconneReTL-AutoUpdaterApp)
+Please refer to the Readme files on the respective repos for details on the plugin and the app.
+
+### <img src="PriconneReTLInstaller/Resources/install_button2.png" height="30"> Install / Update AutoUpdater
+Installs the plugin and app or updates them to the latest version.
+
+### <img src="PriconneReTLInstaller/Resources/uninstall_button.png" height="30"> Uninstall AutoUpdater
+Removes the plugin and the app.
+
+The AutoUpdater plugin and app are installed to the `BepInEx\patchers\PriconneReTLAutoUpdater` folders.  
+If you happened to have installed them manually into a different path / folder name, they won't be recognized by the installer.
+
 ## <img src="PriconneReTLInstaller/Resources/Item_Jewel_Art.ico"> Requirements
 - .NET 4.7.2 (should already be installed if you're running Windows 10 Version 1803 or above)
 
