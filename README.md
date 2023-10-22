@@ -15,13 +15,15 @@ Based on [PriconneTL_Updater](https://github.com/touanu/PriconeTL_Updater) by [t
   - User **created** files in the patch folders  
 (Please note that due to the logic of the operations, any **user edited** files that originally are part of the translation patch **DO NOT** persist.
     So if you would like to make personal alterations of the patch files and want to keep those across the versions, it is advised to have those on seperate files.)
+- New in 1.3.0: New interface to modify list of ignored files. Useful for users who would like to modify files that are part of the translation patch and want to keep them safe from updates or uninstallation.
+- New in 1.3.0: New interface to install/update/uninstall [PriconneReTL-AutoUpdater](https://github.com/tynave/PriconneReTL-AutoUpdater) and [PriconneReTL-AutoUpdaterApp](https://github.com/tynave/PriconneReTL-AutoUpdaterApp)
 
 ## Installation
 The application is portable, does not require installation, just extract the released .zip archive anywhere.  
 All the operations processed are always logged into the *ReTLInstaller.log* file, which resides in the application's folder.  
 If the file is not present, it gets created. If the file is already present, it's content is purges/reset on every run.
 
-## Usage / Operations  
+## Operations  
 
 ### The application is capable of the following operations:  
 
@@ -83,6 +85,22 @@ These take up around ~250MB, normally you don't need to worry about them, but th
 
 ### Show Logs
 By checking / unchecking the *Show Logs* option, you can view/hide a detailed progress/output log. Please note that logging to file always happens regardless of this option.  
+
+## Menu
+### Edit Ignored Files
+Opens the interface to edit the list of files ignored by the updater during installation/update/uninstallation operations.
+
+### AutoUpdater Installer  
+Opens the interface for installing/updating/uninstalling the AutoUpdater
+
+### Help / About
+Display version number and open this Readme page.
+
+### Minimize Application
+Minimizes the application to the tray.
+
+### Exit Application  
+Closes the application.
 
 ## Requirements
 - .NET 4.7.2 (should already be installed if you're running Windows 10 Version 1803 or above)
