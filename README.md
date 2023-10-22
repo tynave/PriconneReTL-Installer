@@ -87,7 +87,7 @@ These take up around ~250MB, normally you don't need to worry about them, but th
 By checking / unchecking the *Show Logs* option, you can view/hide a detailed progress/output log. Please note that logging to file always happens regardless of this option.  
 
 ## Menu
-### Edit Ignored Files
+### Edit Ignored Files ![EditIgnoreFilesIcon](PriconneReTLInstaller/Resources/scroll_closed_res2.png|width=10)
 Opens the interface to edit the list of files ignored by the updater during installation/update/uninstallation operations.
 
 ### AutoUpdater Installer  
