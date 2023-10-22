@@ -374,7 +374,7 @@
             this.showLogCheckBox.Text = " Show Logs";
             this.showLogCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.showLogCheckBox.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.toolTip.SetToolTip(this.showLogCheckBox, "Show / hide logs");
+            this.toolTip.SetToolTip(this.showLogCheckBox, "Show / hide logs.");
             this.showLogCheckBox.UseVisualStyleBackColor = false;
             // 
             // newPictureBox
@@ -444,7 +444,7 @@
             this.latestVersionLinkLabel.TabIndex = 23;
             this.latestVersionLinkLabel.TabStop = true;
             this.latestVersionLinkLabel.Text = "<version>";
-            this.toolTip.SetToolTip(this.latestVersionLinkLabel, "Click to open latest release webpage.");
+            this.toolTip.SetToolTip(this.latestVersionLinkLabel, "Click to open latest release on GitHub.");
             this.latestVersionLinkLabel.VisitedLinkColor = System.Drawing.Color.Black;
             this.latestVersionLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.latestReleaseLinkLabel_LinkClicked);
             // 

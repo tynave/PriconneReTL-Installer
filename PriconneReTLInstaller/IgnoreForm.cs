@@ -117,6 +117,9 @@ namespace PriconneReTLInstaller
                 fileListbox.SelectedIndex = -1;
                 removeButton.Enabled = false;
                 saveButton.Enabled = true;
+
+                MessageBox.Show("Default values restored!\n\nWARNING!\nThese changes are not finalized until you sve them!", "Defaults Restored", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
             }
             catch (Exception ex)
             {

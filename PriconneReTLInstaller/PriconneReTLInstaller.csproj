@@ -391,5 +391,11 @@
   <ItemGroup>
     <None Include="Resources\save_button_disabled.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\install_button_disabled2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\install_button2.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

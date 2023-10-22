@@ -143,7 +143,7 @@ namespace PriconneReTLInstaller
         }
         private void installButton_EnabledChanged(object sender, EventArgs e)
         {
-            installButton.BackgroundImage = installButton.Enabled ? Resources.install_button : Resources.install_button_disabled;
+            installButton.BackgroundImage = installButton.Enabled ? Resources.install_button2 : Resources.install_button_disabled2;
         }
 
         private void uninstallButton_EnabledChanged(object sender, EventArgs e)

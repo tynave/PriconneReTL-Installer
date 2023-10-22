@@ -45,7 +45,7 @@
             // installButton
             // 
             this.installButton.BackColor = System.Drawing.Color.Transparent;
-            this.installButton.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.install_button;
+            this.installButton.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.install_button2;
             this.installButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.installButton.FlatAppearance.BorderSize = 0;
             this.installButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
