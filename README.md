@@ -1,10 +1,10 @@
-# PriconneReTL Installer
+# <img src="PriconneReTLInstaller/Resources/Item_Jewel_Art.ico"> PriconneReTL Installer
 An installer/updater GUI for the [PriconneRe-TL](https://github.com/ImaterialC/PriconneRe-TL) english patch.  
 Make installing, updating and removing the unofficial english patch for Princess Connect Re:Dive japanese version easier.
 
 Based on [PriconneTL_Updater](https://github.com/touanu/PriconeTL_Updater) by [touanu](https://github.com/touanu)
 
-## Features
+## <img src="PriconneReTLInstaller/Resources/Item_Jewel_Art.ico"> Features
 - Graphical user interface for easy operation.
 - Able to detect game path, installed version and latest available version.
 - Multiple operations depending on already installed version and user options, including install/reinstall/uninstall.
@@ -18,38 +18,38 @@ Based on [PriconneTL_Updater](https://github.com/touanu/PriconeTL_Updater) by [t
 - New in 1.3.0: New interface to modify list of ignored files. Useful for users who would like to modify files that are part of the translation patch and want to keep them safe from updates or uninstallation.
 - New in 1.3.0: New interface to install/update/uninstall [PriconneReTL-AutoUpdater](https://github.com/tynave/PriconneReTL-AutoUpdater) and [PriconneReTL-AutoUpdaterApp](https://github.com/tynave/PriconneReTL-AutoUpdaterApp)
 
-## Installation
+## <img src="PriconneReTLInstaller/Resources/Item_Jewel_Art.ico"> Installation
 The application is portable, does not require installation, just extract the released .zip archive anywhere.  
 All the operations processed are always logged into the *ReTLInstaller.log* file, which resides in the application's folder.  
 If the file is not present, it gets created. If the file is already present, it's content is purges/reset on every run.
 
-## Operations  
+## <img src="PriconneReTLInstaller/Resources/Item_Jewel_Art.ico"> Operations  
 
 ### The application is capable of the following operations:  
 
-### Install:
+### <img src="PriconneReTLInstaller/Resources/check_checked_24x24_2.png"> Install:
 If you have never used the translation patch before, or you don't have it currently installed, select the *Install* operation press the *Start!* button, and the application will download and install it for you.  
 If you have files left over from a previous installation, the application will keep those.
 
-### Update:
+### <img src="PriconneReTLInstaller/Resources/check_checked_24x24_2.png"> Update:
 If you already have a version of the translation patch applied, select *Update* and press the *Start!* button, and the application will update it by deleting the files of the current patch version, and downloading the latest files.  
 Config files/ignored files/user files as well as interop aseemblies are not touched during the process.
 
 Note: Install and Update operation share the same checkbox, the option changes depending on if you have the patch installed or not.
 
-### Reinstall:
+### <img src="PriconneReTLInstaller/Resources/check_checked_24x24_2.png"> Reinstall:
 If you check the *Reinstall* operation before pressing the *Start* button, the application will delete the currently installed translation patch version, and download and install the latest release.  
 It's like an Uninstall + Install.   
 Depending on selected options, it will either keep or delete config files, ignored files and/or the interop assemblies.  
 Does not touch user files.
 
-### Uninstall:
+### <img src="PriconneReTLInstaller/Resources/check_checked_24x24_2.png"> Uninstall:
 If you check the *Uninstall* operation before pressing the Start button, the application will remove the currently installed translation patch.
 Depending on selected options, it will either keep or delete config files, ignored files and/or the interop assemblies.  
 For a full uninstall, select all options.  
 Please note, that even a full uninstall does NOT remove any files created by the user in the patch directories.
 
-### Launch Game:
+### <img src="PriconneReTLInstaller/Resources/check_checked_24x24_2.png"> Launch Game:
 By selection this option, the installer launches the game. You can select this option either together with any install/update/uninstall/reinstall option, or just by itself.  
 If you select this option, a dropdown menu will become visible, and you have the option to select either the default DMM Game Player launcher, or the [DMMGamePlayerFastLauncher](https://github.com/fa0311/DMMGamePlayerFastLauncher).  
 The installer detects if you have the DMMGamePlayerFastLauncher installed, and defaults to that if it is, but you can change it anytime.  
@@ -66,51 +66,51 @@ The two main differences however remain:
 
 You can also see a brief explanation of the currently selected operation if you hover over the ? bubble icon beside the current operation's name.
 
-## Options
-### Remove Config Files  
+## <img src="PriconneReTLInstaller/Resources/Item_Jewel_Art.ico"> Options
+### <img src="PriconneReTLInstaller/Resources/check_checked_24x24_2.png"> Remove Config Files  
 Removes the following config files also (if present) located in `BepInEx\config`:
 - AutoTranslatorConfig.ini
 - BepInEx.cfg
 
-### Remove Ignored Patch Files
+### <img src="PriconneReTLInstaller/Resources/check_checked_24x24_2.png"> Remove Ignored Patch Files
 Removes the following ignored patch files also (if present) loacated in `BepInEx\Translation\en\Text`:
 - _AutoGeneratedTranslations.txt
 - _Preprocessors.txt
 - _Postprocessors.txt
 - _Substitions.txt
 
-### Remove Interops
+### <img src="PriconneReTLInstaller/Resources/check_checked_24x24_2.png"> Remove Interops
 Removes the interop assemblies generated by the translation patch. These are located in `%appdata%\BepInEx`  
 These take up around ~250MB, normally you don't need to worry about them, but this option might be useful if you accidentally close the game during the assembly generation, and the corrupted assemblies prevent your game from starting up.
 
-### Show Logs
+### <img src="PriconneReTLInstaller/Resources/check_checked_24x24_2.png"> Show Logs
 By checking / unchecking the *Show Logs* option, you can view/hide a detailed progress/output log. Please note that logging to file always happens regardless of this option.  
 
-## Menu
-### Edit Ignored Files ![EditIgnoreFilesIcon](PriconneReTLInstaller/Resources/scroll_closed_res2.png|width=10)
+## <img src="PriconneReTLInstaller/Resources/Item_Jewel_Art.ico"> Menu
+### <img src="PriconneReTLInstaller/Resources/scroll_closed_res2.png" height="25"> Edit Ignored Files
 Opens the interface to edit the list of files ignored by the updater during installation/update/uninstallation operations.
 
-### AutoUpdater Installer  
+### <img src="PriconneReTLInstaller/Resources/crystal_normal_res.png" height="25"> AutoUpdater Installer  
 Opens the interface for installing/updating/uninstalling the AutoUpdater
 
-### Help / About
+### <img src="PriconneReTLInstaller/Resources/i_bubble.png" height="25"> Help / About
 Display version number and open this Readme page.
 
-### Minimize Application
+### <img src="PriconneReTLInstaller/Resources/arrow_blue.png" height="25"> Minimize Application
 Minimizes the application to the tray.
 
-### Exit Application  
+### <img src="PriconneReTLInstaller/Resources/door_closed.png" height="25"> Exit Application  
 Closes the application.
 
-## Requirements
+## <img src="PriconneReTLInstaller/Resources/Item_Jewel_Art.ico"> Requirements
 - .NET 4.7.2 (should already be installed if you're running Windows 10 Version 1803 or above)
 
-## Possible future features
+## <img src="PriconneReTLInstaller/Resources/Item_Jewel_Art.ico"> Possible future features
 - User configurable options (set log file path, add files to the ignored files, etc..)
 - Verify option to check the files of the current installation without actual modifications
 - Possibility to install the autoupdater from the installer
 
-## Disclaimer
+## <img src="PriconneReTLInstaller/Resources/Item_Jewel_Art.ico"> Disclaimer
 Use at your own risk.  
 Although the application has been thoroughly tested, bugs, errors or undesired operation may happen.  
 The author takes no responsibility for any eventual damage, data loss or any other negative effect cause by the above listed occurences or any misuse of the application.
