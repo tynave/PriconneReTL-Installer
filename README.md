@@ -4,6 +4,9 @@ Make installing, updating and removing the unofficial english patch for Princess
 
 Based on [PriconneTL_Updater](https://github.com/touanu/PriconeTL_Updater) by [touanu](https://github.com/touanu)
 
+## You can get the latest relese here:  
+https://github.com/tynave/PriconneReTL-Installer/releases/latest
+
 ## <img src="PriconneReTLInstaller/Resources/Item_Jewel_Art.ico"> Features
 - Graphical user interface for easy operation.
 - Able to detect game path, installed version and latest available version.
