@@ -617,7 +617,13 @@ namespace InstallerFunctions
                 if (File.Exists(dmmFastLauncherExe))
                 {
                     Log?.Invoke("Starting Princess Connect Re:Dive...", "info", true);
-                    Process.Start(dmmFastLauncherExe, "priconner");
+                    ProcessStartInfo startInfo = new ProcessStartInfo
+                    {
+                        FileName = dmmFastLauncherExe,
+                        Arguments = "priconner",
+                        WorkingDirectory = dmmFastLauncherPath,
+                    };
+                    Process.Start(startInfo);
                     return true;
                 }
                 return false;
