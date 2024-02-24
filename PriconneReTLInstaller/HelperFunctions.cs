@@ -171,14 +171,23 @@ namespace HelperFunctions
 
         public void PopulateComboBox(ComboBox comboBox)
         {
+            string fastLauncherLink = Settings.Default.fastLauncherLink;
+
             comboBox.Items.Clear();
             comboBox.Items.Add("DMMGamePlayer");
             if (IsFastLauncherInstalled())
             {
-                comboBox.Items.Add("DMMGamePlayerFastLauncher");
                 Log?.Invoke("Found DMMGamePlayerFastLauncher!", "info", false);
+                if (fastLauncherLink == "") Log?.Invoke("DMMGamePlayerFastLauncher link not set!", "info", false);
+                else
+                {
+                    Log?.Invoke("DMMGamePlayerFastLauncher link path: " + fastLauncherLink, "info", false);
+                    comboBox.Items.Add("DMMGamePlayerFastLauncher");
+                }
+
+                
             }
-            if (comboBox.Items.Count > 0) comboBox.SelectedIndex = IsFastLauncherInstalled() ? 1 : 0;
+            if (comboBox.Items.Count > 0) comboBox.SelectedIndex = IsFastLauncherInstalled() && fastLauncherLink !="" ? 1 : 0;
         }
 
         public static bool IsFileInSubfolder(string folderPath, string filePath)

@@ -121,7 +121,7 @@ namespace PriconneReTLInstaller
 
             exclusiveCheckboxes = new CheckBox[] { installCheckBox, reinstallCheckBox, uninstallCheckBox };
             operationCheckboxes = new CheckBox[] { installCheckBox, reinstallCheckBox, uninstallCheckBox, launchCheckBox };
-            menuButtons = new Button[] { exitButton, minimizeButton, aboutButton, auButton, ignoreButton };
+            menuButtons = new Button[] { exitButton, minimizeButton, aboutButton, auButton, settingsButton };
 
 
             foreach (CheckBox checkBox in exclusiveCheckboxes)
@@ -319,7 +319,7 @@ namespace PriconneReTLInstaller
                     (minimizeButton, "Minimize Application"),
                     (aboutButton, "Help / About"),
                     (auButton, "AutoUpdater Installer"),
-                    (ignoreButton, "Edit Ignored Files")
+                    (settingsButton, "Settings")
                 };
 
             if (sender is Button button)
@@ -328,7 +328,7 @@ namespace PriconneReTLInstaller
                 if (button == exitButton) button.BackgroundImage = Resources.door_open;
                 if (button == minimizeButton) button.BackgroundImage = Resources.arrow_yellow;
                 if (button == aboutButton) button.BackgroundImage = Resources.q_bubble;
-                if (button == ignoreButton) button.BackgroundImage = Resources.scroll_open;
+                if (button == settingsButton) button.BackgroundImage = Resources.scroll_open;
                 if (button == auButton) button.BackgroundImage = Resources.crystal_lit;
                 
                 foreach (var (menuButton, name) in menuButtonLabels)
@@ -349,7 +349,7 @@ namespace PriconneReTLInstaller
                 if (button == exitButton) button.BackgroundImage = Resources.door_closed;
                 if (button == minimizeButton) button.BackgroundImage = Resources.arrow_blue;
                 if (button == aboutButton) button.BackgroundImage = Resources.i_bubble;
-                if (button == ignoreButton) button.BackgroundImage = Resources.scroll_closed_res2;
+                if (button == settingsButton) button.BackgroundImage = Resources.scroll_closed_res2;
                 if (button == auButton) button.BackgroundImage = Resources.crystal_normal_res;
                 menuButtonLabel.Visible = false;
             }
@@ -361,7 +361,7 @@ namespace PriconneReTLInstaller
             outputTextBox.Clear();
             startButton.Enabled = false;
             auButton.Enabled = false;
-            ignoreButton.Enabled = false;
+            settingsButton.Enabled = false;
             startButton.BackgroundImage = Resources.start_working;
             logger.Log("Starting selected operation(s)...", "info");
         }
@@ -370,7 +370,7 @@ namespace PriconneReTLInstaller
         {
             startButton.Enabled = true;
             auButton.Enabled = true; 
-            ignoreButton.Enabled= true;   
+            settingsButton.Enabled= true;   
             startButton.BackgroundImage = Resources.start_complete;
             reinstallCheckBox.Checked = false;
             uninstallCheckBox.Checked = false;
@@ -459,8 +459,13 @@ namespace PriconneReTLInstaller
 
         private void settingsButton_Click(object sender, EventArgs e)
         {
-            IgnoreForm settingsForm = new IgnoreForm(priconnePath);
-            settingsForm.ShowDialog();
+            settingsMenuStrip.Show(settingsButton, new System.Drawing.Point(0, settingsButton.Height));
+        }
+
+        private void editIgnoredFilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            IgnoreForm ignoreForm = new IgnoreForm(priconnePath);
+            ignoreForm.ShowDialog();
         }
 
         private void auButton_Click(object sender, EventArgs e)
@@ -471,7 +476,7 @@ namespace PriconneReTLInstaller
 
         private void settingsButton_EnabledChanged(object sender, EventArgs e)
         {
-            ignoreButton.BackgroundImage = ignoreButton.Enabled ? Resources.scroll_closed_res2 : Resources.scroll_disabled;
+            settingsButton.BackgroundImage = settingsButton.Enabled ? Resources.scroll_closed_res2 : Resources.scroll_disabled;
         }
 
         private void auButton_EnabledChanged(object sender, EventArgs e)
@@ -482,6 +487,13 @@ namespace PriconneReTLInstaller
         private void MainForm_Activated(object sender, EventArgs e)
         {
             SetToolTips();
+            if (priconnePathValid) helper.PopulateComboBox(launcherComboBox);
+        }
+
+        private void setDMMGameFastLauncherToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FastLauncherForm fastLauncherForm = new FastLauncherForm();
+            fastLauncherForm.ShowDialog();
         }
     }
 }

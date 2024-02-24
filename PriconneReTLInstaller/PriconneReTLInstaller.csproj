@@ -179,6 +179,12 @@
     <Compile Include="BaseForm.Designer.cs">
       <DependentUpon>BaseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="FastLauncherForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FastLauncherForm.Designer.cs">
+      <DependentUpon>FastLauncherForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="IgnoreForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -202,6 +208,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FastLauncherForm.resx">
+      <DependentUpon>FastLauncherForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -396,6 +405,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\install_button2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shortcutadd_button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shortcutadd_button_disabled.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shortcutremove_button.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shortcutremove_button_disabled.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

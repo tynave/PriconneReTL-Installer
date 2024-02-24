@@ -613,15 +613,14 @@ namespace InstallerFunctions
             {
                 string dmmFastLauncherPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DMMGamePlayerFastLauncher");
                 string dmmFastLauncherExe = Path.Combine(dmmFastLauncherPath, "DMMGamePlayerFastLauncher.exe");
+                string fastLauncherLink = Settings.Default.fastLauncherLink;
 
-                if (File.Exists(dmmFastLauncherExe))
+                if (File.Exists(dmmFastLauncherExe) && fastLauncherLink != "")
                 {
                     Log?.Invoke("Starting Princess Connect Re:Dive...", "info", true);
                     ProcessStartInfo startInfo = new ProcessStartInfo
                     {
-                        FileName = dmmFastLauncherExe,
-                        Arguments = "priconner",
-                        WorkingDirectory = dmmFastLauncherPath,
+                        FileName = fastLauncherLink,
                     };
                     Process.Start(startInfo);
                     return true;

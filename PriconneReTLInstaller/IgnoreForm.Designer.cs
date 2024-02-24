@@ -146,10 +146,9 @@
             // 
             // openFileDialog1
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = "All Files|*.*";
             // 
-            // SettingsForm
+            // IgnoreForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -164,7 +163,7 @@
             this.Controls.Add(this.fileListbox);
             this.Controls.Add(this.backButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Name = "SettingsForm";
+            this.Name = "IgnoreForm";
             this.Load += new System.EventHandler(this.SettingsForm_Load);
             this.Click += new System.EventHandler(this.SettingsForm_Click);
             this.ResumeLayout(false);
