@@ -4,6 +4,9 @@ Make installing, updating and removing the unofficial english patch for Princess
 
 Based on [PriconneTL_Updater](https://github.com/touanu/PriconeTL_Updater) by [touanu](https://github.com/touanu)
 
+## You can download the latest version here:  
+https://github.com/tynave/PriconneReTL-Installer/releases/latest
+
 ## <img src="PriconneReTLInstaller/Resources/Item_Jewel_Art.ico"> Features
 - Graphical user interface for easy operation.
 - Able to detect game path, installed version and latest available version.
@@ -114,6 +117,9 @@ Closes the application.
 ## <img src="PriconneReTLInstaller/Resources/scroll_closed_res2.png" height="30"> Edit Ignored Files menu
 You can use this interface to edit the list of files that are ignored by the updater during an install/update/uninstall/reinstall operation.  
 This means these files never get overwritten or deleted when performing any of the above operations.
+
+**NOTE: editing the list of ignored files only applies to manual operations performed via this application!  
+The AutoUpdater plugin and app still operates with the default ignore list!**
 
 The listbox on the interface contains the files currently on the list. Paths are relative to the Princess Connect Re:Dive game folder.
 
