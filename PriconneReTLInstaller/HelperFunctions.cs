@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
+using LoggerFunctions;
 using PriconneReTLInstaller;
 using PriconneReTLInstaller.Properties;
 
@@ -143,6 +144,14 @@ namespace HelperFunctions
             MessageBox.Show($"There is currently a {type} process in progress.\nPlease wait for the operation to complete.", "Cannot Exit", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             e.Cancel = true;
         }
+        public bool IsGameRunning()
+        {
+            // Get a list of all running processes with the specified name
+            Process[] processes = Process.GetProcessesByName("PrincessConnectReDive");
+
+            // Check if any processes with the given name are running
+            return processes.Length > 0;
+        }
 
         public bool IsFastLauncherInstalled()
         {
@@ -160,34 +169,47 @@ namespace HelperFunctions
             }
         }
 
-        public bool IsGameRunning()
-        {
-            // Get a list of all running processes with the specified name
-            Process[] processes = Process.GetProcessesByName("PrincessConnectReDive");
-            
-            // Check if any processes with the given name are running
-            return processes.Length > 0;
-        }
-
-        public void PopulateComboBox(ComboBox comboBox)
+        public bool IsFastLauncherShortcutSet() 
         {
             string fastLauncherLink = Settings.Default.fastLauncherLink;
+            if (fastLauncherLink == "")
+            {
+                DialogResult result = MessageBox.Show($"DMMGamePlayerFastLauncher shortcut not set!\n\n" +
+                    $"In order to be able to launch the game via the DMMGamePlayerFastLauncher, you need to set the fastlauncher shortcut used.\n\n " +
+                    $"Press the \"OK\" button to open the window for setting the shortcut. Press the \"Cancel\" button to abort the operation.\n\n" +
+                    $"You can set the shortcut any time by clicking the \"Settings\" icon (scroll) and selecting the \"Set DMMGamePlayerFastLauncher shortcut\" option.", "Cannot Start Game", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                if (result == DialogResult.OK)
+                {
+                    FastLauncherForm fastLauncherForm = new FastLauncherForm();
+                    fastLauncherForm.ShowDialog();
+                    return false;
+                }
+                else if (result == DialogResult.Cancel) return false;
+            } return true;
+        }
 
+
+        public void LogFastLauncherShortcut()
+        {
+            string fastLauncherShortcut = Settings.Default.fastLauncherLink;
+
+            if (fastLauncherShortcut == "") Log?.Invoke("DMMGamePlayerFastLauncher link not set!", "info", false);
+            else Log?.Invoke("DMMGamePlayerFastLauncher link path: " + fastLauncherShortcut, "info", false);
+        }
+
+        public void PopulateLauncherComboBox(ComboBox comboBox)
+        {
+            
             comboBox.Items.Clear();
             comboBox.Items.Add("DMMGamePlayer");
-            if (IsFastLauncherInstalled())
-            {
-                Log?.Invoke("Found DMMGamePlayerFastLauncher!", "info", false);
-                if (fastLauncherLink == "") Log?.Invoke("DMMGamePlayerFastLauncher link not set!", "info", false);
-                else
-                {
-                    Log?.Invoke("DMMGamePlayerFastLauncher link path: " + fastLauncherLink, "info", false);
-                    comboBox.Items.Add("DMMGamePlayerFastLauncher");
-                }
 
-                
-            }
-            if (comboBox.Items.Count > 0) comboBox.SelectedIndex = IsFastLauncherInstalled() && fastLauncherLink !="" ? 1 : 0;
+            if (IsFastLauncherInstalled()) 
+            { 
+                comboBox.Items.Add("DMMGamePlayerFastLauncher");
+                Log?.Invoke("Found DMMGamePlayerFastLauncher!", "info", false);
+            } else Log?.Invoke("DMMGamePlayerFastLauncher not installed!", "info", false);
+
+            if (comboBox.Items.Count > 0) comboBox.SelectedIndex = IsFastLauncherInstalled() ? 1 : 0;
         }
 
         public static bool IsFileInSubfolder(string folderPath, string filePath)

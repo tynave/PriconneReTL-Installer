@@ -30,9 +30,16 @@ namespace PriconneReTLInstaller
         private CheckBox[] exclusiveCheckboxes;
         private CheckBox[] operationCheckboxes;
         private Button[] menuButtons;
-        
+
         public MainForm()
         {
+            if (Properties.Settings.Default.UpgradeRequired)
+            {
+                Properties.Settings.Default.Upgrade();
+                Properties.Settings.Default.UpgradeRequired = false;
+                Properties.Settings.Default.Save();
+            }
+
             InitializeComponent();
 
             installer.Log += OnLog;
@@ -100,17 +107,23 @@ namespace PriconneReTLInstaller
 
         private void InitializeUI()
         {
+            string fastLauncherLink = Settings.Default.fastLauncherLink;
+
             Icon = Resources.jewel;
             Height = 480;
+
+            versionLabel.Text = $"v{String.Format(Application.ProductVersion)}";
 
             removeConfigCheckBox.Enabled = false;
             removeIgnoredCheckBox.Enabled = false;
             removeInteropsCheckBox.Enabled = false;
 
             (priconnePath, priconnePathValid) = installer.GetGamePath();
-            gamePathLinkLabel.Text = priconnePath;
+            gamePathLinkLabel.Text = priconnePath.Length < 55 ? priconnePath : priconnePath.Substring(0, 52) + "...";
 
-            if (priconnePathValid) helper.PopulateComboBox(launcherComboBox);
+            if (priconnePathValid) helper.PopulateLauncherComboBox(launcherComboBox);
+
+            helper.LogFastLauncherShortcut();
 
             launchCheckBox.Enabled = priconnePathValid && launcherComboBox.Items.Count > 0;
             launchCheckBox.Checked = Settings.Default.launchState;
@@ -214,7 +227,7 @@ namespace PriconneReTLInstaller
         }
 
         // Events
-        private void OnLog(string message, string color, bool writeToToolStrip = false)
+        public void OnLog(string message, string color, bool writeToToolStrip = false)
         {
             outputTextBox.Invoke((Action)(() =>
             {
@@ -487,7 +500,6 @@ namespace PriconneReTLInstaller
         private void MainForm_Activated(object sender, EventArgs e)
         {
             SetToolTips();
-            if (priconnePathValid) helper.PopulateComboBox(launcherComboBox);
         }
 
         private void setDMMGameFastLauncherToolStripMenuItem_Click(object sender, EventArgs e)

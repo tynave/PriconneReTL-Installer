@@ -72,6 +72,7 @@
             this.settingsMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editIgnoredFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setDMMGameFastLauncherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.versionLabel = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.operationsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.newPictureBox)).BeginInit();
@@ -632,21 +633,32 @@
             this.editIgnoredFilesToolStripMenuItem,
             this.setDMMGameFastLauncherToolStripMenuItem});
             this.settingsMenuStrip.Name = "settingsMenuStrip";
-            this.settingsMenuStrip.Size = new System.Drawing.Size(225, 48);
+            this.settingsMenuStrip.Size = new System.Drawing.Size(304, 48);
             // 
             // editIgnoredFilesToolStripMenuItem
             // 
             this.editIgnoredFilesToolStripMenuItem.Name = "editIgnoredFilesToolStripMenuItem";
-            this.editIgnoredFilesToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
+            this.editIgnoredFilesToolStripMenuItem.Size = new System.Drawing.Size(303, 22);
             this.editIgnoredFilesToolStripMenuItem.Text = "Edit Ignored Files";
             this.editIgnoredFilesToolStripMenuItem.Click += new System.EventHandler(this.editIgnoredFilesToolStripMenuItem_Click);
             // 
             // setDMMGameFastLauncherToolStripMenuItem
             // 
             this.setDMMGameFastLauncherToolStripMenuItem.Name = "setDMMGameFastLauncherToolStripMenuItem";
-            this.setDMMGameFastLauncherToolStripMenuItem.Size = new System.Drawing.Size(224, 22);
-            this.setDMMGameFastLauncherToolStripMenuItem.Text = "Set DMMGameFastLauncher";
+            this.setDMMGameFastLauncherToolStripMenuItem.Size = new System.Drawing.Size(303, 22);
+            this.setDMMGameFastLauncherToolStripMenuItem.Text = "Set DMMGamePlayerFastLauncher shortcut";
             this.setDMMGameFastLauncherToolStripMenuItem.Click += new System.EventHandler(this.setDMMGameFastLauncherToolStripMenuItem_Click);
+            // 
+            // versionLabel
+            // 
+            this.versionLabel.AutoSize = true;
+            this.versionLabel.BackColor = System.Drawing.Color.Transparent;
+            this.versionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.versionLabel.Location = new System.Drawing.Point(659, 427);
+            this.versionLabel.Name = "versionLabel";
+            this.versionLabel.Size = new System.Drawing.Size(45, 16);
+            this.versionLabel.TabIndex = 38;
+            this.versionLabel.Text = "<ver>";
             // 
             // MainForm
             // 
@@ -656,6 +668,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(718, 748);
             this.ControlBox = false;
+            this.Controls.Add(this.versionLabel);
             this.Controls.Add(this.menuButtonLabel);
             this.Controls.Add(this.auButton);
             this.Controls.Add(this.settingsButton);
@@ -746,6 +759,7 @@
         private System.Windows.Forms.ContextMenuStrip settingsMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem editIgnoredFilesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setDMMGameFastLauncherToolStripMenuItem;
+        private System.Windows.Forms.Label versionLabel;
     }
 }
 

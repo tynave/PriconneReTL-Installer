@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using PriconneReTLInstaller;
 using LoggerFunctions;
+using System.Diagnostics;
 
 namespace PriconneReTLInstaller
 {
@@ -95,8 +96,8 @@ namespace PriconneReTLInstaller
             (auLocalVersion, auLocalVersionValid) = installer.GetAULocalVersion(priconnePath, "PriconneReTLAutoUpdater.dll");
             (auAppLocalVersion, auAppLocalVersionValid) = installer.GetAULocalVersion(priconnePath, "PriconneReTLAutoUpdaterApp.exe");
 
-            auVersionLabel.Text = $"AutoUpdater Version: Local: {auLocalVersion} | Latest: {auLatestVersion}";
-            auAppVersionLabel.Text = $"AutoUpdaterApp Version: Local: {auAppLocalVersion} | Latest: {auAppLatestVersion}";
+            auVersionLabel.Text = $"Local: {auLocalVersion} | Latest: {auLatestVersion}";
+            auAppVersionLabel.Text = $"Local: {auAppLocalVersion} | Latest: {auAppLatestVersion}";
 
             installButton.Enabled = (auLocalVersion == auLatestVersion) && (auAppLocalVersion == auAppLatestVersion) ? false : true ;
             uninstallButton.Enabled = auAppLocalVersionValid && auAppLatestVersionValid;
@@ -149,6 +150,16 @@ namespace PriconneReTLInstaller
         private void uninstallButton_EnabledChanged(object sender, EventArgs e)
         {
             uninstallButton.BackgroundImage = uninstallButton.Enabled ? Resources.uninstall_button : Resources.uninstall_button_disabled;
+        }
+
+        private void auLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://github.com/tynave/PriconneReTL-AutoUpdater");
+        }
+
+        private void auAppLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://github.com/tynave/PriconneReTL-AutoUpdaterApp");
         }
     }
 }

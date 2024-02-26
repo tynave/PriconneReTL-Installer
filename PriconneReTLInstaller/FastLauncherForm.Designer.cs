@@ -141,6 +141,7 @@
             this.Controls.Add(this.backButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FastLauncherForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FastLauncherForm_FormClosing);
             this.Load += new System.EventHandler(this.FastLauncherForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

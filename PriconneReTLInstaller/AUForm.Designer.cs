@@ -39,6 +39,8 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.auLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.auAppLinkLabel = new System.Windows.Forms.LinkLabel();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -100,22 +102,22 @@
             this.auVersionLabel.AutoSize = true;
             this.auVersionLabel.BackColor = System.Drawing.Color.Transparent;
             this.auVersionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.auVersionLabel.Location = new System.Drawing.Point(123, 128);
+            this.auVersionLabel.Location = new System.Drawing.Point(345, 130);
             this.auVersionLabel.Name = "auVersionLabel";
-            this.auVersionLabel.Size = new System.Drawing.Size(135, 16);
+            this.auVersionLabel.Size = new System.Drawing.Size(65, 16);
             this.auVersionLabel.TabIndex = 4;
-            this.auVersionLabel.Text = "AutoUpdater Version:";
+            this.auVersionLabel.Text = "<version>";
             // 
             // auAppVersionLabel
             // 
             this.auAppVersionLabel.AutoSize = true;
             this.auAppVersionLabel.BackColor = System.Drawing.Color.Transparent;
             this.auAppVersionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.auAppVersionLabel.Location = new System.Drawing.Point(123, 158);
+            this.auAppVersionLabel.Location = new System.Drawing.Point(378, 158);
             this.auAppVersionLabel.Name = "auAppVersionLabel";
-            this.auAppVersionLabel.Size = new System.Drawing.Size(160, 16);
+            this.auAppVersionLabel.Size = new System.Drawing.Size(65, 16);
             this.auAppVersionLabel.TabIndex = 5;
-            this.auAppVersionLabel.Text = "AutoUpdaterApp Version:";
+            this.auAppVersionLabel.Text = "<version>";
             // 
             // outputTextBox
             // 
@@ -169,6 +171,32 @@
             this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 23);
             this.toolStripProgressBar1.Step = 1;
             // 
+            // auLinkLabel
+            // 
+            this.auLinkLabel.AutoSize = true;
+            this.auLinkLabel.BackColor = System.Drawing.Color.Transparent;
+            this.auLinkLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.auLinkLabel.Location = new System.Drawing.Point(123, 130);
+            this.auLinkLabel.Name = "auLinkLabel";
+            this.auLinkLabel.Size = new System.Drawing.Size(175, 16);
+            this.auLinkLabel.TabIndex = 16;
+            this.auLinkLabel.TabStop = true;
+            this.auLinkLabel.Text = "AutoUpdater Plugin Version:";
+            this.auLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.auLinkLabel_LinkClicked);
+            // 
+            // auAppLinkLabel
+            // 
+            this.auAppLinkLabel.AutoSize = true;
+            this.auAppLinkLabel.BackColor = System.Drawing.Color.Transparent;
+            this.auAppLinkLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.auAppLinkLabel.Location = new System.Drawing.Point(123, 158);
+            this.auAppLinkLabel.Name = "auAppLinkLabel";
+            this.auAppLinkLabel.Size = new System.Drawing.Size(205, 16);
+            this.auAppLinkLabel.TabIndex = 17;
+            this.auAppLinkLabel.TabStop = true;
+            this.auAppLinkLabel.Text = "AutoUpdater Application Version:";
+            this.auAppLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.auAppLinkLabel_LinkClicked);
+            // 
             // AUForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -176,6 +204,8 @@
             this.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.bg2;
             this.ClientSize = new System.Drawing.Size(681, 347);
             this.ControlBox = false;
+            this.Controls.Add(this.auAppLinkLabel);
+            this.Controls.Add(this.auLinkLabel);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.outputTextBox);
             this.Controls.Add(this.auAppVersionLabel);
@@ -207,5 +237,7 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar1;
+        private System.Windows.Forms.LinkLabel auLinkLabel;
+        private System.Windows.Forms.LinkLabel auAppLinkLabel;
     }
 }

@@ -1,4 +1,5 @@
-﻿using PriconneReTLInstaller.Properties;
+﻿using LoggerFunctions;
+using PriconneReTLInstaller.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,9 +17,10 @@ namespace PriconneReTLInstaller
         public FastLauncherForm()
         {
             InitializeComponent();
-
+            
             backButton.MouseEnter += OnButtonMouseEnter;
             backButton.MouseLeave += OnButtonMouseLeave;
+
         }
 
         private void OnButtonMouseEnter(object sender, EventArgs e)
@@ -59,6 +61,7 @@ namespace PriconneReTLInstaller
                     Settings.Default.fastLauncherLink = selectedFile;
                     Settings.Default.Save();
                     UpdateUI();
+                    
                 }
             }
             catch (Exception ex)
@@ -75,6 +78,7 @@ namespace PriconneReTLInstaller
         private void shortcutRemoveButton_EnabledChanged(object sender, EventArgs e)
         {
             shortcutRemoveButton.BackgroundImage = shortcutRemoveButton.Enabled ? Resources.shortcutremove_button : Resources.shortcutremove_button_disabled;
+
         }
 
         private void FastLauncherForm_Load(object sender, EventArgs e)
@@ -87,6 +91,12 @@ namespace PriconneReTLInstaller
             Settings.Default.fastLauncherLink = "";
             Settings.Default.Save();
             UpdateUI();
+            
+        }
+
+        private void FastLauncherForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+        
         }
     }
 

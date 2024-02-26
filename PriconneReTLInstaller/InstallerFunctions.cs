@@ -479,6 +479,18 @@ namespace InstallerFunctions
 
             try
             {
+                /*string fastLauncherLink = Settings.Default.fastLauncherLink;
+                if (launch && combobox.SelectedIndex == 1)
+                {
+                    if (fastLauncherLink == "")
+                    {
+                        MessageBox.Show($"DMMGameFastLauncher shortcut not set!\nPlease set the shortcut to the fastlauncher in the next window to be able to launch the game through it.", "Cannot Start", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        FastLauncherForm fastLauncherForm = new FastLauncherForm();
+                        fastLauncherForm.ShowDialog();
+                        return;
+                    }
+                }*/
+
                 ProcessStart?.Invoke();
 
                 if (uninstall)
@@ -542,16 +554,30 @@ namespace InstallerFunctions
 
                 if (launch)
                 {
+                    bool result = false;
+                    // string fastLauncherLink = Settings.Default.fastLauncherLink;
                     switch (combobox.SelectedIndex)
+                        {
+                            case 0:
+                                result = StartDMMGamePlayer();
+                                break;
+                            case 1:
+                            //if (fastLauncherLink == "") MessageBox.Show($"DMMGameFastLauncher shortcut not set!\nGame cannot be started!", "Cannot Start", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            //else 
+                            //{ 
+                                result = StartDMMFastLauncher();
+                            //} 
+                                break;
+                            default:
+                                break;
+                        }
+
+                    if (result)
                     {
-                        case 0: StartDMMGamePlayer(); break;    
-                        case 1: StartDMMFastLauncher(); break;
-                        default:
-                            break;
+                        await Task.Delay(5000);
+                        Application.Exit();
                     }
 
-                    await Task.Delay(5000);
-                    Application.Exit();
                 }
             }
         }
@@ -615,9 +641,12 @@ namespace InstallerFunctions
                 string dmmFastLauncherExe = Path.Combine(dmmFastLauncherPath, "DMMGamePlayerFastLauncher.exe");
                 string fastLauncherLink = Settings.Default.fastLauncherLink;
 
-                if (File.Exists(dmmFastLauncherExe) && fastLauncherLink != "")
+                if (File.Exists(dmmFastLauncherExe))
                 {
-                    Log?.Invoke("Starting Princess Connect Re:Dive...", "info", true);
+ 
+                    if (!helper.IsFastLauncherShortcutSet()) return false;
+
+                    Log?.Invoke("Starting game via DMMGamePlayerFastLauncher. Closing installer in 5 seconds", "info", true);
                     ProcessStartInfo startInfo = new ProcessStartInfo
                     {
                         FileName = fastLauncherLink,
@@ -634,18 +663,18 @@ namespace InstallerFunctions
             }
         }
 
-        private void StartDMMGamePlayer()
+        private bool StartDMMGamePlayer()
         {
             try
             {
-                Log?.Invoke("Starting Princess Connect Re:Dive...", "info", true);
+                Log?.Invoke("Starting game via DMMGamePlayer. Closing installer in 5 seconds.", "info", true);
                 Process.Start("dmmgameplayer://play/GCL/priconner/cl/win");
-                
-                return;
+                return true;
             }
             catch (Exception ex)
             {
                 ErrorLog?.Invoke("Error starting DMMGamePlayer: " + ex.Message);
+                return false;
             }
         }
 

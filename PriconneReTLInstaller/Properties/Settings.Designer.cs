@@ -68,6 +68,7 @@ namespace PriconneReTLInstaller.Properties {
 <ArrayOfString xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
   <string>BepInEx/config/AutoTranslatorConfig.ini</string>
   <string>BepInEx/config/BepInEx.cfg</string>
+  <string>BepInEx/config/PriconneTLFixup.cfg</string>
 </ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection configFiles {
             get {
@@ -266,6 +267,18 @@ namespace PriconneReTLInstaller.Properties {
             }
             set {
                 this["fastLauncherLink"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UpgradeRequired {
+            get {
+                return ((bool)(this["UpgradeRequired"]));
+            }
+            set {
+                this["UpgradeRequired"] = value;
             }
         }
     }
