@@ -55,6 +55,7 @@ namespace PriconneReTLInstaller
         {
             try
             {
+                openFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
                     string selectedFile = openFileDialog1.FileName;
@@ -92,11 +93,6 @@ namespace PriconneReTLInstaller
             Settings.Default.Save();
             UpdateUI();
             
-        }
-
-        private void FastLauncherForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-        
         }
     }
 

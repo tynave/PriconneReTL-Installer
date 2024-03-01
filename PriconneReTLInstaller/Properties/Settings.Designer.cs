@@ -272,13 +272,13 @@ namespace PriconneReTLInstaller.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool UpgradeRequired {
+        [global::System.Configuration.DefaultSettingValueAttribute("1.3.0.0")]
+        public string LastKnownVersion {
             get {
-                return ((bool)(this["UpgradeRequired"]));
+                return ((string)(this["LastKnownVersion"]));
             }
             set {
-                this["UpgradeRequired"] = value;
+                this["LastKnownVersion"] = value;
             }
         }
     }

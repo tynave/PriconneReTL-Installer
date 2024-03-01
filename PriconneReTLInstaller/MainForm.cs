@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,10 +34,18 @@ namespace PriconneReTLInstaller
 
         public MainForm()
         {
-            if (Properties.Settings.Default.UpgradeRequired)
+            // Get the current assembly version
+            Version currentVersion = Assembly.GetEntryAssembly().GetName().Version;
+
+            // Get the last known assembly version from settings
+            Version lastKnownVersion = new Version(Properties.Settings.Default.LastKnownVersion);
+
+            // Compare the current version with the last known version
+            if (currentVersion > lastKnownVersion)
             {
+                // Upgrade is required
                 Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.UpgradeRequired = false;
+                Properties.Settings.Default.LastKnownVersion = currentVersion.ToString();
                 Properties.Settings.Default.Save();
             }
 
