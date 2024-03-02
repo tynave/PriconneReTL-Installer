@@ -281,5 +281,22 @@ namespace PriconneReTLInstaller.Properties {
                 this["LastKnownVersion"] = value;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"DMMGamePlayerFastLauncher shortcut not set or not valid!
+
+In order to be able to launch the game via the DMMGamePlayerFastLauncher, you need to set the shortcut of it in the installer. 
+
+If you have moved/removed/renamed the previously set shortcut, please re-set it. 
+
+Press the OK button to open the window for setting the shortcut. Press the Cancel button to abort the operation. 
+
+You can set the shortcut any time by clicking the ""Settings"" icon (scroll) and selecting the ""Set DMMGamePlayerFastLauncher shortcut"" option.")]
+        public string cannotStartDMMFastLauncherError {
+            get {
+                return ((string)(this["cannotStartDMMFastLauncherError"]));
+            }
+        }
     }
 }
