@@ -169,13 +169,16 @@ namespace HelperFunctions
             }
         }
 
-        public bool IsFastLauncherShortcutSet() 
+        public bool IsFastLauncherShortcutValid() 
         {
             string fastLauncherLink = Settings.Default.fastLauncherLink;
-            if (fastLauncherLink == "")
+
+            if (!File.Exists(fastLauncherLink))
             {
-                DialogResult result = MessageBox.Show($"DMMGamePlayerFastLauncher shortcut not set!\n\n" +
-                    $"In order to be able to launch the game via the DMMGamePlayerFastLauncher, you need to set the fastlauncher shortcut used.\n\n " +
+                
+                DialogResult result = MessageBox.Show($"DMMGamePlayerFastLauncher shortcut not set or not valid!\n\n" +
+                    $"In order to be able to launch the game via the DMMGamePlayerFastLauncher, you need to set the shortcut of it in the installer.\n\n" +
+                    $"If you have moved/removed/renamed the previously set shortcut, please re-set it.\n\n" +
                     $"Press the \"OK\" button to open the window for setting the shortcut. Press the \"Cancel\" button to abort the operation.\n\n" +
                     $"You can set the shortcut any time by clicking the \"Settings\" icon (scroll) and selecting the \"Set DMMGamePlayerFastLauncher shortcut\" option.", "Cannot Start Game", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                 if (result == DialogResult.OK)
@@ -185,7 +188,8 @@ namespace HelperFunctions
                     return false;
                 }
                 else if (result == DialogResult.Cancel) return false;
-            } return true;
+            }
+            return true;
         }
 
 
