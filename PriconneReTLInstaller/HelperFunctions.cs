@@ -258,5 +258,67 @@ namespace HelperFunctions
             // If fromPath is the same as toPath, return an empty string
             return string.Empty;
         }
+        public void ExportSettings(string filePath)
+        {
+            try
+            {
+                var userSettings = new UserSettings
+                {
+                    launchState = Settings.Default.launchState,
+                    ignoreFiles = Settings.Default.ignoreFiles,
+                    fastLauncherLink = Settings.Default.fastLauncherLink,
+                    LastKnownVersion = Settings.Default.LastKnownVersion
+                };
+
+                // Serialize user settings to XML
+                XmlSerializer serializer = new XmlSerializer(typeof(UserSettings));
+                using (StreamWriter writer = new StreamWriter(filePath))
+                {
+                    serializer.Serialize(writer, userSettings);
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
+        }
+
+        public void ImportSettings(string filePath)
+        {
+            try
+            {
+                // Deserialize settings from file
+                XmlSerializer serializer = new XmlSerializer(typeof(UserSettings));
+                using (StreamReader reader = new StreamReader(filePath))
+                {
+                    var importedSettings = (UserSettings)serializer.Deserialize(reader);
+
+                    // Update application settings with imported settings
+                    Settings.Default.launchState = importedSettings.launchState;
+                    Settings.Default.ignoreFiles = importedSettings.ignoreFiles;
+                    Settings.Default.fastLauncherLink = importedSettings.fastLauncherLink;
+                    Settings.Default.LastKnownVersion = importedSettings.LastKnownVersion;
+
+                    // Save changes to application settings
+                    Settings.Default.Save();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+           
+        }
     }
+}
+
+[Serializable]
+public class UserSettings
+{
+    public bool launchState { get; set; }
+    public System.Collections.Specialized.StringCollection ignoreFiles { get; set; }
+    public string fastLauncherLink { get; set; }
+    public string LastKnownVersion { get; set; }
+    
 }

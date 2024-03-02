@@ -73,6 +73,7 @@
             this.editIgnoredFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setDMMGameFastLauncherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.versionLabel = new System.Windows.Forms.Label();
+            this.importExportSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.operationsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.newPictureBox)).BeginInit();
@@ -631,9 +632,10 @@
             // 
             this.settingsMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.editIgnoredFilesToolStripMenuItem,
-            this.setDMMGameFastLauncherToolStripMenuItem});
+            this.setDMMGameFastLauncherToolStripMenuItem,
+            this.importExportSettingsToolStripMenuItem});
             this.settingsMenuStrip.Name = "settingsMenuStrip";
-            this.settingsMenuStrip.Size = new System.Drawing.Size(304, 48);
+            this.settingsMenuStrip.Size = new System.Drawing.Size(304, 92);
             // 
             // editIgnoredFilesToolStripMenuItem
             // 
@@ -659,6 +661,13 @@
             this.versionLabel.Size = new System.Drawing.Size(45, 16);
             this.versionLabel.TabIndex = 38;
             this.versionLabel.Text = "<ver>";
+            // 
+            // importExportSettingsToolStripMenuItem
+            // 
+            this.importExportSettingsToolStripMenuItem.Name = "importExportSettingsToolStripMenuItem";
+            this.importExportSettingsToolStripMenuItem.Size = new System.Drawing.Size(303, 22);
+            this.importExportSettingsToolStripMenuItem.Text = "Import / Export Settings";
+            this.importExportSettingsToolStripMenuItem.Click += new System.EventHandler(this.importExportSettingsToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -760,6 +769,7 @@
         private System.Windows.Forms.ToolStripMenuItem editIgnoredFilesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setDMMGameFastLauncherToolStripMenuItem;
         private System.Windows.Forms.Label versionLabel;
+        private System.Windows.Forms.ToolStripMenuItem importExportSettingsToolStripMenuItem;
     }
 }
 

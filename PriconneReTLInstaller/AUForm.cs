@@ -35,7 +35,7 @@ namespace PriconneReTLInstaller
         private bool auAppLatestVersionValid;
 
         private Logger aulogger;
-        public AUForm(string arg1)
+        public AUForm()
         {
             InitializeComponent();
 

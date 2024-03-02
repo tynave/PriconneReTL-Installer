@@ -492,7 +492,7 @@ namespace PriconneReTLInstaller
 
         private void auButton_Click(object sender, EventArgs e)
         {
-            AUForm auForm = new AUForm(priconnePath);
+            AUForm auForm = new AUForm();
             auForm.ShowDialog();
         }
 
@@ -515,6 +515,12 @@ namespace PriconneReTLInstaller
         {
             FastLauncherForm fastLauncherForm = new FastLauncherForm();
             fastLauncherForm.ShowDialog();
+        }
+
+        private void importExportSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            IEForm iEForm = new IEForm(priconnePath);
+            iEForm.ShowDialog();
         }
     }
 }

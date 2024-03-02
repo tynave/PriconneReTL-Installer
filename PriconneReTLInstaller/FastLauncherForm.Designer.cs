@@ -58,7 +58,7 @@
             this.backButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.backButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.backButton.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.backButton.Location = new System.Drawing.Point(602, 4);
+            this.backButton.Location = new System.Drawing.Point(605, 6);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(39, 28);
             this.backButton.TabIndex = 5;
