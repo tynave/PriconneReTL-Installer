@@ -346,7 +346,7 @@ namespace PriconneReTLInstaller
 
             if (sender is Button button)
             {
-                if (button == startButton && button.Enabled) button.BackgroundImage = Resources.start_hover;
+                if (button == startButton && button.Enabled) button.BackgroundImage = Resources.start_hover_lit;
                 if (button == exitButton) button.BackgroundImage = Resources.door_open;
                 if (button == minimizeButton) button.BackgroundImage = Resources.arrow_yellow;
                 if (button == aboutButton) button.BackgroundImage = Resources.q_bubble;

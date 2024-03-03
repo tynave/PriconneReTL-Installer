@@ -42,6 +42,12 @@ namespace PriconneReTLInstaller
             backButton.MouseEnter += OnButtonMouseEnter;
             backButton.MouseLeave += OnButtonMouseLeave;
 
+            installButton.MouseEnter += OnButtonMouseEnter;
+            installButton.MouseLeave += OnButtonMouseLeave;
+
+            uninstallButton.MouseEnter += OnButtonMouseEnter;
+            uninstallButton.MouseLeave += OnButtonMouseLeave;
+
             installer.Log += OnLog;
             installer.ErrorLog += OnErrorLog;
             installer.DownloadProgress += OnDownloadProgress;
@@ -108,6 +114,9 @@ namespace PriconneReTLInstaller
             if (sender is Button button)
             {
                 if (button == backButton) button.BackgroundImage = Resources.back_arrow_lit;
+                if (button == installButton) button.BackgroundImage = Resources.install_button2_lit;
+                if (button == uninstallButton && button.Enabled) button.BackgroundImage = Resources.uninstall_button_lit;
+
             }
         }
 
@@ -116,6 +125,8 @@ namespace PriconneReTLInstaller
             if (sender is Button button)
             {
                 if (button == backButton) button.BackgroundImage = Resources.back_arrow;
+                if (button == installButton) button.BackgroundImage = Resources.install_button2;
+                if (button == uninstallButton && button.Enabled) button.BackgroundImage = Resources.uninstall_button;
             }
         }
         private void backButton_Click(object sender, EventArgs e)

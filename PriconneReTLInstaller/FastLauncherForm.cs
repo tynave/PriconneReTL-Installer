@@ -21,6 +21,12 @@ namespace PriconneReTLInstaller
             backButton.MouseEnter += OnButtonMouseEnter;
             backButton.MouseLeave += OnButtonMouseLeave;
 
+            shortcutAddButton.MouseEnter += OnButtonMouseEnter;
+            shortcutAddButton.MouseLeave += OnButtonMouseLeave;
+
+            shortcutRemoveButton.MouseEnter += OnButtonMouseEnter;
+            shortcutRemoveButton.MouseLeave += OnButtonMouseLeave;
+
         }
 
         private void OnButtonMouseEnter(object sender, EventArgs e)
@@ -28,6 +34,8 @@ namespace PriconneReTLInstaller
             if (sender is Button button)
             {
                 if (button == backButton) button.BackgroundImage = Resources.back_arrow_lit;
+                if (button == shortcutAddButton) button.BackgroundImage = Resources.shortcutadd_button_lit;
+                if (button == shortcutRemoveButton && button.Enabled) button.BackgroundImage = Resources.shortcutremove_button_lit;
             }
         }
 
@@ -36,6 +44,8 @@ namespace PriconneReTLInstaller
             if (sender is Button button)
             {
                 if (button == backButton) button.BackgroundImage = Resources.back_arrow;
+                if (button == shortcutAddButton) button.BackgroundImage = Resources.shortcutadd_button;
+                if (button == shortcutRemoveButton && button.Enabled) button.BackgroundImage = Resources.shortcutremove_button;
             }
         }
 

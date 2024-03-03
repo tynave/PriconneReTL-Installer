@@ -72,8 +72,8 @@
             this.settingsMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editIgnoredFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setDMMGameFastLauncherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.versionLabel = new System.Windows.Forms.Label();
             this.importExportSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.versionLabel = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.operationsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.newPictureBox)).BeginInit();
@@ -635,7 +635,7 @@
             this.setDMMGameFastLauncherToolStripMenuItem,
             this.importExportSettingsToolStripMenuItem});
             this.settingsMenuStrip.Name = "settingsMenuStrip";
-            this.settingsMenuStrip.Size = new System.Drawing.Size(304, 92);
+            this.settingsMenuStrip.Size = new System.Drawing.Size(304, 70);
             // 
             // editIgnoredFilesToolStripMenuItem
             // 
@@ -651,6 +651,13 @@
             this.setDMMGameFastLauncherToolStripMenuItem.Text = "Set DMMGamePlayerFastLauncher shortcut";
             this.setDMMGameFastLauncherToolStripMenuItem.Click += new System.EventHandler(this.setDMMGameFastLauncherToolStripMenuItem_Click);
             // 
+            // importExportSettingsToolStripMenuItem
+            // 
+            this.importExportSettingsToolStripMenuItem.Name = "importExportSettingsToolStripMenuItem";
+            this.importExportSettingsToolStripMenuItem.Size = new System.Drawing.Size(303, 22);
+            this.importExportSettingsToolStripMenuItem.Text = "Import / Export User Settings";
+            this.importExportSettingsToolStripMenuItem.Click += new System.EventHandler(this.importExportSettingsToolStripMenuItem_Click);
+            // 
             // versionLabel
             // 
             this.versionLabel.AutoSize = true;
@@ -661,13 +668,6 @@
             this.versionLabel.Size = new System.Drawing.Size(45, 16);
             this.versionLabel.TabIndex = 38;
             this.versionLabel.Text = "<ver>";
-            // 
-            // importExportSettingsToolStripMenuItem
-            // 
-            this.importExportSettingsToolStripMenuItem.Name = "importExportSettingsToolStripMenuItem";
-            this.importExportSettingsToolStripMenuItem.Size = new System.Drawing.Size(303, 22);
-            this.importExportSettingsToolStripMenuItem.Text = "Import / Export Settings";
-            this.importExportSettingsToolStripMenuItem.Click += new System.EventHandler(this.importExportSettingsToolStripMenuItem_Click);
             // 
             // MainForm
             // 

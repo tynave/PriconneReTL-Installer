@@ -24,16 +24,18 @@ namespace PriconneReTLInstaller
             importExportLabel.MouseMove += OnMouseMove;
             importExportLabel.MouseUp += OnMouseUp;
 
-            toolStripStatusLabel1.MouseDown += OnMouseDown;
-            toolStripStatusLabel1.MouseMove += OnMouseMove;
-            toolStripStatusLabel1.MouseUp += OnMouseUp;
-
-            toolStripStatusLabel2.MouseDown += OnMouseDown;
-            toolStripStatusLabel2.MouseMove += OnMouseMove;
-            toolStripStatusLabel2.MouseUp += OnMouseUp;
+            importExportDescriptionLabel.MouseDown += OnMouseDown;
+            importExportDescriptionLabel.MouseMove += OnMouseMove;
+            importExportDescriptionLabel.MouseUp += OnMouseUp;
 
             backButton.MouseEnter += OnButtonMouseEnter;
             backButton.MouseLeave += OnButtonMouseLeave;
+
+            importButton.MouseEnter += OnButtonMouseEnter;
+            importButton.MouseLeave += OnButtonMouseLeave;
+
+            exportButton.MouseEnter += OnButtonMouseEnter;
+            exportButton.MouseLeave += OnButtonMouseLeave;
 
             priconnePath = arg;
 
@@ -45,6 +47,8 @@ namespace PriconneReTLInstaller
             if (sender is Button button)
             {
                 if (button == backButton) button.BackgroundImage = Resources.back_arrow_lit;
+                if (button == importButton) button.BackgroundImage = Resources.import_button_lit;
+                if (button == exportButton) button.BackgroundImage = Resources.export_button_lit;
             }
         }
 
@@ -53,6 +57,8 @@ namespace PriconneReTLInstaller
             if (sender is Button button)
             {
                 if (button == backButton) button.BackgroundImage = Resources.back_arrow;
+                if (button == importButton) button.BackgroundImage = Resources.import_button;
+                if (button == exportButton) button.BackgroundImage = Resources.export_button;
             }
         }
 
@@ -70,12 +76,15 @@ namespace PriconneReTLInstaller
                 {
                     string selectedFile = saveFileDialog1.FileName;
                     helper.ExportSettings(selectedFile);
+                    ielogger.Log("Export Successful!", "success", true);
+                    ielogger.Log($"Settings successfully exported to ${selectedFile}", "info", false);
+                    MessageBox.Show("Settings successfully exported", "Export Successful!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error during export!\nException: {ex.StackTrace}", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                ielogger.Error(ex.StackTrace);
+                MessageBox.Show($"Error during export!\n\nException: {ex.Message}\n\nStack trace: {ex.StackTrace}", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ielogger.Error($"Error during export!\n\nException: {ex.Message}\n\nStack trace: {ex.StackTrace}");
             }
 
         }
@@ -97,8 +106,8 @@ namespace PriconneReTLInstaller
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error during import!\nException: {ex.StackTrace}", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                ielogger.Error(ex.StackTrace);
+                MessageBox.Show($"Error during import!\n\nException: {ex.Message}\n\nStack trace: {ex.StackTrace}", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ielogger.Error($"Error during import!\n\nException: {ex.Message}\n\nStack trace: {ex.StackTrace}");
             }
         }
     }

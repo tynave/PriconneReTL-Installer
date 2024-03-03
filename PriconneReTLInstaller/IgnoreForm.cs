@@ -24,6 +24,18 @@ namespace PriconneReTLInstaller
             backButton.MouseEnter += OnButtonMouseEnter;
             backButton.MouseLeave += OnButtonMouseLeave;
 
+            addButton.MouseEnter += OnButtonMouseEnter;
+            addButton.MouseLeave += OnButtonMouseLeave;
+            
+            removeButton.MouseEnter += OnButtonMouseEnter;
+            removeButton.MouseLeave += OnButtonMouseLeave;
+            
+            saveButton.MouseEnter += OnButtonMouseEnter;
+            saveButton.MouseLeave += OnButtonMouseLeave;
+            
+            defaultsButton.MouseEnter += OnButtonMouseEnter;
+            defaultsButton.MouseLeave += OnButtonMouseLeave;
+
             fileListbox.MouseDown += OnMouseDown;
             fileListbox.MouseMove += OnMouseMove;
             fileListbox.MouseUp += OnMouseUp;
@@ -41,6 +53,10 @@ namespace PriconneReTLInstaller
             if (sender is Button button)
             {
                 if (button == backButton) button.BackgroundImage = Resources.back_arrow_lit;
+                if (button == addButton && button.Enabled) button.BackgroundImage = Resources.add_button_lit;
+                if (button == removeButton && button.Enabled) button.BackgroundImage = Resources.remove_button_lit;
+                if (button == saveButton && button.Enabled) button.BackgroundImage = Resources.save_button_lit;
+                if (button == defaultsButton && button.Enabled) button.BackgroundImage = Resources.defaults_button_lit;
             }
         }
 
@@ -49,6 +65,10 @@ namespace PriconneReTLInstaller
             if (sender is Button button)
             {
                 if (button == backButton) button.BackgroundImage = Resources.back_arrow;
+                if (button == addButton && button.Enabled) button.BackgroundImage = Resources.add_button;
+                if (button == removeButton && button.Enabled) button.BackgroundImage = Resources.remove_button;
+                if (button == saveButton && button.Enabled) button.BackgroundImage = Resources.save_button;
+                if (button == defaultsButton && button.Enabled) button.BackgroundImage = Resources.defaults_button;
             }
         }
 

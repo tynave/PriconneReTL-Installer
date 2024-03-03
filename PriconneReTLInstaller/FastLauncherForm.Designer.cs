@@ -96,7 +96,7 @@
             // shortcutRemoveButton
             // 
             this.shortcutRemoveButton.BackColor = System.Drawing.Color.Transparent;
-            this.shortcutRemoveButton.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.shortcutremove_button;
+            this.shortcutRemoveButton.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.shortcutremove_button_disabled;
             this.shortcutRemoveButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.shortcutRemoveButton.Enabled = false;
             this.shortcutRemoveButton.FlatAppearance.BorderSize = 0;

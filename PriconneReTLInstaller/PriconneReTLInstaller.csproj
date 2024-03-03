@@ -440,5 +440,38 @@
   <ItemGroup>
     <None Include="Resources\import_button.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shortcutadd_button_lit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\shortcutremove_button_lit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\export_button_lit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\import_button_lit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add_button_lit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\defaults_button_lit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\remove_button_lit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save_button_lit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\install_button2_lit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\uninstall_button_lit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\start_hover_lit.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

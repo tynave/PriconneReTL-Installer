@@ -103,6 +103,16 @@ namespace PriconneReTLInstaller.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap add_button_lit {
+            get {
+                object obj = ResourceManager.GetObject("add_button_lit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap arrow_blue {
             get {
                 object obj = ResourceManager.GetObject("arrow_blue", resourceCulture);
@@ -223,6 +233,16 @@ namespace PriconneReTLInstaller.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap defaults_button_lit {
+            get {
+                object obj = ResourceManager.GetObject("defaults_button_lit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap door_closed {
             get {
                 object obj = ResourceManager.GetObject("door_closed", resourceCulture);
@@ -246,6 +266,16 @@ namespace PriconneReTLInstaller.Properties {
         internal static System.Drawing.Bitmap export_button {
             get {
                 object obj = ResourceManager.GetObject("export_button", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap export_button_lit {
+            get {
+                object obj = ResourceManager.GetObject("export_button_lit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -276,6 +306,16 @@ namespace PriconneReTLInstaller.Properties {
         internal static System.Drawing.Bitmap import_button {
             get {
                 object obj = ResourceManager.GetObject("import_button", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap import_button_lit {
+            get {
+                object obj = ResourceManager.GetObject("import_button_lit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -316,6 +356,16 @@ namespace PriconneReTLInstaller.Properties {
         internal static System.Drawing.Bitmap install_button2 {
             get {
                 object obj = ResourceManager.GetObject("install_button2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap install_button2_lit {
+            get {
+                object obj = ResourceManager.GetObject("install_button2_lit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -363,6 +413,16 @@ namespace PriconneReTLInstaller.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap remove_button_lit {
+            get {
+                object obj = ResourceManager.GetObject("remove_button_lit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ReTLlogo {
             get {
                 object obj = ResourceManager.GetObject("ReTLlogo", resourceCulture);
@@ -386,6 +446,16 @@ namespace PriconneReTLInstaller.Properties {
         internal static System.Drawing.Bitmap save_button_disabled {
             get {
                 object obj = ResourceManager.GetObject("save_button_disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap save_button_lit {
+            get {
+                object obj = ResourceManager.GetObject("save_button_lit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -443,6 +513,16 @@ namespace PriconneReTLInstaller.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap shortcutadd_button_lit {
+            get {
+                object obj = ResourceManager.GetObject("shortcutadd_button_lit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap shortcutremove_button {
             get {
                 object obj = ResourceManager.GetObject("shortcutremove_button", resourceCulture);
@@ -456,6 +536,16 @@ namespace PriconneReTLInstaller.Properties {
         internal static System.Drawing.Bitmap shortcutremove_button_disabled {
             get {
                 object obj = ResourceManager.GetObject("shortcutremove_button_disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap shortcutremove_button_lit {
+            get {
+                object obj = ResourceManager.GetObject("shortcutremove_button_lit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -486,6 +576,16 @@ namespace PriconneReTLInstaller.Properties {
         internal static System.Drawing.Bitmap start_hover {
             get {
                 object obj = ResourceManager.GetObject("start_hover", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap start_hover_lit {
+            get {
+                object obj = ResourceManager.GetObject("start_hover_lit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -526,6 +626,16 @@ namespace PriconneReTLInstaller.Properties {
         internal static System.Drawing.Bitmap uninstall_button_disabled {
             get {
                 object obj = ResourceManager.GetObject("uninstall_button_disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap uninstall_button_lit {
+            get {
+                object obj = ResourceManager.GetObject("uninstall_button_lit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

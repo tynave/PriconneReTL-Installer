@@ -38,6 +38,7 @@
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.importExportDescriptionLabel = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -67,7 +68,7 @@
             this.exportButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.exportButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.exportButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.exportButton.Location = new System.Drawing.Point(12, 40);
+            this.exportButton.Location = new System.Drawing.Point(16, 145);
             this.exportButton.Name = "exportButton";
             this.exportButton.Size = new System.Drawing.Size(179, 57);
             this.exportButton.TabIndex = 10;
@@ -83,7 +84,7 @@
             this.importButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.importButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.importButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.importButton.Location = new System.Drawing.Point(212, 40);
+            this.importButton.Location = new System.Drawing.Point(229, 145);
             this.importButton.Name = "importButton";
             this.importButton.Size = new System.Drawing.Size(179, 57);
             this.importButton.TabIndex = 11;
@@ -95,7 +96,7 @@
             this.importExportLabel.AutoSize = true;
             this.importExportLabel.BackColor = System.Drawing.Color.Transparent;
             this.importExportLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.importExportLabel.Location = new System.Drawing.Point(27, 12);
+            this.importExportLabel.Location = new System.Drawing.Point(13, 9);
             this.importExportLabel.Name = "importExportLabel";
             this.importExportLabel.Size = new System.Drawing.Size(178, 16);
             this.importExportLabel.TabIndex = 12;
@@ -108,7 +109,7 @@
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2,
             this.toolStripStatusLabel3});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 136);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 210);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(433, 23);
             this.statusStrip1.SizingGrip = false;
@@ -146,13 +147,26 @@
             this.saveFileDialog1.FileName = "PriconneReTLInstallerSettings";
             this.saveFileDialog1.Filter = "XML files (*.xml)|*.xml";
             // 
+            // importExportDescriptionLabel
+            // 
+            this.importExportDescriptionLabel.BackColor = System.Drawing.Color.Transparent;
+            this.importExportDescriptionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.importExportDescriptionLabel.Location = new System.Drawing.Point(13, 38);
+            this.importExportDescriptionLabel.Name = "importExportDescriptionLabel";
+            this.importExportDescriptionLabel.Size = new System.Drawing.Size(395, 91);
+            this.importExportDescriptionLabel.TabIndex = 17;
+            this.importExportDescriptionLabel.Text = "You can import / export the following user settings:\r\n- The state of the Launch G" +
+    "ame checkbox\r\n- The list of ignored files\r\n- The shortcut to the DMMGamePlayerFa" +
+    "stLauncher\r\n";
+            // 
             // IEForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.bg2;
-            this.ClientSize = new System.Drawing.Size(433, 159);
+            this.ClientSize = new System.Drawing.Size(433, 233);
             this.ControlBox = false;
+            this.Controls.Add(this.importExportDescriptionLabel);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.importExportLabel);
             this.Controls.Add(this.importButton);
@@ -180,5 +194,6 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Label importExportDescriptionLabel;
     }
 }
