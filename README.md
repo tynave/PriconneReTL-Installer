@@ -20,7 +20,7 @@ https://github.com/tynave/PriconneReTL-Installer/releases/latest
     So if you would like to make personal alterations of the patch files and want to keep those across the versions, it is advised to have those on seperate files.)
 - New in 1.3.0: New interface to modify list of ignored files. Useful for users who would like to modify files that are part of the translation patch and want to keep them safe from updates or uninstallation.
 - New in 1.3.0: New interface to install/update/uninstall [PriconneReTL-AutoUpdater](https://github.com/tynave/PriconneReTL-AutoUpdater) and [PriconneReTL-AutoUpdaterApp](https://github.com/tynave/PriconneReTL-AutoUpdaterApp)
-- New in 1.4.0: New approach on DMMGamePlayerFastLauncher. Now uses the shortcut made by the DMMGamePlayerFastLauncher app to be compatible with bot 4.x and 5.x versions. Added new interface to set shortcut.
+- New in 1.4.0: New approach on DMMGamePlayerFastLauncher. Now uses the shortcut made for the game by the DMMGamePlayerFastLauncher app to be compatible with bot 4.x and 5.x versions. Added new interface to set shortcut.
 - New in 1.4.0: New interface to export and import installer user setting (Launch checkbox state, list of ignored files, shortcut to DMMGamePlayerFastLauncher)
 
 ## <img src="PriconneReTLInstaller/Resources/Item_Jewel_Art.ico"> Installation
@@ -150,8 +150,9 @@ Restored the default values to the list.
 WARNING! After restoration, the list needs to be saved to finalize the defaulting.
 
 ### - Set DMMGamePlayerFastLauncher shortcut
-You can use this interface to set the DMMGamePlayeFastLauncher shortcut to start the game via the DMMGamePlayerFastLauncher.  
-The shortcut needs to be set in order to be able to launch the game via the fastlauncher. If the shortcut is moved/removed/renamed, it needs to be re-set.
+You can use this interface to set the DMMGamePlayeFastLauncher shortcut of the game.  
+The shortcut needs to be set in order to be able to launch the game from the installer via the fastlauncher.  
+If the shortcut is moved/removed/renamed, it needs to be re-set.
 
 ### <img src="PriconneReTLInstaller/Resources/shortcutadd_button.png" height="30"> Set Shortcut path
 Opens up an open file dialog window to set / re-set the shortcut path.
