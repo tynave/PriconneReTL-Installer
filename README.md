@@ -20,11 +20,19 @@ https://github.com/tynave/PriconneReTL-Installer/releases/latest
     So if you would like to make personal alterations of the patch files and want to keep those across the versions, it is advised to have those on seperate files.)
 - New in 1.3.0: New interface to modify list of ignored files. Useful for users who would like to modify files that are part of the translation patch and want to keep them safe from updates or uninstallation.
 - New in 1.3.0: New interface to install/update/uninstall [PriconneReTL-AutoUpdater](https://github.com/tynave/PriconneReTL-AutoUpdater) and [PriconneReTL-AutoUpdaterApp](https://github.com/tynave/PriconneReTL-AutoUpdaterApp)
+- New in 1.4.0: New approach on DMMGamePlayerFastLauncher. Now uses the shortcut made by the DMMGamePlayerFastLauncher app to be compatible with bot 4.x and 5.x versions. Added new interface to set shortcut.
+- New in 1.4.0: New interface to export and import installer user setting (Launch checkbox state, list of ignored files, shortcut to DMMGamePlayerFastLauncher)
 
 ## <img src="PriconneReTLInstaller/Resources/Item_Jewel_Art.ico"> Installation
 The application is portable, does not require installation, just extract the released .zip archive anywhere.  
 All the operations processed are always logged into the *ReTLInstaller.log* file, which resides in the application's folder.  
 If the file is not present, it gets created. If the file is already present, it's content is purges/reset on every run.
+
+## <img src="PriconneReTLInstaller/Resources/Item_Jewel_Art.ico"> Updating from version before 1.4.0
+Up till version 1.3.0 the applictaion assembly / executable was not strong named / signed, which makes it unable to pertain saved user settings through different versions.
+This was an oversight when designing the application, but has been fixed in 1.4.0.  
+**When updating from version 1.3.0 to any never version, please take note of your settings (list of ignored files and the state of the Launch Game checkbox) and re-set them in the new version.
+This is only needed once, any version of the application going forward from 1.4.0 will retain the user settings, meaning using any subsequent never version will carry over the settings.**
 
 ## <img src="PriconneReTLInstaller/Resources/Item_Jewel_Art.ico"> Operations  
 
@@ -79,6 +87,7 @@ You can also see a brief explanation of the currently selected operation if you 
 Removes the following config files also (if present) located in `BepInEx\config`:
 - AutoTranslatorConfig.ini
 - BepInEx.cfg
+- PriconneTLFixup.cfg (>1.4.0)
 
 ### <img src="PriconneReTLInstaller/Resources/check_checked_24x24_2.png"> Remove Ignored Patch Files
 Removes the files that are listed in the ignored files list.   
@@ -98,8 +107,11 @@ These take up around ~250MB, normally you don't need to worry about them, but th
 By checking / unchecking the *Show Logs* option, you can view/hide a detailed progress/output log. Please note that logging to file always happens regardless of this option.  
 
 ## <img src="PriconneReTLInstaller/Resources/Item_Jewel_Art.ico"> Menu
-### <img src="PriconneReTLInstaller/Resources/scroll_closed_res2.png" height="25"> Edit Ignored Files
-Opens the interface to edit the list of files ignored by the updater during installation/update/uninstallation operations.
+### <img src="PriconneReTLInstaller/Resources/scroll_closed_res2.png" height="25"> Settings
+Opens a drop-down menu with the following sub-menu options:  
+- Edit Ignored Files
+- Set DMMGamePlayerFastLauncher shortcut
+- Import / Export User Settings
 
 ### <img src="PriconneReTLInstaller/Resources/crystal_normal_res.png" height="25"> AutoUpdater Installer  
 Opens the interface for installing/updating/uninstalling the AutoUpdater
@@ -114,7 +126,8 @@ Minimizes the application to the tray.
 Closes the application.
 
 
-## <img src="PriconneReTLInstaller/Resources/scroll_closed_res2.png" height="30"> Edit Ignored Files menu
+## <img src="PriconneReTLInstaller/Resources/scroll_closed_res2.png" height="30"> Settings menu
+### - Edit Ignored Files
 You can use this interface to edit the list of files that are ignored by the updater during an install/update/uninstall/reinstall operation.  
 This means these files never get overwritten or deleted when performing any of the above operations.
 
@@ -136,6 +149,25 @@ Finalizes changes made to the list. Exiting the interface without saving cancels
 Restored the default values to the list.  
 WARNING! After restoration, the list needs to be saved to finalize the defaulting.
 
+### - Set DMMGamePlayerFastLauncher shortcut
+You can use this interface to set the DMMGamePlayeFastLauncher shortcut to start the game via the DMMGamePlayerFastLauncher.  
+The shortcut needs to be set in order to be able to launch the game via the fastlauncher. If the shortcut is moved/removed/renamed, it needs to be re-set.
+
+### <img src="PriconneReTLInstaller/Resources/shortcutadd_button.png" height="30"> Set Shortcut path
+Opens up an open file dialog window to set / re-set the shortcut path.
+
+### <img src="PriconneReTLInstaller/Resources/shortcutremove_button.png" height="30"> Remove Shortcut path
+Removes the previously set shortcut.
+
+### - Import / Export User Settings
+Use this interface to export or import the user settings of the installer to and from an XML file.  
+**WARNING! Importing settings from a file overwrites the previously set user settings!**
+
+### <img src="PriconneReTLInstaller/Resources/export_button.png" height="30"> Export Settings
+Opens up a save file dialog window save the settings to an XML file.
+
+### <img src="PriconneReTLInstaller/Resources/import_button.png" height="30"> Import Settings
+Opens up an open file dialog window to load previously saved settings from an XML file
 
 ## <img src="PriconneReTLInstaller/Resources/crystal_normal_res.png" height="30"> AutoUpdater Installer menu
 Use this interface to install/update/uninstall [PriconneReTL-AutoUpdater](https://github.com/tynave/PriconneReTL-AutoUpdater) and [PriconneReTL-AutoUpdaterApp](https://github.com/tynave/PriconneReTL-AutoUpdaterApp)
