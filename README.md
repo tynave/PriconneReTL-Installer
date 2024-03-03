@@ -29,7 +29,7 @@ All the operations processed are always logged into the *ReTLInstaller.log* file
 If the file is not present, it gets created. If the file is already present, it's content is purges/reset on every run.
 
 ## <img src="PriconneReTLInstaller/Resources/Item_Jewel_Art.ico"> Updating from version before 1.4.0
-Up till version 1.3.0 the applictaion assembly / executable was not strong named / signed, which makes it unable to pertain saved user settings through different versions.
+Up till version 1.3.0 the application assembly / executable was not strong named / signed, which makes it unable to pertain saved user settings through different versions.
 This was an oversight when designing the application, but has been fixed in 1.4.0.  
 **When updating from version 1.3.0 to any never version, please take note of your settings (list of ignored files and the state of the Launch Game checkbox) and re-set them in the new version.
 This is only needed once, any version of the application going forward from 1.4.0 will retain the user settings, meaning using any subsequent never version will carry over the settings.**
