@@ -28,6 +28,8 @@ The application is portable, does not require installation, just extract the rel
 All the operations processed are always logged into the *ReTLInstaller.log* file, which resides in the application's folder.  
 If the file is not present, it gets created. If the file is already present, it's content is purges/reset on every run.
 
+If you have issues with any operation, like getting a "This operation requires elevation" error, try running the PriconneReTL-Installer in administrator mode.
+
 ## <img src="PriconneReTLInstaller/Resources/Item_Jewel_Art.ico"> Updating from version before 1.4.0
 Up till version 1.3.0 the application assembly / executable was not strong named / signed, which makes it unable to pertain saved user settings through different versions.
 This was an oversight when designing the application, but has been fixed in 1.4.0.  
