@@ -30,8 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.localVersionLabel = new System.Windows.Forms.Label();
-            this.gamePathLabel = new System.Windows.Forms.Label();
-            this.latestVersionLabel = new System.Windows.Forms.Label();
             this.reinstallCheckBox = new System.Windows.Forms.CheckBox();
             this.uninstallCheckBox = new System.Windows.Forms.CheckBox();
             this.startButton = new System.Windows.Forms.Button();
@@ -45,7 +43,6 @@
             this.launchCheckBox = new System.Windows.Forms.CheckBox();
             this.installCheckBox = new System.Windows.Forms.CheckBox();
             this.operationsLabel = new System.Windows.Forms.Label();
-            this.removeInteropsCheckBox = new System.Windows.Forms.CheckBox();
             this.removeIgnoredCheckBox = new System.Windows.Forms.CheckBox();
             this.removeConfigCheckBox = new System.Windows.Forms.CheckBox();
             this.showLogCheckBox = new System.Windows.Forms.CheckBox();
@@ -66,6 +63,7 @@
             this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.operationLabel = new System.Windows.Forms.Label();
             this.optionsPanel = new System.Windows.Forms.Panel();
+            this.configListBox = new System.Windows.Forms.CheckedListBox();
             this.optionsLabel = new System.Windows.Forms.Label();
             this.operationToolTipPicture = new System.Windows.Forms.PictureBox();
             this.menuButtonLabel = new System.Windows.Forms.Label();
@@ -74,6 +72,8 @@
             this.setDMMGameFastLauncherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importExportSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.versionLabel = new System.Windows.Forms.Label();
+            this.tlPatchVersionsLabel = new System.Windows.Forms.Label();
+            this.gameVersionLabel = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.operationsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.newPictureBox)).BeginInit();
@@ -89,33 +89,11 @@
             this.localVersionLabel.AutoSize = true;
             this.localVersionLabel.BackColor = System.Drawing.Color.Transparent;
             this.localVersionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.localVersionLabel.Location = new System.Drawing.Point(12, 112);
+            this.localVersionLabel.Location = new System.Drawing.Point(157, 136);
             this.localVersionLabel.Name = "localVersionLabel";
-            this.localVersionLabel.Size = new System.Drawing.Size(189, 18);
+            this.localVersionLabel.Size = new System.Drawing.Size(238, 18);
             this.localVersionLabel.TabIndex = 5;
-            this.localVersionLabel.Text = "Current (Local) Version:";
-            // 
-            // gamePathLabel
-            // 
-            this.gamePathLabel.AutoSize = true;
-            this.gamePathLabel.BackColor = System.Drawing.Color.Transparent;
-            this.gamePathLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.gamePathLabel.Location = new System.Drawing.Point(13, 88);
-            this.gamePathLabel.Name = "gamePathLabel";
-            this.gamePathLabel.Size = new System.Drawing.Size(97, 18);
-            this.gamePathLabel.TabIndex = 6;
-            this.gamePathLabel.Text = "Game Path:";
-            // 
-            // latestVersionLabel
-            // 
-            this.latestVersionLabel.AutoSize = true;
-            this.latestVersionLabel.BackColor = System.Drawing.Color.Transparent;
-            this.latestVersionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.latestVersionLabel.Location = new System.Drawing.Point(13, 136);
-            this.latestVersionLabel.Name = "latestVersionLabel";
-            this.latestVersionLabel.Size = new System.Drawing.Size(192, 18);
-            this.latestVersionLabel.TabIndex = 7;
-            this.latestVersionLabel.Text = "Latest Release Version: ";
+            this.localVersionLabel.Text = "Current (Local) : YYYYMMDDa";
             // 
             // reinstallCheckBox
             // 
@@ -167,9 +145,9 @@
             this.startButton.FlatAppearance.BorderSize = 0;
             this.startButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.startButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.startButton.Location = new System.Drawing.Point(242, 380);
+            this.startButton.Location = new System.Drawing.Point(410, 364);
             this.startButton.Name = "startButton";
-            this.startButton.Size = new System.Drawing.Size(236, 66);
+            this.startButton.Size = new System.Drawing.Size(207, 58);
             this.startButton.TabIndex = 0;
             this.startButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.toolTip.SetToolTip(this.startButton, "Start selected operation(s) with currently selected options");
@@ -240,7 +218,7 @@
             this.operationsPanel.Controls.Add(this.operationsLabel);
             this.operationsPanel.Location = new System.Drawing.Point(17, 175);
             this.operationsPanel.Name = "operationsPanel";
-            this.operationsPanel.Size = new System.Drawing.Size(307, 154);
+            this.operationsPanel.Size = new System.Drawing.Size(310, 184);
             this.operationsPanel.TabIndex = 16;
             // 
             // launchCheckBox
@@ -299,28 +277,6 @@
             this.operationsLabel.Text = "Operations";
             this.operationsLabel.UseCompatibleTextRendering = true;
             // 
-            // removeInteropsCheckBox
-            // 
-            this.removeInteropsCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
-            this.removeInteropsCheckBox.AutoSize = true;
-            this.removeInteropsCheckBox.BackColor = System.Drawing.Color.Transparent;
-            this.removeInteropsCheckBox.FlatAppearance.BorderSize = 0;
-            this.removeInteropsCheckBox.FlatAppearance.CheckedBackColor = System.Drawing.Color.Transparent;
-            this.removeInteropsCheckBox.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.removeInteropsCheckBox.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.removeInteropsCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.removeInteropsCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.removeInteropsCheckBox.Image = global::PriconneReTLInstaller.Properties.Resources.check_empty_24x24_2;
-            this.removeInteropsCheckBox.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.removeInteropsCheckBox.Location = new System.Drawing.Point(6, 80);
-            this.removeInteropsCheckBox.Name = "removeInteropsCheckBox";
-            this.removeInteropsCheckBox.Size = new System.Drawing.Size(175, 30);
-            this.removeInteropsCheckBox.TabIndex = 29;
-            this.removeInteropsCheckBox.Text = " Remove Interops";
-            this.removeInteropsCheckBox.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.toolTip.SetToolTip(this.removeInteropsCheckBox, "Removes the generated interop assemblies at:\r\n%appdata%\\BepInEx");
-            this.removeInteropsCheckBox.UseVisualStyleBackColor = false;
-            // 
             // removeIgnoredCheckBox
             // 
             this.removeIgnoredCheckBox.Appearance = System.Windows.Forms.Appearance.Button;
@@ -333,7 +289,7 @@
             this.removeIgnoredCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.removeIgnoredCheckBox.Image = global::PriconneReTLInstaller.Properties.Resources.check_empty_24x24_2;
             this.removeIgnoredCheckBox.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.removeIgnoredCheckBox.Location = new System.Drawing.Point(6, 49);
+            this.removeIgnoredCheckBox.Location = new System.Drawing.Point(7, 20);
             this.removeIgnoredCheckBox.Name = "removeIgnoredCheckBox";
             this.removeIgnoredCheckBox.Size = new System.Drawing.Size(284, 36);
             this.removeIgnoredCheckBox.TabIndex = 29;
@@ -353,13 +309,14 @@
             this.removeConfigCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.removeConfigCheckBox.Image = global::PriconneReTLInstaller.Properties.Resources.check_empty_24x24_2;
             this.removeConfigCheckBox.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.removeConfigCheckBox.Location = new System.Drawing.Point(6, 19);
+            this.removeConfigCheckBox.Location = new System.Drawing.Point(8, 50);
             this.removeConfigCheckBox.Name = "removeConfigCheckBox";
             this.removeConfigCheckBox.Size = new System.Drawing.Size(218, 36);
             this.removeConfigCheckBox.TabIndex = 17;
             this.removeConfigCheckBox.Text = " Remove Config Files";
             this.removeConfigCheckBox.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.removeConfigCheckBox.UseVisualStyleBackColor = false;
+            this.removeConfigCheckBox.CheckedChanged += new System.EventHandler(this.removeConfigCheckBox_CheckedChanged);
             // 
             // showLogCheckBox
             // 
@@ -373,7 +330,7 @@
             this.showLogCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.showLogCheckBox.Image = global::PriconneReTLInstaller.Properties.Resources.check_empty_24x24_2;
             this.showLogCheckBox.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.showLogCheckBox.Location = new System.Drawing.Point(24, 410);
+            this.showLogCheckBox.Location = new System.Drawing.Point(24, 412);
             this.showLogCheckBox.Name = "showLogCheckBox";
             this.showLogCheckBox.Size = new System.Drawing.Size(144, 36);
             this.showLogCheckBox.TabIndex = 17;
@@ -388,7 +345,7 @@
             this.newPictureBox.BackColor = System.Drawing.Color.Transparent;
             this.newPictureBox.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources._new;
             this.newPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.newPictureBox.Location = new System.Drawing.Point(321, 139);
+            this.newPictureBox.Location = new System.Drawing.Point(643, 138);
             this.newPictureBox.Name = "newPictureBox";
             this.newPictureBox.Size = new System.Drawing.Size(50, 18);
             this.newPictureBox.TabIndex = 19;
@@ -427,12 +384,12 @@
             this.gamePathLinkLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.gamePathLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.gamePathLinkLabel.LinkColor = System.Drawing.Color.Black;
-            this.gamePathLinkLabel.Location = new System.Drawing.Point(117, 88);
+            this.gamePathLinkLabel.Location = new System.Drawing.Point(14, 89);
             this.gamePathLinkLabel.Name = "gamePathLinkLabel";
-            this.gamePathLinkLabel.Size = new System.Drawing.Size(105, 18);
+            this.gamePathLinkLabel.Size = new System.Drawing.Size(199, 18);
             this.gamePathLinkLabel.TabIndex = 22;
             this.gamePathLinkLabel.TabStop = true;
-            this.gamePathLinkLabel.Text = "priconnepath";
+            this.gamePathLinkLabel.Text = "Game Path: priconnepath";
             this.toolTip.SetToolTip(this.gamePathLinkLabel, "Click to open game folder in file explorer.");
             this.gamePathLinkLabel.VisitedLinkColor = System.Drawing.Color.Black;
             this.gamePathLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.priconnePathLinkLabel_LinkClicked);
@@ -444,12 +401,12 @@
             this.latestVersionLinkLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.latestVersionLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.latestVersionLinkLabel.LinkColor = System.Drawing.Color.Black;
-            this.latestVersionLinkLabel.Location = new System.Drawing.Point(216, 136);
+            this.latestVersionLinkLabel.Location = new System.Drawing.Point(427, 136);
             this.latestVersionLinkLabel.Name = "latestVersionLinkLabel";
-            this.latestVersionLinkLabel.Size = new System.Drawing.Size(83, 18);
+            this.latestVersionLinkLabel.Size = new System.Drawing.Size(231, 18);
             this.latestVersionLinkLabel.TabIndex = 23;
             this.latestVersionLinkLabel.TabStop = true;
-            this.latestVersionLinkLabel.Text = "<version>";
+            this.latestVersionLinkLabel.Text = "Latest Release: YYYYMMDDa";
             this.toolTip.SetToolTip(this.latestVersionLinkLabel, "Click to open latest release on GitHub.");
             this.latestVersionLinkLabel.VisitedLinkColor = System.Drawing.Color.Black;
             this.latestVersionLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.latestReleaseLinkLabel_LinkClicked);
@@ -459,7 +416,7 @@
             this.launcherComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.launcherComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.launcherComboBox.FormattingEnabled = true;
-            this.launcherComboBox.Location = new System.Drawing.Point(7, 120);
+            this.launcherComboBox.Location = new System.Drawing.Point(20, 329);
             this.launcherComboBox.Name = "launcherComboBox";
             this.launcherComboBox.Size = new System.Drawing.Size(303, 24);
             this.launcherComboBox.TabIndex = 33;
@@ -573,7 +530,7 @@
             this.operationLabel.AutoSize = true;
             this.operationLabel.BackColor = System.Drawing.Color.Transparent;
             this.operationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.operationLabel.Location = new System.Drawing.Point(21, 342);
+            this.operationLabel.Location = new System.Drawing.Point(21, 382);
             this.operationLabel.Name = "operationLabel";
             this.operationLabel.Size = new System.Drawing.Size(153, 18);
             this.operationLabel.TabIndex = 27;
@@ -586,15 +543,29 @@
             this.optionsPanel.BackColor = System.Drawing.Color.Transparent;
             this.optionsPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.optionsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.optionsPanel.Controls.Add(this.configListBox);
             this.optionsPanel.Controls.Add(this.optionsLabel);
             this.optionsPanel.Controls.Add(this.removeConfigCheckBox);
-            this.optionsPanel.Controls.Add(this.launcherComboBox);
-            this.optionsPanel.Controls.Add(this.removeInteropsCheckBox);
             this.optionsPanel.Controls.Add(this.removeIgnoredCheckBox);
             this.optionsPanel.Location = new System.Drawing.Point(341, 175);
             this.optionsPanel.Name = "optionsPanel";
             this.optionsPanel.Size = new System.Drawing.Size(317, 154);
             this.optionsPanel.TabIndex = 30;
+            // 
+            // configListBox
+            // 
+            this.configListBox.BackColor = System.Drawing.Color.White;
+            this.configListBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.configListBox.CheckOnClick = true;
+            this.configListBox.Cursor = System.Windows.Forms.Cursors.Default;
+            this.configListBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.configListBox.FormattingEnabled = true;
+            this.configListBox.Location = new System.Drawing.Point(15, 85);
+            this.configListBox.Name = "configListBox";
+            this.configListBox.Size = new System.Drawing.Size(290, 68);
+            this.configListBox.TabIndex = 32;
+            this.toolTip.SetToolTip(this.configListBox, "Select config file to remove.");
+            this.configListBox.Visible = false;
             // 
             // optionsLabel
             // 
@@ -610,7 +581,7 @@
             // 
             this.operationToolTipPicture.BackColor = System.Drawing.Color.Transparent;
             this.operationToolTipPicture.Image = global::PriconneReTLInstaller.Properties.Resources.q_bubble;
-            this.operationToolTipPicture.Location = new System.Drawing.Point(292, 335);
+            this.operationToolTipPicture.Location = new System.Drawing.Point(343, 374);
             this.operationToolTipPicture.Name = "operationToolTipPicture";
             this.operationToolTipPicture.Size = new System.Drawing.Size(32, 32);
             this.operationToolTipPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -620,6 +591,7 @@
             // menuButtonLabel
             // 
             this.menuButtonLabel.BackColor = System.Drawing.Color.Transparent;
+            this.menuButtonLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.menuButtonLabel.ForeColor = System.Drawing.SystemColors.ControlText;
             this.menuButtonLabel.Location = new System.Drawing.Point(472, 51);
             this.menuButtonLabel.Name = "menuButtonLabel";
@@ -669,6 +641,28 @@
             this.versionLabel.TabIndex = 38;
             this.versionLabel.Text = "<ver>";
             // 
+            // tlPatchVersionsLabel
+            // 
+            this.tlPatchVersionsLabel.AutoSize = true;
+            this.tlPatchVersionsLabel.BackColor = System.Drawing.Color.Transparent;
+            this.tlPatchVersionsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tlPatchVersionsLabel.Location = new System.Drawing.Point(14, 136);
+            this.tlPatchVersionsLabel.Name = "tlPatchVersionsLabel";
+            this.tlPatchVersionsLabel.Size = new System.Drawing.Size(151, 18);
+            this.tlPatchVersionsLabel.TabIndex = 39;
+            this.tlPatchVersionsLabel.Text = "TL Patch Versions:";
+            // 
+            // gameVersionLabel
+            // 
+            this.gameVersionLabel.AutoSize = true;
+            this.gameVersionLabel.BackColor = System.Drawing.Color.Transparent;
+            this.gameVersionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gameVersionLabel.Location = new System.Drawing.Point(14, 112);
+            this.gameVersionLabel.Name = "gameVersionLabel";
+            this.gameVersionLabel.Size = new System.Drawing.Size(125, 18);
+            this.gameVersionLabel.TabIndex = 40;
+            this.gameVersionLabel.Text = "Game Version: ";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -677,6 +671,9 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(718, 748);
             this.ControlBox = false;
+            this.Controls.Add(this.gameVersionLabel);
+            this.Controls.Add(this.launcherComboBox);
+            this.Controls.Add(this.tlPatchVersionsLabel);
             this.Controls.Add(this.versionLabel);
             this.Controls.Add(this.menuButtonLabel);
             this.Controls.Add(this.auButton);
@@ -695,8 +692,6 @@
             this.Controls.Add(this.operationsPanel);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.outputTextBox);
-            this.Controls.Add(this.latestVersionLabel);
-            this.Controls.Add(this.gamePathLabel);
             this.Controls.Add(this.localVersionLabel);
             this.Controls.Add(this.startButton);
             this.DoubleBuffered = true;
@@ -728,8 +723,6 @@
         private System.Windows.Forms.Button startButton;
         private System.Windows.Forms.CheckBox reinstallCheckBox;
         private System.Windows.Forms.Label localVersionLabel;
-        private System.Windows.Forms.Label gamePathLabel;
-        private System.Windows.Forms.Label latestVersionLabel;
         private System.Windows.Forms.CheckBox uninstallCheckBox;
         private System.Windows.Forms.RichTextBox outputTextBox;
         private System.Windows.Forms.StatusStrip statusStrip1;
@@ -755,7 +748,6 @@
         private System.Windows.Forms.Button aboutButton;
         private System.Windows.Forms.Label operationLabel;
         private System.Windows.Forms.CheckBox removeIgnoredCheckBox;
-        private System.Windows.Forms.CheckBox removeInteropsCheckBox;
         private System.Windows.Forms.Panel optionsPanel;
         private System.Windows.Forms.Label optionsLabel;
         private System.Windows.Forms.CheckBox installCheckBox;
@@ -770,6 +762,9 @@
         private System.Windows.Forms.ToolStripMenuItem setDMMGameFastLauncherToolStripMenuItem;
         private System.Windows.Forms.Label versionLabel;
         private System.Windows.Forms.ToolStripMenuItem importExportSettingsToolStripMenuItem;
+        private System.Windows.Forms.Label tlPatchVersionsLabel;
+        private System.Windows.Forms.Label gameVersionLabel;
+        private System.Windows.Forms.CheckedListBox configListBox;
     }
 }
 

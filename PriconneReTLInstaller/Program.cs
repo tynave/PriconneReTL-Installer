@@ -12,10 +12,22 @@ namespace PriconneReTLInstaller
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            if (args.Length > 0 && args[0] == "autoupdate")
+            {
+                // Instantiate and show the form you want to start with
+                Application.Run(new AutoUpdateForm());
+            }
+            else
+            {
+                // Start with the default form
+                Application.Run(new MainForm());
+            }
+
             Application.Run(new MainForm());
         }
     }

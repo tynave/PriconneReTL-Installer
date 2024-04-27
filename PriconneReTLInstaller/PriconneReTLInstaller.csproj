@@ -179,6 +179,12 @@
     <Compile Include="AUForm.Designer.cs">
       <DependentUpon>AUForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AutoUpdateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AutoUpdateForm.designer.cs">
+      <DependentUpon>AutoUpdateForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -217,6 +223,9 @@
     <Compile Include="Settings.cs" />
     <EmbeddedResource Include="AUForm.resx">
       <DependentUpon>AUForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoUpdateForm.resx">
+      <DependentUpon>AutoUpdateForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
@@ -306,6 +315,7 @@
     <None Include="Resources\empty_button_raw.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\NunitoBold.ttf" />
     <None Include="Resources\start_hover.png" />
   </ItemGroup>
   <ItemGroup>

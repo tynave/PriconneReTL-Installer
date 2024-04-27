@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -27,10 +28,10 @@ namespace HelperFunctions
         public void PriconneFont(PrivateFontCollection priconnefont)
         {
             //Select  font from the resources.
-            int fontLength = Resources.Humming.Length;
+            int fontLength = Resources.NunitoBold.Length;
 
             // create a buffer to read in to
-            byte[] fontdata = Resources.Humming;
+            byte[] fontdata = Resources.NunitoBold;
 
             // create an unsafe memory block for the font data
             System.IntPtr data = Marshal.AllocCoTaskMem(fontLength);
@@ -212,6 +213,17 @@ namespace HelperFunctions
             if (comboBox.Items.Count > 0) comboBox.SelectedIndex = IsFastLauncherInstalled() ? 1 : 0;
         }
 
+        public void PopulateConfigChecklistbox(CheckedListBox checkedListBox)
+        {
+            checkedListBox.Items.Clear();
+            checkedListBox.Items.AddRange(Settings.Default.configFiles.Cast<object>().ToArray());
+
+            for (int i = 0; i < checkedListBox.Items.Count; i++)
+            {
+                checkedListBox.SetItemChecked(i, true);
+            }
+        }
+
         public static bool IsFileInSubfolder(string folderPath, string filePath)
         {
             folderPath = Path.GetFullPath(folderPath); // Ensure the folder path is full.
@@ -219,6 +231,16 @@ namespace HelperFunctions
 
             // Check if the file path starts with the folder path.
             return filePath.StartsWith(folderPath, StringComparison.OrdinalIgnoreCase);
+        }
+
+        public bool IsInIgnoredDirectory(string filePath)
+        {
+            bool isInIgnoredDirectory = false;
+            foreach (var path in Settings.Default.ignoreFolders)
+            {
+                if (filePath.StartsWith(path)) isInIgnoredDirectory = true;
+            }
+            return isInIgnoredDirectory;
         }
 
         public static StringCollection DeserializeStringCollection(string serializedValue)

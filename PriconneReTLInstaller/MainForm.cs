@@ -23,6 +23,7 @@ namespace PriconneReTLInstaller
         private string assetLink;
         private string priconnePath;
         private bool priconnePathValid;
+        private string gameVersion;
         private string latestVersion;
         private bool latestVersionValid;
         private string localVersion;
@@ -120,15 +121,17 @@ namespace PriconneReTLInstaller
 
             Icon = Resources.jewel;
             Height = 480;
+            optionsPanel.Height = 87;
 
             versionLabel.Text = $"v{String.Format(Application.ProductVersion)}";
 
             removeConfigCheckBox.Enabled = false;
             removeIgnoredCheckBox.Enabled = false;
-            removeInteropsCheckBox.Enabled = false;
+            // removeInteropsCheckBox.Enabled = false;
 
-            (priconnePath, priconnePathValid) = installer.GetGamePath();
-            gamePathLinkLabel.Text = priconnePath.Length < 55 ? priconnePath : priconnePath.Substring(0, 52) + "...";
+            (priconnePath, priconnePathValid, gameVersion) = installer.GetGamePath();
+            gamePathLinkLabel.Text = priconnePath.Length < 55 ? "Game Path: " + priconnePath : "Game Path: " + priconnePath.Substring(0, 52) + "...";
+            gameVersionLabel.Text = "Game Version: " + gameVersion;
 
             if (priconnePathValid) helper.PopulateLauncherComboBox(launcherComboBox);
 
@@ -136,10 +139,10 @@ namespace PriconneReTLInstaller
 
             launchCheckBox.Enabled = priconnePathValid && launcherComboBox.Items.Count > 0;
             launchCheckBox.Checked = Settings.Default.launchState;
-            optionsPanel.Height = launchCheckBox.Checked ? 154 : 118;
+            operationsPanel.Height = launchCheckBox.Checked ? 184 : 154;
 
             (latestVersion, latestVersionValid, assetLink) = installer.GetLatestRelease(patchgithubAPI);
-            latestVersionLinkLabel.Text = latestVersionValid ? latestVersion : "ERROR!";
+            latestVersionLinkLabel.Text = "Latest Release: " + (latestVersionValid ? latestVersion : "ERROR!");
 
             exclusiveCheckboxes = new CheckBox[] { installCheckBox, reinstallCheckBox, uninstallCheckBox };
             operationCheckboxes = new CheckBox[] { installCheckBox, reinstallCheckBox, uninstallCheckBox, launchCheckBox };
@@ -162,6 +165,7 @@ namespace PriconneReTLInstaller
 
             startButton.Enabled = helper.isAnyChecked(operationCheckboxes);
 
+
         }
         private void UpdateUI()
         {
@@ -177,6 +181,8 @@ namespace PriconneReTLInstaller
 
             SetUninstallandReinstallCheckBox(localVersionValid);
             UpdateModeDescription();
+
+            helper.PopulateConfigChecklistbox(configListBox);
         }
 
         private void UpdateModeDescription()
@@ -231,7 +237,7 @@ namespace PriconneReTLInstaller
                 configList.AppendLine(line);
             }
 
-            toolTip.SetToolTip(removeConfigCheckBox, $"Removes the following config files also:\n\n{configList}");
+            toolTip.SetToolTip(removeConfigCheckBox, $"Removes the selected config files");
             toolTip.SetToolTip(removeIgnoredCheckBox, $"Removes the following ignored patch files also:\n\n{ignoreList}");
         }
 
@@ -318,9 +324,7 @@ namespace PriconneReTLInstaller
             {
                 removeConfigCheckBox.Enabled = clickedCheckbox.Checked;
                 removeIgnoredCheckBox.Enabled = clickedCheckbox.Checked;
-                removeInteropsCheckBox.Enabled = clickedCheckbox.Checked;
             }
-            
         }
 
         private void OperationCheckbox_CheckedChanged(object sender, EventArgs e)
@@ -331,6 +335,12 @@ namespace PriconneReTLInstaller
         private void OnOperationLabelChange(object sender, EventArgs e)
         {
             operationToolTipPicture.Location = new Point(operationLabel.Right + 5, operationToolTipPicture.Top);
+        }
+
+        private void removeConfigCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            configListBox.Visible = removeConfigCheckBox.Checked;
+            optionsPanel.Height = removeConfigCheckBox.Checked ? 154 : 87;
         }
 
         private void OnButtonMouseEnter(object sender, EventArgs e)
@@ -408,7 +418,7 @@ namespace PriconneReTLInstaller
             }
             else
             {
-               installer.ProcessOperation(assetLink, installCheckBox.Checked, uninstallCheckBox.Checked, reinstallCheckBox.Checked, launchCheckBox.Checked, removeConfigCheckBox.Checked, removeIgnoredCheckBox.Checked, removeInteropsCheckBox.Checked, launcherComboBox);
+               installer.ProcessOperation(assetLink, installCheckBox.Checked, uninstallCheckBox.Checked, reinstallCheckBox.Checked, launchCheckBox.Checked, removeConfigCheckBox.Checked, configListBox, removeIgnoredCheckBox.Checked, launcherComboBox);
             }
 
         }
@@ -470,7 +480,7 @@ namespace PriconneReTLInstaller
         private void launchCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             launcherComboBox.Visible = launchCheckBox.Checked;
-            optionsPanel.Height = launchCheckBox.Checked ? 154 : 118; 
+            operationsPanel.Height = launchCheckBox.Checked ? 184 : 154; 
             Settings.Default.launchState = launchCheckBox.Checked;
         }
 
@@ -522,6 +532,7 @@ namespace PriconneReTLInstaller
             IEForm iEForm = new IEForm(priconnePath);
             iEForm.ShowDialog();
         }
+
     }
 }
 

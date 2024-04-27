@@ -33,6 +33,7 @@ namespace InstallerFunctions
         private string assetLink;
         private string priconnePath;
         private bool priconnePathValid;
+        private string gameVersion;
         private string localVersion;
         private bool localVersionValid;
         private string latestVersion;
@@ -42,15 +43,15 @@ namespace InstallerFunctions
         private bool downloadSuccess = true;
         private bool extractSuccess = true;
         private bool removeProgress = false;
-
         public event Action<double, double> DownloadProgress;
         public event Action<string, string, bool> Log;
         public event Action<string> ErrorLog;
         public event Action DisableStart;
         public event Action ProcessStart;
         public event Action ProcessFinish;
+        public event Func<string, Task> StartCountdown;
 
-        public (string priconnePath, bool priconnePathValid) GetGamePath()
+        public (string priconnePath, bool priconnePathValid, string gameVersion) GetGamePath()
         {
             try
             {
@@ -64,28 +65,30 @@ namespace InstallerFunctions
                     {
                         if (content.productId == "priconner")
                         {
-                            priconnePath = content.detail.path;
-                            // priconnePath = "C:\\Test"; // -- set fixed path for testing purposes
+                            // priconnePath = content.detail.path;
+                            gameVersion = content.detail.version;
+
+                            priconnePath = "C:\\Test"; // -- set fixed path for testing purposes
                             Log?.Invoke("Found Princess Connect Re:Dive in " + priconnePath, "info", false);
-                            return (priconnePath, priconnePathValid = true);
+                            return (priconnePath, priconnePathValid = true, gameVersion);
                         }
                     }
                 }
                 ErrorLog?.Invoke("Cannot find the game path! Did you install Princess Connect Re:Dive from DMMGamePlayer?");
                 DisableStart?.Invoke();
-                return (priconnePath = "Not found", priconnePathValid = false);
+                return (priconnePath = "Not found", priconnePathValid = false, gameVersion = "Not found");
             }
             catch (FileNotFoundException)
             {
                 ErrorLog?.Invoke("Cannot find the DMMGamePlayer config file! Do you have DMMGamePlayer installed?");
                 DisableStart?.Invoke();
-                return (priconnePath = "Not found", priconnePathValid = false);
+                return (priconnePath = "Not found", priconnePathValid = false, gameVersion = "Not found");
             }
             catch (Exception ex)
             {
                 ErrorLog?.Invoke("Error getting game path: " + ex.Message);
                 DisableStart?.Invoke();
-                return (priconnePath = "ERROR!", priconnePathValid = false);
+                return (priconnePath = "ERROR!", priconnePathValid = false, gameVersion = "ERROR!");
             }
         }
         public (string localVersion, bool localVersionValid) GetPatchLocalVersion()
@@ -217,8 +220,9 @@ namespace InstallerFunctions
                 {
                     Log?.Invoke("Extracting files to game folder...", "add", true);
 
-                    // Keep config files if Force Redownload is selected or config files already present
+                    // Keep config files if Reinstall is selected or config files already present
                     string[] ignoreFiles = helper.SetIgnoreFiles(priconnePath, addconfig: helper.IsConfigPresent(priconnePath));
+
                     foreach (var entry in zip.Entries)
                     {
                         counter++;
@@ -347,7 +351,7 @@ namespace InstallerFunctions
             }
         }
 
-        public async Task RemovePatchFiles(bool uninstall, bool removeConfig, bool removeIgnored, bool removeInterops)
+        public async Task RemovePatchFiles(bool uninstall, bool removeConfig, StringCollection configList, bool removeIgnored)
 
         {
             if (downloadSuccess == false) 
@@ -394,11 +398,24 @@ namespace InstallerFunctions
 
                     }
 
-                    if (removeConfig) RemoveConfigOrIgnoredFiles("config", Settings.Default.configFiles);
+                    if (removeConfig) RemoveConfigOrIgnoredFiles("config", configList);
+
+                    /* if (removeConfig)
+                    {
+                        StringCollection configFilesSelected = new StringCollection();
+
+                        foreach (var item in configListBox.CheckedItems)
+                        {
+                            // Convert each item to a string and add it to the StringCollection
+                            configFilesSelected.Add(item.ToString());
+                        }
+
+                        RemoveConfigOrIgnoredFiles("config", configFilesSelected);
+                    } */
 
                     if (removeIgnored) RemoveConfigOrIgnoredFiles("ignored", Settings.Default.ignoreFiles);
 
-                    if (removeInterops) RemoveInterops();
+                    // if (removeInterops) RemoveInterops();
 
                     removeSuccess = true;
                     removeProgress = false;
@@ -453,7 +470,7 @@ namespace InstallerFunctions
             }
 
         }
-        private void RemoveInterops()
+        private void RemoveInterops() // obsolete, just kept code in case it'll ever be needed again
         {
             try
             {
@@ -472,10 +489,18 @@ namespace InstallerFunctions
 
         }
 
-        public async void ProcessOperation(string assetLink, bool install, bool uninstall, bool reinstall, bool launch, bool removeConfig, bool removeIgnored, bool removeInterops, ComboBox combobox)
+        public async void ProcessOperation(string assetLink, bool install, bool uninstall, bool reinstall, bool launch, bool removeConfig, CheckedListBox configListBox, bool removeIgnored, ComboBox launcherCombobox)
         {
             string processName = null;
             int versioncompare = localVersion.CompareTo(latestVersion);
+
+            StringCollection configFilesSelected = new StringCollection();
+
+            foreach (var item in configListBox.CheckedItems)
+            {
+                // Convert each item to a string and add it to the StringCollection
+                configFilesSelected.Add(item.ToString());
+            }
 
             try
             {
@@ -485,7 +510,7 @@ namespace InstallerFunctions
                 {
                     processName = "Uninstall";
                     Log?.Invoke("Uninstalling translation patch...", "info", true);
-                    await RemovePatchFiles(uninstall: uninstall, removeConfig: removeConfig, removeIgnored: removeIgnored, removeInterops: removeInterops);
+                    await RemovePatchFiles(uninstall: uninstall, removeConfig: removeConfig, configList: configFilesSelected, removeIgnored: removeIgnored);
                     return;
                 }
 
@@ -494,7 +519,7 @@ namespace InstallerFunctions
                     processName = "Reinstall";
                     Log?.Invoke("Reinstalling translation patch...", "info", true);
                     await DownloadFiles(assetLink);
-                    await RemovePatchFiles(uninstall: uninstall, removeConfig: removeConfig, removeIgnored: removeIgnored, removeInterops: removeInterops);
+                    await RemovePatchFiles(uninstall: uninstall, removeConfig: removeConfig, configList: configFilesSelected, removeIgnored: removeIgnored);
                     await ExtractPatchFiles();
                     return;
                 }
@@ -512,7 +537,7 @@ namespace InstallerFunctions
                         processName = "Update";
                         Log?.Invoke("Updating translation patch...", "info", true);
                         await DownloadFiles(assetLink);
-                        await RemovePatchFiles(uninstall: uninstall, removeConfig: removeConfig, removeIgnored: removeIgnored, removeInterops: removeInterops);
+                        await RemovePatchFiles(uninstall: uninstall, removeConfig: removeConfig, configList: configFilesSelected, removeIgnored: removeIgnored);
                         await ExtractPatchFiles();
                         return;
                     }
@@ -543,7 +568,7 @@ namespace InstallerFunctions
                 if (launch)
                 {
                     bool result = false;
-                    switch (combobox.SelectedIndex)
+                    switch (launcherCombobox.SelectedIndex)
                         {
                             case 0:
                                 result = StartDMMGamePlayer();
@@ -562,6 +587,64 @@ namespace InstallerFunctions
                     }
 
                 }
+            }
+        }
+
+        public async void ProcessOperation(string priconnePath, string localVersion, string latestVersion, string assetLink)
+        {
+            int versioncompare = localVersion.CompareTo(latestVersion);
+            try
+            {
+
+                if (versioncompare == 0)
+                {
+                    Log?.Invoke("You already have the latest version installed!", "success", true);
+                    return;
+                }
+
+                Log?.Invoke("Found new version! Starting update...", "info", true);
+
+                var task = StartCountdown?.Invoke("Cancel Update");
+                if (task != null) await task;
+
+                ProcessStart?.Invoke();
+
+                await DownloadFiles(assetLink);
+                await RemovePatchFiles(uninstall: false, removeConfig: false, configList: Settings.Default.configFiles, removeIgnored: false);
+                await ExtractPatchFiles();
+
+                /* await DownloadPatchFiles(assetLink);
+                await RemovePatchFiles(priconnePath, localVersion);
+                await ExtractPatchFiles(priconnePath); */
+
+                return;
+            }
+            catch (Exception ex)
+            {
+                ErrorLog?.Invoke("Error completing process: " + ex.Message);
+            }
+
+            finally
+            {
+                bool processSuccess = removeSuccess && downloadSuccess && extractSuccess;
+
+                if (!processSuccess)
+                {
+                    ErrorLog?.Invoke($"Update failed!");
+                }
+                else
+                {
+                    if (versioncompare != 0)
+                    {
+                        Log?.Invoke($"Update complete!", "success", true);
+                        ProcessFinish?.Invoke();
+                    }
+                }
+
+                var task = StartCountdown?.Invoke("Exit Updater");
+                if (task != null) await task;
+
+                Application.Exit();
             }
         }
 
@@ -664,7 +747,7 @@ namespace InstallerFunctions
             }
         }
 
-        public void HandleFormClosing(MainForm form, FormClosingEventArgs e)
+        public void HandleFormClosing(Form form, FormClosingEventArgs e)
         {
             try
             {

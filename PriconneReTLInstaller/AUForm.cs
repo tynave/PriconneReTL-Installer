@@ -136,7 +136,7 @@ namespace PriconneReTLInstaller
 
         private void AUForm_Load(object sender, EventArgs e)
         {
-            (priconnePath, priconnePathValid) = installer.GetGamePath();
+            (priconnePath, priconnePathValid, _) = installer.GetGamePath();
 
             (auLatestVersion, auLatestVersionValid, auAssetLink) = installer.GetLatestRelease(auGithubApi);
             (auAppLatestVersion, auAppLatestVersionValid,auAppAssetLink) = installer.GetLatestRelease(auAppGithubApi);

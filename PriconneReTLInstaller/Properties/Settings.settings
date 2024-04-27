@@ -119,5 +119,12 @@ Press the OK button to open the window for setting the shortcut. Press the Cance
 
 You can set the shortcut any time by clicking the "Settings" icon (scroll) and selecting the "Set DMMGamePlayerFastLauncher shortcut" option.</Value>
     </Setting>
+    <Setting Name="ignoreFolders" Type="System.Collections.Specialized.StringCollection" Scope="Application">
+      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;ArrayOfString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;string&gt;dotnet&lt;/string&gt;
+  &lt;string&gt;BepInEx/core&lt;/string&gt;
+&lt;/ArrayOfString&gt;</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
