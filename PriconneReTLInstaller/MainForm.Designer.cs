@@ -51,7 +51,7 @@
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.gamePathLinkLabel = new System.Windows.Forms.LinkLabel();
             this.latestVersionLinkLabel = new System.Windows.Forms.LinkLabel();
-            this.launcherComboBox = new System.Windows.Forms.ComboBox();
+            this.configListBox = new System.Windows.Forms.CheckedListBox();
             this.minimizeButton = new System.Windows.Forms.Button();
             this.aboutButton = new System.Windows.Forms.Button();
             this.settingsButton = new System.Windows.Forms.Button();
@@ -63,7 +63,6 @@
             this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.operationLabel = new System.Windows.Forms.Label();
             this.optionsPanel = new System.Windows.Forms.Panel();
-            this.configListBox = new System.Windows.Forms.CheckedListBox();
             this.optionsLabel = new System.Windows.Forms.Label();
             this.operationToolTipPicture = new System.Windows.Forms.PictureBox();
             this.menuButtonLabel = new System.Windows.Forms.Label();
@@ -74,6 +73,7 @@
             this.versionLabel = new System.Windows.Forms.Label();
             this.tlPatchVersionsLabel = new System.Windows.Forms.Label();
             this.gameVersionLabel = new System.Windows.Forms.Label();
+            this.currentLauncherLinkLabel = new System.Windows.Forms.LinkLabel();
             this.statusStrip1.SuspendLayout();
             this.operationsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.newPictureBox)).BeginInit();
@@ -211,6 +211,7 @@
             // 
             this.operationsPanel.BackColor = System.Drawing.Color.Transparent;
             this.operationsPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.operationsPanel.Controls.Add(this.currentLauncherLinkLabel);
             this.operationsPanel.Controls.Add(this.launchCheckBox);
             this.operationsPanel.Controls.Add(this.installCheckBox);
             this.operationsPanel.Controls.Add(this.uninstallCheckBox);
@@ -411,16 +412,20 @@
             this.latestVersionLinkLabel.VisitedLinkColor = System.Drawing.Color.Black;
             this.latestVersionLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.latestReleaseLinkLabel_LinkClicked);
             // 
-            // launcherComboBox
+            // configListBox
             // 
-            this.launcherComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.launcherComboBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.launcherComboBox.FormattingEnabled = true;
-            this.launcherComboBox.Location = new System.Drawing.Point(20, 329);
-            this.launcherComboBox.Name = "launcherComboBox";
-            this.launcherComboBox.Size = new System.Drawing.Size(303, 24);
-            this.launcherComboBox.TabIndex = 33;
-            this.toolTip.SetToolTip(this.launcherComboBox, "Select launcher.");
+            this.configListBox.BackColor = System.Drawing.Color.White;
+            this.configListBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.configListBox.CheckOnClick = true;
+            this.configListBox.Cursor = System.Windows.Forms.Cursors.Default;
+            this.configListBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.configListBox.FormattingEnabled = true;
+            this.configListBox.Location = new System.Drawing.Point(15, 85);
+            this.configListBox.Name = "configListBox";
+            this.configListBox.Size = new System.Drawing.Size(290, 68);
+            this.configListBox.TabIndex = 32;
+            this.toolTip.SetToolTip(this.configListBox, "Select config file to remove.");
+            this.configListBox.Visible = false;
             // 
             // minimizeButton
             // 
@@ -552,21 +557,6 @@
             this.optionsPanel.Size = new System.Drawing.Size(317, 154);
             this.optionsPanel.TabIndex = 30;
             // 
-            // configListBox
-            // 
-            this.configListBox.BackColor = System.Drawing.Color.White;
-            this.configListBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.configListBox.CheckOnClick = true;
-            this.configListBox.Cursor = System.Windows.Forms.Cursors.Default;
-            this.configListBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.configListBox.FormattingEnabled = true;
-            this.configListBox.Location = new System.Drawing.Point(15, 85);
-            this.configListBox.Name = "configListBox";
-            this.configListBox.Size = new System.Drawing.Size(290, 68);
-            this.configListBox.TabIndex = 32;
-            this.toolTip.SetToolTip(this.configListBox, "Select config file to remove.");
-            this.configListBox.Visible = false;
-            // 
             // optionsLabel
             // 
             this.optionsLabel.AutoSize = true;
@@ -663,6 +653,23 @@
             this.gameVersionLabel.TabIndex = 40;
             this.gameVersionLabel.Text = "Game Version: ";
             // 
+            // currentLauncherLinkLabel
+            // 
+            this.currentLauncherLinkLabel.AutoSize = true;
+            this.currentLauncherLinkLabel.BackColor = System.Drawing.Color.Transparent;
+            this.currentLauncherLinkLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.currentLauncherLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.currentLauncherLinkLabel.LinkColor = System.Drawing.Color.Black;
+            this.currentLauncherLinkLabel.Location = new System.Drawing.Point(7, 152);
+            this.currentLauncherLinkLabel.Name = "currentLauncherLinkLabel";
+            this.currentLauncherLinkLabel.Size = new System.Drawing.Size(326, 18);
+            this.currentLauncherLinkLabel.TabIndex = 41;
+            this.currentLauncherLinkLabel.TabStop = true;
+            this.currentLauncherLinkLabel.Text = "Launcher:  DMMGamePlayerFastLauncher";
+            this.toolTip.SetToolTip(this.currentLauncherLinkLabel, "Click to change launcher to be used.");
+            this.currentLauncherLinkLabel.VisitedLinkColor = System.Drawing.Color.Black;
+            this.currentLauncherLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.currentLauncherLinkLabel_LinkClicked);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -672,7 +679,6 @@
             this.ClientSize = new System.Drawing.Size(718, 748);
             this.ControlBox = false;
             this.Controls.Add(this.gameVersionLabel);
-            this.Controls.Add(this.launcherComboBox);
             this.Controls.Add(this.tlPatchVersionsLabel);
             this.Controls.Add(this.versionLabel);
             this.Controls.Add(this.menuButtonLabel);
@@ -751,7 +757,6 @@
         private System.Windows.Forms.Panel optionsPanel;
         private System.Windows.Forms.Label optionsLabel;
         private System.Windows.Forms.CheckBox installCheckBox;
-        private System.Windows.Forms.ComboBox launcherComboBox;
         private System.Windows.Forms.CheckBox launchCheckBox;
         private System.Windows.Forms.PictureBox operationToolTipPicture;
         private System.Windows.Forms.Button settingsButton;
@@ -765,6 +770,7 @@
         private System.Windows.Forms.Label tlPatchVersionsLabel;
         private System.Windows.Forms.Label gameVersionLabel;
         private System.Windows.Forms.CheckedListBox configListBox;
+        private System.Windows.Forms.LinkLabel currentLauncherLinkLabel;
     }
 }
 

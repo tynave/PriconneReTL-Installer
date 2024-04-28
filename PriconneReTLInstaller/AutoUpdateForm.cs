@@ -28,15 +28,6 @@ namespace PriconneReTLInstaller
         private string localVersion;
         private bool localVersionValid;
         private string assetLink;
-        // PrivateFontCollection priconnefont = new PrivateFontCollection();
-        // private bool mouseDown;
-        // private Point lastLocation;
-        // private string[] appArgs;
-     
-
-        // Helper helper = new Helper();
-        // AutoUpdater autoupdater = new AutoUpdater();
-        // Installer installer = new Installer();
 
         public AutoUpdateForm()
         {
@@ -46,19 +37,11 @@ namespace PriconneReTLInstaller
 
             installer.Log += OnLog;
             installer.ErrorLog += OnErrorLog;
-            // autoupdater.Log += OnLog;
-            // autoupdater.ErrorLog += OnErrorLog;
             installer.DownloadProgress += OnDownloadProgress;
-            // autoupdater.DownloadProgress += OnDownloadProgress;
-            // autoupdater.ProcessStart += OnProcessStart;
-            // autoupdater.ProcessFinish += OnProcessFinish;
-            // autoupdater.StartCountdown += StartCountdown;
             installer.StartCountdown += StartCountdown;
+            installer.ProcessStart += OnProcessStart;
+            installer.ProcessFinish += OnProcessFinish;
             helper.Log += OnLog;
-
-            this.MouseDown += OnMouseDown;
-            this.MouseMove += OnMouseMove;
-            this.MouseUp += OnMouseUp;
 
             logger = new AutoUpdateLogger("ReTLAutoUpdater.log", statusLabel);
             logger.StartSession();
@@ -81,12 +64,17 @@ namespace PriconneReTLInstaller
 
             latestVersionLinkLabel.Text = "Latest Release: " + (latestVersionValid ? latestVersion : "ERROR!");
 
+            UpdateUI();
+
+            progressLabel.Text = "";
+        }
+
+        private void UpdateUI()
+        {
             (localVersion, localVersionValid) = installer.GetPatchLocalVersion();
             localVersionLabel.Text = "Current (Local) Version: " + localVersion;
 
             newPictureBox.Visible = localVersion == latestVersion ? false : true;
-
-            progressLabel.Text = "";
         }
 
         // Events
@@ -115,42 +103,6 @@ namespace PriconneReTLInstaller
                 progressLabel.Text = $" {Math.Truncate(percentage)}%";
             }));
         }
-        /* private async void OnMouseDown(object sender, MouseEventArgs e)
-        {
-            mouseDown = true;
-            lastLocation = e.Location;
-
-            await Task.Run(() =>
-            {
-                while (mouseDown)
-                {
-                    this.Invoke((Action)(() =>
-                    {
-                        this.Location = new Point(
-                            (this.Location.X - lastLocation.X) + e.X, (this.Location.Y - lastLocation.Y) + e.Y);
-                        this.Update();
-                    }));
-                }
-            });
-        }
-
-        private void OnMouseMove(object sender, MouseEventArgs e)
-        {
-
-            if (mouseDown)
-            {
-                this.Invoke((Action)(() =>
-                {
-                    this.Location = new Point(
-                        (this.Location.X - lastLocation.X) + e.X, (this.Location.Y - lastLocation.Y) + e.Y);
-                    this.Update();
-                }));
-            }
-        }
-        private void OnMouseUp(object sender, MouseEventArgs e)
-        {
-            mouseDown = false;
-        } */
 
         private async Task StartCountdown(string baseText)
         {
@@ -192,8 +144,7 @@ namespace PriconneReTLInstaller
 
         private void OnProcessFinish()
         {
-            localVersionLabel.Text = "Current (Local) Version: " + latestVersion;
-            newPictureBox.Visible = false;
+            UpdateUI();
         }
 
 
@@ -202,7 +153,7 @@ namespace PriconneReTLInstaller
             this.Activate();
             InitializeUI();
   
-            installer.ProcessOperation(priconnePath, localVersion, latestVersion, assetLink);
+            installer.ProcessAutoUpdateOperation(priconnePath, localVersion, latestVersion, assetLink);
 
         }
 

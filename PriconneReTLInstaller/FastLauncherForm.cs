@@ -27,6 +27,9 @@ namespace PriconneReTLInstaller
             shortcutRemoveButton.MouseEnter += OnButtonMouseEnter;
             shortcutRemoveButton.MouseLeave += OnButtonMouseLeave;
 
+            saveButton.MouseEnter += OnButtonMouseEnter;
+            saveButton.MouseLeave += OnButtonMouseLeave;
+
         }
 
         private void OnButtonMouseEnter(object sender, EventArgs e)
@@ -36,6 +39,7 @@ namespace PriconneReTLInstaller
                 if (button == backButton) button.BackgroundImage = Resources.back_arrow_lit;
                 if (button == shortcutAddButton) button.BackgroundImage = Resources.shortcutadd_button_lit;
                 if (button == shortcutRemoveButton && button.Enabled) button.BackgroundImage = Resources.shortcutremove_button_lit;
+                if (button == saveButton && button.Enabled) button.BackgroundImage = Resources.save_button_lit;
             }
         }
 
@@ -46,14 +50,34 @@ namespace PriconneReTLInstaller
                 if (button == backButton) button.BackgroundImage = Resources.back_arrow;
                 if (button == shortcutAddButton) button.BackgroundImage = Resources.shortcutadd_button;
                 if (button == shortcutRemoveButton && button.Enabled) button.BackgroundImage = Resources.shortcutremove_button;
+                if (button == saveButton && button.Enabled) button.BackgroundImage = Resources.save_button;
             }
         }
 
+        private void InitializeUI()
+        {
+            if (!helper.IsFastLauncherInstalled())
+            {
+                if (Settings.Default.selectedLauncher == 1)
+                {
+                    Settings.Default.selectedLauncher = 0;
+                    Settings.Default.Save();
+                }
+
+                notInstalledLabel.Visible = true;
+                shortcutAddButton.Enabled = false;
+                shortcutRemoveButton.Enabled = false;
+            }
+
+            helper.PopulateLauncherComboBox(launcherComboBox);
+            launcherComboBox.SelectedIndex = Settings.Default.selectedLauncher;
+            saveButton.Enabled = false;
+        }
         private void UpdateUI()
         {
             shortcutPathLabel.Text = Settings.Default.fastLauncherLink == "" ? "<Not Set!>" : Settings.Default.fastLauncherLink;
             shortcutRemoveButton.Enabled = Settings.Default.fastLauncherLink == "" ? false : true;
-
+            currentLauncherLabel.Text = Settings.Default.selectedLauncher == 0 ? "DMMGamePlayer" : "DMMGamePlayerFastLauncher";
         }
 
         private void backButton_Click(object sender, EventArgs e)
@@ -94,6 +118,7 @@ namespace PriconneReTLInstaller
 
         private void FastLauncherForm_Load(object sender, EventArgs e)
         {
+            InitializeUI();
             UpdateUI();
         }
 
@@ -103,6 +128,24 @@ namespace PriconneReTLInstaller
             Settings.Default.Save();
             UpdateUI();
             
+        }
+
+        private void launcherComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            saveButton.Enabled = true;
+        }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            Settings.Default.selectedLauncher = launcherComboBox.SelectedIndex;
+            MessageBox.Show($"Launcher set to: {launcherComboBox.SelectedItem.ToString()}", "Launcher Set!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Settings.Default.Save();
+            saveButton.Enabled = false;
+        }
+
+        private void saveButton_EnabledChanged(object sender, EventArgs e)
+        {
+            saveButton.BackgroundImage = saveButton.Enabled ? Resources.save_button : Resources.save_button_disabled;
         }
     }
 

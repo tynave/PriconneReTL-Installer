@@ -2,21 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PriconneReTLInstaller.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="uninstallFiles" Type="System.Collections.Specialized.StringCollection" Scope="Application">
-      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;ArrayOfString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
-  &lt;string&gt;BepInEx\core&lt;/string&gt;
-  &lt;string&gt;BepInEx\plugins&lt;/string&gt;
-  &lt;string&gt;BepInEx\Translation&lt;/string&gt;
-  &lt;string&gt;dotnet&lt;/string&gt;
-  &lt;string&gt;.doorstop_version&lt;/string&gt;
-  &lt;string&gt;doorstop_config.ini&lt;/string&gt;
-  &lt;string&gt;winhttp.dll&lt;/string&gt;
-  &lt;string&gt;changelog.txt&lt;/string&gt;
-  &lt;string&gt;Version.txt&lt;/string&gt;
-  &lt;string&gt;ReTL_Updater.lnk&lt;/string&gt;
-&lt;/ArrayOfString&gt;</Value>
-    </Setting>
     <Setting Name="ignoreFiles" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
 &lt;ArrayOfString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
@@ -106,7 +91,7 @@ See log for details.</Value>
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="LastKnownVersion" Type="System.String" Scope="User">
-      <Value Profile="(Default)">1.3.0.0</Value>
+      <Value Profile="(Default)">1.4.0.0</Value>
     </Setting>
     <Setting Name="cannotStartDMMFastLauncherError" Type="System.String" Scope="Application">
       <Value Profile="(Default)">DMMGamePlayerFastLauncher shortcut not set or not valid!
@@ -119,12 +104,8 @@ Press the OK button to open the window for setting the shortcut. Press the Cance
 
 You can set the shortcut any time by clicking the "Settings" icon (scroll) and selecting the "Set DMMGamePlayerFastLauncher shortcut" option.</Value>
     </Setting>
-    <Setting Name="ignoreFolders" Type="System.Collections.Specialized.StringCollection" Scope="Application">
-      <Value Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;ArrayOfString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
-  &lt;string&gt;dotnet&lt;/string&gt;
-  &lt;string&gt;BepInEx/core&lt;/string&gt;
-&lt;/ArrayOfString&gt;</Value>
+    <Setting Name="selectedLauncher" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
 </SettingsFile>

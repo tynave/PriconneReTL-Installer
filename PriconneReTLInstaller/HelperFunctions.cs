@@ -210,7 +210,7 @@ namespace HelperFunctions
                 Log?.Invoke("Found DMMGamePlayerFastLauncher!", "info", false);
             } else Log?.Invoke("DMMGamePlayerFastLauncher not installed!", "info", false);
 
-            if (comboBox.Items.Count > 0) comboBox.SelectedIndex = IsFastLauncherInstalled() ? 1 : 0;
+            // if (comboBox.Items.Count > 0) comboBox.SelectedIndex = IsFastLauncherInstalled() ? 1 : 0;
         }
 
         public void PopulateConfigChecklistbox(CheckedListBox checkedListBox)
@@ -223,7 +223,6 @@ namespace HelperFunctions
                 checkedListBox.SetItemChecked(i, true);
             }
         }
-
         public static bool IsFileInSubfolder(string folderPath, string filePath)
         {
             folderPath = Path.GetFullPath(folderPath); // Ensure the folder path is full.
@@ -232,17 +231,6 @@ namespace HelperFunctions
             // Check if the file path starts with the folder path.
             return filePath.StartsWith(folderPath, StringComparison.OrdinalIgnoreCase);
         }
-
-        public bool IsInIgnoredDirectory(string filePath)
-        {
-            bool isInIgnoredDirectory = false;
-            foreach (var path in Settings.Default.ignoreFolders)
-            {
-                if (filePath.StartsWith(path)) isInIgnoredDirectory = true;
-            }
-            return isInIgnoredDirectory;
-        }
-
         public static StringCollection DeserializeStringCollection(string serializedValue)
         {
             var stringCollection = new StringCollection();
@@ -305,7 +293,6 @@ namespace HelperFunctions
             }
             
         }
-
         public void ImportSettings(string filePath)
         {
             try

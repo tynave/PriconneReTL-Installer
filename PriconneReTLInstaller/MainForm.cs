@@ -133,13 +133,14 @@ namespace PriconneReTLInstaller
             gamePathLinkLabel.Text = priconnePath.Length < 55 ? "Game Path: " + priconnePath : "Game Path: " + priconnePath.Substring(0, 52) + "...";
             gameVersionLabel.Text = "Game Version: " + gameVersion;
 
-            if (priconnePathValid) helper.PopulateLauncherComboBox(launcherComboBox);
+            // if (priconnePathValid) helper.PopulateLauncherComboBox(launcherComboBox);
 
             helper.LogFastLauncherShortcut();
 
-            launchCheckBox.Enabled = priconnePathValid && launcherComboBox.Items.Count > 0;
+            launchCheckBox.Enabled = priconnePathValid;
             launchCheckBox.Checked = Settings.Default.launchState;
             operationsPanel.Height = launchCheckBox.Checked ? 184 : 154;
+            // operationsPanel.Height = 154;
 
             (latestVersion, latestVersionValid, assetLink) = installer.GetLatestRelease(patchgithubAPI);
             latestVersionLinkLabel.Text = "Latest Release: " + (latestVersionValid ? latestVersion : "ERROR!");
@@ -238,7 +239,7 @@ namespace PriconneReTLInstaller
             }
 
             toolTip.SetToolTip(removeConfigCheckBox, $"Removes the selected config files");
-            toolTip.SetToolTip(removeIgnoredCheckBox, $"Removes the following ignored patch files also:\n\n{ignoreList}");
+            toolTip.SetToolTip(removeIgnoredCheckBox, $"Removes the currently set ignored files also.");
         }
 
         // Events
@@ -418,7 +419,7 @@ namespace PriconneReTLInstaller
             }
             else
             {
-               installer.ProcessOperation(assetLink, installCheckBox.Checked, uninstallCheckBox.Checked, reinstallCheckBox.Checked, launchCheckBox.Checked, removeConfigCheckBox.Checked, configListBox, removeIgnoredCheckBox.Checked, launcherComboBox);
+               installer.ProcessOperation(assetLink, installCheckBox.Checked, uninstallCheckBox.Checked, reinstallCheckBox.Checked, launchCheckBox.Checked, removeConfigCheckBox.Checked, configListBox, removeIgnoredCheckBox.Checked);
             }
 
         }
@@ -479,7 +480,7 @@ namespace PriconneReTLInstaller
 
         private void launchCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            launcherComboBox.Visible = launchCheckBox.Checked;
+            // launcherComboBox.Visible = launchCheckBox.Checked;
             operationsPanel.Height = launchCheckBox.Checked ? 184 : 154; 
             Settings.Default.launchState = launchCheckBox.Checked;
         }
@@ -502,8 +503,10 @@ namespace PriconneReTLInstaller
 
         private void auButton_Click(object sender, EventArgs e)
         {
-            AUForm auForm = new AUForm();
-            auForm.ShowDialog();
+            // AUForm auForm = new AUForm();
+            // auForm.ShowDialog();
+            AUSettingForm aUSettingForm = new AUSettingForm();
+            aUSettingForm.ShowDialog();
         }
 
         private void settingsButton_EnabledChanged(object sender, EventArgs e)
@@ -519,6 +522,7 @@ namespace PriconneReTLInstaller
         private void MainForm_Activated(object sender, EventArgs e)
         {
             SetToolTips();
+            currentLauncherLinkLabel.Text = "Launcher: " + (Settings.Default.selectedLauncher == 0 ? "DMMGamePlayer" : "DMMGamePlayerFastLauncher");
         }
 
         private void setDMMGameFastLauncherToolStripMenuItem_Click(object sender, EventArgs e)
@@ -533,6 +537,11 @@ namespace PriconneReTLInstaller
             iEForm.ShowDialog();
         }
 
+        private void currentLauncherLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            FastLauncherForm fastLauncherForm = new FastLauncherForm();
+            fastLauncherForm.ShowDialog();
+        }
     }
 }
 

@@ -489,7 +489,7 @@ namespace InstallerFunctions
 
         }
 
-        public async void ProcessOperation(string assetLink, bool install, bool uninstall, bool reinstall, bool launch, bool removeConfig, CheckedListBox configListBox, bool removeIgnored, ComboBox launcherCombobox)
+        public async void ProcessOperation(string assetLink, bool install, bool uninstall, bool reinstall, bool launch, bool removeConfig, CheckedListBox configListBox, bool removeIgnored)
         {
             string processName = null;
             int versioncompare = localVersion.CompareTo(latestVersion);
@@ -568,8 +568,9 @@ namespace InstallerFunctions
                 if (launch)
                 {
                     bool result = false;
-                    switch (launcherCombobox.SelectedIndex)
-                        {
+                    // switch (launcherCombobox.SelectedIndex)
+                    switch (Settings.Default.selectedLauncher)
+                    {
                             case 0:
                                 result = StartDMMGamePlayer();
                                 break;
@@ -590,7 +591,7 @@ namespace InstallerFunctions
             }
         }
 
-        public async void ProcessOperation(string priconnePath, string localVersion, string latestVersion, string assetLink)
+        public async void ProcessAutoUpdateOperation(string priconnePath, string localVersion, string latestVersion, string assetLink)
         {
             int versioncompare = localVersion.CompareTo(latestVersion);
             try
@@ -612,10 +613,6 @@ namespace InstallerFunctions
                 await DownloadFiles(assetLink);
                 await RemovePatchFiles(uninstall: false, removeConfig: false, configList: Settings.Default.configFiles, removeIgnored: false);
                 await ExtractPatchFiles();
-
-                /* await DownloadPatchFiles(assetLink);
-                await RemovePatchFiles(priconnePath, localVersion);
-                await ExtractPatchFiles(priconnePath); */
 
                 return;
             }
@@ -715,7 +712,7 @@ namespace InstallerFunctions
                         return false; 
                     }
 
-                    Log?.Invoke("Starting game via DMMGamePlayerFastLauncher. Closing installer in 5 seconds", "info", true);
+                    Log?.Invoke("Starting game via DMMGamePlayerFastLauncher.", "info", true);
                     ProcessStartInfo startInfo = new ProcessStartInfo
                     {
                         FileName = fastLauncherLink,
@@ -736,7 +733,7 @@ namespace InstallerFunctions
         {
             try
             {
-                Log?.Invoke("Starting game via DMMGamePlayer. Closing installer in 5 seconds.", "info", true);
+                Log?.Invoke("Starting game via DMMGamePlayer.", "info", true);
                 Process.Start("dmmgameplayer://play/GCL/priconner/cl/win");
                 return true;
             }

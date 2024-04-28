@@ -23,27 +23,6 @@ namespace PriconneReTLInstaller.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
-<ArrayOfString xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
-  <string>BepInEx\core</string>
-  <string>BepInEx\plugins</string>
-  <string>BepInEx\Translation</string>
-  <string>dotnet</string>
-  <string>.doorstop_version</string>
-  <string>doorstop_config.ini</string>
-  <string>winhttp.dll</string>
-  <string>changelog.txt</string>
-  <string>Version.txt</string>
-  <string>ReTL_Updater.lnk</string>
-</ArrayOfString>")]
-        public global::System.Collections.Specialized.StringCollection uninstallFiles {
-            get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["uninstallFiles"]));
-            }
-        }
-        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
@@ -272,7 +251,7 @@ namespace PriconneReTLInstaller.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.3.0.0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.4.0.0")]
         public string LastKnownVersion {
             get {
                 return ((string)(this["LastKnownVersion"]));
@@ -299,14 +278,15 @@ You can set the shortcut any time by clicking the ""Settings"" icon (scroll) and
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("<?xml version=\"1.0\" encoding=\"utf-16\"?>\r\n<ArrayOfString xmlns:xsd=\"http://www.w3." +
-            "org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\r\n  <s" +
-            "tring>dotnet</string>\r\n  <string>BepInEx/core</string>\r\n</ArrayOfString>")]
-        public global::System.Collections.Specialized.StringCollection ignoreFolders {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int selectedLauncher {
             get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["ignoreFolders"]));
+                return ((int)(this["selectedLauncher"]));
+            }
+            set {
+                this["selectedLauncher"] = value;
             }
         }
     }

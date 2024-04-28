@@ -83,7 +83,6 @@ namespace LoggerFunctions
         }
 
     }
-
     public class AutoUpdateLogger
     {
         private string logFilePath;
