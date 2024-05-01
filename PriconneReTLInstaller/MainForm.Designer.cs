@@ -60,7 +60,7 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.helpMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.helpMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.wikiMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.operationLabel = new System.Windows.Forms.Label();
             this.optionsPanel = new System.Windows.Forms.Panel();
@@ -528,22 +528,22 @@
             // helpMenuStrip
             // 
             this.helpMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.helpMenuItem,
+            this.wikiMenuItem,
             this.aboutMenuItem});
             this.helpMenuStrip.Name = "contextMenuStrip1";
-            this.helpMenuStrip.Size = new System.Drawing.Size(108, 48);
+            this.helpMenuStrip.Size = new System.Drawing.Size(181, 70);
             // 
-            // helpMenuItem
+            // wikiMenuItem
             // 
-            this.helpMenuItem.Name = "helpMenuItem";
-            this.helpMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.helpMenuItem.Text = "Help";
-            this.helpMenuItem.Click += new System.EventHandler(this.helpMenuItem_Click);
+            this.wikiMenuItem.Name = "wikiMenuItem";
+            this.wikiMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.wikiMenuItem.Text = "GitHub Wiki page";
+            this.wikiMenuItem.Click += new System.EventHandler(this.helpMenuItem_Click);
             // 
             // aboutMenuItem
             // 
             this.aboutMenuItem.Name = "aboutMenuItem";
-            this.aboutMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutMenuItem.Text = "About";
             this.aboutMenuItem.Click += new System.EventHandler(this.aboutMenuItem_Click);
             // 
@@ -748,7 +748,7 @@
         private System.Windows.Forms.LinkLabel latestVersionLinkLabel;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.ContextMenuStrip helpMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem helpMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem wikiMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutMenuItem;
         private System.Windows.Forms.Button minimizeButton;
         private System.Windows.Forms.Button aboutButton;

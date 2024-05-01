@@ -465,7 +465,7 @@ namespace PriconneReTLInstaller
 
         private void helpMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start("https://github.com/tynave/PriconneReTL-Installer#readme");
+            Process.Start("https://github.com/tynave/PriconneReTL-Installer/wiki");
         }
 
         private void aboutMenuItem_Click(object sender, EventArgs e)

@@ -398,19 +398,6 @@ namespace InstallerFunctions
 
                     if (removeConfig) RemoveConfigOrIgnoredFiles("config", configList);
 
-                    /* if (removeConfig)
-                    {
-                        StringCollection configFilesSelected = new StringCollection();
-
-                        foreach (var item in configListBox.CheckedItems)
-                        {
-                            // Convert each item to a string and add it to the StringCollection
-                            configFilesSelected.Add(item.ToString());
-                        }
-
-                        RemoveConfigOrIgnoredFiles("config", configFilesSelected);
-                    } */
-
                     if (removeIgnored) RemoveConfigOrIgnoredFiles("ignored", Settings.Default.ignoreFiles);
 
                     // if (removeInterops) RemoveInterops();
