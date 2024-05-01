@@ -147,6 +147,7 @@
             // openFileDialog1
             // 
             this.openFileDialog1.Filter = "All Files|*.*";
+            this.openFileDialog1.RestoreDirectory = true;
             // 
             // IgnoreForm
             // 

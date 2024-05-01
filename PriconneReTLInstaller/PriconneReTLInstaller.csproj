@@ -179,29 +179,17 @@
     <Compile Include="AUForm.Designer.cs">
       <DependentUpon>AUForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AutoUpdateForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AutoUpdateForm.designer.cs">
-      <DependentUpon>AutoUpdateForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="BaseForm.Designer.cs">
       <DependentUpon>BaseForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="FastLauncherForm.cs">
+    <Compile Include="LauncherForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FastLauncherForm.Designer.cs">
-      <DependentUpon>FastLauncherForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AUSettingForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AUSettingForm.Designer.cs">
-      <DependentUpon>AUSettingForm.cs</DependentUpon>
+    <Compile Include="LauncherForm.Designer.cs">
+      <DependentUpon>LauncherForm.cs</DependentUpon>
     </Compile>
     <Compile Include="IEForm.cs">
       <SubType>Form</SubType>
@@ -231,17 +219,11 @@
     <EmbeddedResource Include="AUForm.resx">
       <DependentUpon>AUForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AUSettingForm.resx">
-      <DependentUpon>AUSettingForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AutoUpdateForm.resx">
-      <DependentUpon>AutoUpdateForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FastLauncherForm.resx">
-      <DependentUpon>FastLauncherForm.cs</DependentUpon>
+    <EmbeddedResource Include="LauncherForm.resx">
+      <DependentUpon>LauncherForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IEForm.resx">
       <DependentUpon>IEForm.cs</DependentUpon>
@@ -492,6 +474,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\start_hover_lit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="IWshRuntimeLibrary">
+      <Guid>{F935DC20-1CF0-11D0-ADB9-00C04FD58A0B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

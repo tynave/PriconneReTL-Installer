@@ -119,7 +119,7 @@ namespace PriconneReTLInstaller
         {
             try
             {
-                DialogResult dialogresult = MessageBox.Show("Do you really want to restore the default values?\nAll unsaved changes will be lost.", "Restore defaults?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                DialogResult dialogresult = MessageBox.Show("Do you really want to restore the default values?", "Restore defaults?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
                 if (dialogresult == DialogResult.Cancel) return;
 
@@ -160,6 +160,13 @@ namespace PriconneReTLInstaller
                         return;
                     } 
                     string relativePath = HelperFunctions.Helper.GetRelativePath(defaultPath, selectedFile);
+
+                    if (Settings.Default.configFiles.Contains(relativePath))
+                    {
+                        MessageBox.Show("Invalid selection!\nThis file is a config file that is already ignored by default!", "Invalid selection", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
                     fileListbox.Items.Add(relativePath);
                     saveButton.Enabled = true;
                 }

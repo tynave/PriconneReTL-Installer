@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
@@ -24,7 +25,6 @@ namespace HelperFunctions
 
         [DllImport("gdi32.dll")]
         public static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont, IntPtr pdv, [In] ref uint pcFonts);
-
         public void PriconneFont(PrivateFontCollection priconnefont)
         {
             //Select  font from the resources.
@@ -48,7 +48,6 @@ namespace HelperFunctions
             Marshal.FreeCoTaskMem(data);
 
         }
-
         public void SetFontForAllControls(PrivateFontCollection priconnefont, Control.ControlCollection controls)
         {
             foreach (Control control in controls)
@@ -71,7 +70,6 @@ namespace HelperFunctions
                 }
             }
         }
-
         public void SetFontForToolStripItems(PrivateFontCollection priconnefont, ToolStripItemCollection items)
         {
             foreach (ToolStripItem item in items)
@@ -97,7 +95,6 @@ namespace HelperFunctions
             }
             return false;
         }
-
         public string[] SetIgnoreFiles(string priconnePath, bool addconfig)
         {
             string[] ignoreFiles = new string[Settings.Default.ignoreFiles.Count];
@@ -125,7 +122,6 @@ namespace HelperFunctions
 
             return ignoreFiles;
         }
-
         public bool IsConfigPresent(string priconnePath)
         {
             bool isConfigPresent = false;
@@ -140,6 +136,7 @@ namespace HelperFunctions
             if (isConfigPresent) Log?.Invoke("Found config file(s). Adding them to the list of ignored/excluded files.", "error", false);
             return isConfigPresent;
         }
+
         public void CannotExitNotification(FormClosingEventArgs e, string type)
         {
             MessageBox.Show($"There is currently a {type} process in progress.\nPlease wait for the operation to complete.", "Cannot Exit", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -169,27 +166,24 @@ namespace HelperFunctions
                 return false;
             }
         }
-
-        public bool IsFastLauncherShortcutValid() 
+        public bool IsFastLauncherShortcutValid()
         {
             string fastLauncherLink = Settings.Default.fastLauncherLink;
 
             if (!File.Exists(fastLauncherLink))
-            {          
+            {
                 DialogResult result = MessageBox.Show(Settings.Default.cannotStartDMMFastLauncherError, "Cannot Start Game", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                
+
                 if (result == DialogResult.OK)
                 {
-                    FastLauncherForm fastLauncherForm = new FastLauncherForm();
-                    fastLauncherForm.ShowDialog();
+                    LauncherForm launcherForm = new LauncherForm();
+                    launcherForm.ShowDialog();
                     return false;
                 }
                 else if (result == DialogResult.Cancel) return false;
             }
             return true;
         }
-
-
         public void LogFastLauncherShortcut()
         {
             string fastLauncherShortcut = Settings.Default.fastLauncherLink;
@@ -212,7 +206,6 @@ namespace HelperFunctions
 
             // if (comboBox.Items.Count > 0) comboBox.SelectedIndex = IsFastLauncherInstalled() ? 1 : 0;
         }
-
         public void PopulateConfigChecklistbox(CheckedListBox checkedListBox)
         {
             checkedListBox.Items.Clear();
@@ -231,6 +224,7 @@ namespace HelperFunctions
             // Check if the file path starts with the folder path.
             return filePath.StartsWith(folderPath, StringComparison.OrdinalIgnoreCase);
         }
+
         public static StringCollection DeserializeStringCollection(string serializedValue)
         {
             var stringCollection = new StringCollection();
@@ -275,6 +269,7 @@ namespace HelperFunctions
                 var userSettings = new UserSettings
                 {
                     launchState = Settings.Default.launchState,
+                    selectedLauncher = Settings.Default.selectedLauncher,
                     ignoreFiles = Settings.Default.ignoreFiles,
                     fastLauncherLink = Settings.Default.fastLauncherLink,
                     LastKnownVersion = Settings.Default.LastKnownVersion
@@ -305,6 +300,7 @@ namespace HelperFunctions
 
                     // Update application settings with imported settings
                     Settings.Default.launchState = importedSettings.launchState;
+                    Settings.Default.selectedLauncher = importedSettings.selectedLauncher;
                     Settings.Default.ignoreFiles = importedSettings.ignoreFiles;
                     Settings.Default.fastLauncherLink = importedSettings.fastLauncherLink;
                     Settings.Default.LastKnownVersion = importedSettings.LastKnownVersion;
@@ -326,6 +322,7 @@ namespace HelperFunctions
 public class UserSettings
 {
     public bool launchState { get; set; }
+    public int selectedLauncher {  get; set; }
     public System.Collections.Specialized.StringCollection ignoreFiles { get; set; }
     public string fastLauncherLink { get; set; }
     public string LastKnownVersion { get; set; }

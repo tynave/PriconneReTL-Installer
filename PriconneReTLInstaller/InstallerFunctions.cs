@@ -21,6 +21,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+// using IWshRuntimeLibrary;
 
 namespace InstallerFunctions
 {
@@ -49,6 +50,8 @@ namespace InstallerFunctions
         public event Action DisableStart;
         public event Action ProcessStart;
         public event Action ProcessFinish;
+        public event Action ProcessSuccess;
+        public event Action ProcessFail;
         public event Func<string, Task> StartCountdown;
 
         public (string priconnePath, bool priconnePathValid, string gameVersion) GetGamePath()
@@ -206,7 +209,6 @@ namespace InstallerFunctions
                 downloadSuccess = false;
             }
         }
-
         public async Task ExtractPatchFiles()
 
         {
@@ -250,7 +252,6 @@ namespace InstallerFunctions
                 extractSuccess = false;
             }
         }
-
         public async Task ExtractAUFiles()
 
         {
@@ -288,7 +289,6 @@ namespace InstallerFunctions
                 extractSuccess = false;
             }
         }
-
         public void ExtractZipEntry(ZipArchiveEntry entry, string destinationPath)
         {
             try
@@ -306,7 +306,6 @@ namespace InstallerFunctions
                 ErrorLog?.Invoke("Error extracting file: " + ex.Message);
             }
         }
-
         public async Task<string[]> ProcessTree(string priconnePath, string releaseTag)
         {
             string[] ignoreFiles = helper.SetIgnoreFiles(priconnePath, addconfig: true);
@@ -350,7 +349,6 @@ namespace InstallerFunctions
                 return filePathsList.ToArray();
             }
         }
-
         public async Task RemovePatchFiles(bool uninstall, bool removeConfig, StringCollection configList, bool removeIgnored)
 
         {
@@ -429,7 +427,6 @@ namespace InstallerFunctions
                 }
             });
         }
-
         private void DeleteEmptyDirectories(string directoryPath)
         {
             if (!Directory.EnumerateFileSystemEntries(directoryPath).Any())
@@ -444,7 +441,6 @@ namespace InstallerFunctions
                 }
             }
         }
-
         private void RemoveConfigOrIgnoredFiles(string type, StringCollection collection)
         {
             try
@@ -568,7 +564,6 @@ namespace InstallerFunctions
                 if (launch)
                 {
                     bool result = false;
-                    // switch (launcherCombobox.SelectedIndex)
                     switch (Settings.Default.selectedLauncher)
                     {
                             case 0:
@@ -590,61 +585,6 @@ namespace InstallerFunctions
                 }
             }
         }
-
-        public async void ProcessAutoUpdateOperation(string priconnePath, string localVersion, string latestVersion, string assetLink)
-        {
-            int versioncompare = localVersion.CompareTo(latestVersion);
-            try
-            {
-
-                if (versioncompare == 0)
-                {
-                    Log?.Invoke("You already have the latest version installed!", "success", true);
-                    return;
-                }
-
-                Log?.Invoke("Found new version! Starting update...", "info", true);
-
-                var task = StartCountdown?.Invoke("Cancel Update");
-                if (task != null) await task;
-
-                ProcessStart?.Invoke();
-
-                await DownloadFiles(assetLink);
-                await RemovePatchFiles(uninstall: false, removeConfig: false, configList: Settings.Default.configFiles, removeIgnored: false);
-                await ExtractPatchFiles();
-
-                return;
-            }
-            catch (Exception ex)
-            {
-                ErrorLog?.Invoke("Error completing process: " + ex.Message);
-            }
-
-            finally
-            {
-                bool processSuccess = removeSuccess && downloadSuccess && extractSuccess;
-
-                if (!processSuccess)
-                {
-                    ErrorLog?.Invoke($"Update failed!");
-                }
-                else
-                {
-                    if (versioncompare != 0)
-                    {
-                        Log?.Invoke($"Update complete!", "success", true);
-                        ProcessFinish?.Invoke();
-                    }
-                }
-
-                var task = StartCountdown?.Invoke("Exit Updater");
-                if (task != null) await task;
-
-                Application.Exit();
-            }
-        }
-
         public async void ProcessAuInstallOperation(string auAssetLink, string auAppAssetLink)
         {
             ProcessStart?.Invoke();
@@ -665,11 +605,10 @@ namespace InstallerFunctions
             finally
             {
                 bool processSuccess = removeSuccess && downloadSuccess && extractSuccess;
-                if (!processSuccess) ErrorLog?.Invoke($"Installation failed!"); else Log?.Invoke($"Installation complete!", "success", true);
+                if (!processSuccess) ErrorLog?.Invoke("Installation failed!"); else Log?.Invoke("Installation complete!", "success", true);
                 ProcessFinish?.Invoke();
             }
         }
-
         public void ProcessAuUninstallOperation()
         {
             ProcessStart?.Invoke();
@@ -696,6 +635,7 @@ namespace InstallerFunctions
                 ProcessFinish?.Invoke();
             }
         }
+
         private bool StartDMMFastLauncher()
         {
             try
@@ -712,7 +652,7 @@ namespace InstallerFunctions
                         return false; 
                     }
 
-                    Log?.Invoke("Starting game via DMMGamePlayerFastLauncher.", "info", true);
+                    Log?.Invoke("Starting game via DMMGamePlayerFastLauncher.", "info", false);
                     ProcessStartInfo startInfo = new ProcessStartInfo
                     {
                         FileName = fastLauncherLink,
@@ -728,12 +668,11 @@ namespace InstallerFunctions
                 return false;
             }
         }
-
         private bool StartDMMGamePlayer()
         {
             try
             {
-                Log?.Invoke("Starting game via DMMGamePlayer.", "info", true);
+                Log?.Invoke("Starting game via DMMGamePlayer.", "info", false);
                 Process.Start("dmmgameplayer://play/GCL/priconner/cl/win");
                 return true;
             }
@@ -753,6 +692,7 @@ namespace InstallerFunctions
                     helper.CannotExitNotification(e, "file removal");
                 }
                 else if (File.Exists(tempFile)) File.Delete(tempFile);
+
                 Settings.Default.Save();
             }
             catch (IOException)

@@ -12,9 +12,9 @@ using System.Windows.Forms;
 
 namespace PriconneReTLInstaller
 {
-    public partial class FastLauncherForm : BaseForm
+    public partial class LauncherForm : BaseForm
     {
-        public FastLauncherForm()
+        public LauncherForm()
         {
             InitializeComponent();
             
@@ -75,7 +75,7 @@ namespace PriconneReTLInstaller
         }
         private void UpdateUI()
         {
-            shortcutPathLabel.Text = Settings.Default.fastLauncherLink == "" ? "<Not Set!>" : Settings.Default.fastLauncherLink;
+            shortcutPathLabel.Text = Settings.Default.fastLauncherLink == "" ? "Not Set!" : Settings.Default.fastLauncherLink;
             shortcutRemoveButton.Enabled = Settings.Default.fastLauncherLink == "" ? false : true;
             currentLauncherLabel.Text = Settings.Default.selectedLauncher == 0 ? "DMMGamePlayer" : "DMMGamePlayerFastLauncher";
         }

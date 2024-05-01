@@ -108,7 +108,7 @@ namespace LoggerFunctions
             {
                 using (StreamWriter writer = new StreamWriter(logFilePath, false))
                 {
-                    writer.WriteLine($"[PriconneReTL AutoUpdaterApp version: {String.Format(System.Windows.Forms.Application.ProductVersion)}]");
+                    writer.WriteLine($"[PriconneReTL Installer (Autoupdate) version: {String.Format(System.Windows.Forms.Application.ProductVersion)}]");
                     writer.WriteLine($"[Log file created at: {DateTime.Now}]");
                 }
             }
@@ -144,7 +144,6 @@ namespace LoggerFunctions
 
                 statusLabel.ForeColor = colors["error"];
                 statusLabel.Text = $"ERROR! - See log for details.";
-
 
             }
             catch (Exception ex)

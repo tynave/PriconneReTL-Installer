@@ -40,6 +40,7 @@
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
             this.operationsPanel = new System.Windows.Forms.Panel();
+            this.currentLauncherLinkLabel = new System.Windows.Forms.LinkLabel();
             this.launchCheckBox = new System.Windows.Forms.CheckBox();
             this.installCheckBox = new System.Windows.Forms.CheckBox();
             this.operationsLabel = new System.Windows.Forms.Label();
@@ -68,12 +69,11 @@
             this.menuButtonLabel = new System.Windows.Forms.Label();
             this.settingsMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editIgnoredFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setDMMGameFastLauncherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setLauncherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importExportSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.versionLabel = new System.Windows.Forms.Label();
             this.tlPatchVersionsLabel = new System.Windows.Forms.Label();
             this.gameVersionLabel = new System.Windows.Forms.Label();
-            this.currentLauncherLinkLabel = new System.Windows.Forms.LinkLabel();
             this.statusStrip1.SuspendLayout();
             this.operationsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.newPictureBox)).BeginInit();
@@ -221,6 +221,23 @@
             this.operationsPanel.Name = "operationsPanel";
             this.operationsPanel.Size = new System.Drawing.Size(310, 184);
             this.operationsPanel.TabIndex = 16;
+            // 
+            // currentLauncherLinkLabel
+            // 
+            this.currentLauncherLinkLabel.AutoSize = true;
+            this.currentLauncherLinkLabel.BackColor = System.Drawing.Color.Transparent;
+            this.currentLauncherLinkLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.currentLauncherLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.currentLauncherLinkLabel.LinkColor = System.Drawing.Color.Black;
+            this.currentLauncherLinkLabel.Location = new System.Drawing.Point(7, 152);
+            this.currentLauncherLinkLabel.Name = "currentLauncherLinkLabel";
+            this.currentLauncherLinkLabel.Size = new System.Drawing.Size(326, 18);
+            this.currentLauncherLinkLabel.TabIndex = 41;
+            this.currentLauncherLinkLabel.TabStop = true;
+            this.currentLauncherLinkLabel.Text = "Launcher:  DMMGamePlayerFastLauncher";
+            this.toolTip.SetToolTip(this.currentLauncherLinkLabel, "Click to change launcher to be used.");
+            this.currentLauncherLinkLabel.VisitedLinkColor = System.Drawing.Color.Black;
+            this.currentLauncherLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.currentLauncherLinkLabel_LinkClicked);
             // 
             // launchCheckBox
             // 
@@ -594,29 +611,29 @@
             // 
             this.settingsMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.editIgnoredFilesToolStripMenuItem,
-            this.setDMMGameFastLauncherToolStripMenuItem,
+            this.setLauncherToolStripMenuItem,
             this.importExportSettingsToolStripMenuItem});
             this.settingsMenuStrip.Name = "settingsMenuStrip";
-            this.settingsMenuStrip.Size = new System.Drawing.Size(304, 70);
+            this.settingsMenuStrip.Size = new System.Drawing.Size(227, 70);
             // 
             // editIgnoredFilesToolStripMenuItem
             // 
             this.editIgnoredFilesToolStripMenuItem.Name = "editIgnoredFilesToolStripMenuItem";
-            this.editIgnoredFilesToolStripMenuItem.Size = new System.Drawing.Size(303, 22);
+            this.editIgnoredFilesToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.editIgnoredFilesToolStripMenuItem.Text = "Edit Ignored Files";
             this.editIgnoredFilesToolStripMenuItem.Click += new System.EventHandler(this.editIgnoredFilesToolStripMenuItem_Click);
             // 
-            // setDMMGameFastLauncherToolStripMenuItem
+            // setLauncherToolStripMenuItem
             // 
-            this.setDMMGameFastLauncherToolStripMenuItem.Name = "setDMMGameFastLauncherToolStripMenuItem";
-            this.setDMMGameFastLauncherToolStripMenuItem.Size = new System.Drawing.Size(303, 22);
-            this.setDMMGameFastLauncherToolStripMenuItem.Text = "Set DMMGamePlayerFastLauncher shortcut";
-            this.setDMMGameFastLauncherToolStripMenuItem.Click += new System.EventHandler(this.setDMMGameFastLauncherToolStripMenuItem_Click);
+            this.setLauncherToolStripMenuItem.Name = "setLauncherToolStripMenuItem";
+            this.setLauncherToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.setLauncherToolStripMenuItem.Text = "Launcher Settings";
+            this.setLauncherToolStripMenuItem.Click += new System.EventHandler(this.launcherSettingsToolStripMenuItem_Click);
             // 
             // importExportSettingsToolStripMenuItem
             // 
             this.importExportSettingsToolStripMenuItem.Name = "importExportSettingsToolStripMenuItem";
-            this.importExportSettingsToolStripMenuItem.Size = new System.Drawing.Size(303, 22);
+            this.importExportSettingsToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.importExportSettingsToolStripMenuItem.Text = "Import / Export User Settings";
             this.importExportSettingsToolStripMenuItem.Click += new System.EventHandler(this.importExportSettingsToolStripMenuItem_Click);
             // 
@@ -652,23 +669,6 @@
             this.gameVersionLabel.Size = new System.Drawing.Size(125, 18);
             this.gameVersionLabel.TabIndex = 40;
             this.gameVersionLabel.Text = "Game Version: ";
-            // 
-            // currentLauncherLinkLabel
-            // 
-            this.currentLauncherLinkLabel.AutoSize = true;
-            this.currentLauncherLinkLabel.BackColor = System.Drawing.Color.Transparent;
-            this.currentLauncherLinkLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.currentLauncherLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.currentLauncherLinkLabel.LinkColor = System.Drawing.Color.Black;
-            this.currentLauncherLinkLabel.Location = new System.Drawing.Point(7, 152);
-            this.currentLauncherLinkLabel.Name = "currentLauncherLinkLabel";
-            this.currentLauncherLinkLabel.Size = new System.Drawing.Size(326, 18);
-            this.currentLauncherLinkLabel.TabIndex = 41;
-            this.currentLauncherLinkLabel.TabStop = true;
-            this.currentLauncherLinkLabel.Text = "Launcher:  DMMGamePlayerFastLauncher";
-            this.toolTip.SetToolTip(this.currentLauncherLinkLabel, "Click to change launcher to be used.");
-            this.currentLauncherLinkLabel.VisitedLinkColor = System.Drawing.Color.Black;
-            this.currentLauncherLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.currentLauncherLinkLabel_LinkClicked);
             // 
             // MainForm
             // 
@@ -764,7 +764,7 @@
         private System.Windows.Forms.Label menuButtonLabel;
         private System.Windows.Forms.ContextMenuStrip settingsMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem editIgnoredFilesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem setDMMGameFastLauncherToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem setLauncherToolStripMenuItem;
         private System.Windows.Forms.Label versionLabel;
         private System.Windows.Forms.ToolStripMenuItem importExportSettingsToolStripMenuItem;
         private System.Windows.Forms.Label tlPatchVersionsLabel;

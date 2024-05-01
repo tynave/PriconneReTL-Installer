@@ -503,10 +503,8 @@ namespace PriconneReTLInstaller
 
         private void auButton_Click(object sender, EventArgs e)
         {
-            // AUForm auForm = new AUForm();
-            // auForm.ShowDialog();
-            AUSettingForm aUSettingForm = new AUSettingForm();
-            aUSettingForm.ShowDialog();
+            AUForm auForm = new AUForm();
+            auForm.ShowDialog();
         }
 
         private void settingsButton_EnabledChanged(object sender, EventArgs e)
@@ -525,10 +523,10 @@ namespace PriconneReTLInstaller
             currentLauncherLinkLabel.Text = "Launcher: " + (Settings.Default.selectedLauncher == 0 ? "DMMGamePlayer" : "DMMGamePlayerFastLauncher");
         }
 
-        private void setDMMGameFastLauncherToolStripMenuItem_Click(object sender, EventArgs e)
+        private void launcherSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FastLauncherForm fastLauncherForm = new FastLauncherForm();
-            fastLauncherForm.ShowDialog();
+            LauncherForm LauncherForm = new LauncherForm();
+            LauncherForm.ShowDialog();
         }
 
         private void importExportSettingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -539,8 +537,8 @@ namespace PriconneReTLInstaller
 
         private void currentLauncherLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            FastLauncherForm fastLauncherForm = new FastLauncherForm();
-            fastLauncherForm.ShowDialog();
+            LauncherForm LauncherForm = new LauncherForm();
+            LauncherForm.ShowDialog();
         }
     }
 }
