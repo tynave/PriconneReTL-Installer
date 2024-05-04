@@ -31,6 +31,7 @@ namespace PriconneReTLInstaller
         private int versioncompare;
         private CheckBox[] exclusiveCheckboxes;
         private CheckBox[] operationCheckboxes;
+        private CheckBox[] optionCheckboxes;
         private Button[] menuButtons;
 
         public MainForm()
@@ -68,6 +69,14 @@ namespace PriconneReTLInstaller
             pictureBox1.MouseDown += OnMouseDown;
             pictureBox1.MouseMove += OnMouseMove;
             pictureBox1.MouseUp += OnMouseUp;
+
+            operationsPanel.MouseDown += OnMouseDown;
+            operationsPanel.MouseMove += OnMouseMove;
+            operationsPanel.MouseUp += OnMouseUp;
+
+            optionsPanel.MouseDown += OnMouseDown;
+            optionsPanel.MouseMove += OnMouseMove;
+            optionsPanel.MouseUp += OnMouseUp;
 
             this.Layout += OnOperationLabelChange;
             operationLabel.TextChanged += OnOperationLabelChange;
@@ -115,6 +124,22 @@ namespace PriconneReTLInstaller
             }
         }
 
+        void DisableCheckboxes(CheckBox[] checkboxes)
+        {
+            foreach (CheckBox checkBox in checkboxes)
+            {
+                checkBox.Enabled = false;
+            }
+        }
+
+        void EnableCheckboxes(CheckBox[] checkboxes)
+        {
+            foreach (CheckBox checkBox in checkboxes)
+            {
+                checkBox.Enabled = true;
+            }
+        }
+
         private void InitializeUI()
         {
             string fastLauncherLink = Settings.Default.fastLauncherLink;
@@ -127,7 +152,6 @@ namespace PriconneReTLInstaller
 
             removeConfigCheckBox.Enabled = false;
             removeIgnoredCheckBox.Enabled = false;
-            // removeInteropsCheckBox.Enabled = false;
 
             (priconnePath, priconnePathValid, gameVersion) = installer.GetGamePath();
             gamePathLinkLabel.Text = priconnePath.Length < 55 ? "Game Path: " + priconnePath : "Game Path: " + priconnePath.Substring(0, 52) + "...";
@@ -147,6 +171,7 @@ namespace PriconneReTLInstaller
 
             exclusiveCheckboxes = new CheckBox[] { installCheckBox, reinstallCheckBox, uninstallCheckBox };
             operationCheckboxes = new CheckBox[] { installCheckBox, reinstallCheckBox, uninstallCheckBox, launchCheckBox };
+            optionCheckboxes = new CheckBox[] { removeConfigCheckBox, removeIgnoredCheckBox };
             menuButtons = new Button[] { exitButton, minimizeButton, aboutButton, auButton, settingsButton };
 
 
@@ -184,6 +209,9 @@ namespace PriconneReTLInstaller
             UpdateModeDescription();
 
             helper.PopulateConfigChecklistbox(configListBox);
+
+            removeConfigCheckBox.Enabled = false;
+            removeIgnoredCheckBox.Enabled = false;
         }
 
         private void UpdateModeDescription()
@@ -397,10 +425,14 @@ namespace PriconneReTLInstaller
             settingsButton.Enabled = false;
             startButton.BackgroundImage = Resources.start_working;
             logger.Log("Starting selected operation(s)...", "info");
+            DisableCheckboxes(operationCheckboxes);
+            DisableCheckboxes(optionCheckboxes);
         }
 
         private void OnProcessFinish()
         {
+            EnableCheckboxes(operationCheckboxes);
+            EnableCheckboxes(optionCheckboxes);
             startButton.Enabled = true;
             auButton.Enabled = true; 
             settingsButton.Enabled= true;   

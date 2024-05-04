@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
@@ -141,6 +142,36 @@ namespace HelperFunctions
         {
             MessageBox.Show($"There is currently a {type} process in progress.\nPlease wait for the operation to complete.", "Cannot Exit", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             e.Cancel = true;
+        }
+        public DialogResult UninstallReinstallNotification(bool uninstall, bool reinstall, bool removeConfig, bool removeIgnored, StringCollection configFilesSelected, StringCollection configFilesUnselected)
+        {
+            StringBuilder configFilesSelectedBuilder = new StringBuilder();
+            StringBuilder configFilesUnselectedBuilder = new StringBuilder();
+
+            foreach (string item in configFilesSelected) configFilesSelectedBuilder.AppendLine(item);
+            foreach (string item in configFilesUnselected) configFilesUnselectedBuilder.AppendLine(item);
+
+            string configFilesSelectedString = configFilesSelectedBuilder.ToString();
+            string configFilesUnselectedString = configFilesUnselectedBuilder.ToString();
+
+            string operationType = uninstall ? "uninstall" : "reinstall";
+            string ignoreNofitication = $"The files set in the ignore list WILL{(removeIgnored ? "" : " NOT")} BE removed.";
+            string noConfigRemove = "The config files WILL NOT BE removed.";
+            string configSelectedNotification = $"The following config file(s) WILL BE deleted: {configFilesSelectedString}";
+            string configUnselectedNotification = $"The following config file(s) WILL NOT BE deleted: {configFilesUnselectedString}";
+
+            string notificationText = $"Are you sure you want to {operationType} the translation patch?\n\n{ignoreNofitication}";
+
+            if (!removeConfig || configFilesSelectedString.Length == 0) notificationText += $"\n\n{noConfigRemove}";
+            else
+            {
+                if (removeConfig && configFilesSelectedString.Length != 0) notificationText += $"\n\n{configSelectedNotification}";
+                if (removeConfig && configFilesUnselectedString.Length != 0) notificationText += $"\n\n{configUnselectedNotification}";
+            }
+
+            DialogResult result = MessageBox.Show(notificationText, "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+            return result;
         }
         public bool IsGameRunning()
         {

@@ -7,6 +7,7 @@ using PriconneReTLInstaller.Properties;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Drawing;
@@ -18,9 +19,11 @@ using System.Net;
 using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Runtime.Remoting.Messaging;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 // using IWshRuntimeLibrary;
 
 namespace InstallerFunctions
@@ -478,15 +481,25 @@ namespace InstallerFunctions
             int versioncompare = localVersion.CompareTo(latestVersion);
 
             StringCollection configFilesSelected = new StringCollection();
+            StringCollection configFilesUnSelected = new StringCollection();
 
-            foreach (var item in configListBox.CheckedItems)
+            foreach (var item in configListBox.Items)
             {
-                // Convert each item to a string and add it to the StringCollection
-                configFilesSelected.Add(item.ToString());
+                int index = configListBox.Items.IndexOf(item);
+                if (configListBox.GetItemChecked(index)) configFilesSelected.Add(item.ToString());
+                else configFilesUnSelected.Add(item.ToString());
             }
 
             try
             {
+
+                if (uninstall || reinstall)
+                {
+                    DialogResult result = helper.UninstallReinstallNotification(uninstall, reinstall, removeConfig, removeIgnored, configFilesSelected, configFilesUnSelected);
+
+                    if (result == DialogResult.No) return;
+                }
+
                 ProcessStart?.Invoke();
 
                 if (uninstall)

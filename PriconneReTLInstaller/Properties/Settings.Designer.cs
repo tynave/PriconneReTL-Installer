@@ -46,7 +46,6 @@ namespace PriconneReTLInstaller.Properties {
         [global::System.Configuration.DefaultSettingValueAttribute(@"<?xml version=""1.0"" encoding=""utf-16""?>
 <ArrayOfString xmlns:xsd=""http://www.w3.org/2001/XMLSchema"" xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"">
   <string>BepInEx/config/AutoTranslatorConfig.ini</string>
-  <string>BepInEx/config/BepInEx.cfg</string>
   <string>BepInEx/config/PriconneTLFixup.cfg</string>
 </ArrayOfString>")]
         public global::System.Collections.Specialized.StringCollection configFiles {
