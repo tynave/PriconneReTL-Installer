@@ -497,6 +497,7 @@
     <Content Include="Resources\wiki\launch.png" />
     <Content Include="Resources\wiki\launchersettingsui.png" />
     <Content Include="Resources\wiki\noupdate.png" />
+    <Content Include="Resources\wiki\optionsdisabled.png" />
     <Content Include="Resources\wiki\optionsenabled.png" />
     <Content Include="Resources\wiki\overview.png" />
     <Content Include="Resources\wiki\progress.png" />
