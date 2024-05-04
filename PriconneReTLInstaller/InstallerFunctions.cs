@@ -71,10 +71,10 @@ namespace InstallerFunctions
                     {
                         if (content.productId == "priconner")
                         {
-                            // priconnePath = content.detail.path;
+                            priconnePath = content.detail.path;
                             gameVersion = content.detail.version;
 
-                            priconnePath = "C:\\Test"; // -- set fixed path for testing purposes
+                            //priconnePath = "C:\\Test"; // -- set fixed path for testing purposes
                             Log?.Invoke("Found Princess Connect Re:Dive in " + priconnePath, "info", false);
                             return (priconnePath, priconnePathValid = true, gameVersion);
                         }
@@ -522,11 +522,6 @@ namespace InstallerFunctions
 
                 if (install)
                 {
-                    if (versioncompare == 0)
-                    {
-                        Log?.Invoke("You already have the latest version installed!", "success", true);
-                        return;
-                    }
 
                     if (versioncompare < 0)
                     {

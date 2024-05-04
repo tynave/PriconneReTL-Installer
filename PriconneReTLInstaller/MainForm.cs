@@ -184,7 +184,7 @@ namespace PriconneReTLInstaller
 
             UpdateUI();
 
-            if (versioncompare == 0) logger.Log("You already have the latest version installed!", "success", true);
+            if (versioncompare == 0) logger.Log("You already have the latest translation patch version installed!", "success", true);
 
             startButton.Enabled = helper.isAnyChecked(operationCheckboxes);
 

@@ -156,8 +156,8 @@
             this.importExportDescriptionLabel.Size = new System.Drawing.Size(395, 91);
             this.importExportDescriptionLabel.TabIndex = 17;
             this.importExportDescriptionLabel.Text = "You can import / export the following user settings:\r\n- The state of the Launch G" +
-    "ame checkbox\r\n- The list of ignored files\r\n- The shortcut to the DMMGamePlayerFa" +
-    "stLauncher\r\n";
+    "ame checkbox\r\n- The selected launcher\r\n- The list of ignored files\r\n- The shortc" +
+    "ut to the DMMGamePlayerFastLauncher\r\n";
             // 
             // IEForm
             // 
