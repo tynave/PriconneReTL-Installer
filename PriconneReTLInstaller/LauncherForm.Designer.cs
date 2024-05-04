@@ -35,7 +35,7 @@
             this.shortcutPathLabel = new System.Windows.Forms.Label();
             this.launcherComboBox = new System.Windows.Forms.ComboBox();
             this.setFastlauncherLinkLabel = new System.Windows.Forms.Label();
-            this.notInstalledLabel = new System.Windows.Forms.Label();
+            this.dmmfastlauncherLabel = new System.Windows.Forms.Label();
             this.saveButton = new System.Windows.Forms.Button();
             this.launcherLabel = new System.Windows.Forms.Label();
             this.currentLauncherLabel = new System.Windows.Forms.Label();
@@ -123,17 +123,17 @@
             this.setFastlauncherLinkLabel.TabIndex = 35;
             this.setFastlauncherLinkLabel.Text = "Set DMMGamePlayerFastLauncher shortcut:";
             // 
-            // notInstalledLabel
+            // dmmfastlauncherLabel
             // 
-            this.notInstalledLabel.BackColor = System.Drawing.Color.Transparent;
-            this.notInstalledLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.notInstalledLabel.ForeColor = System.Drawing.Color.Red;
-            this.notInstalledLabel.Location = new System.Drawing.Point(343, 35);
-            this.notInstalledLabel.Name = "notInstalledLabel";
-            this.notInstalledLabel.Size = new System.Drawing.Size(226, 35);
-            this.notInstalledLabel.TabIndex = 36;
-            this.notInstalledLabel.Text = "DMMGamePlayerFastLauncher not installed!";
-            this.notInstalledLabel.Visible = false;
+            this.dmmfastlauncherLabel.BackColor = System.Drawing.Color.Transparent;
+            this.dmmfastlauncherLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.dmmfastlauncherLabel.ForeColor = System.Drawing.Color.Red;
+            this.dmmfastlauncherLabel.Location = new System.Drawing.Point(12, 110);
+            this.dmmfastlauncherLabel.Name = "dmmfastlauncherLabel";
+            this.dmmfastlauncherLabel.Size = new System.Drawing.Size(570, 22);
+            this.dmmfastlauncherLabel.TabIndex = 36;
+            this.dmmfastlauncherLabel.Text = "DMMGamePlayerFastLauncher not installed! Falling back to DMMGamePlayer!";
+            this.dmmfastlauncherLabel.Visible = false;
             // 
             // saveButton
             // 
@@ -230,11 +230,10 @@
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.shortcutPathLabel);
             this.panel2.Controls.Add(this.shortcutLabel);
-            this.panel2.Controls.Add(this.notInstalledLabel);
             this.panel2.Controls.Add(this.setFastlauncherLinkLabel);
             this.panel2.Controls.Add(this.shortcutRemoveButton);
             this.panel2.Controls.Add(this.shortcutAddButton);
-            this.panel2.Location = new System.Drawing.Point(13, 114);
+            this.panel2.Location = new System.Drawing.Point(12, 135);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(570, 112);
             this.panel2.TabIndex = 41;
@@ -244,10 +243,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.bg2;
-            this.ClientSize = new System.Drawing.Size(640, 238);
+            this.ClientSize = new System.Drawing.Size(640, 261);
             this.ControlBox = false;
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.dmmfastlauncherLabel);
             this.Controls.Add(this.backButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "LauncherForm";
@@ -269,7 +269,7 @@
         private System.Windows.Forms.Label shortcutPathLabel;
         private System.Windows.Forms.ComboBox launcherComboBox;
         private System.Windows.Forms.Label setFastlauncherLinkLabel;
-        private System.Windows.Forms.Label notInstalledLabel;
+        private System.Windows.Forms.Label dmmfastlauncherLabel;
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Label launcherLabel;
         private System.Windows.Forms.Label currentLauncherLabel;

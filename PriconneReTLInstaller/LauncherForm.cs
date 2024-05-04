@@ -64,7 +64,7 @@ namespace PriconneReTLInstaller
                     Settings.Default.Save();
                 }
 
-                notInstalledLabel.Visible = true;
+                dmmfastlauncherLabel.Visible = true;
                 shortcutAddButton.Enabled = false;
                 shortcutRemoveButton.Enabled = false;
             }
