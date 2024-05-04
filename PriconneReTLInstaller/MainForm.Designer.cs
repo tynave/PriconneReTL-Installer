@@ -327,7 +327,7 @@
             this.removeConfigCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.removeConfigCheckBox.Image = global::PriconneReTLInstaller.Properties.Resources.check_empty_24x24_2;
             this.removeConfigCheckBox.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.removeConfigCheckBox.Location = new System.Drawing.Point(8, 50);
+            this.removeConfigCheckBox.Location = new System.Drawing.Point(7, 50);
             this.removeConfigCheckBox.Name = "removeConfigCheckBox";
             this.removeConfigCheckBox.Size = new System.Drawing.Size(218, 36);
             this.removeConfigCheckBox.TabIndex = 17;
@@ -392,8 +392,9 @@
             // 
             this.toolTip.AutomaticDelay = 1000;
             this.toolTip.AutoPopDelay = 10000;
-            this.toolTip.InitialDelay = 500;
-            this.toolTip.ReshowDelay = 200;
+            this.toolTip.InitialDelay = 1000;
+            this.toolTip.IsBalloon = true;
+            this.toolTip.ReshowDelay = 500;
             // 
             // gamePathLinkLabel
             // 
@@ -425,7 +426,7 @@
             this.latestVersionLinkLabel.TabIndex = 23;
             this.latestVersionLinkLabel.TabStop = true;
             this.latestVersionLinkLabel.Text = "Latest Release: YYYYMMDDa";
-            this.toolTip.SetToolTip(this.latestVersionLinkLabel, "Click to open latest release on GitHub.");
+            this.toolTip.SetToolTip(this.latestVersionLinkLabel, "Click to open latest TL patch release on GitHub.");
             this.latestVersionLinkLabel.VisitedLinkColor = System.Drawing.Color.Black;
             this.latestVersionLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.latestReleaseLinkLabel_LinkClicked);
             // 
@@ -531,19 +532,19 @@
             this.wikiMenuItem,
             this.aboutMenuItem});
             this.helpMenuStrip.Name = "contextMenuStrip1";
-            this.helpMenuStrip.Size = new System.Drawing.Size(181, 70);
+            this.helpMenuStrip.Size = new System.Drawing.Size(168, 48);
             // 
             // wikiMenuItem
             // 
             this.wikiMenuItem.Name = "wikiMenuItem";
-            this.wikiMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.wikiMenuItem.Size = new System.Drawing.Size(167, 22);
             this.wikiMenuItem.Text = "GitHub Wiki page";
             this.wikiMenuItem.Click += new System.EventHandler(this.helpMenuItem_Click);
             // 
             // aboutMenuItem
             // 
             this.aboutMenuItem.Name = "aboutMenuItem";
-            this.aboutMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutMenuItem.Size = new System.Drawing.Size(167, 22);
             this.aboutMenuItem.Text = "About";
             this.aboutMenuItem.Click += new System.EventHandler(this.aboutMenuItem_Click);
             // 
