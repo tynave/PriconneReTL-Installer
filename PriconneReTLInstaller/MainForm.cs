@@ -157,14 +157,11 @@ namespace PriconneReTLInstaller
             gamePathLinkLabel.Text = priconnePath.Length < 55 ? "Game Path: " + priconnePath : "Game Path: " + priconnePath.Substring(0, 52) + "...";
             gameVersionLabel.Text = "Game Version: " + gameVersion;
 
-            // if (priconnePathValid) helper.PopulateLauncherComboBox(launcherComboBox);
-
             helper.LogFastLauncherShortcut();
 
             launchCheckBox.Enabled = priconnePathValid;
             launchCheckBox.Checked = Settings.Default.launchState;
             operationsPanel.Height = launchCheckBox.Checked ? 184 : 154;
-            // operationsPanel.Height = 154;
 
             (latestVersion, latestVersionValid, assetLink) = installer.GetLatestRelease(patchgithubAPI);
             latestVersionLinkLabel.Text = "Latest Release: " + (latestVersionValid ? latestVersion : "ERROR!");
@@ -512,7 +509,6 @@ namespace PriconneReTLInstaller
 
         private void launchCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            // launcherComboBox.Visible = launchCheckBox.Checked;
             operationsPanel.Height = launchCheckBox.Checked ? 184 : 154; 
             Settings.Default.launchState = launchCheckBox.Checked;
         }

@@ -234,8 +234,6 @@ namespace HelperFunctions
                 comboBox.Items.Add("DMMGamePlayerFastLauncher");
                 Log?.Invoke("Found DMMGamePlayerFastLauncher!", "info", false);
             } else Log?.Invoke("DMMGamePlayerFastLauncher not installed!", "info", false);
-
-            // if (comboBox.Items.Count > 0) comboBox.SelectedIndex = IsFastLauncherInstalled() ? 1 : 0;
         }
         public void PopulateConfigChecklistbox(CheckedListBox checkedListBox)
         {
