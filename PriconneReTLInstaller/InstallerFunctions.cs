@@ -71,7 +71,7 @@ namespace InstallerFunctions
                             priconnePath = content.detail.path;
                             gameVersion = content.detail.version;
 
-                            // priconnePath = "C:\\Test"; // -- set fixed path for testing purposes
+                            // riconnePath = "C:\\Test"; // -- set fixed path for testing purposes
                             Log?.Invoke("Found Princess Connect Re:Dive in " + priconnePath, "info", false);
                             return (priconnePath, priconnePathValid = true, gameVersion);
                         }
