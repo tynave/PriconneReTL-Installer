@@ -53,9 +53,6 @@ namespace InstallerFunctions
         public event Action DisableStart;
         public event Action ProcessStart;
         public event Action ProcessFinish;
-        public event Action ProcessSuccess;
-        public event Action ProcessFail;
-        public event Func<string, Task> StartCountdown;
 
         public (string priconnePath, bool priconnePathValid, string gameVersion) GetGamePath()
         {

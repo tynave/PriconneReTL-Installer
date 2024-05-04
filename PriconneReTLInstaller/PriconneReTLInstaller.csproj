@@ -486,5 +486,18 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\wiki\appwindow.png" />
+    <Content Include="Resources\wiki\autoupdaterui.png" />
+    <Content Include="Resources\wiki\currentoperation.png" />
+    <Content Include="Resources\wiki\currentoperationtooltip.png" />
+    <Content Include="Resources\wiki\ignoreui.png" />
+    <Content Include="Resources\wiki\importexportui.png" />
+    <Content Include="Resources\wiki\launchersettingsui.png" />
+    <Content Include="Resources\wiki\optionsdisabled.png" />
+    <Content Include="Resources\wiki\optionsenabled.png" />
+    <Content Include="Resources\wiki\overview.png" />
+    <Content Include="Resources\wiki\updatedisabled.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
