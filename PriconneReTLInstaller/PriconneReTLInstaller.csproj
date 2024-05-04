@@ -501,6 +501,7 @@
     <Content Include="Resources\wiki\optionsenabled.png" />
     <Content Include="Resources\wiki\overview.png" />
     <Content Include="Resources\wiki\progress.png" />
+    <Content Include="Resources\wiki\removeconfig.png" />
     <Content Include="Resources\wiki\updatedisabled.png" />
     <Content Include="Resources\wiki\updateenabled.png" />
   </ItemGroup>
