@@ -487,6 +487,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\wiki\14reinstall.png" />
     <Content Include="Resources\wiki\appwindow.png" />
     <Content Include="Resources\wiki\autoupdaterui.png" />
     <Content Include="Resources\wiki\currentoperation.png" />
