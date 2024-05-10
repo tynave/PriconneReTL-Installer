@@ -430,7 +430,7 @@ namespace PriconneReTLInstaller
         {
             EnableCheckboxes(operationCheckboxes);
             EnableCheckboxes(optionCheckboxes);
-            startButton.Enabled = true;
+            startButton.Enabled = false;
             auButton.Enabled = true; 
             settingsButton.Enabled= true;   
             startButton.BackgroundImage = Resources.start_complete;
