@@ -434,12 +434,6 @@
     <None Include="Resources\install_button2.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\shortcutadd_button.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\shortcutadd_button_disabled.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\shortcutremove_button.png" />
   </ItemGroup>
   <ItemGroup>
@@ -450,9 +444,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\import_button.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\shortcutadd_button_lit.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shortcutremove_button_lit.png" />
@@ -504,6 +495,9 @@
     <None Include="Resources\kokkorowinnosquarenobg.gif" />
     <None Include="Resources\pecowinnosquarenobg.gif" />
     <None Include="Resources\kyaruwinnosquarenobg.gif" />
+    <None Include="Resources\shortcutadd_button.png" />
+    <None Include="Resources\shortcutadd_button_disabled.png" />
+    <None Include="Resources\shortcutadd_button_lit.png" />
     <Content Include="Resources\wiki\14reinstall.png" />
     <Content Include="Resources\wiki\appwindow.png" />
     <Content Include="Resources\wiki\autoupdaterui.png" />

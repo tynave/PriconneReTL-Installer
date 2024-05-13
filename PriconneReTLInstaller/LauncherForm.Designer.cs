@@ -36,9 +36,6 @@
             this.launcherComboBox = new System.Windows.Forms.ComboBox();
             this.setFastlauncherLinkLabel = new System.Windows.Forms.Label();
             this.dmmfastlauncherLabel = new System.Windows.Forms.Label();
-            this.saveButton = new System.Windows.Forms.Button();
-            this.launcherLabel = new System.Windows.Forms.Label();
-            this.currentLauncherLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.shortcutAddButton = new System.Windows.Forms.Button();
             this.shortcutRemoveButton = new System.Windows.Forms.Button();
@@ -128,62 +125,20 @@
             this.dmmfastlauncherLabel.BackColor = System.Drawing.Color.Transparent;
             this.dmmfastlauncherLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.dmmfastlauncherLabel.ForeColor = System.Drawing.Color.Red;
-            this.dmmfastlauncherLabel.Location = new System.Drawing.Point(12, 110);
+            this.dmmfastlauncherLabel.Location = new System.Drawing.Point(7, 62);
             this.dmmfastlauncherLabel.Name = "dmmfastlauncherLabel";
             this.dmmfastlauncherLabel.Size = new System.Drawing.Size(570, 22);
             this.dmmfastlauncherLabel.TabIndex = 36;
             this.dmmfastlauncherLabel.Text = "DMMGamePlayerFastLauncher not installed! Falling back to DMMGamePlayer!";
             this.dmmfastlauncherLabel.Visible = false;
             // 
-            // saveButton
-            // 
-            this.saveButton.BackColor = System.Drawing.Color.Transparent;
-            this.saveButton.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.save_button_disabled;
-            this.saveButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.saveButton.Enabled = false;
-            this.saveButton.FlatAppearance.BorderSize = 0;
-            this.saveButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.saveButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.saveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.saveButton.Location = new System.Drawing.Point(351, 12);
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(152, 48);
-            this.saveButton.TabIndex = 37;
-            this.saveButton.UseVisualStyleBackColor = false;
-            this.saveButton.EnabledChanged += new System.EventHandler(this.saveButton_EnabledChanged);
-            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
-            // 
-            // launcherLabel
-            // 
-            this.launcherLabel.AutoSize = true;
-            this.launcherLabel.BackColor = System.Drawing.Color.Transparent;
-            this.launcherLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.launcherLabel.Location = new System.Drawing.Point(11, 61);
-            this.launcherLabel.Name = "launcherLabel";
-            this.launcherLabel.Size = new System.Drawing.Size(127, 16);
-            this.launcherLabel.TabIndex = 38;
-            this.launcherLabel.Text = "Current launcher set:";
-            // 
-            // currentLauncherLabel
-            // 
-            this.currentLauncherLabel.AutoSize = true;
-            this.currentLauncherLabel.BackColor = System.Drawing.Color.Transparent;
-            this.currentLauncherLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.currentLauncherLabel.Location = new System.Drawing.Point(144, 61);
-            this.currentLauncherLabel.Name = "currentLauncherLabel";
-            this.currentLauncherLabel.Size = new System.Drawing.Size(115, 16);
-            this.currentLauncherLabel.TabIndex = 39;
-            this.currentLauncherLabel.Text = "DMMGamePlayer";
-            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.setLauncherLabel);
-            this.panel1.Controls.Add(this.saveButton);
-            this.panel1.Controls.Add(this.launcherLabel);
-            this.panel1.Controls.Add(this.currentLauncherLabel);
             this.panel1.Controls.Add(this.launcherComboBox);
+            this.panel1.Controls.Add(this.dmmfastlauncherLabel);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(571, 90);
@@ -233,7 +188,7 @@
             this.panel2.Controls.Add(this.setFastlauncherLinkLabel);
             this.panel2.Controls.Add(this.shortcutRemoveButton);
             this.panel2.Controls.Add(this.shortcutAddButton);
-            this.panel2.Location = new System.Drawing.Point(12, 135);
+            this.panel2.Location = new System.Drawing.Point(12, 108);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(570, 112);
             this.panel2.TabIndex = 41;
@@ -243,11 +198,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.bg2;
-            this.ClientSize = new System.Drawing.Size(640, 261);
+            this.ClientSize = new System.Drawing.Size(640, 233);
             this.ControlBox = false;
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.dmmfastlauncherLabel);
             this.Controls.Add(this.backButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "LauncherForm";
@@ -270,9 +224,6 @@
         private System.Windows.Forms.ComboBox launcherComboBox;
         private System.Windows.Forms.Label setFastlauncherLinkLabel;
         private System.Windows.Forms.Label dmmfastlauncherLabel;
-        private System.Windows.Forms.Button saveButton;
-        private System.Windows.Forms.Label launcherLabel;
-        private System.Windows.Forms.Label currentLauncherLabel;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button shortcutAddButton;
         private System.Windows.Forms.Button shortcutRemoveButton;
