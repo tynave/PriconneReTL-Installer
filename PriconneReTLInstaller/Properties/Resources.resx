@@ -208,9 +208,6 @@
   <data name="install_button_disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\install_button_disabled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="_lock" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\lock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="add_button" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\add_button.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -294,5 +291,32 @@
   </data>
   <data name="NunitoBold" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\NunitoBold.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="kokodance" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\kokodance.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="kokorun" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\kokorun.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="kokorunfast" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\kokorunfast.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="kyarun" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\kyarun.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pecorun" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pecorun.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="kokkorowinnosquarenobg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\kokkorowinnosquarenobg.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="kyaruwinnosquarenobg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\kyaruwinnosquarenobg.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="pecowinnosquarenobg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\pecowinnosquarenobg.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_lock" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\lock.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

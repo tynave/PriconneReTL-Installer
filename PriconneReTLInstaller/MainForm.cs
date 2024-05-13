@@ -8,6 +8,7 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -88,6 +89,27 @@ namespace PriconneReTLInstaller
 
         // Functions
 
+        private void CheckForInstallerUpdate()
+        {
+            string version;
+            bool versionValid;
+
+            (version, versionValid) = installer.GetLatestInstallerRelease();
+
+            if (versionValid && (String.Format(Application.ProductVersion)) != version)
+            {
+                DialogResult result = MessageBox.Show("New PriconneReTL-Installer version available!" +
+                    $"\n\nCurrently used version: {String.Format(Application.ProductVersion)}" +
+                    $"\nLatest available version: {version}" +
+                    "\n\nJump to the latest release on GitHub?", "New Installer Version Available!", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                if (result == DialogResult.Yes)
+                {
+                    Process.Start("https://github.com/tynave/PriconneReTL-Installer/releases/latest");
+                }
+                else return;
+            }
+        }
+
         void SubscribeToCheckBoxes(Control.ControlCollection controls)
         {
             foreach (Control control in controls)
@@ -163,7 +185,7 @@ namespace PriconneReTLInstaller
             launchCheckBox.Checked = Settings.Default.launchState;
             operationsPanel.Height = launchCheckBox.Checked ? 184 : 154;
 
-            (latestVersion, latestVersionValid, assetLink) = installer.GetLatestRelease(patchgithubAPI);
+            (latestVersion, latestVersionValid, assetLink) = installer.GetLatestPatchRelease(patchgithubAPI);
             latestVersionLinkLabel.Text = "Latest Release: " + (latestVersionValid ? latestVersion : "ERROR!");
 
             exclusiveCheckboxes = new CheckBox[] { installCheckBox, reinstallCheckBox, uninstallCheckBox };
@@ -187,12 +209,11 @@ namespace PriconneReTLInstaller
             if (versioncompare == 0) logger.Log("You already have the latest translation patch version installed!", "success", true);
 
             startButton.Enabled = helper.isAnyChecked(operationCheckboxes);
-
-
+            showInstallerUpdateNotificationToolStripMenuItem.Checked = Settings.Default.installerUpdateNotification;
         }
         private void UpdateUI()
         {
-            (localVersion, localVersionValid) = installer.GetPatchLocalVersion();
+            (localVersion, localVersionValid) = installer.GetLocalPatchVersion();
 
             installCheckBox.Text = localVersionValid ? " Update" : " Install";
             localVersionLabel.Text = "Current (Local) Version: " + localVersion;
@@ -456,6 +477,7 @@ namespace PriconneReTLInstaller
         {
             InitializeUI();
             SetToolTips();
+            
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -531,8 +553,7 @@ namespace PriconneReTLInstaller
 
         private void auButton_Click(object sender, EventArgs e)
         {
-            AUForm auForm = new AUForm();
-            auForm.ShowDialog();
+            helper.CreateAutoUpdaterShortcut(priconnePath);
         }
 
         private void settingsButton_EnabledChanged(object sender, EventArgs e)
@@ -567,6 +588,22 @@ namespace PriconneReTLInstaller
         {
             LauncherForm LauncherForm = new LauncherForm();
             LauncherForm.ShowDialog();
+        }
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            if (Settings.Default.installerUpdateNotification) CheckForInstallerUpdate();
+        }
+
+        private void showInstallerUpdateNotificationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void showInstallerUpdateNotificationToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.installerUpdateNotification = showInstallerUpdateNotificationToolStripMenuItem.Checked;
+            Settings.Default.Save();
         }
     }
 }

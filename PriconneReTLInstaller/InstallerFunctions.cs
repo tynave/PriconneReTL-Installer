@@ -21,10 +21,10 @@ using System.Net.NetworkInformation;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
-// using IWshRuntimeLibrary;
 
 namespace InstallerFunctions
 {
@@ -48,11 +48,14 @@ namespace InstallerFunctions
         private bool extractSuccess = true;
         private bool removeProgress = false;
         public event Action<double, double> DownloadProgress;
+        public event Action<Image> ProgressPictureChange;
         public event Action<string, string, bool> Log;
         public event Action<string> ErrorLog;
         public event Action DisableStart;
         public event Action ProcessStart;
         public event Action ProcessFinish;
+        public event Action ProcessError;
+
 
         public (string priconnePath, bool priconnePathValid, string gameVersion) GetGamePath()
         {
@@ -68,10 +71,10 @@ namespace InstallerFunctions
                     {
                         if (content.productId == "priconner")
                         {
-                            priconnePath = content.detail.path;
-                            gameVersion = content.detail.version;
+                            // priconnePath = content.detail.path;
+                            // gameVersion = content.detail.version;
 
-                            // priconnePath = "C:\\Test"; // -- set fixed path for testing purposes
+                            priconnePath = "C:\\Test"; // -- set fixed path for testing purposes
                             Log?.Invoke("Found Princess Connect Re:Dive in " + priconnePath, "info", false);
                             return (priconnePath, priconnePathValid = true, gameVersion);
                         }
@@ -94,13 +97,14 @@ namespace InstallerFunctions
                 return (priconnePath = "ERROR!", priconnePathValid = false, gameVersion = "ERROR!");
             }
         }
-        public (string localVersion, bool localVersionValid) GetPatchLocalVersion()
+        public (string localVersion, bool localVersionValid) GetLocalPatchVersion()
         {
             try
             {
 
                 if (!priconnePathValid)
                 {
+                    ErrorLog?.Invoke("Game path not valid, cannot determine local version!");
                     return (localVersion = "Unable to determine!", localVersionValid = false);
                 }
 
@@ -108,6 +112,7 @@ namespace InstallerFunctions
 
                 if (!File.Exists(versionFilePath))
                 {
+                    ErrorLog?.Invoke("Version file not found, cannot determine local version!");
                     return (localVersion = "None", localVersionValid = false);
                 }
                 string rawVersionFile = File.ReadAllText(versionFilePath);
@@ -115,9 +120,11 @@ namespace InstallerFunctions
 
                 if (match == null || !match.Success)
                 {
+                    ErrorLog?.Invoke("Game version invalid, cannot determine local version!");
                     return (localVersion = "Invalid", localVersionValid = false);
                 }
                 localVersion = match.Value;
+                Log?.Invoke($"Found TL patch version {localVersion} installed!", "info", false);
                 return (localVersion, localVersionValid = true);
 
             }
@@ -127,7 +134,6 @@ namespace InstallerFunctions
                 return (localVersion = "ERROR!", localVersionValid = false);
             }
         }
-
         public (string localVersion, bool localVersionValid) GetAULocalVersion(string priconnePath, string filename)
         {
             string filePath = Path.Combine(priconnePath, "BepInEx", "patchers", "PriconneReTLAutoUpdater", filename);
@@ -142,7 +148,7 @@ namespace InstallerFunctions
             string trimmedVersion = string.Join(".", versionParts.Take(3));
             return (trimmedVersion, true);
         }
-        public (string latestVersion, bool latestVersionValid, string assetLink) GetLatestRelease(string githubAPI)
+        public (string latestVersion, bool latestVersionValid, string assetLink) GetLatestPatchRelease(string githubAPI)
         {
  
             try
@@ -165,12 +171,35 @@ namespace InstallerFunctions
             }
         }
 
-        public async Task DownloadFiles(string assetLink)
+        public (string version, bool versionValid) GetLatestInstallerRelease()
+        {
+
+            try
+            {
+                string releaseUrl = "https://api.github.com/repos/tynave/PriconneReTL-Installer/releases/latest";
+                using (WebClient client = new WebClient())
+                {
+                    client.Headers.Add("User-Agent", "PriconneReTLInstaller");
+                    string response = client.DownloadString(releaseUrl);
+                    dynamic releaseJson = JsonConvert.DeserializeObject(response);
+                    string version = releaseJson.tag_name;
+                    return (version, true);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLog?.Invoke("Error getting installer release: " + ex.Message);
+                return (null, false);
+            }
+        }
+
+        public async Task DownloadPatchFiles(string assetLink)
         {
 
             try
             {
                 Log?.Invoke("Downloading compressed files...", "info", true);
+                ProgressPictureChange?.Invoke(Resources.pecorun);
 
                 using (HttpClient client = new HttpClient())
                 {
@@ -206,6 +235,7 @@ namespace InstallerFunctions
             catch (Exception ex)
             {
                 ErrorLog?.Invoke("Error downloading files: " + ex.Message);
+                ProgressPictureChange?.Invoke(null);
                 downloadSuccess = false;
             }
         }
@@ -216,11 +246,11 @@ namespace InstallerFunctions
 
             try
             {
-
                 int counter = 0;
                 using (var zip = ZipFile.OpenRead(tempFile))
                 {
                     Log?.Invoke("Extracting files to game folder...", "add", true);
+                    ProgressPictureChange?.Invoke(Resources.kokorun);
 
                     // Keep config files if Reinstall is selected or config files already present
                     string[] ignoreFiles = helper.SetIgnoreFiles(priconnePath, addconfig: helper.IsConfigPresent(priconnePath));
@@ -232,6 +262,7 @@ namespace InstallerFunctions
 
                         Log?.Invoke("Extracting: " + entry.FullName, "add", false);
                         DownloadProgress?.Invoke(counter, zip.Entries.Count);
+                        //DownloadProgressAutoUpdater?.Invoke(counter, zip.Entries.Count, Resources.kokkorowinnosquarenobg);
 
                         if (!ignoreFiles.Contains(fileName))
                         {
@@ -249,6 +280,7 @@ namespace InstallerFunctions
             catch (Exception ex)
             {
                 ErrorLog?.Invoke("Error extracting all files: " + ex.Message);
+                ProgressPictureChange?.Invoke(null);
                 extractSuccess = false;
             }
         }
@@ -374,6 +406,7 @@ namespace InstallerFunctions
                     }
 
                     Log?.Invoke(uninstall ? "Removing patch files..." : "Removing old patch files...", "remove", true);
+                    ProgressPictureChange?.Invoke(Resources.kyarun);
 
                     int counter = 0;
 
@@ -393,6 +426,7 @@ namespace InstallerFunctions
                         }
                         double percentage = ((double)counter / currentFiles.Length) * 100;
                         DownloadProgress?.Invoke(counter, currentFiles.Length);
+                        //DownloadProgressAutoUpdater?.Invoke(counter, currentFiles.Length, Resources.kyaruwinnosquarenobg);
 
                     }
 
@@ -411,6 +445,7 @@ namespace InstallerFunctions
                     removeSuccess = false;
                     removeProgress = false;
                     ErrorLog?.Invoke("Error removing files: " + ex.Message);
+                    ProgressPictureChange?.Invoke(null);
                 }
             });
         }
@@ -511,7 +546,7 @@ namespace InstallerFunctions
                 {
                     processName = "Reinstall";
                     Log?.Invoke("Reinstalling translation patch...", "info", true);
-                    await DownloadFiles(assetLink);
+                    await DownloadPatchFiles(assetLink);
                     await RemovePatchFiles(uninstall: uninstall, removeConfig: removeConfig, configList: configFilesSelected, removeIgnored: removeIgnored);
                     await ExtractPatchFiles();
                     return;
@@ -524,7 +559,7 @@ namespace InstallerFunctions
                     {
                         processName = "Update";
                         Log?.Invoke("Updating translation patch...", "info", true);
-                        await DownloadFiles(assetLink);
+                        await DownloadPatchFiles(assetLink);
                         await RemovePatchFiles(uninstall: uninstall, removeConfig: removeConfig, configList: configFilesSelected, removeIgnored: removeIgnored);
                         await ExtractPatchFiles();
                         return;
@@ -532,7 +567,7 @@ namespace InstallerFunctions
 
                     processName = "Install";
                     Log?.Invoke("Downloading and installing translation patch...", "info", true);
-                    await DownloadFiles(assetLink);
+                    await DownloadPatchFiles(assetLink);
                     await ExtractPatchFiles();
                     return;
                 }
@@ -577,17 +612,49 @@ namespace InstallerFunctions
                 }
             }
         }
+        public async void ProcessAutoUpdateOperation(string priconnePath, string localVersion, string latestVersion, string assetLink)
+        {
+            try
+            {
+                ProcessStart?.Invoke();
+
+                await DownloadPatchFiles(assetLink);
+                await RemovePatchFiles(uninstall: false, removeConfig: false, configList: Settings.Default.configFiles, removeIgnored: false);
+                await ExtractPatchFiles();
+                return;
+            }
+            catch (Exception ex)
+            {
+                ErrorLog?.Invoke("Error completing process: " + ex.Message);
+            }
+
+            finally
+            {
+                bool processSuccess = removeSuccess && downloadSuccess && extractSuccess;
+
+                if (!processSuccess)
+                {
+                    ErrorLog?.Invoke($"Update failed!");
+                    ProcessError?.Invoke();
+                }
+                else
+                {
+                    Log?.Invoke($"Update complete!", "success", true);
+                    ProcessFinish?.Invoke();
+                }
+            }
+        }
         public async void ProcessAuInstallOperation(string auAssetLink, string auAppAssetLink)
         {
             ProcessStart?.Invoke();
             try
             {
                 Log?.Invoke("Downloading and installing AutoUpdater...", "info", true);
-                await DownloadFiles(auAssetLink);
+                await DownloadPatchFiles(auAssetLink);
                 await ExtractAUFiles();
 
                 Log?.Invoke("Downloading and installing AutoUpdaterApp...", "info", true);
-                await DownloadFiles(auAppAssetLink);
+                await DownloadPatchFiles(auAppAssetLink);
                 await ExtractAUFiles();
             }
             catch (Exception ex)
@@ -627,8 +694,7 @@ namespace InstallerFunctions
                 ProcessFinish?.Invoke();
             }
         }
-
-        private bool StartDMMFastLauncher()
+        public bool StartDMMFastLauncher()
         {
             try
             {
@@ -644,7 +710,7 @@ namespace InstallerFunctions
                         return false; 
                     }
 
-                    Log?.Invoke("Starting game via DMMGamePlayerFastLauncher.", "info", false);
+                    Log?.Invoke("Starting game via DMMGamePlayerFastLauncher.", "info", true);
                     ProcessStartInfo startInfo = new ProcessStartInfo
                     {
                         FileName = fastLauncherLink,
@@ -652,6 +718,7 @@ namespace InstallerFunctions
                     Process.Start(startInfo);
                     return true;
                 }
+                Log?.Invoke("Cannot start game! DMMGamePlayerFastLauncher not found!", "error", true);
                 return false;
             }
             catch (Exception ex)
@@ -660,11 +727,11 @@ namespace InstallerFunctions
                 return false;
             }
         }
-        private bool StartDMMGamePlayer()
+        public bool StartDMMGamePlayer()
         {
             try
             {
-                Log?.Invoke("Starting game via DMMGamePlayer.", "info", false);
+                Log?.Invoke("Starting game via DMMGamePlayer.", "info", true);
                 Process.Start("dmmgameplayer://play/GCL/priconner/cl/win");
                 return true;
             }

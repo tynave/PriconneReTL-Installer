@@ -268,9 +268,7 @@ In order to be able to launch the game via the DMMGamePlayerFastLauncher, you ne
 
 If you have moved/removed/renamed the previously set shortcut, please re-set it. 
 
-Press the OK button to open the window for setting the shortcut. Press the Cancel button to abort the operation. 
-
-You can set the shortcut any time by clicking the ""Settings"" icon (scroll) and selecting the ""Launcher Settings"" option, or by clicking on the launcher's name below the ""Launch Game"" checkbox.")]
+You can set the shortcut in the Installer by clicking the ""Settings"" icon (scroll) and selecting the ""Launcher Settings"" option, or by clicking on the launcher's name below the ""Launch Game"" checkbox.")]
         public string cannotStartDMMFastLauncherError {
             get {
                 return ((string)(this["cannotStartDMMFastLauncherError"]));
@@ -286,6 +284,18 @@ You can set the shortcut any time by clicking the ""Settings"" icon (scroll) and
             }
             set {
                 this["selectedLauncher"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool installerUpdateNotification {
+            get {
+                return ((bool)(this["installerUpdateNotification"]));
+            }
+            set {
+                this["installerUpdateNotification"] = value;
             }
         }
     }

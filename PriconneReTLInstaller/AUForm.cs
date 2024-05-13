@@ -138,8 +138,8 @@ namespace PriconneReTLInstaller
         {
             (priconnePath, priconnePathValid, _) = installer.GetGamePath();
 
-            (auLatestVersion, auLatestVersionValid, auAssetLink) = installer.GetLatestRelease(auGithubApi);
-            (auAppLatestVersion, auAppLatestVersionValid,auAppAssetLink) = installer.GetLatestRelease(auAppGithubApi);
+            (auLatestVersion, auLatestVersionValid, auAssetLink) = installer.GetLatestPatchRelease(auGithubApi);
+            (auAppLatestVersion, auAppLatestVersionValid,auAppAssetLink) = installer.GetLatestPatchRelease(auAppGithubApi);
 
             UpdateUI();
         }

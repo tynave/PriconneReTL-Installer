@@ -381,12 +381,92 @@ namespace PriconneReTLInstaller.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap kokkorowinnosquarenobg {
+            get {
+                object obj = ResourceManager.GetObject("kokkorowinnosquarenobg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap kokodance {
+            get {
+                object obj = ResourceManager.GetObject("kokodance", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap kokorun {
+            get {
+                object obj = ResourceManager.GetObject("kokorun", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap kokorunfast {
+            get {
+                object obj = ResourceManager.GetObject("kokorunfast", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap kyarun {
+            get {
+                object obj = ResourceManager.GetObject("kyarun", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap kyaruwinnosquarenobg {
+            get {
+                object obj = ResourceManager.GetObject("kyaruwinnosquarenobg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] NunitoBold {
             get {
                 object obj = ResourceManager.GetObject("NunitoBold", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pecorun {
+            get {
+                object obj = ResourceManager.GetObject("pecorun", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pecowinnosquarenobg {
+            get {
+                object obj = ResourceManager.GetObject("pecowinnosquarenobg", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

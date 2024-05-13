@@ -87,7 +87,6 @@ namespace HelperFunctions
                 }
             }
         }
-
         public bool isAnyChecked(CheckBox[] checkboxes)
         {
             if (checkboxes != null)
@@ -137,7 +136,6 @@ namespace HelperFunctions
             if (isConfigPresent) Log?.Invoke("Found config file(s). Adding them to the list of ignored/excluded files.", "error", false);
             return isConfigPresent;
         }
-
         public void CannotExitNotification(FormClosingEventArgs e, string type)
         {
             MessageBox.Show($"There is currently a {type} process in progress.\nPlease wait for the operation to complete.", "Cannot Exit", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -181,7 +179,6 @@ namespace HelperFunctions
             // Check if any processes with the given name are running
             return processes.Length > 0;
         }
-
         public bool IsFastLauncherInstalled()
         {
             try
@@ -203,15 +200,8 @@ namespace HelperFunctions
 
             if (!File.Exists(fastLauncherLink))
             {
-                DialogResult result = MessageBox.Show(Settings.Default.cannotStartDMMFastLauncherError, "Cannot Start Game", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-
-                if (result == DialogResult.OK)
-                {
-                    LauncherForm launcherForm = new LauncherForm();
-                    launcherForm.ShowDialog();
-                    return false;
-                }
-                else if (result == DialogResult.Cancel) return false;
+                MessageBox.Show(Settings.Default.cannotStartDMMFastLauncherError, "Cannot Start Game", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
             }
             return true;
         }
@@ -222,7 +212,6 @@ namespace HelperFunctions
             if (fastLauncherShortcut == "") Log?.Invoke("DMMGamePlayerFastLauncher link not set!", "info", false);
             else Log?.Invoke("DMMGamePlayerFastLauncher link path: " + fastLauncherShortcut, "info", false);
         }
-
         public void PopulateLauncherComboBox(ComboBox comboBox)
         {
             
@@ -245,6 +234,47 @@ namespace HelperFunctions
                 checkedListBox.SetItemChecked(i, true);
             }
         }
+
+        public void CreateAutoUpdaterShortcut(string priconnePath)
+        {
+            DialogResult messageboxResult = MessageBox.Show("Create autoupdater shortcut?", "Create shortcut?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+            if (messageboxResult == DialogResult.Cancel) return;
+
+            string currentDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            string executableName = Path.GetFileName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            string targetPath = Path.Combine(currentDirectory, executableName);
+
+            var saveFileDialog = new SaveFileDialog();
+            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            saveFileDialog.FileName = "PriconneReTL-Installer AutoUpdater";
+            saveFileDialog.Filter = "Shortcut files (*.lnk)|*.lnk";
+            saveFileDialog.FilterIndex = 1;
+            saveFileDialog.RestoreDirectory = true;
+
+            DialogResult result = saveFileDialog.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                var wshShell = new IWshRuntimeLibrary.WshShell();
+                string shortcutPath = saveFileDialog.FileName;
+                IWshRuntimeLibrary.IWshShortcut shortcut = (IWshRuntimeLibrary.IWshShortcut)wshShell.CreateShortcut(shortcutPath);
+
+                shortcut.TargetPath = targetPath;
+                shortcut.Description = "PriconneReTL-Installer AutoUpdater";
+                shortcut.WorkingDirectory = currentDirectory;
+                shortcut.IconLocation = Path.Combine(priconnePath, "PrincessConnectReDive.exe");
+                shortcut.Arguments = "autoupdate";
+
+                shortcut.Save();
+
+                Console.WriteLine("Shortcut created successfully!");
+            }
+            else
+            {
+                Console.WriteLine("Operation canceled by the user.");
+            }
+        }
         public static bool IsFileInSubfolder(string folderPath, string filePath)
         {
             folderPath = Path.GetFullPath(folderPath); // Ensure the folder path is full.
@@ -253,7 +283,15 @@ namespace HelperFunctions
             // Check if the file path starts with the folder path.
             return filePath.StartsWith(folderPath, StringComparison.OrdinalIgnoreCase);
         }
-
+        public bool IsInIgnoredDirectory(string filePath)
+        {
+            bool isInIgnoredDirectory = false;
+            foreach (var path in Settings.Default.ignoreFiles)
+            {
+                if (filePath.StartsWith(path)) isInIgnoredDirectory = true;
+            }
+            return isInIgnoredDirectory;
+        }
         public static StringCollection DeserializeStringCollection(string serializedValue)
         {
             var stringCollection = new StringCollection();

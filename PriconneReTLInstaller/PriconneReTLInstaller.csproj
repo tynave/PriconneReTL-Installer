@@ -179,6 +179,12 @@
     <Compile Include="AUForm.Designer.cs">
       <DependentUpon>AUForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AutoUpdateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AutoUpdateForm.Designer.cs">
+      <DependentUpon>AutoUpdateForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -218,6 +224,9 @@
     <Compile Include="Settings1.cs" />
     <EmbeddedResource Include="AUForm.resx">
       <DependentUpon>AUForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AutoUpdateForm.resx">
+      <DependentUpon>AutoUpdateForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
@@ -487,6 +496,14 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\kokodance.gif" />
+    <None Include="Resources\kokorun.gif" />
+    <None Include="Resources\kyarun.gif" />
+    <None Include="Resources\pecorun.gif" />
+    <None Include="Resources\kokorunfast.gif" />
+    <None Include="Resources\kokkorowinnosquarenobg.gif" />
+    <None Include="Resources\pecowinnosquarenobg.gif" />
+    <None Include="Resources\kyaruwinnosquarenobg.gif" />
     <Content Include="Resources\wiki\14reinstall.png" />
     <Content Include="Resources\wiki\appwindow.png" />
     <Content Include="Resources\wiki\autoupdaterui.png" />

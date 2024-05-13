@@ -62,6 +62,7 @@
             this.helpMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.wikiMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showInstallerUpdateNotificationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.operationLabel = new System.Windows.Forms.Label();
             this.optionsPanel = new System.Windows.Forms.Panel();
             this.optionsLabel = new System.Windows.Forms.Label();
@@ -530,23 +531,35 @@
             // 
             this.helpMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.wikiMenuItem,
-            this.aboutMenuItem});
+            this.aboutMenuItem,
+            this.showInstallerUpdateNotificationToolStripMenuItem});
             this.helpMenuStrip.Name = "contextMenuStrip1";
-            this.helpMenuStrip.Size = new System.Drawing.Size(168, 48);
+            this.helpMenuStrip.Size = new System.Drawing.Size(255, 92);
             // 
             // wikiMenuItem
             // 
             this.wikiMenuItem.Name = "wikiMenuItem";
-            this.wikiMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.wikiMenuItem.Size = new System.Drawing.Size(254, 22);
             this.wikiMenuItem.Text = "GitHub Wiki page";
             this.wikiMenuItem.Click += new System.EventHandler(this.helpMenuItem_Click);
             // 
             // aboutMenuItem
             // 
             this.aboutMenuItem.Name = "aboutMenuItem";
-            this.aboutMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.aboutMenuItem.Size = new System.Drawing.Size(254, 22);
             this.aboutMenuItem.Text = "About";
             this.aboutMenuItem.Click += new System.EventHandler(this.aboutMenuItem_Click);
+            // 
+            // showInstallerUpdateNotificationToolStripMenuItem
+            // 
+            this.showInstallerUpdateNotificationToolStripMenuItem.Checked = true;
+            this.showInstallerUpdateNotificationToolStripMenuItem.CheckOnClick = true;
+            this.showInstallerUpdateNotificationToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.showInstallerUpdateNotificationToolStripMenuItem.Name = "showInstallerUpdateNotificationToolStripMenuItem";
+            this.showInstallerUpdateNotificationToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
+            this.showInstallerUpdateNotificationToolStripMenuItem.Text = "Show Installer Update Notification";
+            this.showInstallerUpdateNotificationToolStripMenuItem.CheckedChanged += new System.EventHandler(this.showInstallerUpdateNotificationToolStripMenuItem_CheckedChanged);
+            this.showInstallerUpdateNotificationToolStripMenuItem.Click += new System.EventHandler(this.showInstallerUpdateNotificationToolStripMenuItem_Click);
             // 
             // operationLabel
             // 
@@ -709,6 +722,7 @@
             this.Activated += new System.EventHandler(this.MainForm_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.operationsPanel.ResumeLayout(false);
@@ -772,6 +786,7 @@
         private System.Windows.Forms.Label gameVersionLabel;
         private System.Windows.Forms.CheckedListBox configListBox;
         private System.Windows.Forms.LinkLabel currentLauncherLinkLabel;
+        private System.Windows.Forms.ToolStripMenuItem showInstallerUpdateNotificationToolStripMenuItem;
     }
 }
 
