@@ -173,12 +173,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AUForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AUForm.Designer.cs">
-      <DependentUpon>AUForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="AutoUpdateForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -222,9 +216,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Settings1.cs" />
-    <EmbeddedResource Include="AUForm.resx">
-      <DependentUpon>AUForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="AutoUpdateForm.resx">
       <DependentUpon>AutoUpdateForm.cs</DependentUpon>
     </EmbeddedResource>

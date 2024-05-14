@@ -56,7 +56,6 @@ namespace InstallerFunctions
         public event Action ProcessFinish;
         public event Action ProcessError;
 
-
         public (string priconnePath, bool priconnePathValid, string gameVersion) GetGamePath()
         {
             try
@@ -134,20 +133,6 @@ namespace InstallerFunctions
                 return (localVersion = "ERROR!", localVersionValid = false);
             }
         }
-        public (string localVersion, bool localVersionValid) GetAULocalVersion(string priconnePath, string filename)
-        {
-            string filePath = Path.Combine(priconnePath, "BepInEx", "patchers", "PriconneReTLAutoUpdater", filename);
-
-            if (!File.Exists(filePath))
-            {
-                return ("None", false);
-            }
-
-            string fullVersion = FileVersionInfo.GetVersionInfo(filePath).FileVersion;
-            string[] versionParts = fullVersion.Split('.');
-            string trimmedVersion = string.Join(".", versionParts.Take(3));
-            return (trimmedVersion, true);
-        }
         public (string latestVersion, bool latestVersionValid, string assetLink) GetLatestPatchRelease(string githubAPI)
         {
  
@@ -170,7 +155,6 @@ namespace InstallerFunctions
                 return (latestVersion = null, latestVersionValid = false, null);
             }
         }
-
         public (string version, bool versionValid) GetLatestInstallerRelease()
         {
 
@@ -281,43 +265,6 @@ namespace InstallerFunctions
             {
                 ErrorLog?.Invoke("Error extracting all files: " + ex.Message);
                 ProgressPictureChange?.Invoke(null);
-                extractSuccess = false;
-            }
-        }
-        public async Task ExtractAUFiles()
-
-        {
-            if (!removeSuccess || !downloadSuccess) return;
-
-            try
-            {
-                int counter = 0;
-                using (var zip = ZipFile.OpenRead(tempFile))
-                {
-                    Log?.Invoke("Extracting files to game folder...", "add", true);
-                  
-                    foreach (var entry in zip.Entries)
-                    {
-                        counter++;
-                        string fileName = entry.FullName;
-
-                        Log?.Invoke("Extracting: " + entry.FullName, "add", false);
-                        DownloadProgress?.Invoke(counter, zip.Entries.Count);
-
-                        
-                            string destinationPath = Path.Combine(priconnePath, Path.GetDirectoryName(fileName));
-                            if (!Directory.Exists(destinationPath))
-                                Directory.CreateDirectory(destinationPath);
-
-                            await Task.Run(() => ExtractZipEntry(entry, Path.Combine(priconnePath, fileName)));
-                    }
-                }
-                extractSuccess = true;
-                Log?.Invoke("Extraction complete!", "success", true);
-            }
-            catch (Exception ex)
-            {
-                ErrorLog?.Invoke("Error extracting all files: " + ex.Message);
                 extractSuccess = false;
             }
         }
@@ -644,56 +591,7 @@ namespace InstallerFunctions
                 }
             }
         }
-        public async void ProcessAuInstallOperation(string auAssetLink, string auAppAssetLink)
-        {
-            ProcessStart?.Invoke();
-            try
-            {
-                Log?.Invoke("Downloading and installing AutoUpdater...", "info", true);
-                await DownloadPatchFiles(auAssetLink);
-                await ExtractAUFiles();
 
-                Log?.Invoke("Downloading and installing AutoUpdaterApp...", "info", true);
-                await DownloadPatchFiles(auAppAssetLink);
-                await ExtractAUFiles();
-            }
-            catch (Exception ex)
-            {
-                ErrorLog?.Invoke("Error installing AutoUpdater: " + ex.Message);
-            }
-            finally
-            {
-                bool processSuccess = removeSuccess && downloadSuccess && extractSuccess;
-                if (!processSuccess) ErrorLog?.Invoke("Installation failed!"); else Log?.Invoke("Installation complete!", "success", true);
-                ProcessFinish?.Invoke();
-            }
-        }
-        public void ProcessAuUninstallOperation()
-        {
-            ProcessStart?.Invoke();
-            Log?.Invoke("Removing AutoUpdater / AutoUpdaterApp...", "remove", true);
-            string filePath = Path.Combine(priconnePath, "BepInEx", "patchers", "PriconneReTLAutoUpdater");
-
-            try
-            {
-                if (Directory.Exists(filePath))
-                {
-                    Directory.Delete(filePath, true);
-                    Log?.Invoke("Uninstall complete!", "success", true);
-                    return;
-                }
-                Log?.Invoke("Nothing to uninstall!", "success", true);
-            }
-
-            catch (Exception ex)
-            {
-                ErrorLog?.Invoke("Error deleting AutoUpdater:" + ex.Message);
-            }
-            finally
-            {
-                ProcessFinish?.Invoke();
-            }
-        }
         public bool StartDMMFastLauncher()
         {
             try

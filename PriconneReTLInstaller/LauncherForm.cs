@@ -95,7 +95,7 @@ namespace PriconneReTLInstaller
                 {
                     string selectedFile = openFileDialog1.FileName;
                     Settings.Default.fastLauncherLink = selectedFile;
-                    // Settings.Default.Save();
+                    Settings.Default.Save();
                     UpdateUI();
                     
                 }
@@ -126,7 +126,7 @@ namespace PriconneReTLInstaller
         private void shortcutRemoveButton_Click(object sender, EventArgs e)
         {
             Settings.Default.fastLauncherLink = "";
-            // Settings.Default.Save();
+            Settings.Default.Save();
             UpdateUI();
             
         }
@@ -136,7 +136,6 @@ namespace PriconneReTLInstaller
             Settings.Default.selectedLauncher = launcherComboBox.SelectedIndex;
             Settings.Default.Save();
             UpdateUI();
-            //saveButton.Enabled = true;
         }
 
         private void saveButton_Click(object sender, EventArgs e)

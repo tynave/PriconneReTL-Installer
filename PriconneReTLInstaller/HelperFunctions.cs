@@ -87,6 +87,7 @@ namespace HelperFunctions
                 }
             }
         }
+
         public bool isAnyChecked(CheckBox[] checkboxes)
         {
             if (checkboxes != null)
@@ -234,7 +235,6 @@ namespace HelperFunctions
                 checkedListBox.SetItemChecked(i, true);
             }
         }
-
         public void CreateAutoUpdaterShortcut(string priconnePath)
         {
             DialogResult messageboxResult = MessageBox.Show("Create autoupdater shortcut?", "Create shortcut?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
@@ -275,6 +275,7 @@ namespace HelperFunctions
                 Console.WriteLine("Operation canceled by the user.");
             }
         }
+
         public static bool IsFileInSubfolder(string folderPath, string filePath)
         {
             folderPath = Path.GetFullPath(folderPath); // Ensure the folder path is full.
@@ -283,15 +284,7 @@ namespace HelperFunctions
             // Check if the file path starts with the folder path.
             return filePath.StartsWith(folderPath, StringComparison.OrdinalIgnoreCase);
         }
-        public bool IsInIgnoredDirectory(string filePath)
-        {
-            bool isInIgnoredDirectory = false;
-            foreach (var path in Settings.Default.ignoreFiles)
-            {
-                if (filePath.StartsWith(path)) isInIgnoredDirectory = true;
-            }
-            return isInIgnoredDirectory;
-        }
+
         public static StringCollection DeserializeStringCollection(string serializedValue)
         {
             var stringCollection = new StringCollection();

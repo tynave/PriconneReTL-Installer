@@ -156,14 +156,20 @@ namespace PriconneReTLInstaller
                     string selectedFile = openFileDialog1.FileName;
                     if (!HelperFunctions.Helper.IsFileInSubfolder(defaultPath, selectedFile)) 
                     {
-                        MessageBox.Show("Invalid selection!\nPlease select a file that is in the Princess Connect Re:Dive game folder!", "Invalid selection", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Invalid selection!\n\nPlease select a file that is in the Princess Connect Re:Dive game folder!", "Invalid selection", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     } 
                     string relativePath = HelperFunctions.Helper.GetRelativePath(defaultPath, selectedFile);
 
                     if (Settings.Default.configFiles.Contains(relativePath))
                     {
-                        MessageBox.Show("Invalid selection!\nThis file is a config file that is already ignored by default!", "Invalid selection", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Invalid selection!\n\nThis file is a config file that is already ignored by default!", "Invalid selection", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    if (relativePath == "BepInEx/Translation/en/Text/Version.txt")
+                    {
+                        MessageBox.Show("Invalid selection!\n\nThis file is the version file of the TL patch! You cannot add this to the list of ignored files!", "Invalid selection", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
 
