@@ -13,6 +13,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
+using InstallerFunctions;
 using LoggerFunctions;
 using PriconneReTLInstaller;
 using PriconneReTLInstaller.Properties;
@@ -237,9 +238,10 @@ namespace HelperFunctions
         }
         public void CreateAutoUpdaterShortcut(string priconnePath)
         {
-            DialogResult messageboxResult = MessageBox.Show("Create autoupdater shortcut?", "Create shortcut?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            DialogResult messageboxResult = MessageBox.Show("The AutoUpdater is a modified version of the PriconneReTL-Installer, which automatically performs an update and launches the game after with the selected launcher." +
+                "\n\nWould you like to create an AutoUpdate shortcut?", "Create shortcut?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            if (messageboxResult == DialogResult.Cancel) return;
+            if (messageboxResult == DialogResult.No) return;
 
             string currentDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string executableName = Path.GetFileName(System.Reflection.Assembly.GetExecutingAssembly().Location);
@@ -269,6 +271,8 @@ namespace HelperFunctions
                 shortcut.Save();
 
                 Console.WriteLine("Shortcut created successfully!");
+
+                MessageBox.Show("Shortcut created!\n\nPlease note that the shortcut points to the PriconneReTL-Installer! If you move or remove the installer, you have to recreate the shortcut!", "Shortcut created!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
@@ -276,6 +280,24 @@ namespace HelperFunctions
             }
         }
 
+        public void CheckForInstallerUpdate(string version, bool versionValid)
+        {
+
+            int versioncompare = String.Format(Application.ProductVersion).CompareTo(version);
+
+            if (versionValid && versioncompare < 0)
+            {
+                DialogResult result = MessageBox.Show("New PriconneReTL-Installer version available!" +
+                    $"\n\nCurrently used version: {String.Format(Application.ProductVersion)}" +
+                    $"\nLatest available version: {version}" +
+                    "\n\nJump to the latest release on GitHub?", "New Installer Version Available!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (result == DialogResult.Yes)
+                {
+                    Process.Start("https://github.com/tynave/PriconneReTL-Installer/releases/latest");
+                }
+                else return;
+            }
+        }
         public static bool IsFileInSubfolder(string folderPath, string filePath)
         {
             folderPath = Path.GetFullPath(folderPath); // Ensure the folder path is full.

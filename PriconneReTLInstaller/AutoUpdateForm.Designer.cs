@@ -152,9 +152,9 @@
             // 
             this.progressLabel.BackColor = System.Drawing.Color.Transparent;
             this.progressLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.progressLabel.Location = new System.Drawing.Point(27, 139);
+            this.progressLabel.Location = new System.Drawing.Point(30, 139);
             this.progressLabel.Name = "progressLabel";
-            this.progressLabel.Size = new System.Drawing.Size(67, 22);
+            this.progressLabel.Size = new System.Drawing.Size(64, 22);
             this.progressLabel.TabIndex = 12;
             this.progressLabel.Text = "<prog>";
             this.progressLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -192,7 +192,6 @@
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "AutoUpdateForm";
-            this.Opacity = 0.8D;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AutoUpdateForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.newPictureBox)).EndInit();

@@ -53,6 +53,7 @@
             this.gamePathLinkLabel = new System.Windows.Forms.LinkLabel();
             this.latestVersionLinkLabel = new System.Windows.Forms.LinkLabel();
             this.configListBox = new System.Windows.Forms.CheckedListBox();
+            this.versionLinkLabel = new System.Windows.Forms.LinkLabel();
             this.minimizeButton = new System.Windows.Forms.Button();
             this.aboutButton = new System.Windows.Forms.Button();
             this.settingsButton = new System.Windows.Forms.Button();
@@ -62,7 +63,7 @@
             this.helpMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.wikiMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.showInstallerUpdateNotificationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkForInstallerUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.operationLabel = new System.Windows.Forms.Label();
             this.optionsPanel = new System.Windows.Forms.Panel();
             this.optionsLabel = new System.Windows.Forms.Label();
@@ -72,7 +73,6 @@
             this.editIgnoredFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setLauncherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importExportSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.versionLabel = new System.Windows.Forms.Label();
             this.tlPatchVersionsLabel = new System.Windows.Forms.Label();
             this.gameVersionLabel = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
@@ -446,6 +446,23 @@
             this.toolTip.SetToolTip(this.configListBox, "Select config file to remove.");
             this.configListBox.Visible = false;
             // 
+            // versionLinkLabel
+            // 
+            this.versionLinkLabel.AutoSize = true;
+            this.versionLinkLabel.BackColor = System.Drawing.Color.Transparent;
+            this.versionLinkLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.versionLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.versionLinkLabel.LinkColor = System.Drawing.Color.Black;
+            this.versionLinkLabel.Location = new System.Drawing.Point(655, 423);
+            this.versionLinkLabel.Name = "versionLinkLabel";
+            this.versionLinkLabel.Size = new System.Drawing.Size(45, 16);
+            this.versionLinkLabel.TabIndex = 41;
+            this.versionLinkLabel.TabStop = true;
+            this.versionLinkLabel.Text = "<ver>";
+            this.toolTip.SetToolTip(this.versionLinkLabel, "Click to view the latest installer release on GitHub.");
+            this.versionLinkLabel.VisitedLinkColor = System.Drawing.Color.Black;
+            this.versionLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.versionLinkLabel_LinkClicked);
+            // 
             // minimizeButton
             // 
             this.minimizeButton.BackColor = System.Drawing.Color.Transparent;
@@ -532,34 +549,33 @@
             this.helpMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.wikiMenuItem,
             this.aboutMenuItem,
-            this.showInstallerUpdateNotificationToolStripMenuItem});
+            this.checkForInstallerUpdatesToolStripMenuItem});
             this.helpMenuStrip.Name = "contextMenuStrip1";
-            this.helpMenuStrip.Size = new System.Drawing.Size(255, 92);
+            this.helpMenuStrip.Size = new System.Drawing.Size(274, 70);
             // 
             // wikiMenuItem
             // 
             this.wikiMenuItem.Name = "wikiMenuItem";
-            this.wikiMenuItem.Size = new System.Drawing.Size(254, 22);
+            this.wikiMenuItem.Size = new System.Drawing.Size(273, 22);
             this.wikiMenuItem.Text = "GitHub Wiki page";
             this.wikiMenuItem.Click += new System.EventHandler(this.helpMenuItem_Click);
             // 
             // aboutMenuItem
             // 
             this.aboutMenuItem.Name = "aboutMenuItem";
-            this.aboutMenuItem.Size = new System.Drawing.Size(254, 22);
+            this.aboutMenuItem.Size = new System.Drawing.Size(273, 22);
             this.aboutMenuItem.Text = "About";
             this.aboutMenuItem.Click += new System.EventHandler(this.aboutMenuItem_Click);
             // 
-            // showInstallerUpdateNotificationToolStripMenuItem
+            // checkForInstallerUpdatesToolStripMenuItem
             // 
-            this.showInstallerUpdateNotificationToolStripMenuItem.Checked = true;
-            this.showInstallerUpdateNotificationToolStripMenuItem.CheckOnClick = true;
-            this.showInstallerUpdateNotificationToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.showInstallerUpdateNotificationToolStripMenuItem.Name = "showInstallerUpdateNotificationToolStripMenuItem";
-            this.showInstallerUpdateNotificationToolStripMenuItem.Size = new System.Drawing.Size(254, 22);
-            this.showInstallerUpdateNotificationToolStripMenuItem.Text = "Show Installer Update Notification";
-            this.showInstallerUpdateNotificationToolStripMenuItem.CheckedChanged += new System.EventHandler(this.showInstallerUpdateNotificationToolStripMenuItem_CheckedChanged);
-            this.showInstallerUpdateNotificationToolStripMenuItem.Click += new System.EventHandler(this.showInstallerUpdateNotificationToolStripMenuItem_Click);
+            this.checkForInstallerUpdatesToolStripMenuItem.Checked = true;
+            this.checkForInstallerUpdatesToolStripMenuItem.CheckOnClick = true;
+            this.checkForInstallerUpdatesToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkForInstallerUpdatesToolStripMenuItem.Name = "checkForInstallerUpdatesToolStripMenuItem";
+            this.checkForInstallerUpdatesToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
+            this.checkForInstallerUpdatesToolStripMenuItem.Text = "Check for Installer Updates on Startup";
+            this.checkForInstallerUpdatesToolStripMenuItem.CheckedChanged += new System.EventHandler(this.checkForInstallerUpdatesToolStripMenuItem_CheckedChanged);
             // 
             // operationLabel
             // 
@@ -651,17 +667,6 @@
             this.importExportSettingsToolStripMenuItem.Text = "Import / Export User Settings";
             this.importExportSettingsToolStripMenuItem.Click += new System.EventHandler(this.importExportSettingsToolStripMenuItem_Click);
             // 
-            // versionLabel
-            // 
-            this.versionLabel.AutoSize = true;
-            this.versionLabel.BackColor = System.Drawing.Color.Transparent;
-            this.versionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.versionLabel.Location = new System.Drawing.Point(659, 427);
-            this.versionLabel.Name = "versionLabel";
-            this.versionLabel.Size = new System.Drawing.Size(45, 16);
-            this.versionLabel.TabIndex = 38;
-            this.versionLabel.Text = "<ver>";
-            // 
             // tlPatchVersionsLabel
             // 
             this.tlPatchVersionsLabel.AutoSize = true;
@@ -692,9 +697,9 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(718, 748);
             this.ControlBox = false;
+            this.Controls.Add(this.versionLinkLabel);
             this.Controls.Add(this.gameVersionLabel);
             this.Controls.Add(this.tlPatchVersionsLabel);
-            this.Controls.Add(this.versionLabel);
             this.Controls.Add(this.menuButtonLabel);
             this.Controls.Add(this.auButton);
             this.Controls.Add(this.settingsButton);
@@ -780,13 +785,13 @@
         private System.Windows.Forms.ContextMenuStrip settingsMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem editIgnoredFilesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setLauncherToolStripMenuItem;
-        private System.Windows.Forms.Label versionLabel;
         private System.Windows.Forms.ToolStripMenuItem importExportSettingsToolStripMenuItem;
         private System.Windows.Forms.Label tlPatchVersionsLabel;
         private System.Windows.Forms.Label gameVersionLabel;
         private System.Windows.Forms.CheckedListBox configListBox;
         private System.Windows.Forms.LinkLabel currentLauncherLinkLabel;
-        private System.Windows.Forms.ToolStripMenuItem showInstallerUpdateNotificationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem checkForInstallerUpdatesToolStripMenuItem;
+        private System.Windows.Forms.LinkLabel versionLinkLabel;
     }
 }
 

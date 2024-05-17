@@ -89,27 +89,6 @@ namespace PriconneReTLInstaller
 
         // Functions
 
-        private void CheckForInstallerUpdate()
-        {
-            string version;
-            bool versionValid;
-
-            (version, versionValid) = installer.GetLatestInstallerRelease();
-
-            if (versionValid && (String.Format(Application.ProductVersion)) != version)
-            {
-                DialogResult result = MessageBox.Show("New PriconneReTL-Installer version available!" +
-                    $"\n\nCurrently used version: {String.Format(Application.ProductVersion)}" +
-                    $"\nLatest available version: {version}" +
-                    "\n\nJump to the latest release on GitHub?", "New Installer Version Available!", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-                if (result == DialogResult.Yes)
-                {
-                    Process.Start("https://github.com/tynave/PriconneReTL-Installer/releases/latest");
-                }
-                else return;
-            }
-        }
-
         void SubscribeToCheckBoxes(Control.ControlCollection controls)
         {
             foreach (Control control in controls)
@@ -170,7 +149,7 @@ namespace PriconneReTLInstaller
             Height = 480;
             optionsPanel.Height = 87;
 
-            versionLabel.Text = $"v{String.Format(Application.ProductVersion)}";
+            versionLinkLabel.Text = $"v{String.Format(Application.ProductVersion)}";
 
             removeConfigCheckBox.Enabled = false;
             removeIgnoredCheckBox.Enabled = false;
@@ -209,7 +188,7 @@ namespace PriconneReTLInstaller
             if (versioncompare == 0) logger.Log("You already have the latest translation patch version installed!", "success", true);
 
             startButton.Enabled = helper.isAnyChecked(operationCheckboxes);
-            showInstallerUpdateNotificationToolStripMenuItem.Checked = Settings.Default.installerUpdateNotification;
+            checkForInstallerUpdatesToolStripMenuItem.Checked = Settings.Default.checkForInstallerUpdates;
         }
         private void UpdateUI()
         {
@@ -397,7 +376,7 @@ namespace PriconneReTLInstaller
                     (exitButton, "Exit Application"),
                     (minimizeButton, "Minimize Application"),
                     (aboutButton, "Help / About"),
-                    (auButton, "AutoUpdater Installer"),
+                    (auButton, "Create AutoUpdater Shortcut"),
                     (settingsButton, "Settings")
                 };
 
@@ -592,18 +571,29 @@ namespace PriconneReTLInstaller
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            if (Settings.Default.installerUpdateNotification) CheckForInstallerUpdate();
+            if (Settings.Default.checkForInstallerUpdates) 
+            {
+                try
+                {
+                    (string version, bool versionValid) = installer.GetLatestInstallerRelease();
+                    helper.CheckForInstallerUpdate(version, versionValid);
+                }
+                catch (Exception ex)
+                {
+                    logger.Error("Error checking for installer update: " + ex.Message);   
+                }
+            }
         }
 
-        private void showInstallerUpdateNotificationToolStripMenuItem_Click(object sender, EventArgs e)
+        private void checkForInstallerUpdatesToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
         {
-
-        }
-
-        private void showInstallerUpdateNotificationToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
-        {
-            Settings.Default.installerUpdateNotification = showInstallerUpdateNotificationToolStripMenuItem.Checked;
+            Settings.Default.checkForInstallerUpdates = checkForInstallerUpdatesToolStripMenuItem.Checked;
             Settings.Default.Save();
+        }
+
+        private void versionLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://github.com/tynave/PriconneReTL-Installer/releases/latest");
         }
     }
 }

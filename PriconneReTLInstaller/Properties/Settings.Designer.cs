@@ -250,7 +250,7 @@ namespace PriconneReTLInstaller.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.4.0.0")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.5.0.0")]
         public string LastKnownVersion {
             get {
                 return ((string)(this["LastKnownVersion"]));
@@ -290,12 +290,12 @@ You can set the shortcut in the Installer by clicking the ""Settings"" icon (scr
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool installerUpdateNotification {
+        public bool checkForInstallerUpdates {
             get {
-                return ((bool)(this["installerUpdateNotification"]));
+                return ((bool)(this["checkForInstallerUpdates"]));
             }
             set {
-                this["installerUpdateNotification"] = value;
+                this["checkForInstallerUpdates"] = value;
             }
         }
     }
