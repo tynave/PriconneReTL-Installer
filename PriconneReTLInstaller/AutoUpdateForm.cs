@@ -107,7 +107,7 @@ namespace PriconneReTLInstaller
                         result = installer.StartDMMFastLauncher();
                         if (result == false)
                         {
-                            MessageBox.Show("Cannot start game via DMMGamePlayerFastLauncher!\nCheck logs for more details.\nFalling back to DMMGamePlayer!", "Cannot launch game", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show("Cannot start game via DMMGamePlayerFastLauncher!\nCheck logs for more details.\nFalling back to DMMGamePlayer!", "Cannot launch via DMMGamePlayerFastLauncher", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             installer.StartDMMGamePlayer();
                             break;
                         }
