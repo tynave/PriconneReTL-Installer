@@ -477,6 +477,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\wiki\updatericon.png" />
     <None Include="Resources\kokodance.gif" />
     <None Include="Resources\kokorun.gif" />
     <None Include="Resources\kyarun.gif" />
@@ -490,14 +491,24 @@
     <None Include="Resources\shortcutadd_button_lit.png" />
     <Content Include="Resources\wiki\14reinstall.png" />
     <Content Include="Resources\wiki\appwindow.png" />
+    <Content Include="Resources\wiki\autoupdatererror.png" />
+    <Content Include="Resources\wiki\autoupdaterinstall.png" />
+    <Content Include="Resources\wiki\autoupdaternofastlauncher.png" />
+    <Content Include="Resources\wiki\autoupdaternotification1.png" />
+    <Content Include="Resources\wiki\autoupdaternotification2.png" />
+    <Content Include="Resources\wiki\autoupdaterstartgame.png" />
     <Content Include="Resources\wiki\autoupdaterui.png" />
+    <Content Include="Resources\wiki\autoupdaterupdate.png" />
+    <Content Include="Resources\wiki\autoupdateruptodate.png" />
     <Content Include="Resources\wiki\currentoperation.png" />
     <Content Include="Resources\wiki\currentoperationtooltip.png" />
+    <Content Include="Resources\wiki\helpmenu.png" />
     <Content Include="Resources\wiki\ignoreui.png" />
     <Content Include="Resources\wiki\importexportui.png" />
     <Content Include="Resources\wiki\install.png" />
     <Content Include="Resources\wiki\launch.png" />
     <Content Include="Resources\wiki\launchersettingsui.png" />
+    <Content Include="Resources\wiki\nofastlaunchershortcut.png" />
     <Content Include="Resources\wiki\noupdate.png" />
     <Content Include="Resources\wiki\optionsdisabled2.png" />
     <Content Include="Resources\wiki\optionsenabled.png" />
