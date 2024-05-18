@@ -477,6 +477,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\wiki\autoupdatermenu.png" />
     <Content Include="Resources\wiki\updatericon.png" />
     <None Include="Resources\kokodance.gif" />
     <None Include="Resources\kokorun.gif" />
