@@ -190,6 +190,7 @@ namespace PriconneReTLInstaller
             startButton.Enabled = helper.isAnyChecked(operationCheckboxes);
             checkForInstallerUpdatesToolStripMenuItem.Checked = Settings.Default.checkForInstallerUpdates;
         }
+
         private void UpdateUI()
         {
             (localVersion, localVersionValid) = installer.GetLocalPatchVersion();
@@ -456,7 +457,6 @@ namespace PriconneReTLInstaller
         {
             InitializeUI();
             SetToolTips();
-            
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -482,6 +482,10 @@ namespace PriconneReTLInstaller
                 startInfo.Arguments = priconnePath;
                 Process.Start(startInfo);
             }
+        }
+        private void versionLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://github.com/tynave/PriconneReTL-Installer/releases/latest");
         }
         private void latestReleaseLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -550,6 +554,21 @@ namespace PriconneReTLInstaller
             SetToolTips();
             currentLauncherLinkLabel.Text = "Launcher: " + (Settings.Default.selectedLauncher == 0 ? "DMMGamePlayer" : "DMMGamePlayerFastLauncher");
         }
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            if (Settings.Default.checkForInstallerUpdates)
+            {
+                try
+                {
+                    (string version, bool versionValid) = installer.GetLatestInstallerRelease();
+                    helper.CheckForInstallerUpdate(version, versionValid);
+                }
+                catch (Exception ex)
+                {
+                    logger.Error("Error checking for installer update: " + ex.Message);
+                }
+            }
+        }
 
         private void launcherSettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -569,31 +588,10 @@ namespace PriconneReTLInstaller
             LauncherForm.ShowDialog();
         }
 
-        private void MainForm_Shown(object sender, EventArgs e)
-        {
-            if (Settings.Default.checkForInstallerUpdates) 
-            {
-                try
-                {
-                    (string version, bool versionValid) = installer.GetLatestInstallerRelease();
-                    helper.CheckForInstallerUpdate(version, versionValid);
-                }
-                catch (Exception ex)
-                {
-                    logger.Error("Error checking for installer update: " + ex.Message);   
-                }
-            }
-        }
-
         private void checkForInstallerUpdatesToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
         {
             Settings.Default.checkForInstallerUpdates = checkForInstallerUpdatesToolStripMenuItem.Checked;
             Settings.Default.Save();
-        }
-
-        private void versionLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start("https://github.com/tynave/PriconneReTL-Installer/releases/latest");
         }
     }
 }
