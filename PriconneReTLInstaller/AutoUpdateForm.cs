@@ -71,7 +71,7 @@ namespace PriconneReTLInstaller
             progressLabel.Text = "";
 
         }
-        private void CountDownToProcess()
+        private void CountDownToProcess(bool install)
         {
             int countdown = 2;
             timer1.Tick += (sender, e) =>
@@ -87,7 +87,7 @@ namespace PriconneReTLInstaller
                     timer1.Stop();
                     cancelButton.Visible = false;
                     this.Height = 240;
-                    installer.ProcessAutoUpdateOperation(priconnePath, localVersion, latestVersion, assetLink);
+                    installer.ProcessAutoUpdateOperation(install, assetLink);
                 }
             };
             timer1.Start();
@@ -209,7 +209,7 @@ namespace PriconneReTLInstaller
             this.Activate();
             InitializeUI();
 
-            if (priconnePathValid && localVersionValid && latestVersionValid)
+            if (priconnePathValid  && latestVersionValid)
             {
                 int versioncompare = localVersion.CompareTo(latestVersion);
 
@@ -221,9 +221,17 @@ namespace PriconneReTLInstaller
                     return;
                 }
 
-                logger.Log("Found new version! Starting update...", "info", true);
-                CountDownToProcess();
+                if (versioncompare < 0)
+                {
+                    logger.Log("Found new version! Starting update...", "info", true);
+                    CountDownToProcess(false);
+                    return;
+                }
+
+                logger.Log("TL Patch not found! Starting installation...", "info", true);
+                CountDownToProcess(true);
                 return;
+
             }
             else
             {

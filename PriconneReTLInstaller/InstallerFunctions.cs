@@ -111,7 +111,6 @@ namespace InstallerFunctions
 
                 if (!File.Exists(versionFilePath))
                 {
-                    ErrorLog?.Invoke("Version file not found, cannot determine local version!");
                     return (localVersion = "None", localVersionValid = false);
                 }
                 string rawVersionFile = File.ReadAllText(versionFilePath);
@@ -119,7 +118,6 @@ namespace InstallerFunctions
 
                 if (match == null || !match.Success)
                 {
-                    ErrorLog?.Invoke("Game version invalid, cannot determine local version!");
                     return (localVersion = "Invalid", localVersionValid = false);
                 }
                 localVersion = match.Value;
@@ -559,14 +557,14 @@ namespace InstallerFunctions
                 }
             }
         }
-        public async void ProcessAutoUpdateOperation(string priconnePath, string localVersion, string latestVersion, string assetLink)
+        public async void ProcessAutoUpdateOperation(bool install, string assetLink)
         {
             try
             {
                 ProcessStart?.Invoke();
 
                 await DownloadPatchFiles(assetLink);
-                await RemovePatchFiles(uninstall: false, removeConfig: false, configList: Settings.Default.configFiles, removeIgnored: false);
+                if (!install )await RemovePatchFiles(uninstall: false, removeConfig: false, configList: Settings.Default.configFiles, removeIgnored: false);
                 await ExtractPatchFiles();
                 return;
             }
@@ -581,12 +579,12 @@ namespace InstallerFunctions
 
                 if (!processSuccess)
                 {
-                    ErrorLog?.Invoke($"Update failed!");
+                    ErrorLog?.Invoke(install ? "Install failed!" : "Update failed!");
                     ProcessError?.Invoke();
                 }
                 else
                 {
-                    Log?.Invoke($"Update complete!", "success", true);
+                    Log?.Invoke(install ? "Install complete!" : "Update complete!", "success", true);
                     ProcessFinish?.Invoke();
                 }
             }
