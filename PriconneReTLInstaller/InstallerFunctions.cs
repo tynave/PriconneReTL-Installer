@@ -147,9 +147,36 @@ namespace InstallerFunctions
                     return (latestVersion = version, latestVersionValid = true, assetLink);
                 }
             }
+            catch (WebException webEx)
+            {
+                // Check if the response contains JSON data (which happens in case of API errors)
+                if (webEx.Response != null)
+                {
+                    using (var reader = new StreamReader(webEx.Response.GetResponseStream()))
+                    {
+                        string errorResponse = reader.ReadToEnd();
+                        try
+                        {
+                            dynamic errorJson = JsonConvert.DeserializeObject(errorResponse);
+                            string errorMessage = errorJson.message;
+                            ErrorLog?.Invoke("Error getting installer release: " + errorMessage);
+                        }
+                        catch (Exception innerEx)
+                        {
+                            ErrorLog?.Invoke("Error reading API error message: " + innerEx.Message);
+                        }
+                    }
+                }
+                else
+                {
+                    ErrorLog?.Invoke("Error getting latest patch release: " + webEx.Message);
+                }
+
+                return (latestVersion = null, latestVersionValid = false, null);
+            }
             catch (Exception ex)
             {
-                ErrorLog?.Invoke("Error getting latest release: " + ex.Message);
+                ErrorLog?.Invoke("Error getting latest patch release: " + ex.Message);
                 return (latestVersion = null, latestVersionValid = false, null);
             }
         }
@@ -167,6 +194,33 @@ namespace InstallerFunctions
                     string version = releaseJson.tag_name;
                     return (version, true);
                 }
+            }
+            catch (WebException webEx)
+            {
+                // Check if the response contains JSON data (which happens in case of API errors)
+                if (webEx.Response != null)
+                {
+                    using (var reader = new StreamReader(webEx.Response.GetResponseStream()))
+                    {
+                        string errorResponse = reader.ReadToEnd();
+                        try
+                        {
+                            dynamic errorJson = JsonConvert.DeserializeObject(errorResponse);
+                            string errorMessage = errorJson.message;
+                            ErrorLog?.Invoke("Error getting installer release: " + errorMessage);
+                        }
+                        catch (Exception innerEx)
+                        {
+                            ErrorLog?.Invoke("Error reading API error message: " + innerEx.Message);
+                        }
+                    }
+                }
+                else
+                {
+                    ErrorLog?.Invoke("Error getting installer release: " + webEx.Message);
+                }
+
+                return (null, false);
             }
             catch (Exception ex)
             {
