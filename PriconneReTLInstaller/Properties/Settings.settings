@@ -106,5 +106,8 @@ You can set the shortcut in the Installer by clicking the "Settings" icon (scrol
     <Setting Name="checkForInstallerUpdates" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="showLogChecked" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

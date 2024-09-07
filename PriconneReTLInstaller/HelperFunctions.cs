@@ -354,7 +354,9 @@ namespace HelperFunctions
                     selectedLauncher = Settings.Default.selectedLauncher,
                     ignoreFiles = Settings.Default.ignoreFiles,
                     fastLauncherLink = Settings.Default.fastLauncherLink,
-                    LastKnownVersion = Settings.Default.LastKnownVersion
+                    LastKnownVersion = Settings.Default.LastKnownVersion,
+                    checkForInstallerUpdates = Settings.Default.checkForInstallerUpdates,
+                    showLogChecked = Settings.Default.showLogChecked
                 };
 
                 // Serialize user settings to XML
@@ -386,6 +388,8 @@ namespace HelperFunctions
                     Settings.Default.ignoreFiles = importedSettings.ignoreFiles;
                     Settings.Default.fastLauncherLink = importedSettings.fastLauncherLink;
                     Settings.Default.LastKnownVersion = importedSettings.LastKnownVersion;
+                    Settings.Default.checkForInstallerUpdates = importedSettings.checkForInstallerUpdates;
+                    Settings.Default.showLogChecked = importedSettings.showLogChecked;
 
                     // Save changes to application settings
                     Settings.Default.Save();
@@ -408,5 +412,7 @@ public class UserSettings
     public System.Collections.Specialized.StringCollection ignoreFiles { get; set; }
     public string fastLauncherLink { get; set; }
     public string LastKnownVersion { get; set; }
+    public bool checkForInstallerUpdates { get; set; }
+    public bool showLogChecked { get; set; }
     
 }

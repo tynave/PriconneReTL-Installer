@@ -163,6 +163,7 @@ namespace PriconneReTLInstaller
             launchCheckBox.Enabled = priconnePathValid;
             launchCheckBox.Checked = Settings.Default.launchState;
             operationsPanel.Height = launchCheckBox.Checked ? 184 : 154;
+            showLogCheckBox.Checked = Settings.Default.showLogChecked;
 
             (latestVersion, latestVersionValid, assetLink) = installer.GetLatestPatchRelease(patchgithubAPI);
             latestVersionLinkLabel.Text = "Latest Release: " + (latestVersionValid ? latestVersion : "ERROR!");
@@ -317,6 +318,7 @@ namespace PriconneReTLInstaller
                 if (checkBox == showLogCheckBox)
                 {
                     this.Height = checkBox.Checked ? 750 : 480;
+                    Settings.Default.showLogChecked = checkBox.Checked;
                 }
             }
             UpdateModeDescription();
