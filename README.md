@@ -20,6 +20,6 @@ Select the "Reinstall" operation and select the "Remove Config Files" option.
 Optionally you can select the "Remove Ignored Patch Files", but not necessary.  
 <img src="PriconneReTLInstaller/Resources/wiki/14reinstall.png">
 
-**Installer version 1.5.0**  
+**Installer version 1.5.0 or later**  
 Select the "Reinstall" operation. You do not have to select any extra options, but you can, if you prefer.  
 <img src="PriconneReTLInstaller/Resources/wiki/optionsenabled.png">
