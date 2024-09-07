@@ -159,7 +159,7 @@ namespace InstallerFunctions
                         {
                             dynamic errorJson = JsonConvert.DeserializeObject(errorResponse);
                             string errorMessage = errorJson.message;
-                            ErrorLog?.Invoke("Error getting installer release: " + errorMessage);
+                            ErrorLog?.Invoke("Error getting latest patch release: " + errorMessage);
                         }
                         catch (Exception innerEx)
                         {
