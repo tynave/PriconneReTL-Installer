@@ -478,6 +478,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\wiki\autoupdatermenu.png" />
+    <Content Include="Resources\wiki\importexportui.png" />
     <Content Include="Resources\wiki\updatericon.png" />
     <None Include="Resources\kokodance.gif" />
     <None Include="Resources\kokorun.gif" />
@@ -505,7 +506,6 @@
     <Content Include="Resources\wiki\currentoperationtooltip.png" />
     <Content Include="Resources\wiki\helpmenu.png" />
     <Content Include="Resources\wiki\ignoreui.png" />
-    <Content Include="Resources\wiki\importexportui.png" />
     <Content Include="Resources\wiki\install.png" />
     <Content Include="Resources\wiki\launch.png" />
     <Content Include="Resources\wiki\launchersettingsui.png" />
