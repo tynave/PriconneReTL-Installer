@@ -56,33 +56,33 @@
             this.versionLinkLabel = new System.Windows.Forms.LinkLabel();
             this.minimizeButton = new System.Windows.Forms.Button();
             this.aboutButton = new System.Windows.Forms.Button();
-            this.settingsButton = new System.Windows.Forms.Button();
-            this.auButton = new System.Windows.Forms.Button();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.helpMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.wikiMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForInstallerUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsButton = new System.Windows.Forms.Button();
+            this.settingsMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.editIgnoredFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setLauncherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importExportSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.auButton = new System.Windows.Forms.Button();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.operationLabel = new System.Windows.Forms.Label();
             this.optionsPanel = new System.Windows.Forms.Panel();
             this.optionsLabel = new System.Windows.Forms.Label();
             this.operationToolTipPicture = new System.Windows.Forms.PictureBox();
             this.menuButtonLabel = new System.Windows.Forms.Label();
-            this.settingsMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.editIgnoredFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setLauncherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.importExportSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tlPatchVersionsLabel = new System.Windows.Forms.Label();
             this.gameVersionLabel = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.operationsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.newPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.helpMenuStrip.SuspendLayout();
+            this.settingsMenuStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.optionsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.operationToolTipPicture)).BeginInit();
-            this.settingsMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // localVersionLabel
@@ -484,6 +484,7 @@
             this.aboutButton.BackColor = System.Drawing.Color.Transparent;
             this.aboutButton.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.i_bubble;
             this.aboutButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.aboutButton.ContextMenuStrip = this.helpMenuStrip;
             this.aboutButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.aboutButton.FlatAppearance.BorderSize = 0;
             this.aboutButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
@@ -496,11 +497,46 @@
             this.aboutButton.UseVisualStyleBackColor = false;
             this.aboutButton.Click += new System.EventHandler(this.aboutButton_Click);
             // 
+            // helpMenuStrip
+            // 
+            this.helpMenuStrip.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.helpMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.wikiMenuItem,
+            this.aboutMenuItem,
+            this.checkForInstallerUpdatesToolStripMenuItem});
+            this.helpMenuStrip.Name = "contextMenuStrip1";
+            this.helpMenuStrip.Size = new System.Drawing.Size(299, 70);
+            // 
+            // wikiMenuItem
+            // 
+            this.wikiMenuItem.Name = "wikiMenuItem";
+            this.wikiMenuItem.Size = new System.Drawing.Size(298, 22);
+            this.wikiMenuItem.Text = "GitHub Wiki page";
+            this.wikiMenuItem.Click += new System.EventHandler(this.helpMenuItem_Click);
+            // 
+            // aboutMenuItem
+            // 
+            this.aboutMenuItem.Name = "aboutMenuItem";
+            this.aboutMenuItem.Size = new System.Drawing.Size(298, 22);
+            this.aboutMenuItem.Text = "About";
+            this.aboutMenuItem.Click += new System.EventHandler(this.aboutMenuItem_Click);
+            // 
+            // checkForInstallerUpdatesToolStripMenuItem
+            // 
+            this.checkForInstallerUpdatesToolStripMenuItem.Checked = true;
+            this.checkForInstallerUpdatesToolStripMenuItem.CheckOnClick = true;
+            this.checkForInstallerUpdatesToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkForInstallerUpdatesToolStripMenuItem.Name = "checkForInstallerUpdatesToolStripMenuItem";
+            this.checkForInstallerUpdatesToolStripMenuItem.Size = new System.Drawing.Size(298, 22);
+            this.checkForInstallerUpdatesToolStripMenuItem.Text = "Check for Installer Updates on Startup";
+            this.checkForInstallerUpdatesToolStripMenuItem.CheckedChanged += new System.EventHandler(this.checkForInstallerUpdatesToolStripMenuItem_CheckedChanged);
+            // 
             // settingsButton
             // 
             this.settingsButton.BackColor = System.Drawing.Color.Transparent;
             this.settingsButton.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.scroll_closed_res2;
             this.settingsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.settingsButton.ContextMenuStrip = this.settingsMenuStrip;
             this.settingsButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.settingsButton.FlatAppearance.BorderSize = 0;
             this.settingsButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
@@ -514,6 +550,37 @@
             this.settingsButton.UseVisualStyleBackColor = false;
             this.settingsButton.EnabledChanged += new System.EventHandler(this.settingsButton_EnabledChanged);
             this.settingsButton.Click += new System.EventHandler(this.settingsButton_Click);
+            // 
+            // settingsMenuStrip
+            // 
+            this.settingsMenuStrip.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.settingsMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.editIgnoredFilesToolStripMenuItem,
+            this.setLauncherToolStripMenuItem,
+            this.importExportSettingsToolStripMenuItem});
+            this.settingsMenuStrip.Name = "settingsMenuStrip";
+            this.settingsMenuStrip.Size = new System.Drawing.Size(248, 92);
+            // 
+            // editIgnoredFilesToolStripMenuItem
+            // 
+            this.editIgnoredFilesToolStripMenuItem.Name = "editIgnoredFilesToolStripMenuItem";
+            this.editIgnoredFilesToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
+            this.editIgnoredFilesToolStripMenuItem.Text = "Edit Ignored Files";
+            this.editIgnoredFilesToolStripMenuItem.Click += new System.EventHandler(this.editIgnoredFilesToolStripMenuItem_Click);
+            // 
+            // setLauncherToolStripMenuItem
+            // 
+            this.setLauncherToolStripMenuItem.Name = "setLauncherToolStripMenuItem";
+            this.setLauncherToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
+            this.setLauncherToolStripMenuItem.Text = "Launcher Settings";
+            this.setLauncherToolStripMenuItem.Click += new System.EventHandler(this.launcherSettingsToolStripMenuItem_Click);
+            // 
+            // importExportSettingsToolStripMenuItem
+            // 
+            this.importExportSettingsToolStripMenuItem.Name = "importExportSettingsToolStripMenuItem";
+            this.importExportSettingsToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
+            this.importExportSettingsToolStripMenuItem.Text = "Import / Export User Settings";
+            this.importExportSettingsToolStripMenuItem.Click += new System.EventHandler(this.importExportSettingsToolStripMenuItem_Click);
             // 
             // auButton
             // 
@@ -543,39 +610,6 @@
             this.pictureBox1.Size = new System.Drawing.Size(330, 79);
             this.pictureBox1.TabIndex = 21;
             this.pictureBox1.TabStop = false;
-            // 
-            // helpMenuStrip
-            // 
-            this.helpMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.wikiMenuItem,
-            this.aboutMenuItem,
-            this.checkForInstallerUpdatesToolStripMenuItem});
-            this.helpMenuStrip.Name = "contextMenuStrip1";
-            this.helpMenuStrip.Size = new System.Drawing.Size(274, 70);
-            // 
-            // wikiMenuItem
-            // 
-            this.wikiMenuItem.Name = "wikiMenuItem";
-            this.wikiMenuItem.Size = new System.Drawing.Size(273, 22);
-            this.wikiMenuItem.Text = "GitHub Wiki page";
-            this.wikiMenuItem.Click += new System.EventHandler(this.helpMenuItem_Click);
-            // 
-            // aboutMenuItem
-            // 
-            this.aboutMenuItem.Name = "aboutMenuItem";
-            this.aboutMenuItem.Size = new System.Drawing.Size(273, 22);
-            this.aboutMenuItem.Text = "About";
-            this.aboutMenuItem.Click += new System.EventHandler(this.aboutMenuItem_Click);
-            // 
-            // checkForInstallerUpdatesToolStripMenuItem
-            // 
-            this.checkForInstallerUpdatesToolStripMenuItem.Checked = true;
-            this.checkForInstallerUpdatesToolStripMenuItem.CheckOnClick = true;
-            this.checkForInstallerUpdatesToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkForInstallerUpdatesToolStripMenuItem.Name = "checkForInstallerUpdatesToolStripMenuItem";
-            this.checkForInstallerUpdatesToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
-            this.checkForInstallerUpdatesToolStripMenuItem.Text = "Check for Installer Updates on Startup";
-            this.checkForInstallerUpdatesToolStripMenuItem.CheckedChanged += new System.EventHandler(this.checkForInstallerUpdatesToolStripMenuItem_CheckedChanged);
             // 
             // operationLabel
             // 
@@ -636,36 +670,6 @@
             this.menuButtonLabel.TabIndex = 37;
             this.menuButtonLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.menuButtonLabel.Visible = false;
-            // 
-            // settingsMenuStrip
-            // 
-            this.settingsMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.editIgnoredFilesToolStripMenuItem,
-            this.setLauncherToolStripMenuItem,
-            this.importExportSettingsToolStripMenuItem});
-            this.settingsMenuStrip.Name = "settingsMenuStrip";
-            this.settingsMenuStrip.Size = new System.Drawing.Size(227, 70);
-            // 
-            // editIgnoredFilesToolStripMenuItem
-            // 
-            this.editIgnoredFilesToolStripMenuItem.Name = "editIgnoredFilesToolStripMenuItem";
-            this.editIgnoredFilesToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
-            this.editIgnoredFilesToolStripMenuItem.Text = "Edit Ignored Files";
-            this.editIgnoredFilesToolStripMenuItem.Click += new System.EventHandler(this.editIgnoredFilesToolStripMenuItem_Click);
-            // 
-            // setLauncherToolStripMenuItem
-            // 
-            this.setLauncherToolStripMenuItem.Name = "setLauncherToolStripMenuItem";
-            this.setLauncherToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
-            this.setLauncherToolStripMenuItem.Text = "Launcher Settings";
-            this.setLauncherToolStripMenuItem.Click += new System.EventHandler(this.launcherSettingsToolStripMenuItem_Click);
-            // 
-            // importExportSettingsToolStripMenuItem
-            // 
-            this.importExportSettingsToolStripMenuItem.Name = "importExportSettingsToolStripMenuItem";
-            this.importExportSettingsToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
-            this.importExportSettingsToolStripMenuItem.Text = "Import / Export User Settings";
-            this.importExportSettingsToolStripMenuItem.Click += new System.EventHandler(this.importExportSettingsToolStripMenuItem_Click);
             // 
             // tlPatchVersionsLabel
             // 
@@ -733,12 +737,12 @@
             this.operationsPanel.ResumeLayout(false);
             this.operationsPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.newPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.helpMenuStrip.ResumeLayout(false);
+            this.settingsMenuStrip.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.optionsPanel.ResumeLayout(false);
             this.optionsPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.operationToolTipPicture)).EndInit();
-            this.settingsMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

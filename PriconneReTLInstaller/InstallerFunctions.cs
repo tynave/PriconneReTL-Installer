@@ -180,7 +180,7 @@ namespace InstallerFunctions
                 return (latestVersion = null, latestVersionValid = false, null);
             }
         }
-        public (string version, bool versionValid) GetLatestInstallerRelease()
+        public (string version, string body, string assetLink, bool versionValid) GetLatestInstallerRelease()
         {
 
             try
@@ -192,7 +192,9 @@ namespace InstallerFunctions
                     string response = client.DownloadString(releaseUrl);
                     dynamic releaseJson = JsonConvert.DeserializeObject(response);
                     string version = releaseJson.tag_name;
-                    return (version, true);
+                    string body = releaseJson.body;
+                    assetLink = releaseJson.assets[0].browser_download_url;
+                    return (version, body, assetLink, true);
                 }
             }
             catch (WebException webEx)
@@ -220,16 +222,16 @@ namespace InstallerFunctions
                     ErrorLog?.Invoke("Error getting installer release: " + webEx.Message);
                 }
 
-                return (null, false);
+                return (null, null, null, false);
             }
             catch (Exception ex)
             {
                 ErrorLog?.Invoke("Error getting installer release: " + ex.Message);
-                return (null, false);
+                return (null, null, null, false);
             }
         }
 
-        public async Task DownloadPatchFiles(string assetLink)
+        public async Task DownloadPatchFiles(string assetLink, string fileToSave = null)
         {
 
             try
@@ -246,8 +248,11 @@ namespace InstallerFunctions
                         long? totalBytesResponse = response.Content.Headers.ContentLength;
                         long totalBytes = totalBytesResponse ?? -1;
 
+                        string fileName = Path.GetFileName(new Uri(assetLink).AbsolutePath);
+                        string filePath = Path.Combine(Directory.GetCurrentDirectory(), fileName);
+
                         using (var contentStream = await response.Content.ReadAsStreamAsync())
-                        using (var fileStream = new FileStream(tempFile, FileMode.Create, FileAccess.Write))
+                        using (var fileStream = new FileStream(fileToSave == null ? tempFile : fileToSave, FileMode.Create, FileAccess.Write))
                         {
                             var buffer = new byte[4096];
                             long downloadedBytes = 0;
@@ -640,6 +645,30 @@ namespace InstallerFunctions
                 {
                     Log?.Invoke(install ? "Install complete!" : "Update complete!", "success", true);
                     ProcessFinish?.Invoke();
+                }
+            }
+        }
+        public async void ProcessInstallerUpdateOperation(string assetLink, SaveFileDialog saveFileDialog, Form form)
+        {
+            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            DialogResult result = saveFileDialog.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                string selectedFile = saveFileDialog.FileName;
+                Log?.Invoke("Downloading latest installer release..", "info", true);
+                await DownloadPatchFiles(assetLink, selectedFile);
+
+                if (downloadSuccess)
+                {
+                    DialogResult result2 = MessageBox.Show("New installer version successfully downloaded into the installer's folder!\n\nWould you like to close the application?", "Download successful!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    if (result2 == DialogResult.Yes) Application.Exit();
+                    else form.Close();
+                }
+
+                else
+                {
+                    MessageBox.Show("Error downloading the new installer version!\n\nCheck log for details!", "Download failed!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

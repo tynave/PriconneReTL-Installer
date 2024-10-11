@@ -54,14 +54,21 @@ namespace HelperFunctions
         {
             foreach (Control control in controls)
             {
-                // Check if the control is a ToolStrip
                 if (control is ToolStrip toolStrip)
                 {
                     SetFontForToolStripItems(priconnefont, toolStrip.Items);
                 }
+                else if (control is RichTextBox richTextBox)
+                {
+                    richTextBox.Font = new Font(priconnefont.Families[0], richTextBox.Font.Size, richTextBox.Font.Style);
+                }
+                else if (control.ContextMenuStrip != null)
+                {
+                    SetFontForContextMenuItems(priconnefont, control.ContextMenuStrip.Items);
+                }
                 else
                 {
-                    control.Font = new Font(priconnefont.Families[0], control.Font.Size, FontStyle.Bold, GraphicsUnit.Point, 1);
+                    control.Font = new Font(priconnefont.Families[0], control.Font.Size, control.Font.Style, GraphicsUnit.Point, 1);
                 }
 
                 // Check if the control has child controls
@@ -88,7 +95,20 @@ namespace HelperFunctions
                 }
             }
         }
+        public void SetFontForContextMenuItems(PrivateFontCollection priconnefont, ToolStripItemCollection contextMenuItems)
+        {
+            foreach (ToolStripItem item in contextMenuItems)
+            {
+                // Set font for each ToolStripItem in the context menu
+                item.Font = new Font(priconnefont.Families[0], item.Font.Size, item.Font.Style, GraphicsUnit.Point, 1);
 
+                // If the item is a drop-down item (like a sub-menu), handle its items recursively
+                if (item is ToolStripDropDownItem dropDownItem)
+                {
+                    SetFontForContextMenuItems(priconnefont, dropDownItem.DropDownItems);
+                }
+            }
+        }
         public bool isAnyChecked(CheckBox[] checkboxes)
         {
             if (checkboxes != null)
@@ -280,22 +300,14 @@ namespace HelperFunctions
             }
         }
 
-        public void CheckForInstallerUpdate(string version, bool versionValid)
+        public void CheckForInstallerUpdate(string version, string body, string assetLink, bool versionValid)
         {
-
             int versioncompare = String.Format(Application.ProductVersion).CompareTo(version);
 
             if (versionValid && versioncompare < 0)
             {
-                DialogResult result = MessageBox.Show("New PriconneReTL-Installer version available!" +
-                    $"\n\nCurrently used version: {String.Format(Application.ProductVersion)}" +
-                    $"\nLatest available version: {version}" +
-                    "\n\nJump to the latest release on GitHub?", "New Installer Version Available!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                if (result == DialogResult.Yes)
-                {
-                    Process.Start("https://github.com/tynave/PriconneReTL-Installer/releases/latest");
-                }
-                else return;
+                SelfUpdateForm SelfUpdateForm = new SelfUpdateForm(version, body, assetLink);
+                SelfUpdateForm.ShowDialog();
             }
         }
         public static bool IsFileInSubfolder(string folderPath, string filePath)

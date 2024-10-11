@@ -163,6 +163,26 @@ namespace PriconneReTLInstaller.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cancel {
+            get {
+                object obj = ResourceManager.GetObject("cancel", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cancel_lit {
+            get {
+                object obj = ResourceManager.GetObject("cancel_lit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap check_checked_24x24_2 {
             get {
                 object obj = ResourceManager.GetObject("check_checked_24x24_2", resourceCulture);
@@ -236,6 +256,26 @@ namespace PriconneReTLInstaller.Properties {
         internal static System.Drawing.Bitmap defaults_button_lit {
             get {
                 object obj = ResourceManager.GetObject("defaults_button_lit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap dlbutton {
+            get {
+                object obj = ResourceManager.GetObject("dlbutton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap dlbutton_lit {
+            get {
+                object obj = ResourceManager.GetObject("dlbutton_lit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

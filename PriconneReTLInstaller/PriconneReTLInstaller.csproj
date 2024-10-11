@@ -185,6 +185,12 @@
     <Compile Include="BaseForm.Designer.cs">
       <DependentUpon>BaseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SelfUpdateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SelfUpdateForm.Designer.cs">
+      <DependentUpon>SelfUpdateForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="LauncherForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -220,6 +226,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelfUpdateForm.resx">
+      <DependentUpon>SelfUpdateForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LauncherForm.resx">
       <DependentUpon>LauncherForm.cs</DependentUpon>
@@ -477,6 +486,10 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\cancel.png" />
+    <None Include="Resources\cancel_lit.png" />
+    <None Include="Resources\dlbutton.png" />
+    <None Include="Resources\dlbutton_lit.png" />
     <Content Include="Resources\wiki\autoupdatermenu.png" />
     <Content Include="Resources\wiki\importexportui.png" />
     <Content Include="Resources\wiki\updatericon.png" />

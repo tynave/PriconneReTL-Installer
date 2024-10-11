@@ -189,7 +189,6 @@ namespace PriconneReTLInstaller
             if (versioncompare == 0) logger.Log("You already have the latest translation patch version installed!", "success", true);
 
             startButton.Enabled = helper.isAnyChecked(operationCheckboxes);
-            checkForInstallerUpdatesToolStripMenuItem.Checked = Settings.Default.checkForInstallerUpdates;
         }
 
         private void UpdateUI()
@@ -211,6 +210,7 @@ namespace PriconneReTLInstaller
 
             removeConfigCheckBox.Enabled = false;
             removeIgnoredCheckBox.Enabled = false;
+
         }
 
         private void UpdateModeDescription()
@@ -555,6 +555,8 @@ namespace PriconneReTLInstaller
         {
             SetToolTips();
             currentLauncherLinkLabel.Text = "Launcher: " + (Settings.Default.selectedLauncher == 0 ? "DMMGamePlayer" : "DMMGamePlayerFastLauncher");
+            checkForInstallerUpdatesToolStripMenuItem.Checked = Settings.Default.checkForInstallerUpdates;
+
         }
         private void MainForm_Shown(object sender, EventArgs e)
         {
@@ -562,8 +564,8 @@ namespace PriconneReTLInstaller
             {
                 try
                 {
-                    (string version, bool versionValid) = installer.GetLatestInstallerRelease();
-                    helper.CheckForInstallerUpdate(version, versionValid);
+                    (string version, string body, string assetlink, bool versionValid) = installer.GetLatestInstallerRelease();
+                    helper.CheckForInstallerUpdate(version, body, assetlink, versionValid);
                 }
                 catch (Exception ex)
                 {
@@ -594,6 +596,11 @@ namespace PriconneReTLInstaller
         {
             Settings.Default.checkForInstallerUpdates = checkForInstallerUpdatesToolStripMenuItem.Checked;
             Settings.Default.Save();
+            if (checkForInstallerUpdatesToolStripMenuItem.Checked)
+            {
+                (string version, string body, string asssetLink, bool versionValid) = installer.GetLatestInstallerRelease();
+                helper.CheckForInstallerUpdate(version, body, assetLink, versionValid);
+            }
         }
     }
 }
