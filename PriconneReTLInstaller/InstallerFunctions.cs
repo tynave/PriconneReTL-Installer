@@ -47,6 +47,7 @@ namespace InstallerFunctions
         private bool downloadSuccess = true;
         private bool extractSuccess = true;
         private bool removeProgress = false;
+        private bool cancelledByUser = false;
         public event Action<double, double> DownloadProgress;
         public event Action<Image> ProgressPictureChange;
         public event Action<string, string, bool> Log;
@@ -537,7 +538,12 @@ namespace InstallerFunctions
                 {
                     DialogResult result = helper.UninstallReinstallNotification(uninstall, reinstall, removeConfig, removeIgnored, configFilesSelected, configFilesUnSelected);
 
-                    if (result == DialogResult.No) return;
+                    if (result == DialogResult.No) 
+                    {
+                        cancelledByUser = true;
+                        ErrorLog?.Invoke($"Operation cancelled!");
+                        return;
+                    };
                 }
 
                 ProcessStart?.Invoke();
@@ -592,11 +598,12 @@ namespace InstallerFunctions
 
                 if (processName != null) 
                 {
-                    if (!processSuccess) ErrorLog?.Invoke($"{processName} failed!"); else Log?.Invoke($"{processName} complete!", "success", true);
+                    if (!processSuccess) ErrorLog?.Invoke($"{processName} failed"); 
+                    else Log?.Invoke($"{processName} complete!", "success", true);
                 }
                 ProcessFinish?.Invoke();
 
-                if (launch)
+                if (launch && !cancelledByUser)
                 {
                     bool result = false;
                     switch (Settings.Default.selectedLauncher)
@@ -609,7 +616,7 @@ namespace InstallerFunctions
                                 break;
                             default:
                                 break;
-                        }
+                    }
 
                     if (result)
                     {
@@ -618,6 +625,7 @@ namespace InstallerFunctions
                     }
 
                 }
+                cancelledByUser = false;
             }
         }
         public async void ProcessAutoUpdateOperation(bool install, string assetLink)
