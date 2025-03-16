@@ -175,9 +175,9 @@
             this.toolStripStatusLabel2,
             this.toolStripStatusLabel3,
             this.toolStripProgressBar1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 719);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 715);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(718, 29);
+            this.statusStrip1.Size = new System.Drawing.Size(714, 29);
             this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 14;
             this.statusStrip1.Text = "statusStrip1";
@@ -192,7 +192,7 @@
             // toolStripStatusLabel2
             // 
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(546, 24);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(542, 24);
             this.toolStripStatusLabel2.Spring = true;
             // 
             // toolStripStatusLabel3
@@ -559,7 +559,7 @@
             this.setLauncherToolStripMenuItem,
             this.importExportSettingsToolStripMenuItem});
             this.settingsMenuStrip.Name = "settingsMenuStrip";
-            this.settingsMenuStrip.Size = new System.Drawing.Size(248, 92);
+            this.settingsMenuStrip.Size = new System.Drawing.Size(248, 70);
             // 
             // editIgnoredFilesToolStripMenuItem
             // 
@@ -699,7 +699,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.bg2;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(718, 748);
+            this.ClientSize = new System.Drawing.Size(714, 744);
             this.ControlBox = false;
             this.Controls.Add(this.versionLinkLabel);
             this.Controls.Add(this.gameVersionLabel);
@@ -728,6 +728,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Priconne Re-TL Installer";
             this.Activated += new System.EventHandler(this.MainForm_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Load += new System.EventHandler(this.MainForm_Load);

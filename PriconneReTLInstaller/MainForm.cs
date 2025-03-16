@@ -22,6 +22,7 @@ namespace PriconneReTLInstaller
     {
         private string patchgithubAPI = Settings.Default.patchGithubApi;
         private string assetLink;
+        private string installerAssetlink;
         private string priconnePath;
         private bool priconnePathValid;
         private string gameVersion;
@@ -146,7 +147,7 @@ namespace PriconneReTLInstaller
             string fastLauncherLink = Settings.Default.fastLauncherLink;
 
             Icon = Resources.jewel;
-            Height = 480;
+            Height = 520;
             optionsPanel.Height = 87;
 
             versionLinkLabel.Text = $"v{String.Format(Application.ProductVersion)}";
@@ -317,7 +318,7 @@ namespace PriconneReTLInstaller
 
                 if (checkBox == showLogCheckBox)
                 {
-                    this.Height = checkBox.Checked ? 750 : 480;
+                    this.Height = checkBox.Checked ? 790 : 520;
                     Settings.Default.showLogChecked = checkBox.Checked;
                 }
             }
@@ -564,8 +565,8 @@ namespace PriconneReTLInstaller
             {
                 try
                 {
-                    (string version, string body, string assetlink, bool versionValid) = installer.GetLatestInstallerRelease();
-                    helper.CheckForInstallerUpdate(version, body, assetlink, versionValid);
+                    (string version, string body, string installerAssetlink, bool versionValid) = installer.GetLatestInstallerRelease();
+                    helper.CheckForInstallerUpdate(version, body, installerAssetlink, versionValid);
                 }
                 catch (Exception ex)
                 {
@@ -598,8 +599,8 @@ namespace PriconneReTLInstaller
             Settings.Default.Save();
             if (checkForInstallerUpdatesToolStripMenuItem.Checked)
             {
-                (string version, string body, string asssetLink, bool versionValid) = installer.GetLatestInstallerRelease();
-                helper.CheckForInstallerUpdate(version, body, assetLink, versionValid);
+                (string version, string body, string installerAssetlink, bool versionValid) = installer.GetLatestInstallerRelease();
+                helper.CheckForInstallerUpdate(version, body, installerAssetlink, versionValid);
             }
         }
     }

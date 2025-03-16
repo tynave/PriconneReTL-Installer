@@ -541,7 +541,7 @@ namespace InstallerFunctions
                     if (result == DialogResult.No) 
                     {
                         cancelledByUser = true;
-                        ErrorLog?.Invoke($"Operation cancelled!");
+                        Log?.Invoke($"Operation cancelled!", "remove", true);
                         return;
                     };
                 }
@@ -660,7 +660,7 @@ namespace InstallerFunctions
                 }
             }
         }
-        public async void ProcessInstallerUpdateOperation(string assetLink, SaveFileDialog saveFileDialog, Form form)
+        public async void ProcessInstallerUpdateOperation(string installerAssetLink, SaveFileDialog saveFileDialog, Form form)
         {
             saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             DialogResult result = saveFileDialog.ShowDialog();
@@ -669,7 +669,7 @@ namespace InstallerFunctions
             {
                 string selectedFile = saveFileDialog.FileName;
                 Log?.Invoke("Downloading latest installer release..", "info", true);
-                await DownloadPatchFiles(assetLink, selectedFile);
+                await DownloadPatchFiles(installerAssetLink, selectedFile);
 
                 if (downloadSuccess)
                 {

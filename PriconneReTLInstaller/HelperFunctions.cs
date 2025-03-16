@@ -300,13 +300,13 @@ namespace HelperFunctions
             }
         }
 
-        public void CheckForInstallerUpdate(string version, string body, string assetLink, bool versionValid)
+        public void CheckForInstallerUpdate(string version, string body, string installerAssetLink, bool versionValid)
         {
             int versioncompare = String.Format(Application.ProductVersion).CompareTo(version);
 
             if (versionValid && versioncompare < 0)
             {
-                SelfUpdateForm SelfUpdateForm = new SelfUpdateForm(version, body, assetLink);
+                SelfUpdateForm SelfUpdateForm = new SelfUpdateForm(version, body, installerAssetLink);
                 SelfUpdateForm.ShowDialog();
             }
         }

@@ -19,8 +19,8 @@ namespace PriconneReTLInstaller
         private Logger updatelogger;
         private string latestAvailableVersion;
         private string releaseBody;
-        private string assetLink;
-        public SelfUpdateForm(string version, string body, string assetLink)
+        private string installerAssetLink;
+        public SelfUpdateForm(string version, string body, string installerAssetLink)
         {
             InitializeComponent();
 
@@ -28,6 +28,8 @@ namespace PriconneReTLInstaller
             installer.ErrorLog += OnErrorLog;
             helper.Log += OnLog;
             helper.ErrorLog += OnErrorLog;
+            installer.DownloadProgress += OnDownloadProgress;
+
 
             downloadButton.MouseEnter += OnButtonMouseEnter;
             downloadButton.MouseLeave += OnButtonMouseLeave;
@@ -37,7 +39,7 @@ namespace PriconneReTLInstaller
 
             latestAvailableVersion = version;
             releaseBody = body;
-            this.assetLink = assetLink;
+            this.installerAssetLink = installerAssetLink;
             currentVersionLabel.Text = "Current Version: " + String.Format(Application.ProductVersion);
             latestVersionLabel.Text = "Latest Available Version: " + latestAvailableVersion;
 
@@ -76,6 +78,15 @@ namespace PriconneReTLInstaller
                 updatelogger.Error(message);
         }
 
+        public void OnDownloadProgress(double currentValue, double maxValue)
+        {
+            double percentage = ((double)currentValue / (double)maxValue) * 100;
+            statusStrip1.Invoke((Action)(() =>
+            {
+                toolStripProgressBar1.Value = (int)percentage;
+                toolStripStatusLabel3.Text = $"{Math.Truncate(percentage)}%";
+            }));
+        }
         private void ParseMarkdownToRichTextBox(string markdown)
         {
             // Split lines to process them one by one
@@ -141,7 +152,7 @@ namespace PriconneReTLInstaller
 
         private void downloadButton_Click(object sender, EventArgs e)
         {
-            installer.ProcessInstallerUpdateOperation(assetLink, saveFileDialog1, this);
+            installer.ProcessInstallerUpdateOperation(installerAssetLink, saveFileDialog1, this);
         }
     }
 }
