@@ -22,7 +22,6 @@ namespace PriconneReTLInstaller
     {
         private string patchgithubAPI = Settings.Default.patchGithubApi;
         private string assetLink;
-        private string installerAssetlink;
         private string priconnePath;
         private bool priconnePathValid;
         private string gameVersion;
@@ -147,7 +146,7 @@ namespace PriconneReTLInstaller
             string fastLauncherLink = Settings.Default.fastLauncherLink;
 
             Icon = Resources.jewel;
-            Height = 520;
+            Height = 480;
             optionsPanel.Height = 87;
 
             versionLinkLabel.Text = $"v{String.Format(Application.ProductVersion)}";
@@ -318,7 +317,7 @@ namespace PriconneReTLInstaller
 
                 if (checkBox == showLogCheckBox)
                 {
-                    this.Height = checkBox.Checked ? 790 : 520;
+                    this.Height = checkBox.Checked ? 740 : 480;
                     Settings.Default.showLogChecked = checkBox.Checked;
                 }
             }

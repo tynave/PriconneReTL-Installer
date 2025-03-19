@@ -35,35 +35,23 @@ namespace PriconneReTLInstaller
 
         }
 
-        protected async void OnMouseDown(object sender, MouseEventArgs e)
+        protected void OnMouseDown(object sender, MouseEventArgs e)
         {
-            mouseDown = true;
-            lastLocation = e.Location;
-
-            await Task.Run(() =>
+            if (e.Button == MouseButtons.Left)
             {
-                while (mouseDown)
-                {
-                    this.Invoke((Action)(() =>
-                    {
-                        this.Location = new Point(
-                            (this.Location.X - lastLocation.X) + e.X, (this.Location.Y - lastLocation.Y) + e.Y);
-                        this.Update();
-                    }));
-                }
-            });
+                mouseDown = true;
+                lastLocation = e.Location;
+            }
         }
 
         protected void OnMouseMove(object sender, MouseEventArgs e)
         {
             if (mouseDown)
             {
-                this.Invoke((Action)(() =>
-                {
-                    this.Location = new Point(
-                        (this.Location.X - lastLocation.X) + e.X, (this.Location.Y - lastLocation.Y) + e.Y);
-                    this.Update();
-                }));
+                this.Location = new Point(
+                    this.Location.X + e.X - lastLocation.X,
+                    this.Location.Y + e.Y - lastLocation.Y
+                );
             }
         }
 
