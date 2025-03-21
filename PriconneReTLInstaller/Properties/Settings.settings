@@ -55,7 +55,7 @@ Depending on the options selected, keeps or removes config/ignored/interop files
     </Setting>
     <Setting Name="updateModeDescription" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Updates the current translation patch installation by removing the the current version and installing the latest.
-Keeps user files, as well as config/ignored/interop files.</Value>
+Keeps user files, as well as config/ignored files.</Value>
     </Setting>
     <Setting Name="disabledMode" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Disabled</Value>

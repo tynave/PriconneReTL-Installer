@@ -12,7 +12,7 @@ namespace PriconneReTLInstaller.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.8.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.13.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -143,8 +143,8 @@ namespace PriconneReTLInstaller.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Updates the current translation patch installation by removing the the current ve" +
-            "rsion and installing the latest.\r\nKeeps user files, as well as config/ignored/in" +
-            "terop files.")]
+            "rsion and installing the latest.\r\nKeeps user files, as well as config/ignored fi" +
+            "les.")]
         public string updateModeDescription {
             get {
                 return ((string)(this["updateModeDescription"]));
