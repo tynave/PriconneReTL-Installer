@@ -248,27 +248,6 @@ namespace PriconneReTLInstaller
             return;
         }
 
-        private void SetToolTips()
-        {
-            StringCollection ignoreCollection = Settings.Default.ignoreFiles;
-            StringCollection configCollection = Settings.Default.configFiles;
-
-            StringBuilder ignoreList = new StringBuilder();
-            foreach (string line in ignoreCollection)
-            {
-                ignoreList.AppendLine(line);
-            }
-
-            StringBuilder configList = new StringBuilder();
-            foreach (string line in configCollection)
-            {
-                configList.AppendLine(line);
-            }
-
-            toolTip.SetToolTip(removeConfigCheckBox, $"Removes the selected config files");
-            toolTip.SetToolTip(removeIgnoredCheckBox, $"Removes the currently set ignored files also.");
-        }
-
         // Events
         public void OnLog(string message, string color, bool writeToToolStrip = false)
         {
@@ -458,7 +437,6 @@ namespace PriconneReTLInstaller
         private void MainForm_Load(object sender, EventArgs e)
         {
             InitializeUI();
-            SetToolTips();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -553,7 +531,6 @@ namespace PriconneReTLInstaller
 
         private void MainForm_Activated(object sender, EventArgs e)
         {
-            SetToolTips();
             currentLauncherLinkLabel.Text = "Launcher: " + (Settings.Default.selectedLauncher == 0 ? "DMMGamePlayer" : "DMMGamePlayerFastLauncher");
             checkForInstallerUpdatesToolStripMenuItem.Checked = Settings.Default.checkForInstallerUpdates;
 

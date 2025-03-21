@@ -314,6 +314,7 @@
             this.removeIgnoredCheckBox.TabIndex = 29;
             this.removeIgnoredCheckBox.Text = " Remove Ignored Patch Files";
             this.removeIgnoredCheckBox.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip.SetToolTip(this.removeIgnoredCheckBox, "Removes the currently set ignored files also.");
             this.removeIgnoredCheckBox.UseVisualStyleBackColor = false;
             // 
             // removeConfigCheckBox
@@ -334,6 +335,7 @@
             this.removeConfigCheckBox.TabIndex = 17;
             this.removeConfigCheckBox.Text = " Remove Config Files";
             this.removeConfigCheckBox.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.toolTip.SetToolTip(this.removeConfigCheckBox, "Removes the selected config files.");
             this.removeConfigCheckBox.UseVisualStyleBackColor = false;
             this.removeConfigCheckBox.CheckedChanged += new System.EventHandler(this.removeConfigCheckBox_CheckedChanged);
             // 
