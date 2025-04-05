@@ -21,7 +21,7 @@ namespace PriconneReTLInstaller
         {
             InitializeComponent();
 
-            backButton.MouseEnter += OnButtonMouseEnter;
+            /*backButton.MouseEnter += OnButtonMouseEnter;
             backButton.MouseLeave += OnButtonMouseLeave;
 
             addButton.MouseEnter += OnButtonMouseEnter;
@@ -34,15 +34,29 @@ namespace PriconneReTLInstaller
             saveButton.MouseLeave += OnButtonMouseLeave;
             
             defaultsButton.MouseEnter += OnButtonMouseEnter;
-            defaultsButton.MouseLeave += OnButtonMouseLeave;
+            defaultsButton.MouseLeave += OnButtonMouseLeave;*/
 
-            fileListbox.MouseDown += OnMouseDown;
+            /*fileListbox.MouseDown += OnMouseDown;
             fileListbox.MouseMove += OnMouseMove;
             fileListbox.MouseUp += OnMouseUp;
 
             ignoreFilesLabel.MouseDown += OnMouseDown;
             ignoreFilesLabel.MouseMove += OnMouseMove;
-            ignoreFilesLabel.MouseUp += OnMouseUp;
+            ignoreFilesLabel.MouseUp += OnMouseUp;*/
+
+            RegisterMouseDrag(new List<Control> { fileListbox, ignoreFilesLabel });
+
+
+            var buttonImageMappings = new List<(Button button, Image normal, Image hover, EventHandler extraMouseEnterEvent, EventHandler extraMouseLeaveEvent)>
+            {
+                (backButton, Resources.back_arrow, Resources.back_arrow_lit, null, null),
+                (addButton, Resources.add_button, Resources.add_button_lit, null, null),
+                (removeButton, Resources.remove_button, Resources.remove_button_lit, null, null),
+                (saveButton, Resources.save_button, Resources.save_button_lit, null, null   ),
+                (defaultsButton, Resources.defaults_button, Resources.defaults_button_lit, null, null)
+            };
+
+            RegisterButtonImagesBulk(buttonImageMappings);
 
             defaultPath = arg;
             openFileDialog1.InitialDirectory = defaultPath;

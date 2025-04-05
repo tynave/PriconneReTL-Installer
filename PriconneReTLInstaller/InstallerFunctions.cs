@@ -109,7 +109,7 @@ namespace InstallerFunctions
                 if (!priconnePathValid)
                 {
                     ErrorLog?.Invoke("Game path not valid, cannot determine local version!");
-                    return (localVersion = "Unable to determine!", localVersionValid = false);
+                    return (localVersion = "N/A", localVersionValid = false);
                 }
 
                 string versionFilePath = Path.Combine(priconnePath, "BepInEx", "Translation", "en", "Text", "Version.txt");

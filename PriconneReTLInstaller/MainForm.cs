@@ -15,6 +15,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace PriconneReTLInstaller
 {
@@ -65,9 +66,21 @@ namespace PriconneReTLInstaller
 
             SubscribeToCheckBoxes(this.Controls);
 
-            SubscribeToButtons(this.Controls);
+            //SubscribeToButtons(this.Controls);
 
-            pictureBox1.MouseDown += OnMouseDown;
+            var buttonImageMappings = new List<(Button button, Image normal, Image hover, EventHandler extraMouseEnterEvent, EventHandler extraMouseLeaveEvent)>
+            {
+                (startButton, Resources.start_idle, Resources.start_hover_lit, StartButtonExtraLogic, null),
+                (exitButton, Resources.door_closed, Resources.door_open, MenuButtonEnterExtraLogic, MenuButtonLeaveExtraLogic),
+                (minimizeButton, Resources.arrow_blue, Resources.arrow_yellow, MenuButtonEnterExtraLogic, MenuButtonLeaveExtraLogic),
+                (settingsButton, Resources.scroll_closed_res2, Resources.scroll_open, MenuButtonEnterExtraLogic, MenuButtonLeaveExtraLogic),
+                (aboutButton, Resources.i_bubble, Resources.q_bubble, MenuButtonEnterExtraLogic, MenuButtonLeaveExtraLogic),
+                (auButton, Resources.crystal_normal_res, Resources.crystal_lit, MenuButtonEnterExtraLogic, MenuButtonLeaveExtraLogic)
+            };
+
+            RegisterButtonImagesBulk(buttonImageMappings);
+
+            /*pictureBox1.MouseDown += OnMouseDown;
             pictureBox1.MouseMove += OnMouseMove;
             pictureBox1.MouseUp += OnMouseUp;
 
@@ -77,10 +90,13 @@ namespace PriconneReTLInstaller
 
             optionsPanel.MouseDown += OnMouseDown;
             optionsPanel.MouseMove += OnMouseMove;
-            optionsPanel.MouseUp += OnMouseUp;
+            optionsPanel.MouseUp += OnMouseUp;*/
+
+            RegisterMouseDrag(new List<Control> { pictureBox1, operationsPanel, optionsPanel });
 
             this.Layout += OnOperationLabelChange;
             operationLabel.TextChanged += OnOperationLabelChange;
+
 
             logger = new Logger("ReTLInstaller.log", outputTextBox, toolStripStatusLabel1);
             logger.StartSession();
@@ -88,6 +104,43 @@ namespace PriconneReTLInstaller
         }
 
         // Functions
+
+        private void StartButtonExtraLogic(object sender, EventArgs e)
+        {
+            if (sender is Button button && !button.Enabled)
+            {
+                button.BackgroundImage = Resources.start_idle; // Ensure it does not change when disabled
+            }
+        }
+
+        private void MenuButtonEnterExtraLogic(object sender, EventArgs e)
+        {
+            if (sender is Button button)
+            {
+                var menuButtonLabels = new List<(Button menuButton, string name)>
+        {
+            (exitButton, "Exit Application"),
+            (minimizeButton, "Minimize Application"),
+            (aboutButton, "Help / About"),
+            (auButton, "Create AutoUpdater Shortcut"),
+            (settingsButton, "Settings")
+        };
+
+                foreach (var (menuButton, name) in menuButtonLabels)
+                {
+                    if (button == menuButton)
+                    {
+                        menuButtonLabel.Visible = true;
+                        menuButtonLabel.Text = name;
+                    }
+                }
+            }
+        }
+
+        private void MenuButtonLeaveExtraLogic(object sender, EventArgs e)
+        {
+            menuButtonLabel.Visible = false;
+        }
 
         void SubscribeToCheckBoxes(Control.ControlCollection controls)
         {
@@ -107,7 +160,7 @@ namespace PriconneReTLInstaller
             }
         }
 
-        void SubscribeToButtons(Control.ControlCollection controls)
+        /*void SubscribeToButtons(Control.ControlCollection controls)
         {
             foreach (Control control in controls)
             {
@@ -123,7 +176,7 @@ namespace PriconneReTLInstaller
                     SubscribeToButtons(control.Controls);
                 }
             }
-        }
+        }*/
 
         void DisableCheckboxes(CheckBox[] checkboxes)
         {
@@ -351,7 +404,7 @@ namespace PriconneReTLInstaller
             optionsPanel.Height = removeConfigCheckBox.Checked ? 154 : 87;
         }
 
-        private void OnButtonMouseEnter(object sender, EventArgs e)
+        /*private void OnButtonMouseEnter(object sender, EventArgs e)
         {
             var menuButtonLabels = new List<(Button menuButton, string name)>
                 {
@@ -364,13 +417,28 @@ namespace PriconneReTLInstaller
 
             if (sender is Button button)
             {
-                if (button == startButton && button.Enabled) button.BackgroundImage = Resources.start_hover_lit;
-                if (button == exitButton) button.BackgroundImage = Resources.door_open;
-                if (button == minimizeButton) button.BackgroundImage = Resources.arrow_yellow;
-                if (button == aboutButton) button.BackgroundImage = Resources.q_bubble;
-                if (button == settingsButton) button.BackgroundImage = Resources.scroll_open;
-                if (button == auButton) button.BackgroundImage = Resources.crystal_lit;
-                
+                switch (button)
+                {
+                    case var _ when button == startButton && button.Enabled:
+                        button.BackgroundImage = Resources.start_hover_lit;
+                        break;
+                    case var _ when button == exitButton:
+                        button.BackgroundImage = Resources.door_open;
+                        break;
+                    case var _ when button == minimizeButton:
+                        button.BackgroundImage = Resources.arrow_yellow;
+                        break;
+                    case var _ when button == aboutButton:
+                        button.BackgroundImage = Resources.q_bubble;
+                        break;
+                    case var _ when button == settingsButton:
+                        button.BackgroundImage = Resources.scroll_open;
+                        break;
+                    case var _ when button == auButton:
+                        button.BackgroundImage = Resources.crystal_lit;
+                        break;
+                }
+
                 foreach (var (menuButton, name) in menuButtonLabels)
                     {
                         if (button == menuButton)
@@ -385,15 +453,31 @@ namespace PriconneReTLInstaller
         {
             if (sender is Button button)
             {
-                if (button == startButton && button.Enabled) button.BackgroundImage = Resources.start_idle;
-                if (button == exitButton) button.BackgroundImage = Resources.door_closed;
-                if (button == minimizeButton) button.BackgroundImage = Resources.arrow_blue;
-                if (button == aboutButton) button.BackgroundImage = Resources.i_bubble;
-                if (button == settingsButton) button.BackgroundImage = Resources.scroll_closed_res2;
-                if (button == auButton) button.BackgroundImage = Resources.crystal_normal_res;
+                switch (button)
+                {
+                    case var _ when button == startButton && button.Enabled:
+                        button.BackgroundImage = Resources.start_idle;
+                        break;
+                    case var _ when button == exitButton:
+                        button.BackgroundImage = Resources.door_closed;
+                        break;
+                    case var _ when button == minimizeButton:
+                        button.BackgroundImage = Resources.arrow_blue;
+                        break;
+                    case var _ when button == aboutButton:
+                        button.BackgroundImage = Resources.i_bubble;
+                        break;
+                    case var _ when button == settingsButton:
+                        button.BackgroundImage = Resources.scroll_closed_res2;
+                        break;
+                    case var _ when button == auButton:
+                        button.BackgroundImage = Resources.crystal_normal_res;
+                        break;
+                }
+
                 menuButtonLabel.Visible = false;
             }
-        }
+        }*/
         private void OnProcessStart()
         {
             toolStripProgressBar1.Value = 0;
@@ -402,6 +486,7 @@ namespace PriconneReTLInstaller
             startButton.Enabled = false;
             auButton.Enabled = false;
             settingsButton.Enabled = false;
+            aboutButton.Enabled = false;
             startButton.BackgroundImage = Resources.start_working;
             logger.Log("Starting selected operation(s)...", "info");
             DisableCheckboxes(operationCheckboxes);
@@ -414,7 +499,8 @@ namespace PriconneReTLInstaller
             EnableCheckboxes(optionCheckboxes);
             startButton.Enabled = false;
             auButton.Enabled = true; 
-            settingsButton.Enabled= true;   
+            settingsButton.Enabled= true;  
+            aboutButton.Enabled = true;
             startButton.BackgroundImage = Resources.start_complete;
             reinstallCheckBox.Checked = false;
             uninstallCheckBox.Checked = false;

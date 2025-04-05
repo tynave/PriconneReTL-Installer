@@ -20,29 +20,42 @@ namespace PriconneReTLInstaller
         {
             InitializeComponent();
 
-            importExportLabel.MouseDown += OnMouseDown;
+            /*importExportLabel.MouseDown += OnMouseDown;
             importExportLabel.MouseMove += OnMouseMove;
             importExportLabel.MouseUp += OnMouseUp;
 
             importExportDescriptionLabel.MouseDown += OnMouseDown;
             importExportDescriptionLabel.MouseMove += OnMouseMove;
-            importExportDescriptionLabel.MouseUp += OnMouseUp;
+            importExportDescriptionLabel.MouseUp += OnMouseUp;*/
 
-            backButton.MouseEnter += OnButtonMouseEnter;
+            /*backButton.MouseEnter += OnButtonMouseEnter;
             backButton.MouseLeave += OnButtonMouseLeave;
 
             importButton.MouseEnter += OnButtonMouseEnter;
             importButton.MouseLeave += OnButtonMouseLeave;
 
             exportButton.MouseEnter += OnButtonMouseEnter;
-            exportButton.MouseLeave += OnButtonMouseLeave;
+            exportButton.MouseLeave += OnButtonMouseLeave;*/
+
+            RegisterMouseDrag(new List<Control> { importExportLabel, importExportDescriptionLabel });
+
+
+            var buttonImageMappings = new List<(Button button, Image normal, Image hover, EventHandler extraMouseEnterEvent, EventHandler extraMouseLeaveEvent)>
+            {
+                (backButton, Resources.back_arrow, Resources.back_arrow_lit, null, null),
+                (importButton, Resources.import_button, Resources.import_button_lit, null, null),
+                (exportButton, Resources.export_button, Resources.export_button_lit, null, null),
+            };
+
+            RegisterButtonImagesBulk(buttonImageMappings);
+
 
             priconnePath = arg;
 
             ielogger = new Logger("ReTLInstaller.log", null , toolStripStatusLabel1);
         }
 
-        private void OnButtonMouseEnter(object sender, EventArgs e)
+        /*private void OnButtonMouseEnter(object sender, EventArgs e)
         {
             if (sender is Button button)
             {
@@ -60,7 +73,7 @@ namespace PriconneReTLInstaller
                 if (button == importButton) button.BackgroundImage = Resources.import_button;
                 if (button == exportButton) button.BackgroundImage = Resources.export_button;
             }
-        }
+        }*/
 
         private void backButton_Click(object sender, EventArgs e)
         {

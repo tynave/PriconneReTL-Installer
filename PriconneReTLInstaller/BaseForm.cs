@@ -25,6 +25,8 @@ namespace PriconneReTLInstaller
 
         protected Logger logger;
 
+        private readonly Dictionary<Button, (Image normal, Image hover)> buttonImages = new Dictionary<Button, (Image, Image)>();
+
         public BaseForm()
         {
             InitializeComponent();
@@ -33,6 +35,16 @@ namespace PriconneReTLInstaller
             this.MouseMove += OnMouseMove;
             this.MouseUp += OnMouseUp;
 
+        }
+
+        protected void RegisterMouseDrag(List<Control> controls)
+        {
+            foreach (Control control in controls) 
+            {
+                control.MouseDown += OnMouseDown;
+                control.MouseMove += OnMouseMove;
+                control.MouseUp += OnMouseUp;
+            }
         }
 
         protected void OnMouseDown(object sender, MouseEventArgs e)
@@ -58,6 +70,43 @@ namespace PriconneReTLInstaller
         protected void OnMouseUp(object sender, MouseEventArgs e)
         {
             mouseDown = false;
+        }
+
+        protected void RegisterButtonImages(Button button, Image normal, Image hover, EventHandler extraMouseEnterLogic = null, EventHandler extraMouseLeaveLogic = null)
+        {
+            buttonImages[button] = (normal, hover);
+            button.MouseEnter += OnButtonMouseEnter;
+            button.MouseLeave += OnButtonMouseLeave;
+
+            if (extraMouseEnterLogic != null)
+                button.MouseEnter += extraMouseEnterLogic;
+
+            if (extraMouseLeaveLogic != null)
+                button.MouseLeave += extraMouseLeaveLogic;
+        }
+
+        protected void RegisterButtonImagesBulk(List<(Button button, Image normal, Image hover, EventHandler extraMouseEnterlogic, EventHandler extraMouseLeaveLogic)> buttonList)
+        {
+            foreach (var (button, normal, hover, extramouseenterlogic, extramouseleavelogic) in buttonList)
+            {
+                RegisterButtonImages(button, normal, hover, extramouseenterlogic, extramouseleavelogic);
+            }
+        }
+
+        private void OnButtonMouseEnter(object sender, EventArgs e)
+        {
+            if (sender is Button button && buttonImages.TryGetValue(button, out var images))
+            {
+                button.BackgroundImage = images.hover;
+            }
+        }
+
+        private void OnButtonMouseLeave(object sender, EventArgs e)
+        {
+            if (sender is Button button && buttonImages.TryGetValue(button, out var images))
+            {
+                button.BackgroundImage = images.normal;
+            }
         }
 
         private void BaseForm_Load(object sender, EventArgs e)
