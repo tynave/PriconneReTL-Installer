@@ -15,6 +15,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Timers;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace PriconneReTLInstaller
 {
@@ -28,13 +29,16 @@ namespace PriconneReTLInstaller
         private bool latestVersionValid;
         private string localVersion;
         private bool localVersionValid;
+        private string localModLoaderVersion;
+        private bool localModLoaderVersionValid;
+        private string latestModLoaderVersion;
         private string assetLink;
         public AutoUpdateForm()
         {
             InitializeComponent();
 
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.Height = 140;
+            this.Height = 275;
 
             installer.Log += OnLog;
             installer.ErrorLog += OnErrorLog;
@@ -60,16 +64,37 @@ namespace PriconneReTLInstaller
             gameVersionLabel.Text = "Game Version: " + gameVersion;
 
             (latestVersion, latestVersionValid, assetLink) = installer.GetLatestPatchRelease(Settings.Default.patchGithubApi);
-            latestVersionLinkLabel.Text = "Latest TL Patch Release: " + latestVersion;
+            latestVersionLinkLabel.Text = latestVersionValid ? latestVersion : "ERROR!";
 
-
-            (localVersion, localVersionValid) = installer.GetInstalledPatchVersion();
-            localVersionLabel.Text = "Current (Local) TL Patch Version: " + localVersion;
-
-            newPictureBox.Visible = (latestVersionValid && (localVersion == latestVersion)) ? false : true;
+            (latestModLoaderVersion, _) = installer.GetLatestModloaderRelease();
+            latestModloaderVersionLabel.Text = latestModLoaderVersion;
 
             progressLabel.Text = "";
 
+            UpdateUI();
+        }
+
+        private void UpdateUI()
+        {
+            //localVersionLabel.Text = latestVersion;
+            (localVersion, localVersionValid) = installer.GetInstalledPatchVersion();
+            localVersionLabel.Text = localVersion;
+
+            (localModLoaderVersion, localModLoaderVersionValid) = installer.GetInstalledModloaderVersion();
+            localModloaderVersionLabel.Text = localModLoaderVersion;
+
+            if (localVersionValid && localModLoaderVersionValid)
+            {
+                (bool modLoaderOutdated, string modLoaderTooltip) = helper.CompareGameandModloaderVersions(gameVersion, localModLoaderVersion, latestModLoaderVersion);
+                if (modLoaderOutdated) logger.Log($"Modloader check: {modLoaderTooltip}", "error", false);
+                modExPicture.Visible = modLoaderOutdated;
+                toolTip.SetToolTip(modExPicture, modLoaderTooltip);
+            }
+
+            newPatchPictureBox.Visible = (latestVersionValid && (localVersion == latestVersion)) ? false : true;
+
+            progressPicture.Visible = false;
+            progressLabel.Text = "";
         }
         private void CountDownToProcess(bool install)
         {
@@ -86,7 +111,7 @@ namespace PriconneReTLInstaller
                 {
                     timer1.Stop();
                     cancelButton.Visible = false;
-                    this.Height = 240;
+                    this.Height = 350;
                     installer.ProcessAutoUpdateOperation(install, assetLink);
                 }
             };
@@ -123,7 +148,11 @@ namespace PriconneReTLInstaller
             }
             finally
             {
+                #if DEBUG
+                await Task.Delay(5000);
+                #else
                 await Task.Delay(3000);
+                #endif
                 Application.Exit();
             }
         }
@@ -138,7 +167,7 @@ namespace PriconneReTLInstaller
                 if (color == "error")
                 {
                     progressPicture.Visible = false;
-                    this.Height = 140;
+                    this.Height = 275;
                 }
             }));
         }
@@ -149,7 +178,7 @@ namespace PriconneReTLInstaller
             {
                 logger.Error(message);
                 progressPicture.Visible = false;
-                this.Height = 140;
+                this.Height = 275;
             }));
         }
 
@@ -190,10 +219,7 @@ namespace PriconneReTLInstaller
 
         private void OnProcessFinish()
         {
-            localVersionLabel.Text = "Current (Local) TL Patch Version: " + latestVersion;
-            newPictureBox.Visible = false;
-            progressPicture.Visible = false;
-            progressLabel.Text = "";
+            UpdateUI();
             StartGame();
         }
 
@@ -267,7 +293,7 @@ namespace PriconneReTLInstaller
 
         private void progressPicture_VisibleChanged(object sender, EventArgs e)
         {
-            this.Height = progressPicture.Visible ? 240 : 140;
+            this.Height = progressPicture.Visible ? 350 : 275;
             progressLabel.Visible = progressPicture.Visible;
         }
 

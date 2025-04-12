@@ -275,7 +275,7 @@ namespace PriconneReTLInstaller
             if (localModLoaderVersionValid && modGameVersioncompare > 0) toolTip.SetToolTip(modExPicture, Settings.Default.gameOutdatedTooltip);
             if (localModLoaderVersionValid && modGameVersioncompare < 0) toolTip.SetToolTip(modExPicture, Settings.Default.modLoaderOutdatedTooltip);*/
 
-            if (localVersionValid)
+            if (localVersionValid && localModLoaderVersionValid)
             {
                 (bool modLoaderOutdated, string modLoaderTooltip) = helper.CompareGameandModloaderVersions(gameVersion, localModLoaderVersion, latestModLoaderVersion);
                 if (modLoaderOutdated) logger.Log($"Modloader check: {modLoaderTooltip}", "error" , false);
