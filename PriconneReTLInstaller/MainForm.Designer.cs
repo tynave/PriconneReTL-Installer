@@ -110,7 +110,6 @@
             this.localVersionLabel.Size = new System.Drawing.Size(109, 18);
             this.localVersionLabel.TabIndex = 5;
             this.localVersionLabel.Text = "YYYYMMDDa";
-            this.localVersionLabel.Click += new System.EventHandler(this.localVersionLabel_Click);
             // 
             // reinstallCheckBox
             // 

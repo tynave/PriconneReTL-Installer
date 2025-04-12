@@ -71,8 +71,6 @@ namespace PriconneReTLInstaller
 
             SubscribeToCheckBoxes(this.Controls);
 
-            //SubscribeToButtons(this.Controls);
-
             var buttonImageMappings = new List<(Button button, Image normal, Image hover, EventHandler extraMouseEnterEvent, EventHandler extraMouseLeaveEvent)>
             {
                 (startButton, Resources.start_idle, Resources.start_hover_lit, StartButtonExtraLogic, null),
@@ -84,18 +82,6 @@ namespace PriconneReTLInstaller
             };
 
             RegisterButtonImagesBulk(buttonImageMappings);
-
-            /*pictureBox1.MouseDown += OnMouseDown;
-            pictureBox1.MouseMove += OnMouseMove;
-            pictureBox1.MouseUp += OnMouseUp;
-
-            operationsPanel.MouseDown += OnMouseDown;
-            operationsPanel.MouseMove += OnMouseMove;
-            operationsPanel.MouseUp += OnMouseUp;
-
-            optionsPanel.MouseDown += OnMouseDown;
-            optionsPanel.MouseMove += OnMouseMove;
-            optionsPanel.MouseUp += OnMouseUp;*/
 
             RegisterMouseDrag(new List<Control> { pictureBox1, operationsPanel, optionsPanel, gameInfoPanel, patchInfoPanel });
 
@@ -164,24 +150,6 @@ namespace PriconneReTLInstaller
                 }
             }
         }
-
-        /*void SubscribeToButtons(Control.ControlCollection controls)
-        {
-            foreach (Control control in controls)
-            {
-                if (control is Button button)
-                {
-                    // Console.WriteLine(button.Name);
-                    button.MouseEnter += OnButtonMouseEnter;
-                    button.MouseLeave += OnButtonMouseLeave;
-                }
-                else if (control.HasChildren)
-                {
-                    // Recursively search for checkboxes in child controls
-                    SubscribeToButtons(control.Controls);
-                }
-            }
-        }*/
 
         void DisableCheckboxes(CheckBox[] checkboxes)
         {
@@ -260,20 +228,12 @@ namespace PriconneReTLInstaller
             (localModLoaderVersion, localModLoaderVersionValid)= installer.GetInstalledModloaderVersion();
 
             installCheckBox.Text = localVersionValid ? " Update" : " Install";
-            //localVersionLabel.Text = "Installed: " + localVersion;
 
             localVersionLabel.Text = localVersion;
             localModloaderVersionLabel.Text = localModLoaderVersion;
 
             versioncompare = localVersion.CompareTo(latestVersion);
             if ((!localVersionValid || versioncompare != 0) && priconnePathValid) installCheckBox.Enabled = true; else installCheckBox.Enabled = false;
-
-            /*modGameVersioncompare = localModLoaderVersion.CompareTo(gameVersion);
-
-            modExPicture.Visible = modGameVersioncompare != 0 && localModLoaderVersionValid;
-
-            if (localModLoaderVersionValid && modGameVersioncompare > 0) toolTip.SetToolTip(modExPicture, Settings.Default.gameOutdatedTooltip);
-            if (localModLoaderVersionValid && modGameVersioncompare < 0) toolTip.SetToolTip(modExPicture, Settings.Default.modLoaderOutdatedTooltip);*/
 
             if (localVersionValid && localModLoaderVersionValid)
             {
@@ -433,80 +393,6 @@ namespace PriconneReTLInstaller
             optionsPanel.Height = removeConfigCheckBox.Checked ? 154 : 87;
         }
 
-        /*private void OnButtonMouseEnter(object sender, EventArgs e)
-        {
-            var menuButtonLabels = new List<(Button menuButton, string name)>
-                {
-                    (exitButton, "Exit Application"),
-                    (minimizeButton, "Minimize Application"),
-                    (aboutButton, "Help / About"),
-                    (auButton, "Create AutoUpdater Shortcut"),
-                    (settingsButton, "Settings")
-                };
-
-            if (sender is Button button)
-            {
-                switch (button)
-                {
-                    case var _ when button == startButton && button.Enabled:
-                        button.BackgroundImage = Resources.start_hover_lit;
-                        break;
-                    case var _ when button == exitButton:
-                        button.BackgroundImage = Resources.door_open;
-                        break;
-                    case var _ when button == minimizeButton:
-                        button.BackgroundImage = Resources.arrow_yellow;
-                        break;
-                    case var _ when button == aboutButton:
-                        button.BackgroundImage = Resources.q_bubble;
-                        break;
-                    case var _ when button == settingsButton:
-                        button.BackgroundImage = Resources.scroll_open;
-                        break;
-                    case var _ when button == auButton:
-                        button.BackgroundImage = Resources.crystal_lit;
-                        break;
-                }
-
-                foreach (var (menuButton, name) in menuButtonLabels)
-                    {
-                        if (button == menuButton)
-                        {
-                            menuButtonLabel.Visible = true;
-                            menuButtonLabel.Text = name;
-                        }
-                    }
-            }
-        }
-        private void OnButtonMouseLeave(object sender, EventArgs e)
-        {
-            if (sender is Button button)
-            {
-                switch (button)
-                {
-                    case var _ when button == startButton && button.Enabled:
-                        button.BackgroundImage = Resources.start_idle;
-                        break;
-                    case var _ when button == exitButton:
-                        button.BackgroundImage = Resources.door_closed;
-                        break;
-                    case var _ when button == minimizeButton:
-                        button.BackgroundImage = Resources.arrow_blue;
-                        break;
-                    case var _ when button == aboutButton:
-                        button.BackgroundImage = Resources.i_bubble;
-                        break;
-                    case var _ when button == settingsButton:
-                        button.BackgroundImage = Resources.scroll_closed_res2;
-                        break;
-                    case var _ when button == auButton:
-                        button.BackgroundImage = Resources.crystal_normal_res;
-                        break;
-                }
-
-                menuButtonLabel.Visible = false;
-            }
-        }*/
         private void OnProcessStart()
         {
             toolStripProgressBar1.Value = 0;
@@ -693,16 +579,6 @@ namespace PriconneReTLInstaller
                 (string version, string body, string installerAssetlink, bool versionValid) = installer.GetLatestInstallerRelease();
                 helper.CheckForInstallerUpdate(version, body, installerAssetlink, versionValid);
             }
-        }
-
-        private void localVersionLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tlPatchVersionsLabel_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

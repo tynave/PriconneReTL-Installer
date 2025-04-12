@@ -21,29 +21,6 @@ namespace PriconneReTLInstaller
         {
             InitializeComponent();
 
-            /*backButton.MouseEnter += OnButtonMouseEnter;
-            backButton.MouseLeave += OnButtonMouseLeave;
-
-            addButton.MouseEnter += OnButtonMouseEnter;
-            addButton.MouseLeave += OnButtonMouseLeave;
-            
-            removeButton.MouseEnter += OnButtonMouseEnter;
-            removeButton.MouseLeave += OnButtonMouseLeave;
-            
-            saveButton.MouseEnter += OnButtonMouseEnter;
-            saveButton.MouseLeave += OnButtonMouseLeave;
-            
-            defaultsButton.MouseEnter += OnButtonMouseEnter;
-            defaultsButton.MouseLeave += OnButtonMouseLeave;*/
-
-            /*fileListbox.MouseDown += OnMouseDown;
-            fileListbox.MouseMove += OnMouseMove;
-            fileListbox.MouseUp += OnMouseUp;
-
-            ignoreFilesLabel.MouseDown += OnMouseDown;
-            ignoreFilesLabel.MouseMove += OnMouseMove;
-            ignoreFilesLabel.MouseUp += OnMouseUp;*/
-
             RegisterMouseDrag(new List<Control> { fileListbox, ignoreFilesLabel });
 
 

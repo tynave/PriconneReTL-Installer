@@ -20,23 +20,6 @@ namespace PriconneReTLInstaller
         {
             InitializeComponent();
 
-            /*importExportLabel.MouseDown += OnMouseDown;
-            importExportLabel.MouseMove += OnMouseMove;
-            importExportLabel.MouseUp += OnMouseUp;
-
-            importExportDescriptionLabel.MouseDown += OnMouseDown;
-            importExportDescriptionLabel.MouseMove += OnMouseMove;
-            importExportDescriptionLabel.MouseUp += OnMouseUp;*/
-
-            /*backButton.MouseEnter += OnButtonMouseEnter;
-            backButton.MouseLeave += OnButtonMouseLeave;
-
-            importButton.MouseEnter += OnButtonMouseEnter;
-            importButton.MouseLeave += OnButtonMouseLeave;
-
-            exportButton.MouseEnter += OnButtonMouseEnter;
-            exportButton.MouseLeave += OnButtonMouseLeave;*/
-
             RegisterMouseDrag(new List<Control> { importExportLabel, importExportDescriptionLabel });
 
 
@@ -54,26 +37,6 @@ namespace PriconneReTLInstaller
 
             ielogger = new Logger("ReTLInstaller.log", null , toolStripStatusLabel1);
         }
-
-        /*private void OnButtonMouseEnter(object sender, EventArgs e)
-        {
-            if (sender is Button button)
-            {
-                if (button == backButton) button.BackgroundImage = Resources.back_arrow_lit;
-                if (button == importButton) button.BackgroundImage = Resources.import_button_lit;
-                if (button == exportButton) button.BackgroundImage = Resources.export_button_lit;
-            }
-        }
-
-        private void OnButtonMouseLeave(object sender, EventArgs e)
-        {
-            if (sender is Button button)
-            {
-                if (button == backButton) button.BackgroundImage = Resources.back_arrow;
-                if (button == importButton) button.BackgroundImage = Resources.import_button;
-                if (button == exportButton) button.BackgroundImage = Resources.export_button;
-            }
-        }*/
 
         private void backButton_Click(object sender, EventArgs e)
         {

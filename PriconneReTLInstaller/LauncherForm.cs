@@ -18,25 +18,7 @@ namespace PriconneReTLInstaller
         {
             InitializeComponent();
             
-            /*backButton.MouseEnter += OnButtonMouseEnter;
-            backButton.MouseLeave += OnButtonMouseLeave;
-
-            shortcutAddButton.MouseEnter += OnButtonMouseEnter;
-            shortcutAddButton.MouseLeave += OnButtonMouseLeave;
-
-            shortcutRemoveButton.MouseEnter += OnButtonMouseEnter;
-            shortcutRemoveButton.MouseLeave += OnButtonMouseLeave;*/
-
-            /*panel1.MouseDown += OnMouseDown;
-            panel1.MouseMove += OnMouseMove;
-            panel1.MouseUp += OnMouseUp;
-
-            panel2.MouseDown += OnMouseDown;
-            panel2.MouseMove += OnMouseMove;
-            panel2.MouseUp += OnMouseUp;*/
-
             RegisterMouseDrag(new List<Control> { panel1, panel2 });
-
 
             var buttonImageMappings = new List<(Button button, Image normal, Image hover, EventHandler extraMouseEnterEvent, EventHandler extraMouseLeaveEvent)>
             {
@@ -47,27 +29,6 @@ namespace PriconneReTLInstaller
 
             RegisterButtonImagesBulk(buttonImageMappings);
         }
-
-        /*private void OnButtonMouseEnter(object sender, EventArgs e)
-        {
-            if (sender is Button button)
-            {
-                if (button == backButton) button.BackgroundImage = Resources.back_arrow_lit;
-                if (button == shortcutAddButton) button.BackgroundImage = Resources.shortcutadd_button_lit;
-                if (button == shortcutRemoveButton && button.Enabled) button.BackgroundImage = Resources.shortcutremove_button_lit;
-            }
-        }
-
-        private void OnButtonMouseLeave(object sender, EventArgs e)
-        {
-            if (sender is Button button)
-            {
-                if (button == backButton) button.BackgroundImage = Resources.back_arrow;
-                if (button == shortcutAddButton) button.BackgroundImage = Resources.shortcutadd_button;
-                if (button == shortcutRemoveButton && button.Enabled) button.BackgroundImage = Resources.shortcutremove_button;
-            }
-        }*/
-
         private void InitializeUI()
         {
             if (!helper.IsFastLauncherInstalled())

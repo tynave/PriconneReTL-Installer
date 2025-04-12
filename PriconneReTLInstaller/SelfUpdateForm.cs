@@ -30,12 +30,6 @@ namespace PriconneReTLInstaller
             helper.ErrorLog += OnErrorLog;
             installer.DownloadProgress += OnDownloadProgress;
 
-            /*downloadButton.MouseEnter += OnButtonMouseEnter;
-            downloadButton.MouseLeave += OnButtonMouseLeave;
-
-            cancelButton.MouseEnter += OnButtonMouseEnter;
-            cancelButton.MouseLeave += OnButtonMouseLeave;*/
-
             var buttonImageMappings = new List<(Button button, Image normal, Image hover, EventHandler extraMouseEnterEvent, EventHandler extraMouseLeaveEvent)>
             {
                 (downloadButton, Resources.dlbutton, Resources.dlbutton_lit, null, null),
@@ -56,26 +50,6 @@ namespace PriconneReTLInstaller
             updatelogger = new Logger("ReTLSelfUpdate.log", null, toolStripStatusLabel1);
             updatelogger.StartSession();
         }
-
-        /*private void OnButtonMouseEnter(object sender, EventArgs e)
-        {
-            if (sender is Button button)
-            {
-                if (button == downloadButton) button.BackgroundImage = Resources.dlbutton_lit;
-                if (button == cancelButton) button.BackgroundImage = Resources.cancel_lit;
-            
-            }
-        }
-
-        private void OnButtonMouseLeave(object sender, EventArgs e)
-        {
-            if (sender is Button button)
-            {
-                if (button == downloadButton) button.BackgroundImage = Resources.dlbutton;
-                if (button == cancelButton) button.BackgroundImage = Resources.cancel;
-
-            }
-        }*/
 
         public void OnLog(string message, string color, bool writeToToolStrip = false)
         {

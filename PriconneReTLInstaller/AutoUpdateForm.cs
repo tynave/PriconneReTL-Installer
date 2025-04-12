@@ -50,6 +50,8 @@ namespace PriconneReTLInstaller
 
             helper.Log += OnLog;
 
+            RegisterMouseDrag(new List<Control> { gameInfoPanel, patchInfoPanel });
+
             logger = new AutoUpdateLogger("ReTLAutoUpdater.log", statusLabel);
             logger.StartSession();
 
@@ -76,7 +78,6 @@ namespace PriconneReTLInstaller
 
         private void UpdateUI()
         {
-            //localVersionLabel.Text = latestVersion;
             (localVersion, localVersionValid) = installer.GetInstalledPatchVersion();
             localVersionLabel.Text = localVersion;
 
