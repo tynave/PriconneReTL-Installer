@@ -109,5 +109,14 @@ You can set the shortcut in the Installer by clicking the "Settings" icon (scrol
     <Setting Name="showLogChecked" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="modLoaderOutdatedTooltip" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Your modloader version is outdated!
+Please try updating your TL patch installation!
+If it's still outdated after the update, please wait for a new modloader release!</Value>
+    </Setting>
+    <Setting Name="gameOutdatedTooltip" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Your game version is lower than the modloader version!
+Please update your game!</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -63,7 +63,7 @@ namespace PriconneReTLInstaller
             latestVersionLinkLabel.Text = "Latest TL Patch Release: " + latestVersion;
 
 
-            (localVersion, localVersionValid) = installer.GetLocalPatchVersion();
+            (localVersion, localVersionValid) = installer.GetInstalledPatchVersion();
             localVersionLabel.Text = "Current (Local) TL Patch Version: " + localVersion;
 
             newPictureBox.Visible = (latestVersionValid && (localVersion == latestVersion)) ? false : true;

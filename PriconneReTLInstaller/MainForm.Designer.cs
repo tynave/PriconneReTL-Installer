@@ -47,13 +47,14 @@
             this.removeIgnoredCheckBox = new System.Windows.Forms.CheckBox();
             this.removeConfigCheckBox = new System.Windows.Forms.CheckBox();
             this.showLogCheckBox = new System.Windows.Forms.CheckBox();
-            this.newPictureBox = new System.Windows.Forms.PictureBox();
+            this.newPatchPictureBox = new System.Windows.Forms.PictureBox();
             this.exitButton = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.gamePathLinkLabel = new System.Windows.Forms.LinkLabel();
             this.latestVersionLinkLabel = new System.Windows.Forms.LinkLabel();
             this.configListBox = new System.Windows.Forms.CheckedListBox();
             this.versionLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.modExPicture = new System.Windows.Forms.PictureBox();
             this.minimizeButton = new System.Windows.Forms.Button();
             this.aboutButton = new System.Windows.Forms.Button();
             this.helpMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -73,16 +74,30 @@
             this.optionsLabel = new System.Windows.Forms.Label();
             this.operationToolTipPicture = new System.Windows.Forms.PictureBox();
             this.menuButtonLabel = new System.Windows.Forms.Label();
-            this.tlPatchVersionsLabel = new System.Windows.Forms.Label();
             this.gameVersionLabel = new System.Windows.Forms.Label();
+            this.gameInfoPanel = new System.Windows.Forms.Panel();
+            this.gameInfoLabel = new System.Windows.Forms.Label();
+            this.patchInfoPanel = new System.Windows.Forms.Panel();
+            this.latestModloaderVersionLabel = new System.Windows.Forms.Label();
+            this.localModloaderVersionLabel = new System.Windows.Forms.Label();
+            this.tlLatestLabel = new System.Windows.Forms.Label();
+            this.tlInstalledLabel = new System.Windows.Forms.Label();
+            this.latestModloaderLabel = new System.Windows.Forms.Label();
+            this.installedModloaderLabel = new System.Windows.Forms.Label();
+            this.patchLabel = new System.Windows.Forms.Label();
+            this.modloaderLabel = new System.Windows.Forms.Label();
+            this.patchInfoLabel = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.operationsPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.newPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.newPatchPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.modExPicture)).BeginInit();
             this.helpMenuStrip.SuspendLayout();
             this.settingsMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.optionsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.operationToolTipPicture)).BeginInit();
+            this.gameInfoPanel.SuspendLayout();
+            this.patchInfoPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // localVersionLabel
@@ -90,11 +105,12 @@
             this.localVersionLabel.AutoSize = true;
             this.localVersionLabel.BackColor = System.Drawing.Color.Transparent;
             this.localVersionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.localVersionLabel.Location = new System.Drawing.Point(157, 136);
+            this.localVersionLabel.Location = new System.Drawing.Point(130, 39);
             this.localVersionLabel.Name = "localVersionLabel";
-            this.localVersionLabel.Size = new System.Drawing.Size(238, 18);
+            this.localVersionLabel.Size = new System.Drawing.Size(109, 18);
             this.localVersionLabel.TabIndex = 5;
-            this.localVersionLabel.Text = "Current (Local) : YYYYMMDDa";
+            this.localVersionLabel.Text = "YYYYMMDDa";
+            this.localVersionLabel.Click += new System.EventHandler(this.localVersionLabel_Click);
             // 
             // reinstallCheckBox
             // 
@@ -146,7 +162,7 @@
             this.startButton.FlatAppearance.BorderSize = 0;
             this.startButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.startButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.startButton.Location = new System.Drawing.Point(410, 364);
+            this.startButton.Location = new System.Drawing.Point(410, 475);
             this.startButton.Name = "startButton";
             this.startButton.Size = new System.Drawing.Size(207, 58);
             this.startButton.TabIndex = 0;
@@ -161,7 +177,7 @@
             this.outputTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.outputTextBox.HideSelection = false;
             this.outputTextBox.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.outputTextBox.Location = new System.Drawing.Point(15, 460);
+            this.outputTextBox.Location = new System.Drawing.Point(12, 576);
             this.outputTextBox.Name = "outputTextBox";
             this.outputTextBox.Size = new System.Drawing.Size(685, 246);
             this.outputTextBox.TabIndex = 13;
@@ -175,7 +191,7 @@
             this.toolStripStatusLabel2,
             this.toolStripStatusLabel3,
             this.toolStripProgressBar1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 709);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 829);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(714, 29);
             this.statusStrip1.SizingGrip = false;
@@ -218,7 +234,7 @@
             this.operationsPanel.Controls.Add(this.uninstallCheckBox);
             this.operationsPanel.Controls.Add(this.reinstallCheckBox);
             this.operationsPanel.Controls.Add(this.operationsLabel);
-            this.operationsPanel.Location = new System.Drawing.Point(17, 175);
+            this.operationsPanel.Location = new System.Drawing.Point(17, 278);
             this.operationsPanel.Name = "operationsPanel";
             this.operationsPanel.Size = new System.Drawing.Size(310, 184);
             this.operationsPanel.TabIndex = 16;
@@ -351,7 +367,7 @@
             this.showLogCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.showLogCheckBox.Image = global::PriconneReTLInstaller.Properties.Resources.check_empty_24x24_2;
             this.showLogCheckBox.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.showLogCheckBox.Location = new System.Drawing.Point(24, 412);
+            this.showLogCheckBox.Location = new System.Drawing.Point(29, 506);
             this.showLogCheckBox.Name = "showLogCheckBox";
             this.showLogCheckBox.Size = new System.Drawing.Size(144, 36);
             this.showLogCheckBox.TabIndex = 17;
@@ -361,18 +377,18 @@
             this.toolTip.SetToolTip(this.showLogCheckBox, "Show / hide logs.");
             this.showLogCheckBox.UseVisualStyleBackColor = false;
             // 
-            // newPictureBox
+            // newPatchPictureBox
             // 
-            this.newPictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.newPictureBox.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources._new;
-            this.newPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.newPictureBox.Location = new System.Drawing.Point(643, 138);
-            this.newPictureBox.Name = "newPictureBox";
-            this.newPictureBox.Size = new System.Drawing.Size(50, 18);
-            this.newPictureBox.TabIndex = 19;
-            this.newPictureBox.TabStop = false;
-            this.toolTip.SetToolTip(this.newPictureBox, "New version available!");
-            this.newPictureBox.Visible = false;
+            this.newPatchPictureBox.BackColor = System.Drawing.Color.Transparent;
+            this.newPatchPictureBox.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources._new;
+            this.newPatchPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.newPatchPictureBox.Location = new System.Drawing.Point(245, 53);
+            this.newPatchPictureBox.Name = "newPatchPictureBox";
+            this.newPatchPictureBox.Size = new System.Drawing.Size(50, 18);
+            this.newPatchPictureBox.TabIndex = 19;
+            this.newPatchPictureBox.TabStop = false;
+            this.toolTip.SetToolTip(this.newPatchPictureBox, "New version available!");
+            this.newPatchPictureBox.Visible = false;
             // 
             // exitButton
             // 
@@ -406,7 +422,7 @@
             this.gamePathLinkLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.gamePathLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.gamePathLinkLabel.LinkColor = System.Drawing.Color.Black;
-            this.gamePathLinkLabel.Location = new System.Drawing.Point(14, 89);
+            this.gamePathLinkLabel.Location = new System.Drawing.Point(8, 17);
             this.gamePathLinkLabel.Name = "gamePathLinkLabel";
             this.gamePathLinkLabel.Size = new System.Drawing.Size(199, 18);
             this.gamePathLinkLabel.TabIndex = 22;
@@ -423,12 +439,12 @@
             this.latestVersionLinkLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.latestVersionLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.latestVersionLinkLabel.LinkColor = System.Drawing.Color.Black;
-            this.latestVersionLinkLabel.Location = new System.Drawing.Point(427, 136);
+            this.latestVersionLinkLabel.Location = new System.Drawing.Point(130, 64);
             this.latestVersionLinkLabel.Name = "latestVersionLinkLabel";
-            this.latestVersionLinkLabel.Size = new System.Drawing.Size(231, 18);
+            this.latestVersionLinkLabel.Size = new System.Drawing.Size(109, 18);
             this.latestVersionLinkLabel.TabIndex = 23;
             this.latestVersionLinkLabel.TabStop = true;
-            this.latestVersionLinkLabel.Text = "Latest Release: YYYYMMDDa";
+            this.latestVersionLinkLabel.Text = "YYYYMMDDa";
             this.toolTip.SetToolTip(this.latestVersionLinkLabel, "Click to open latest TL patch release on GitHub.");
             this.latestVersionLinkLabel.VisitedLinkColor = System.Drawing.Color.Black;
             this.latestVersionLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.latestReleaseLinkLabel_LinkClicked);
@@ -455,7 +471,7 @@
             this.versionLinkLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.versionLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.versionLinkLabel.LinkColor = System.Drawing.Color.Black;
-            this.versionLinkLabel.Location = new System.Drawing.Point(655, 423);
+            this.versionLinkLabel.Location = new System.Drawing.Point(657, 526);
             this.versionLinkLabel.Name = "versionLinkLabel";
             this.versionLinkLabel.Size = new System.Drawing.Size(45, 16);
             this.versionLinkLabel.TabIndex = 41;
@@ -464,6 +480,18 @@
             this.toolTip.SetToolTip(this.versionLinkLabel, "Click to view the latest installer release on GitHub.");
             this.versionLinkLabel.VisitedLinkColor = System.Drawing.Color.Black;
             this.versionLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.versionLinkLabel_LinkClicked);
+            // 
+            // modExPicture
+            // 
+            this.modExPicture.BackColor = System.Drawing.Color.Transparent;
+            this.modExPicture.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.exclamation_t;
+            this.modExPicture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.modExPicture.Location = new System.Drawing.Point(574, 46);
+            this.modExPicture.Name = "modExPicture";
+            this.modExPicture.Size = new System.Drawing.Size(25, 25);
+            this.modExPicture.TabIndex = 52;
+            this.modExPicture.TabStop = false;
+            this.modExPicture.Visible = false;
             // 
             // minimizeButton
             // 
@@ -618,7 +646,7 @@
             this.operationLabel.AutoSize = true;
             this.operationLabel.BackColor = System.Drawing.Color.Transparent;
             this.operationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.operationLabel.Location = new System.Drawing.Point(21, 382);
+            this.operationLabel.Location = new System.Drawing.Point(26, 477);
             this.operationLabel.Name = "operationLabel";
             this.operationLabel.Size = new System.Drawing.Size(153, 18);
             this.operationLabel.TabIndex = 27;
@@ -635,9 +663,9 @@
             this.optionsPanel.Controls.Add(this.optionsLabel);
             this.optionsPanel.Controls.Add(this.removeConfigCheckBox);
             this.optionsPanel.Controls.Add(this.removeIgnoredCheckBox);
-            this.optionsPanel.Location = new System.Drawing.Point(341, 175);
+            this.optionsPanel.Location = new System.Drawing.Point(341, 278);
             this.optionsPanel.Name = "optionsPanel";
-            this.optionsPanel.Size = new System.Drawing.Size(317, 154);
+            this.optionsPanel.Size = new System.Drawing.Size(317, 184);
             this.optionsPanel.TabIndex = 30;
             // 
             // optionsLabel
@@ -654,7 +682,7 @@
             // 
             this.operationToolTipPicture.BackColor = System.Drawing.Color.Transparent;
             this.operationToolTipPicture.Image = global::PriconneReTLInstaller.Properties.Resources.q_bubble;
-            this.operationToolTipPicture.Location = new System.Drawing.Point(343, 374);
+            this.operationToolTipPicture.Location = new System.Drawing.Point(348, 469);
             this.operationToolTipPicture.Name = "operationToolTipPicture";
             this.operationToolTipPicture.Size = new System.Drawing.Size(32, 32);
             this.operationToolTipPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -673,39 +701,172 @@
             this.menuButtonLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.menuButtonLabel.Visible = false;
             // 
-            // tlPatchVersionsLabel
-            // 
-            this.tlPatchVersionsLabel.AutoSize = true;
-            this.tlPatchVersionsLabel.BackColor = System.Drawing.Color.Transparent;
-            this.tlPatchVersionsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tlPatchVersionsLabel.Location = new System.Drawing.Point(14, 136);
-            this.tlPatchVersionsLabel.Name = "tlPatchVersionsLabel";
-            this.tlPatchVersionsLabel.Size = new System.Drawing.Size(151, 18);
-            this.tlPatchVersionsLabel.TabIndex = 39;
-            this.tlPatchVersionsLabel.Text = "TL Patch Versions:";
-            // 
             // gameVersionLabel
             // 
             this.gameVersionLabel.AutoSize = true;
             this.gameVersionLabel.BackColor = System.Drawing.Color.Transparent;
             this.gameVersionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gameVersionLabel.Location = new System.Drawing.Point(14, 112);
+            this.gameVersionLabel.Location = new System.Drawing.Point(8, 41);
             this.gameVersionLabel.Name = "gameVersionLabel";
             this.gameVersionLabel.Size = new System.Drawing.Size(125, 18);
             this.gameVersionLabel.TabIndex = 40;
             this.gameVersionLabel.Text = "Game Version: ";
             // 
+            // gameInfoPanel
+            // 
+            this.gameInfoPanel.BackColor = System.Drawing.Color.Transparent;
+            this.gameInfoPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.gameInfoPanel.Controls.Add(this.gamePathLinkLabel);
+            this.gameInfoPanel.Controls.Add(this.gameVersionLabel);
+            this.gameInfoPanel.Controls.Add(this.gameInfoLabel);
+            this.gameInfoPanel.Location = new System.Drawing.Point(17, 92);
+            this.gameInfoPanel.Name = "gameInfoPanel";
+            this.gameInfoPanel.Size = new System.Drawing.Size(641, 68);
+            this.gameInfoPanel.TabIndex = 42;
+            // 
+            // gameInfoLabel
+            // 
+            this.gameInfoLabel.AutoSize = true;
+            this.gameInfoLabel.BackColor = System.Drawing.Color.Transparent;
+            this.gameInfoLabel.Location = new System.Drawing.Point(6, 0);
+            this.gameInfoLabel.Name = "gameInfoLabel";
+            this.gameInfoLabel.Size = new System.Drawing.Size(98, 17);
+            this.gameInfoLabel.TabIndex = 41;
+            this.gameInfoLabel.Text = "Game Information";
+            this.gameInfoLabel.UseCompatibleTextRendering = true;
+            // 
+            // patchInfoPanel
+            // 
+            this.patchInfoPanel.BackColor = System.Drawing.Color.Transparent;
+            this.patchInfoPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.patchInfoPanel.Controls.Add(this.modExPicture);
+            this.patchInfoPanel.Controls.Add(this.latestModloaderVersionLabel);
+            this.patchInfoPanel.Controls.Add(this.localModloaderVersionLabel);
+            this.patchInfoPanel.Controls.Add(this.tlLatestLabel);
+            this.patchInfoPanel.Controls.Add(this.tlInstalledLabel);
+            this.patchInfoPanel.Controls.Add(this.latestModloaderLabel);
+            this.patchInfoPanel.Controls.Add(this.installedModloaderLabel);
+            this.patchInfoPanel.Controls.Add(this.patchLabel);
+            this.patchInfoPanel.Controls.Add(this.modloaderLabel);
+            this.patchInfoPanel.Controls.Add(this.patchInfoLabel);
+            this.patchInfoPanel.Controls.Add(this.localVersionLabel);
+            this.patchInfoPanel.Controls.Add(this.latestVersionLinkLabel);
+            this.patchInfoPanel.Controls.Add(this.newPatchPictureBox);
+            this.patchInfoPanel.Location = new System.Drawing.Point(17, 168);
+            this.patchInfoPanel.Name = "patchInfoPanel";
+            this.patchInfoPanel.Size = new System.Drawing.Size(640, 99);
+            this.patchInfoPanel.TabIndex = 43;
+            // 
+            // latestModloaderVersionLabel
+            // 
+            this.latestModloaderVersionLabel.AutoSize = true;
+            this.latestModloaderVersionLabel.BackColor = System.Drawing.Color.Transparent;
+            this.latestModloaderVersionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.latestModloaderVersionLabel.Location = new System.Drawing.Point(470, 64);
+            this.latestModloaderVersionLabel.Name = "latestModloaderVersionLabel";
+            this.latestModloaderVersionLabel.Size = new System.Drawing.Size(84, 18);
+            this.latestModloaderVersionLabel.TabIndex = 51;
+            this.latestModloaderVersionLabel.Text = "XX.XX.XX";
+            // 
+            // localModloaderVersionLabel
+            // 
+            this.localModloaderVersionLabel.AutoSize = true;
+            this.localModloaderVersionLabel.BackColor = System.Drawing.Color.Transparent;
+            this.localModloaderVersionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.localModloaderVersionLabel.Location = new System.Drawing.Point(470, 39);
+            this.localModloaderVersionLabel.Name = "localModloaderVersionLabel";
+            this.localModloaderVersionLabel.Size = new System.Drawing.Size(84, 18);
+            this.localModloaderVersionLabel.TabIndex = 50;
+            this.localModloaderVersionLabel.Text = "XX.XX.XX";
+            // 
+            // tlLatestLabel
+            // 
+            this.tlLatestLabel.AutoSize = true;
+            this.tlLatestLabel.BackColor = System.Drawing.Color.Transparent;
+            this.tlLatestLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tlLatestLabel.Location = new System.Drawing.Point(8, 64);
+            this.tlLatestLabel.Name = "tlLatestLabel";
+            this.tlLatestLabel.Size = new System.Drawing.Size(121, 18);
+            this.tlLatestLabel.TabIndex = 49;
+            this.tlLatestLabel.Text = "Latest Version:";
+            // 
+            // tlInstalledLabel
+            // 
+            this.tlInstalledLabel.AutoSize = true;
+            this.tlInstalledLabel.BackColor = System.Drawing.Color.Transparent;
+            this.tlInstalledLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tlInstalledLabel.Location = new System.Drawing.Point(8, 39);
+            this.tlInstalledLabel.Name = "tlInstalledLabel";
+            this.tlInstalledLabel.Size = new System.Drawing.Size(80, 18);
+            this.tlInstalledLabel.TabIndex = 48;
+            this.tlInstalledLabel.Text = "Installed :";
+            // 
+            // latestModloaderLabel
+            // 
+            this.latestModloaderLabel.AutoSize = true;
+            this.latestModloaderLabel.BackColor = System.Drawing.Color.Transparent;
+            this.latestModloaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.latestModloaderLabel.Location = new System.Drawing.Point(322, 64);
+            this.latestModloaderLabel.Name = "latestModloaderLabel";
+            this.latestModloaderLabel.Size = new System.Drawing.Size(130, 18);
+            this.latestModloaderLabel.TabIndex = 46;
+            this.latestModloaderLabel.Text = "Latest Release :";
+            // 
+            // installedModloaderLabel
+            // 
+            this.installedModloaderLabel.AutoSize = true;
+            this.installedModloaderLabel.BackColor = System.Drawing.Color.Transparent;
+            this.installedModloaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.installedModloaderLabel.Location = new System.Drawing.Point(322, 39);
+            this.installedModloaderLabel.Name = "installedModloaderLabel";
+            this.installedModloaderLabel.Size = new System.Drawing.Size(80, 18);
+            this.installedModloaderLabel.TabIndex = 45;
+            this.installedModloaderLabel.Text = "Installed :";
+            // 
+            // patchLabel
+            // 
+            this.patchLabel.AutoSize = true;
+            this.patchLabel.BackColor = System.Drawing.Color.Transparent;
+            this.patchLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.patchLabel.Location = new System.Drawing.Point(8, 17);
+            this.patchLabel.Name = "patchLabel";
+            this.patchLabel.Size = new System.Drawing.Size(151, 18);
+            this.patchLabel.TabIndex = 44;
+            this.patchLabel.Text = "TL Patch Versions:";
+            // 
+            // modloaderLabel
+            // 
+            this.modloaderLabel.AutoSize = true;
+            this.modloaderLabel.BackColor = System.Drawing.Color.Transparent;
+            this.modloaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.modloaderLabel.Location = new System.Drawing.Point(322, 17);
+            this.modloaderLabel.Name = "modloaderLabel";
+            this.modloaderLabel.Size = new System.Drawing.Size(164, 18);
+            this.modloaderLabel.TabIndex = 43;
+            this.modloaderLabel.Text = "Modloader Versions:";
+            // 
+            // patchInfoLabel
+            // 
+            this.patchInfoLabel.AutoSize = true;
+            this.patchInfoLabel.BackColor = System.Drawing.Color.Transparent;
+            this.patchInfoLabel.Location = new System.Drawing.Point(6, 1);
+            this.patchInfoLabel.Name = "patchInfoLabel";
+            this.patchInfoLabel.Size = new System.Drawing.Size(113, 17);
+            this.patchInfoLabel.TabIndex = 42;
+            this.patchInfoLabel.Text = "TL Patch Information";
+            this.patchInfoLabel.UseCompatibleTextRendering = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.bg2;
+            this.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.bg_enlarged;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(714, 738);
+            this.ClientSize = new System.Drawing.Size(714, 858);
             this.ControlBox = false;
+            this.Controls.Add(this.patchInfoPanel);
+            this.Controls.Add(this.gameInfoPanel);
             this.Controls.Add(this.versionLinkLabel);
-            this.Controls.Add(this.gameVersionLabel);
-            this.Controls.Add(this.tlPatchVersionsLabel);
             this.Controls.Add(this.menuButtonLabel);
             this.Controls.Add(this.auButton);
             this.Controls.Add(this.settingsButton);
@@ -715,15 +876,11 @@
             this.Controls.Add(this.showLogCheckBox);
             this.Controls.Add(this.aboutButton);
             this.Controls.Add(this.minimizeButton);
-            this.Controls.Add(this.latestVersionLinkLabel);
-            this.Controls.Add(this.gamePathLinkLabel);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.exitButton);
-            this.Controls.Add(this.newPictureBox);
             this.Controls.Add(this.operationsPanel);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.outputTextBox);
-            this.Controls.Add(this.localVersionLabel);
             this.Controls.Add(this.startButton);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -739,13 +896,18 @@
             this.statusStrip1.PerformLayout();
             this.operationsPanel.ResumeLayout(false);
             this.operationsPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.newPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.newPatchPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.modExPicture)).EndInit();
             this.helpMenuStrip.ResumeLayout(false);
             this.settingsMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.optionsPanel.ResumeLayout(false);
             this.optionsPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.operationToolTipPicture)).EndInit();
+            this.gameInfoPanel.ResumeLayout(false);
+            this.gameInfoPanel.PerformLayout();
+            this.patchInfoPanel.ResumeLayout(false);
+            this.patchInfoPanel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -766,7 +928,7 @@
         private System.Windows.Forms.Label operationsLabel;
         private System.Windows.Forms.CheckBox removeConfigCheckBox;
         private System.Windows.Forms.CheckBox showLogCheckBox;
-        private System.Windows.Forms.PictureBox newPictureBox;
+        private System.Windows.Forms.PictureBox newPatchPictureBox;
         private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.ToolTip toolTip;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
@@ -793,12 +955,24 @@
         private System.Windows.Forms.ToolStripMenuItem editIgnoredFilesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem setLauncherToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importExportSettingsToolStripMenuItem;
-        private System.Windows.Forms.Label tlPatchVersionsLabel;
         private System.Windows.Forms.Label gameVersionLabel;
         private System.Windows.Forms.CheckedListBox configListBox;
         private System.Windows.Forms.LinkLabel currentLauncherLinkLabel;
         private System.Windows.Forms.ToolStripMenuItem checkForInstallerUpdatesToolStripMenuItem;
         private System.Windows.Forms.LinkLabel versionLinkLabel;
+        private System.Windows.Forms.Panel gameInfoPanel;
+        private System.Windows.Forms.Label gameInfoLabel;
+        private System.Windows.Forms.Panel patchInfoPanel;
+        private System.Windows.Forms.Label patchInfoLabel;
+        private System.Windows.Forms.Label modloaderLabel;
+        private System.Windows.Forms.Label patchLabel;
+        private System.Windows.Forms.Label installedModloaderLabel;
+        private System.Windows.Forms.Label latestModloaderLabel;
+        private System.Windows.Forms.Label tlInstalledLabel;
+        private System.Windows.Forms.Label tlLatestLabel;
+        private System.Windows.Forms.Label localModloaderVersionLabel;
+        private System.Windows.Forms.Label latestModloaderVersionLabel;
+        private System.Windows.Forms.PictureBox modExPicture;
     }
 }
 

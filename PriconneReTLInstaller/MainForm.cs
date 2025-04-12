@@ -30,7 +30,12 @@ namespace PriconneReTLInstaller
         private bool latestVersionValid;
         private string localVersion;
         private bool localVersionValid;
+        private string localModLoaderVersion;
+        private bool localModLoaderVersionValid;
+        private string latestModLoaderVersion;
+        private string commitSha;
         private int versioncompare;
+        private int modGameVersioncompare;
         private CheckBox[] exclusiveCheckboxes;
         private CheckBox[] operationCheckboxes;
         private CheckBox[] optionCheckboxes;
@@ -92,7 +97,7 @@ namespace PriconneReTLInstaller
             optionsPanel.MouseMove += OnMouseMove;
             optionsPanel.MouseUp += OnMouseUp;*/
 
-            RegisterMouseDrag(new List<Control> { pictureBox1, operationsPanel, optionsPanel });
+            RegisterMouseDrag(new List<Control> { pictureBox1, operationsPanel, optionsPanel, gameInfoPanel, patchInfoPanel });
 
             this.Layout += OnOperationLabelChange;
             operationLabel.TextChanged += OnOperationLabelChange;
@@ -199,7 +204,7 @@ namespace PriconneReTLInstaller
             string fastLauncherLink = Settings.Default.fastLauncherLink;
 
             Icon = Resources.jewel;
-            Height = 480;
+            Height = 580;
             optionsPanel.Height = 87;
 
             versionLinkLabel.Text = $"v{String.Format(Application.ProductVersion)}";
@@ -219,7 +224,12 @@ namespace PriconneReTLInstaller
             showLogCheckBox.Checked = Settings.Default.showLogChecked;
 
             (latestVersion, latestVersionValid, assetLink) = installer.GetLatestPatchRelease(patchgithubAPI);
-            latestVersionLinkLabel.Text = "Latest Release: " + (latestVersionValid ? latestVersion : "ERROR!");
+            //latestVersionLinkLabel.Text = "Latest Release: " + (latestVersionValid ? latestVersion : "ERROR!");
+            latestVersionLinkLabel.Text = latestVersionValid ? latestVersion : "ERROR!";
+
+            (latestModLoaderVersion, commitSha) = installer.GetLatestModloaderRelease();
+            latestModloaderVersionLabel.Text = latestModLoaderVersion;
+            if (commitSha != null) toolTip.SetToolTip(latestModloaderVersionLabel, $"Commit SHA: {commitSha}");
 
             exclusiveCheckboxes = new CheckBox[] { installCheckBox, reinstallCheckBox, uninstallCheckBox };
             operationCheckboxes = new CheckBox[] { installCheckBox, reinstallCheckBox, uninstallCheckBox, launchCheckBox };
@@ -246,15 +256,34 @@ namespace PriconneReTLInstaller
 
         private void UpdateUI()
         {
-            (localVersion, localVersionValid) = installer.GetLocalPatchVersion();
+            (localVersion, localVersionValid) = installer.GetInstalledPatchVersion();
+            (localModLoaderVersion, localModLoaderVersionValid)= installer.GetInstalledModloaderVersion();
 
             installCheckBox.Text = localVersionValid ? " Update" : " Install";
-            localVersionLabel.Text = "Current (Local) Version: " + localVersion;
+            //localVersionLabel.Text = "Installed: " + localVersion;
+
+            localVersionLabel.Text = localVersion;
+            localModloaderVersionLabel.Text = localModLoaderVersion;
 
             versioncompare = localVersion.CompareTo(latestVersion);
             if ((!localVersionValid || versioncompare != 0) && priconnePathValid) installCheckBox.Enabled = true; else installCheckBox.Enabled = false;
 
-            newPictureBox.Visible = localVersion == latestVersion ? false : true;
+            /*modGameVersioncompare = localModLoaderVersion.CompareTo(gameVersion);
+
+            modExPicture.Visible = modGameVersioncompare != 0 && localModLoaderVersionValid;
+
+            if (localModLoaderVersionValid && modGameVersioncompare > 0) toolTip.SetToolTip(modExPicture, Settings.Default.gameOutdatedTooltip);
+            if (localModLoaderVersionValid && modGameVersioncompare < 0) toolTip.SetToolTip(modExPicture, Settings.Default.modLoaderOutdatedTooltip);*/
+
+            if (localVersionValid)
+            {
+                (bool modLoaderOutdated, string modLoaderTooltip) = helper.CompareGameandModloaderVersions(gameVersion, localModLoaderVersion, latestModLoaderVersion);
+                if (modLoaderOutdated) logger.Log($"Modloader check: {modLoaderTooltip}", "error" , false);
+                modExPicture.Visible = modLoaderOutdated;
+                toolTip.SetToolTip(modExPicture, modLoaderTooltip);
+            }
+
+            newPatchPictureBox.Visible = localVersion == latestVersion ? false : true;
 
             SetUninstallandReinstallCheckBox(localVersionValid);
             UpdateModeDescription();
@@ -349,7 +378,7 @@ namespace PriconneReTLInstaller
 
                 if (checkBox == showLogCheckBox)
                 {
-                    this.Height = checkBox.Checked ? 740 : 480;
+                    this.Height = checkBox.Checked ? 860 : 580;
                     Settings.Default.showLogChecked = checkBox.Checked;
                 }
             }
@@ -664,6 +693,16 @@ namespace PriconneReTLInstaller
                 (string version, string body, string installerAssetlink, bool versionValid) = installer.GetLatestInstallerRelease();
                 helper.CheckForInstallerUpdate(version, body, installerAssetlink, versionValid);
             }
+        }
+
+        private void localVersionLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tlPatchVersionsLabel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

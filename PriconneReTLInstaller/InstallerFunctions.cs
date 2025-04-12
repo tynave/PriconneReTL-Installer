@@ -17,6 +17,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.NetworkInformation;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
@@ -101,24 +102,24 @@ namespace InstallerFunctions
                 return (priconnePath = "ERROR!", priconnePathValid = false, gameVersion = "ERROR!");
             }
         }
-        public (string localVersion, bool localVersionValid) GetLocalPatchVersion()
+        public (string localVersion, bool localVersionValid) GetInstalledPatchVersion()
         {
             try
             {
 
                 if (!priconnePathValid)
                 {
-                    ErrorLog?.Invoke("Game path not valid, cannot determine local version!");
+                    ErrorLog?.Invoke("Game path not valid, cannot determine installed patch version!");
                     return (localVersion = "N/A", localVersionValid = false);
                 }
 
-                string versionFilePath = Path.Combine(priconnePath, "BepInEx", "Translation", "en", "Text", "Version.txt");
+                string tlVersionFilePath = Path.Combine(priconnePath, "BepInEx", "Translation", "en", "Text", "Version.txt");
 
-                if (!File.Exists(versionFilePath))
+                if (!File.Exists(tlVersionFilePath))
                 {
                     return (localVersion = "None", localVersionValid = false);
                 }
-                string rawVersionFile = File.ReadAllText(versionFilePath);
+                string rawVersionFile = File.ReadAllText(tlVersionFilePath);
                 Match match = Regex.Match(rawVersionFile, @"\d{8}[a-z]?");
 
                 if (match == null || !match.Success)
@@ -132,10 +133,47 @@ namespace InstallerFunctions
             }
             catch (Exception ex)
             {
-                ErrorLog?.Invoke("Error getting local version: " + ex.Message);
+                ErrorLog?.Invoke("Error getting installed patch version: " + ex.Message);
                 return (localVersion = "ERROR!", localVersionValid = false);
             }
         }
+
+        public (string, bool) GetInstalledModloaderVersion()
+        {
+            try
+            {
+
+                if (!priconnePathValid)
+                {
+                    ErrorLog?.Invoke("Game path not valid, cannot determine installed modloader version!");
+                    return ("N/A", false);
+                }
+
+                string modloaderVersionFilePath = Path.Combine(priconnePath, "BepInEx", "interop", "version");
+
+                if (!File.Exists(modloaderVersionFilePath))
+                {
+                    return ("None", false);
+                }
+                string rawVersionFile = File.ReadAllText(modloaderVersionFilePath);
+                Match match = Regex.Match(rawVersionFile, @"\b\d{1,2}\.\d{1,2}\.\d{1,2}\b");
+
+                if (match == null || !match.Success)
+                {
+                    return ("Invalid", false);
+                }
+                //localVersion = match.Value;
+                Log?.Invoke($"Found modloader version {match.Value} installed!", "info", false);
+                return (match.Value, true);
+
+            }
+            catch (Exception ex)
+            {
+                ErrorLog?.Invoke("Error getting installed modloader version: " + ex.Message);
+                return ("ERROR!", false);
+            }
+        }
+
         public (string latestVersion, bool latestVersionValid, string assetLink) GetLatestPatchRelease(string githubAPI)
         {
  
@@ -184,6 +222,61 @@ namespace InstallerFunctions
                 ErrorLog?.Invoke("Error getting latest patch release: " + ex.Message);
                 return (latestVersion = null, latestVersionValid = false, null);
             }
+        }
+
+        public (string, string) GetLatestModloaderRelease()
+        {
+            try
+            {
+                using (WebClient client = new WebClient())
+                {
+                    client.Headers.Add("User-Agent", "PriconneReTLInstaller");
+
+                    string refUrl = $"https://api.github.com/repos/ImaterialC/PriconneRe-TL/git/ref/tags/{latestVersion}";
+                    string refResponse = client.DownloadString(refUrl);
+                    dynamic responseJson = JObject.Parse(refResponse);
+                    string commitSha = responseJson["object"]["sha"]?.ToString();
+
+                    string fileUrl = $"https://raw.githubusercontent.com/ImaterialC/PriconneRe-TL/{commitSha}/src/BepInEx/interop/version";
+                    string fileVersion = client.DownloadString(fileUrl);
+
+                    return (fileVersion, commitSha.Substring(0,7));
+                }
+            }
+            catch (WebException webEx)
+            {
+                // Check if the response contains JSON data (which happens in case of API errors)
+                if (webEx.Response != null)
+                {
+                    using (var reader = new StreamReader(webEx.Response.GetResponseStream()))
+                    {
+                        string errorResponse = reader.ReadToEnd();
+                        try
+                        {
+                            dynamic errorJson = JsonConvert.DeserializeObject(errorResponse);
+                            string errorMessage = errorJson.message;
+                            ErrorLog?.Invoke("Error getting latest modloader version: " + errorMessage);
+                        }
+                        catch (Exception innerEx)
+                        {
+                            ErrorLog?.Invoke("Error reading API error message: " + innerEx.Message);
+                        }
+                    }
+                }
+                else
+                {
+                    ErrorLog?.Invoke("Error getting latest modloader release: " + webEx.Message);
+                }
+
+                return ("ERROR!", null);
+            }
+            catch (Exception ex)
+            {
+                ErrorLog?.Invoke("Error getting latest modeloader release: " + ex.Message);
+                return ("ERROR!", null);
+            }
+
+
         }
         public (string version, string body, string assetLink, bool versionValid) GetLatestInstallerRelease()
         {
@@ -246,7 +339,7 @@ namespace InstallerFunctions
 
                 using (HttpClient client = new HttpClient())
                 {
-                    using (var response = await client.GetAsync(assetLink, HttpCompletionOption.ResponseHeadersRead))
+                    using (var response = await client.GetAsync(assetLink, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false))
                     {
                         response.EnsureSuccessStatusCode();
 
@@ -635,7 +728,7 @@ namespace InstallerFunctions
                 ProcessStart?.Invoke();
 
                 await DownloadPatchFiles(assetLink);
-                if (!install )await RemovePatchFiles(uninstall: false, removeConfig: false, configList: Settings.Default.configFiles, removeIgnored: false);
+                if (!install) await RemovePatchFiles(uninstall: false, removeConfig: false, configList: Settings.Default.configFiles, removeIgnored: false);
                 await ExtractPatchFiles();
                 return;
             }
@@ -668,12 +761,12 @@ namespace InstallerFunctions
             if (result == DialogResult.OK)
             {
                 string selectedFile = saveFileDialog.FileName;
-                Log?.Invoke("Downloading latest installer release..", "info", true);
+                Log?.Invoke("Downloading latest PriconneReTLInstaller version..", "info", true);
                 await DownloadPatchFiles(installerAssetLink, selectedFile);
 
                 if (downloadSuccess)
                 {
-                    DialogResult result2 = MessageBox.Show("New installer version successfully downloaded into the installer's folder!\n\nWould you like to close the application?", "Download successful!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    DialogResult result2 = MessageBox.Show($"New installer version successfully downloaded to:\n{selectedFile}\n\nWould you like to close the application?", "Download successful!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                     if (result2 == DialogResult.Yes) Application.Exit();
                     else form.Close();
                 }

@@ -309,5 +309,31 @@ You can set the shortcut in the Installer by clicking the ""Settings"" icon (scr
                 this["showLogChecked"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Your modloader version is outdated!\r\nPlease try updating your TL patch installati" +
+            "on!\r\nIf it\'s still outdated after the update, please wait for a new modloader re" +
+            "lease!")]
+        public string modLoaderOutdatedTooltip {
+            get {
+                return ((string)(this["modLoaderOutdatedTooltip"]));
+            }
+            set {
+                this["modLoaderOutdatedTooltip"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Your game version is lower than the modloader version!\r\nPlease update your game!")]
+        public string gameOutdatedTooltip {
+            get {
+                return ((string)(this["gameOutdatedTooltip"]));
+            }
+            set {
+                this["gameOutdatedTooltip"] = value;
+            }
+        }
     }
 }

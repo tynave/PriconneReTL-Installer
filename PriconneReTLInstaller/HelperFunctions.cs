@@ -319,6 +319,27 @@ namespace HelperFunctions
             return filePath.StartsWith(folderPath, StringComparison.OrdinalIgnoreCase);
         }
 
+        public (bool,string) CompareGameandModloaderVersions(string gameVersion, string modloaderLocalVersion, string modLoaderLatestRelease)
+        {
+            Version a = new Version(gameVersion);
+            Version b = new Version(modloaderLocalVersion);
+            Version c = new Version(modLoaderLatestRelease);
+
+            if (a < b && a < c)
+            {
+                return (true, "Your game version is lower than the modloader version.\nPlease update your game!");
+            }
+            else if (a > b && a == c)
+            {
+                return (true, "Your modloader version is outdated.\nPlease update your TL patch!");
+            }
+            else if (a > b && a > c && b == c)
+            {
+                return (true, "Your modloader version is the latest available, but still lower than the game version.\nPlease wait for an updated TL patch release with the up-to-date modloader!");
+            }
+
+            return (false, null);
+        }
         public static StringCollection DeserializeStringCollection(string serializedValue)
         {
             var stringCollection = new StringCollection();

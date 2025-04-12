@@ -490,6 +490,8 @@
     <None Include="Resources\cancel_lit.png" />
     <None Include="Resources\dlbutton.png" />
     <None Include="Resources\dlbutton_lit.png" />
+    <None Include="Resources\bg_enlarged.png" />
+    <None Include="Resources\exclamation_t.png" />
     <Content Include="Resources\wiki\autoupdatermenu.png" />
     <Content Include="Resources\wiki\importexportui.png" />
     <Content Include="Resources\wiki\updatericon.png" />
