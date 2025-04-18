@@ -33,6 +33,8 @@ namespace PriconneReTLInstaller
         private string localModLoaderVersion;
         private bool localModLoaderVersionValid;
         private string latestModLoaderVersion;
+        bool modLoaderOutdated;
+        string modLoaderTooltip;
         private string commitSha;
         private int versioncompare;
         private int modGameVersioncompare;
@@ -217,7 +219,7 @@ namespace PriconneReTLInstaller
 
             UpdateUI();
 
-            if (versioncompare == 0) logger.Log("You already have the latest translation patch version installed!", "success", true);
+            if (versioncompare == 0 && !modLoaderOutdated) logger.Log("You already have the latest translation patch version installed!", "success", true);
 
             startButton.Enabled = helper.isAnyChecked(operationCheckboxes);
         }
@@ -237,8 +239,12 @@ namespace PriconneReTLInstaller
 
             if (localVersionValid && localModLoaderVersionValid)
             {
-                (bool modLoaderOutdated, string modLoaderTooltip) = helper.CompareGameandModloaderVersions(gameVersion, localModLoaderVersion, latestModLoaderVersion);
-                if (modLoaderOutdated) logger.Log($"Modloader check: {modLoaderTooltip}", "error" , false);
+                (modLoaderOutdated, modLoaderTooltip) = helper.CompareGameandModloaderVersions(gameVersion, localModLoaderVersion, latestModLoaderVersion);
+                if (modLoaderOutdated)
+                {
+                    logger.Log($"Modloader check failed!", "error", true);
+                    logger.Log($"{modLoaderTooltip}", "error", false);
+                }
                 modExPicture.Visible = modLoaderOutdated;
                 toolTip.SetToolTip(modExPicture, modLoaderTooltip);
             }

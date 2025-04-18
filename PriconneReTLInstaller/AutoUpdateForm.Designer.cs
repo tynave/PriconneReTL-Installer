@@ -67,15 +67,15 @@
             this.statusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.statusLabel.Location = new System.Drawing.Point(12, 197);
             this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(642, 22);
+            this.statusLabel.Size = new System.Drawing.Size(642, 49);
             this.statusLabel.TabIndex = 6;
             this.statusLabel.Text = "<installer status text>";
-            this.statusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.statusLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // cancelButton
             // 
             this.cancelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.cancelButton.Location = new System.Drawing.Point(235, 222);
+            this.cancelButton.Location = new System.Drawing.Point(235, 249);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(202, 40);
             this.cancelButton.TabIndex = 8;
@@ -92,7 +92,7 @@
             // 
             this.progressPicture.BackColor = System.Drawing.Color.Transparent;
             this.progressPicture.Image = global::PriconneReTLInstaller.Properties.Resources.pecorun;
-            this.progressPicture.Location = new System.Drawing.Point(30, 260);
+            this.progressPicture.Location = new System.Drawing.Point(30, 266);
             this.progressPicture.Name = "progressPicture";
             this.progressPicture.Size = new System.Drawing.Size(64, 64);
             this.progressPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -105,7 +105,7 @@
             // 
             this.progressLabel.BackColor = System.Drawing.Color.Transparent;
             this.progressLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.progressLabel.Location = new System.Drawing.Point(30, 235);
+            this.progressLabel.Location = new System.Drawing.Point(30, 241);
             this.progressLabel.Name = "progressLabel";
             this.progressLabel.Size = new System.Drawing.Size(64, 22);
             this.progressLabel.TabIndex = 12;
@@ -115,7 +115,7 @@
             // exitButton
             // 
             this.exitButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.exitButton.Location = new System.Drawing.Point(235, 222);
+            this.exitButton.Location = new System.Drawing.Point(235, 249);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(202, 40);
             this.exitButton.TabIndex = 13;
@@ -293,6 +293,7 @@
             this.newPatchPictureBox.Size = new System.Drawing.Size(50, 18);
             this.newPatchPictureBox.TabIndex = 19;
             this.newPatchPictureBox.TabStop = false;
+            this.toolTip.SetToolTip(this.newPatchPictureBox, "New TL patch version available!");
             this.newPatchPictureBox.Visible = false;
             // 
             // gameInfoPanel
@@ -350,7 +351,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.bg2;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(668, 348);
+            this.ClientSize = new System.Drawing.Size(668, 338);
             this.ControlBox = false;
             this.Controls.Add(this.patchInfoPanel);
             this.Controls.Add(this.gameInfoPanel);

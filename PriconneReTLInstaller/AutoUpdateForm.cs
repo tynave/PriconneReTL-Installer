@@ -32,13 +32,15 @@ namespace PriconneReTLInstaller
         private string localModLoaderVersion;
         private bool localModLoaderVersionValid;
         private string latestModLoaderVersion;
+        bool modLoaderOutdated;
+        string modLoaderTooltip;
         private string assetLink;
         public AutoUpdateForm()
         {
             InitializeComponent();
 
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.Height = 275;
+            this.Height = 300;
 
             installer.Log += OnLog;
             installer.ErrorLog += OnErrorLog;
@@ -86,8 +88,7 @@ namespace PriconneReTLInstaller
 
             if (localVersionValid && localModLoaderVersionValid)
             {
-                (bool modLoaderOutdated, string modLoaderTooltip) = helper.CompareGameandModloaderVersions(gameVersion, localModLoaderVersion, latestModLoaderVersion);
-                if (modLoaderOutdated) logger.Log($"Modloader check: {modLoaderTooltip}", "error", false);
+                (modLoaderOutdated, modLoaderTooltip) = helper.CompareGameandModloaderVersions(gameVersion, localModLoaderVersion, latestModLoaderVersion);
                 modExPicture.Visible = modLoaderOutdated;
                 toolTip.SetToolTip(modExPicture, modLoaderTooltip);
             }
@@ -112,7 +113,7 @@ namespace PriconneReTLInstaller
                 {
                     timer1.Stop();
                     cancelButton.Visible = false;
-                    this.Height = 350;
+                    this.Height = 340;
                     installer.ProcessAutoUpdateOperation(install, assetLink);
                 }
             };
@@ -168,7 +169,7 @@ namespace PriconneReTLInstaller
                 if (color == "error")
                 {
                     progressPicture.Visible = false;
-                    this.Height = 275;
+                    this.Height = 300;
                 }
             }));
         }
@@ -179,7 +180,7 @@ namespace PriconneReTLInstaller
             {
                 logger.Error(message);
                 progressPicture.Visible = false;
-                this.Height = 275;
+                this.Height = 300;
             }));
         }
 
@@ -218,9 +219,14 @@ namespace PriconneReTLInstaller
             // Placeholder event for future updates
         }
 
-        private void OnProcessFinish()
+        private async void OnProcessFinish()
         {
             UpdateUI();
+            if (modLoaderOutdated)
+            {
+                logger.Log($"{modLoaderTooltip}", "error", true);
+                await Task.Delay(4000);
+            }
             StartGame();
         }
 
@@ -236,14 +242,29 @@ namespace PriconneReTLInstaller
             this.Activate();
             InitializeUI();
 
+            if (helper.IsGameRunning())
+            {
+                MessageBox.Show($"The game is currently running.\nPlease exit the game before trying to use the autoupdater!", "Cannot Start", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Application.Exit();
+                return;
+            }
+
             if (priconnePathValid  && latestVersionValid)
             {
                 int versioncompare = localVersion.CompareTo(latestVersion);
 
                 if (versioncompare == 0)
                 {
-                    logger.Log("You already have the latest translation patch version installed! Starting game..", "success", true);
-                    await Task.Delay(2000);
+                    if (modLoaderOutdated)
+                    {
+                        logger.Log($"{modLoaderTooltip}", "error", true);
+                        await Task.Delay(4000);
+                    }
+                    else
+                    {
+                        logger.Log("You already have the latest translation patch version installed! Starting game..", "success", true);
+                        await Task.Delay(2000);
+                    }
                     StartGame();
                     return;
                 }
@@ -262,7 +283,7 @@ namespace PriconneReTLInstaller
             }
             else
             {
-                logger.Log("An error has occured! Cannot continue, exiting..", "error", true);
+                logger.Log("An error has occured! Cannot continue!", "error", true);
                 OnProcessError();
             }
         }
@@ -294,7 +315,7 @@ namespace PriconneReTLInstaller
 
         private void progressPicture_VisibleChanged(object sender, EventArgs e)
         {
-            this.Height = progressPicture.Visible ? 350 : 275;
+            this.Height = progressPicture.Visible ? 340 : 300;
             progressLabel.Visible = progressPicture.Visible;
         }
 

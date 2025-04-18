@@ -386,7 +386,7 @@
             this.newPatchPictureBox.Size = new System.Drawing.Size(50, 18);
             this.newPatchPictureBox.TabIndex = 19;
             this.newPatchPictureBox.TabStop = false;
-            this.toolTip.SetToolTip(this.newPatchPictureBox, "New version available!");
+            this.toolTip.SetToolTip(this.newPatchPictureBox, "New TL patch version available!");
             this.newPatchPictureBox.Visible = false;
             // 
             // exitButton
