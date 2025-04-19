@@ -38,6 +38,7 @@ namespace PriconneReTLInstaller
 
             RegisterButtonImagesBulk(buttonImageMappings);
 
+            RegisterMouseDrag(new List<Control> { newVersionLabel });
 
             latestAvailableVersion = version;
             releaseBody = body;

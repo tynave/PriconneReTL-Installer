@@ -37,7 +37,6 @@ namespace PriconneReTLInstaller
         private string modLoaderTooltip;
         private string commitSha;
         private int versioncompare;
-        private int modGameVersioncompare;
         private CheckBox[] exclusiveCheckboxes;
         private CheckBox[] operationCheckboxes;
         private CheckBox[] optionCheckboxes;
