@@ -176,7 +176,7 @@ namespace InstallerFunctions
 
         public (string latestVersion, bool latestVersionValid, string assetLink) GetLatestPatchRelease(string githubAPI)
         {
- 
+            
             try
             {
                 string releaseUrl = githubAPI + "/releases/latest";
@@ -214,7 +214,6 @@ namespace InstallerFunctions
                 {
                     ErrorLog?.Invoke("Error getting latest patch release: " + webEx.Message);
                 }
-
                 return (latestVersion = null, latestVersionValid = false, null);
             }
             catch (Exception ex)
@@ -228,6 +227,11 @@ namespace InstallerFunctions
         {
             try
             {
+                if (latestVersion == null)
+                {
+                    ErrorLog?.Invoke("Error getting latest modeloader release: Cannot determine due to missing latest release version!");
+                    return (null, null);
+                }
                 using (WebClient client = new WebClient())
                 {
                     client.Headers.Add("User-Agent", "PriconneReTLInstaller");
@@ -268,19 +272,18 @@ namespace InstallerFunctions
                     ErrorLog?.Invoke("Error getting latest modloader release: " + webEx.Message);
                 }
 
-                return ("ERROR!", null);
+                return (null, null);
             }
             catch (Exception ex)
             {
                 ErrorLog?.Invoke("Error getting latest modeloader release: " + ex.Message);
-                return ("ERROR!", null);
+                return (null, null);
             }
 
 
         }
         public (string version, string body, string assetLink, bool versionValid) GetLatestInstallerRelease()
         {
-
             try
             {
                 string releaseUrl = "https://api.github.com/repos/tynave/PriconneReTL-Installer/releases/latest";

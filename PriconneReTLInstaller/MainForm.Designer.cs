@@ -87,6 +87,7 @@
             this.patchLabel = new System.Windows.Forms.Label();
             this.modloaderLabel = new System.Windows.Forms.Label();
             this.patchInfoLabel = new System.Windows.Forms.Label();
+            this.githubAPIRateLimitInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.operationsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.newPatchPictureBox)).BeginInit();
@@ -530,11 +531,12 @@
             // 
             this.helpMenuStrip.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.helpMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.checkForInstallerUpdatesToolStripMenuItem,
+            this.githubAPIRateLimitInfoToolStripMenuItem,
             this.wikiMenuItem,
-            this.aboutMenuItem,
-            this.checkForInstallerUpdatesToolStripMenuItem});
+            this.aboutMenuItem});
             this.helpMenuStrip.Name = "contextMenuStrip1";
-            this.helpMenuStrip.Size = new System.Drawing.Size(299, 70);
+            this.helpMenuStrip.Size = new System.Drawing.Size(299, 114);
             // 
             // wikiMenuItem
             // 
@@ -855,6 +857,13 @@
             this.patchInfoLabel.Text = "TL Patch Information";
             this.patchInfoLabel.UseCompatibleTextRendering = true;
             // 
+            // githubAPIRateLimitInfoToolStripMenuItem
+            // 
+            this.githubAPIRateLimitInfoToolStripMenuItem.Name = "githubAPIRateLimitInfoToolStripMenuItem";
+            this.githubAPIRateLimitInfoToolStripMenuItem.Size = new System.Drawing.Size(298, 22);
+            this.githubAPIRateLimitInfoToolStripMenuItem.Text = "Github API Rate Limit Info";
+            this.githubAPIRateLimitInfoToolStripMenuItem.Click += new System.EventHandler(this.githubAPIRateLimitInfoToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -972,6 +981,7 @@
         private System.Windows.Forms.Label localModloaderVersionLabel;
         private System.Windows.Forms.Label latestModloaderVersionLabel;
         private System.Windows.Forms.PictureBox modExPicture;
+        private System.Windows.Forms.ToolStripMenuItem githubAPIRateLimitInfoToolStripMenuItem;
     }
 }
 

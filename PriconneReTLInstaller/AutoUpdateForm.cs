@@ -71,7 +71,7 @@ namespace PriconneReTLInstaller
             latestVersionLinkLabel.Text = latestVersionValid ? latestVersion : "ERROR!";
 
             (latestModLoaderVersion, _) = installer.GetLatestModloaderRelease();
-            latestModloaderVersionLabel.Text = latestModLoaderVersion;
+            latestModloaderVersionLabel.Text = latestModLoaderVersion != null ? latestModLoaderVersion : "ERROR!";
 
             progressLabel.Text = "";
 
@@ -88,7 +88,8 @@ namespace PriconneReTLInstaller
 
             if (localVersionValid && localModLoaderVersionValid)
             {
-                (modLoaderOutdated, modLoaderTooltip) = helper.CompareGameandModloaderVersions(gameVersion, localModLoaderVersion, latestModLoaderVersion);
+                //(modLoaderOutdated, modLoaderTooltip) = helper.CompareGameandModloaderVersions(gameVersion, localModLoaderVersion, latestModLoaderVersion);
+                if (latestModLoaderVersion != null) (modLoaderOutdated, modLoaderTooltip) = helper.CompareGameandModloaderVersions(gameVersion, localModLoaderVersion, latestModLoaderVersion);
                 modExPicture.Visible = modLoaderOutdated;
                 toolTip.SetToolTip(modExPicture, modLoaderTooltip);
             }
@@ -249,7 +250,7 @@ namespace PriconneReTLInstaller
                 return;
             }
 
-            if (priconnePathValid  && latestVersionValid)
+            if (priconnePathValid  && latestVersionValid && latestModLoaderVersion != null)
             {
                 int versioncompare = localVersion.CompareTo(latestVersion);
 

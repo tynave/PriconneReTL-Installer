@@ -7,6 +7,7 @@ using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -15,6 +16,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using InstallerFunctions;
 using LoggerFunctions;
+using Newtonsoft.Json;
 using PriconneReTLInstaller;
 using PriconneReTLInstaller.Properties;
 
@@ -317,6 +319,33 @@ namespace HelperFunctions
 
             // Check if the file path starts with the folder path.
             return filePath.StartsWith(folderPath, StringComparison.OrdinalIgnoreCase);
+        }
+
+        public static (int remaining, DateTime resetTime, TimeSpan timeUntilReset) CheckGithubRateLimit()
+        {
+            try
+            {
+                string rateUrl = "https://api.github.com/rate_limit";
+                using (WebClient client = new WebClient())
+                {
+                    client.Headers.Add("User-Agent", "PriconneReTLInstaller");
+
+                    string response = client.DownloadString(rateUrl);
+                    dynamic json = JsonConvert.DeserializeObject(response);
+
+                    int remaining = json.rate.remaining;
+                    long resetUnix = json.rate.reset;
+                    DateTime resetTime = DateTimeOffset.FromUnixTimeSeconds(resetUnix).ToLocalTime().DateTime;
+                    TimeSpan timeUntilReset = resetTime - DateTime.Now;
+
+                    return (remaining, resetTime, timeUntilReset);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error checking rate limit: {ex.Message}");
+                return (-1, DateTime.MinValue, TimeSpan.Zero); // Fallback values on error
+            }
         }
 
         public (bool,string) CompareGameandModloaderVersions(string gameVersion, string modloaderLocalVersion, string modLoaderLatestRelease)

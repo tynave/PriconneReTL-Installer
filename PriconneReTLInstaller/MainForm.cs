@@ -193,18 +193,16 @@ namespace PriconneReTLInstaller
             showLogCheckBox.Checked = Settings.Default.showLogChecked;
 
             (latestVersion, latestVersionValid, assetLink) = installer.GetLatestPatchRelease(patchgithubAPI);
-            //latestVersionLinkLabel.Text = "Latest Release: " + (latestVersionValid ? latestVersion : "ERROR!");
             latestVersionLinkLabel.Text = latestVersionValid ? latestVersion : "ERROR!";
 
             (latestModLoaderVersion, commitSha) = installer.GetLatestModloaderRelease();
-            latestModloaderVersionLabel.Text = latestModLoaderVersion;
+            latestModloaderVersionLabel.Text = latestModLoaderVersion != null ? latestModLoaderVersion : "ERROR!";
             if (commitSha != null) toolTip.SetToolTip(latestModloaderVersionLabel, $"Commit SHA: {commitSha}");
 
             exclusiveCheckboxes = new CheckBox[] { installCheckBox, reinstallCheckBox, uninstallCheckBox };
             operationCheckboxes = new CheckBox[] { installCheckBox, reinstallCheckBox, uninstallCheckBox, launchCheckBox };
             optionCheckboxes = new CheckBox[] { removeConfigCheckBox, removeIgnoredCheckBox };
             menuButtons = new Button[] { exitButton, minimizeButton, aboutButton, auButton, settingsButton };
-
 
             foreach (CheckBox checkBox in exclusiveCheckboxes)
             {
@@ -218,9 +216,9 @@ namespace PriconneReTLInstaller
 
             UpdateUI();
 
-            if (versioncompare == 0 && !modLoaderOutdated) logger.Log("You already have the latest translation patch version installed!", "success", true);
+            if (versioncompare == 0 && !modLoaderOutdated && latestModLoaderVersion != null) logger.Log("You already have the latest translation patch version installed!", "success", true);
 
-            startButton.Enabled = helper.isAnyChecked(operationCheckboxes);
+            startButton.Enabled = (!latestVersionValid || latestModLoaderVersion == null ) ? false : helper.isAnyChecked(operationCheckboxes);
         }
 
         private void UpdateUI()
@@ -234,11 +232,18 @@ namespace PriconneReTLInstaller
             localModloaderVersionLabel.Text = localModLoaderVersion;
 
             versioncompare = localVersion.CompareTo(latestVersion);
-            if ((!localVersionValid || versioncompare != 0) && priconnePathValid) installCheckBox.Enabled = true; else installCheckBox.Enabled = false;
+            //if ((!localVersionValid || versioncompare != 0) && priconnePathValid) installCheckBox.Enabled = true; else installCheckBox.Enabled = false;
+            if ((!localVersionValid || versioncompare != 0) && priconnePathValid)
+            {
+                installCheckBox.Enabled = true;
+                installCheckBox.Checked = true;
+            }
+            else installCheckBox.Enabled = false;
+
 
             if (localVersionValid && localModLoaderVersionValid)
             {
-                (modLoaderOutdated, modLoaderTooltip) = helper.CompareGameandModloaderVersions(gameVersion, localModLoaderVersion, latestModLoaderVersion);
+                if (latestModLoaderVersion != null) (modLoaderOutdated, modLoaderTooltip) = helper.CompareGameandModloaderVersions(gameVersion, localModLoaderVersion, latestModLoaderVersion);
                 if (modLoaderOutdated)
                 {
                     logger.Log($"Modloader check failed!", "error", true);
@@ -258,6 +263,15 @@ namespace PriconneReTLInstaller
             removeConfigCheckBox.Enabled = false;
             removeIgnoredCheckBox.Enabled = false;
 
+            if (!latestVersionValid || latestModLoaderVersion == null)
+            {
+                foreach (CheckBox checkBox in operationCheckboxes)
+                {
+                    checkBox.Enabled = false;
+                }
+                startButton.Enabled = false;
+                return;
+            }
         }
 
         private void UpdateModeDescription()
@@ -490,7 +504,8 @@ namespace PriconneReTLInstaller
 
         private void aboutMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show($"[PriconneReTL Updater version: {String.Format(Application.ProductVersion)}]\n" + Settings.Default.aboutText, "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"[PriconneReTL Updater version: {String.Format(Application.ProductVersion)}]\n"
+            + Settings.Default.aboutText, "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void startButton_EnabledChanged(object sender, EventArgs e)
@@ -584,6 +599,12 @@ namespace PriconneReTLInstaller
                 (string version, string body, string installerAssetlink, bool versionValid) = installer.GetLatestInstallerRelease();
                 helper.CheckForInstallerUpdate(version, body, installerAssetlink, versionValid);
             }
+        }
+
+        private void githubAPIRateLimitInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            (int remaining, DateTime resetTime, TimeSpan timeUntilReset) = Helper.CheckGithubRateLimit();
+            MessageBox.Show($"Github API rate limit info:\nRemaining API calls: {remaining}\nResets at: {resetTime}, in: {timeUntilReset:mm\\:ss}", "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
