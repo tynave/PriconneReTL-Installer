@@ -32,8 +32,8 @@ namespace PriconneReTLInstaller
         private string localModLoaderVersion;
         private bool localModLoaderVersionValid;
         private string latestModLoaderVersion;
-        bool modLoaderOutdated;
-        string modLoaderTooltip;
+        private bool modLoaderOutdated;
+        private string modLoaderTooltip;
         private string assetLink;
         public AutoUpdateForm()
         {
