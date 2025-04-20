@@ -420,7 +420,8 @@ namespace PriconneReTLInstaller
             startButton.Enabled = false;
             auButton.Enabled = false;
             settingsButton.Enabled = false;
-            aboutButton.Enabled = false;
+            helpMenuStrip.Items["checkForInstallerUpdatesToolStripMenuItem"].Enabled = false;
+            helpMenuStrip.Items["githubAPIRateLimitInfoToolStripMenuItem"].Enabled = false;
             startButton.BackgroundImage = Resources.start_working;
             logger.Log("Starting selected operation(s)...", "info");
             DisableCheckboxes(operationCheckboxes);
@@ -433,8 +434,9 @@ namespace PriconneReTLInstaller
             EnableCheckboxes(optionCheckboxes);
             startButton.Enabled = false;
             auButton.Enabled = true; 
-            settingsButton.Enabled= true;  
-            aboutButton.Enabled = true;
+            settingsButton.Enabled= true;
+            helpMenuStrip.Items["checkForInstallerUpdatesToolStripMenuItem"].Enabled = true;
+            helpMenuStrip.Items["githubAPIRateLimitInfoToolStripMenuItem"].Enabled = true;
             startButton.BackgroundImage = Resources.start_complete;
             reinstallCheckBox.Checked = false;
             uninstallCheckBox.Checked = false;
