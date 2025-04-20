@@ -132,6 +132,7 @@ namespace PriconneReTLInstaller
             ParseMarkdownToRichTextBox(releaseBody);
             changeLogRichTextbox.SelectionStart = 0;
             changeLogRichTextbox.ScrollToCaret(); // Ensure the view scrolls to the caret
+            updatelogger.Log($"Found new version: {latestAvailableVersion}!", "info", false);
         }
 
         private void downloadButton_Click(object sender, EventArgs e)

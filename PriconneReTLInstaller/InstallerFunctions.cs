@@ -769,6 +769,7 @@ namespace InstallerFunctions
 
                 if (downloadSuccess)
                 {
+                    Log?.Invoke($"New PriconneReTLInstaller version successfully downloaded to: {selectedFile}", "info", false);
                     DialogResult result2 = MessageBox.Show($"New installer version successfully downloaded to:\n{selectedFile}\n\nWould you like to close the application?", "Download successful!", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                     if (result2 == DialogResult.Yes) Application.Exit();
                     else form.Close();
