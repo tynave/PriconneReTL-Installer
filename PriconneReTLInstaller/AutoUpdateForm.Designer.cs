@@ -209,9 +209,9 @@
             this.latestModloaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.latestModloaderLabel.Location = new System.Drawing.Point(322, 64);
             this.latestModloaderLabel.Name = "latestModloaderLabel";
-            this.latestModloaderLabel.Size = new System.Drawing.Size(130, 18);
+            this.latestModloaderLabel.Size = new System.Drawing.Size(126, 18);
             this.latestModloaderLabel.TabIndex = 46;
-            this.latestModloaderLabel.Text = "Latest Release :";
+            this.latestModloaderLabel.Text = "Latest Version :";
             // 
             // installedModloaderLabel
             // 

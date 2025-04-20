@@ -58,9 +58,10 @@
             this.minimizeButton = new System.Windows.Forms.Button();
             this.aboutButton = new System.Windows.Forms.Button();
             this.helpMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.checkForInstallerUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.githubAPIRateLimitInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wikiMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkForInstallerUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsButton = new System.Windows.Forms.Button();
             this.settingsMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editIgnoredFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -87,7 +88,6 @@
             this.patchLabel = new System.Windows.Forms.Label();
             this.modloaderLabel = new System.Windows.Forms.Label();
             this.patchInfoLabel = new System.Windows.Forms.Label();
-            this.githubAPIRateLimitInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.operationsPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.newPatchPictureBox)).BeginInit();
@@ -536,7 +536,24 @@
             this.wikiMenuItem,
             this.aboutMenuItem});
             this.helpMenuStrip.Name = "contextMenuStrip1";
-            this.helpMenuStrip.Size = new System.Drawing.Size(299, 114);
+            this.helpMenuStrip.Size = new System.Drawing.Size(299, 92);
+            // 
+            // checkForInstallerUpdatesToolStripMenuItem
+            // 
+            this.checkForInstallerUpdatesToolStripMenuItem.Checked = true;
+            this.checkForInstallerUpdatesToolStripMenuItem.CheckOnClick = true;
+            this.checkForInstallerUpdatesToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkForInstallerUpdatesToolStripMenuItem.Name = "checkForInstallerUpdatesToolStripMenuItem";
+            this.checkForInstallerUpdatesToolStripMenuItem.Size = new System.Drawing.Size(298, 22);
+            this.checkForInstallerUpdatesToolStripMenuItem.Text = "Check for Installer Updates on Startup";
+            this.checkForInstallerUpdatesToolStripMenuItem.CheckedChanged += new System.EventHandler(this.checkForInstallerUpdatesToolStripMenuItem_CheckedChanged);
+            // 
+            // githubAPIRateLimitInfoToolStripMenuItem
+            // 
+            this.githubAPIRateLimitInfoToolStripMenuItem.Name = "githubAPIRateLimitInfoToolStripMenuItem";
+            this.githubAPIRateLimitInfoToolStripMenuItem.Size = new System.Drawing.Size(298, 22);
+            this.githubAPIRateLimitInfoToolStripMenuItem.Text = "Github API Rate Limit Info";
+            this.githubAPIRateLimitInfoToolStripMenuItem.Click += new System.EventHandler(this.githubAPIRateLimitInfoToolStripMenuItem_Click);
             // 
             // wikiMenuItem
             // 
@@ -551,16 +568,6 @@
             this.aboutMenuItem.Size = new System.Drawing.Size(298, 22);
             this.aboutMenuItem.Text = "About";
             this.aboutMenuItem.Click += new System.EventHandler(this.aboutMenuItem_Click);
-            // 
-            // checkForInstallerUpdatesToolStripMenuItem
-            // 
-            this.checkForInstallerUpdatesToolStripMenuItem.Checked = true;
-            this.checkForInstallerUpdatesToolStripMenuItem.CheckOnClick = true;
-            this.checkForInstallerUpdatesToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkForInstallerUpdatesToolStripMenuItem.Name = "checkForInstallerUpdatesToolStripMenuItem";
-            this.checkForInstallerUpdatesToolStripMenuItem.Size = new System.Drawing.Size(298, 22);
-            this.checkForInstallerUpdatesToolStripMenuItem.Text = "Check for Installer Updates on Startup";
-            this.checkForInstallerUpdatesToolStripMenuItem.CheckedChanged += new System.EventHandler(this.checkForInstallerUpdatesToolStripMenuItem_CheckedChanged);
             // 
             // settingsButton
             // 
@@ -809,9 +816,9 @@
             this.latestModloaderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.latestModloaderLabel.Location = new System.Drawing.Point(322, 64);
             this.latestModloaderLabel.Name = "latestModloaderLabel";
-            this.latestModloaderLabel.Size = new System.Drawing.Size(130, 18);
+            this.latestModloaderLabel.Size = new System.Drawing.Size(126, 18);
             this.latestModloaderLabel.TabIndex = 46;
-            this.latestModloaderLabel.Text = "Latest Release :";
+            this.latestModloaderLabel.Text = "Latest Version :";
             // 
             // installedModloaderLabel
             // 
@@ -856,13 +863,6 @@
             this.patchInfoLabel.TabIndex = 42;
             this.patchInfoLabel.Text = "TL Patch Information";
             this.patchInfoLabel.UseCompatibleTextRendering = true;
-            // 
-            // githubAPIRateLimitInfoToolStripMenuItem
-            // 
-            this.githubAPIRateLimitInfoToolStripMenuItem.Name = "githubAPIRateLimitInfoToolStripMenuItem";
-            this.githubAPIRateLimitInfoToolStripMenuItem.Size = new System.Drawing.Size(298, 22);
-            this.githubAPIRateLimitInfoToolStripMenuItem.Text = "Github API Rate Limit Info";
-            this.githubAPIRateLimitInfoToolStripMenuItem.Click += new System.EventHandler(this.githubAPIRateLimitInfoToolStripMenuItem_Click);
             // 
             // MainForm
             // 
