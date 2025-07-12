@@ -59,6 +59,9 @@ namespace PriconneReTLInstaller
                 Properties.Settings.Default.Save();
             }
 
+            Helper.SetDefaultDMMConfigPath();
+            Helper.EnsureDMMConfigPathValid();
+
             InitializeComponent();
 
             installer.Log += OnLog;

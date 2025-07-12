@@ -63,7 +63,8 @@ namespace InstallerFunctions
             try
             {
 
-                string cfgFileContent = File.ReadAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dmmgameplayer5", "dmmgame.cnf"));
+                //string cfgFileContent = File.ReadAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dmmgameplayer5", "dmmgame.cnf"));
+                string cfgFileContent = File.ReadAllText(Settings.Default.DMMConfigPath);
                 dynamic cfgJson = JsonConvert.DeserializeObject(cfgFileContent);
 
                 if (cfgJson != null && cfgJson.contents != null)

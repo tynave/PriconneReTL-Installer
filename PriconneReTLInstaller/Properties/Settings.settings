@@ -118,5 +118,8 @@ If it's still outdated after the update, please wait for a new modloader release
       <Value Profile="(Default)">Your game version is lower than the modloader version!
 Please update your game!</Value>
     </Setting>
+    <Setting Name="DMMConfigPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -406,6 +406,50 @@ namespace HelperFunctions
             // If fromPath is the same as toPath, return an empty string
             return string.Empty;
         }
+
+        public static void SetDefaultDMMConfigPath()
+        {
+            if (string.IsNullOrWhiteSpace(Settings.Default.DMMConfigPath))
+            {
+                Settings.Default.DMMConfigPath = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                    "dmmgameplayer5", "dmmgame.cnf"
+                );
+                Settings.Default.Save();
+            }
+        }
+
+        public static void EnsureDMMConfigPathValid()
+        {
+            string path = Settings.Default.DMMConfigPath;
+
+            if (!File.Exists(path))
+            {
+                var result = MessageBox.Show(
+                    $"The DMMGamePlayer config file cannot be found at: {Settings.Default.DMMConfigPath}\n\n" +
+                    "Would you like to locate it manually?",
+                    "Config File Missing",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning
+                );
+
+                if (result == DialogResult.Yes)
+                {
+                    using (OpenFileDialog openFileDialog = new OpenFileDialog())
+                    {
+                        openFileDialog.Title = "Select DMMGamePlayer Config File";
+                        openFileDialog.Filter = "DMM Config File (dmmgame.cnf)|dmmgame.cnf|All Files (*.*)|*.*";
+                        openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+                        if (openFileDialog.ShowDialog() == DialogResult.OK)
+                        {
+                            Settings.Default.DMMConfigPath = openFileDialog.FileName;
+                            Settings.Default.Save();
+                        }
+                    }
+                }
+            }
+        }
         public void ExportSettings(string filePath)
         {
             try
