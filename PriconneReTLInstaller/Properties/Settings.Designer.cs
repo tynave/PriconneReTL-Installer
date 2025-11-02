@@ -347,5 +347,17 @@ You can set the shortcut in the Installer by clicking the ""Settings"" icon (scr
                 this["DMMConfigPath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string GithubAPIKey {
+            get {
+                return ((string)(this["GithubAPIKey"]));
+            }
+            set {
+                this["GithubAPIKey"] = value;
+            }
+        }
     }
 }

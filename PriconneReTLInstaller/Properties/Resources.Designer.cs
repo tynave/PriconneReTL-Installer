@@ -213,6 +213,36 @@ namespace PriconneReTLInstaller.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cleartokenbutton {
+            get {
+                object obj = ResourceManager.GetObject("cleartokenbutton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cleartokenbutton_disabled {
+            get {
+                object obj = ResourceManager.GetObject("cleartokenbutton_disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cleartokenbutton_lit {
+            get {
+                object obj = ResourceManager.GetObject("cleartokenbutton_lit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap crystal_disabled {
             get {
                 object obj = ResourceManager.GetObject("crystal_disabled", resourceCulture);
@@ -613,6 +643,36 @@ namespace PriconneReTLInstaller.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap savetokenbutton {
+            get {
+                object obj = ResourceManager.GetObject("savetokenbutton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap savetokenbutton_disabled {
+            get {
+                object obj = ResourceManager.GetObject("savetokenbutton_disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap savetokenbutton_lit {
+            get {
+                object obj = ResourceManager.GetObject("savetokenbutton_lit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap scroll_closed_res2 {
             get {
                 object obj = ResourceManager.GetObject("scroll_closed_res2", resourceCulture);
@@ -786,6 +846,36 @@ namespace PriconneReTLInstaller.Properties {
         internal static System.Drawing.Bitmap uninstall_button_lit {
             get {
                 object obj = ResourceManager.GetObject("uninstall_button_lit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap validatetokenbutton {
+            get {
+                object obj = ResourceManager.GetObject("validatetokenbutton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap validatetokenbutton_disabled {
+            get {
+                object obj = ResourceManager.GetObject("validatetokenbutton_disabled", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap validatetokenbutton_lit {
+            get {
+                object obj = ResourceManager.GetObject("validatetokenbutton_lit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

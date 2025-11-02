@@ -143,6 +143,7 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Security" />
     <Reference Include="System.Security.Cryptography.Algorithms, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net463\System.Security.Cryptography.Algorithms.dll</HintPath>
       <Private>True</Private>
@@ -185,6 +186,12 @@
     <Compile Include="BaseForm.Designer.cs">
       <DependentUpon>BaseForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GithubForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GithubForm.Designer.cs">
+      <DependentUpon>GithubForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SelfUpdateForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -226,6 +233,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GithubForm.resx">
+      <DependentUpon>GithubForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SelfUpdateForm.resx">
       <DependentUpon>SelfUpdateForm.cs</DependentUpon>
@@ -492,6 +502,15 @@
     <None Include="Resources\dlbutton_lit.png" />
     <None Include="Resources\bg_enlarged.png" />
     <None Include="Resources\exclamation_t.png" />
+    <None Include="Resources\cleartokenbutton.png" />
+    <None Include="Resources\cleartokenbutton_disabled.png" />
+    <None Include="Resources\cleartokenbutton_lit.png" />
+    <None Include="Resources\validatetokenbutton.png" />
+    <None Include="Resources\validatetokenbutton_disabled.png" />
+    <None Include="Resources\validatetokenbutton_lit.png" />
+    <None Include="Resources\savetokenbutton.png" />
+    <None Include="Resources\savetokenbutton_disabled.png" />
+    <None Include="Resources\savetokenbutton_lit.png" />
     <Content Include="Resources\wiki\autoupdatermenu.png" />
     <Content Include="Resources\wiki\importexportui.png" />
     <Content Include="Resources\wiki\updatericon.png" />

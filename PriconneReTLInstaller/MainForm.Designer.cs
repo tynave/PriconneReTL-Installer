@@ -67,6 +67,7 @@
             this.editIgnoredFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setLauncherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importExportSettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gitHubAPISettingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.auButton = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -595,9 +596,10 @@
             this.settingsMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.editIgnoredFilesToolStripMenuItem,
             this.setLauncherToolStripMenuItem,
-            this.importExportSettingsToolStripMenuItem});
+            this.importExportSettingsToolStripMenuItem,
+            this.gitHubAPISettingsToolStripMenuItem});
             this.settingsMenuStrip.Name = "settingsMenuStrip";
-            this.settingsMenuStrip.Size = new System.Drawing.Size(248, 70);
+            this.settingsMenuStrip.Size = new System.Drawing.Size(248, 114);
             // 
             // editIgnoredFilesToolStripMenuItem
             // 
@@ -619,6 +621,13 @@
             this.importExportSettingsToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
             this.importExportSettingsToolStripMenuItem.Text = "Import / Export User Settings";
             this.importExportSettingsToolStripMenuItem.Click += new System.EventHandler(this.importExportSettingsToolStripMenuItem_Click);
+            // 
+            // gitHubAPISettingsToolStripMenuItem
+            // 
+            this.gitHubAPISettingsToolStripMenuItem.Name = "gitHubAPISettingsToolStripMenuItem";
+            this.gitHubAPISettingsToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
+            this.gitHubAPISettingsToolStripMenuItem.Text = "GitHub API Settings";
+            this.gitHubAPISettingsToolStripMenuItem.Click += new System.EventHandler(this.gitHubAPISettingsToolStripMenuItem_Click);
             // 
             // auButton
             // 
@@ -982,6 +991,7 @@
         private System.Windows.Forms.Label latestModloaderVersionLabel;
         private System.Windows.Forms.PictureBox modExPicture;
         private System.Windows.Forms.ToolStripMenuItem githubAPIRateLimitInfoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gitHubAPISettingsToolStripMenuItem;
     }
 }
 

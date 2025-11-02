@@ -14,6 +14,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Security.Cryptography;
 using InstallerFunctions;
 using LoggerFunctions;
 using Newtonsoft.Json;
@@ -320,16 +321,64 @@ namespace HelperFunctions
             // Check if the file path starts with the folder path.
             return filePath.StartsWith(folderPath, StringComparison.OrdinalIgnoreCase);
         }
+        public static (bool, string) ValidateGitHubToken(string token)
+        {
+            string username = null;
 
-        public static (int remaining, DateTime resetTime, TimeSpan timeUntilReset) CheckGithubRateLimit()
+            if (string.IsNullOrWhiteSpace(token))
+                return (false, null);
+
+            try
+            {
+                using (WebClient client = new WebClient())
+                {
+                    client.Headers.Add("User-Agent", "PriconneReTLInstaller");
+                    client.Headers.Add("Authorization", "token " + token);
+
+                    string response = client.DownloadString("https://api.github.com/user");
+                    dynamic userJson = JsonConvert.DeserializeObject(response);
+
+                    username = userJson.login;
+                    return (true, username); // Token is valid
+                }
+            }
+            catch (WebException webEx)
+            {
+                if (webEx.Response != null)
+                {
+                    using (var reader = new StreamReader(webEx.Response.GetResponseStream()))
+                    {
+                        string errorResponse = reader.ReadToEnd();
+                        try
+                        {
+                            dynamic errorJson = JsonConvert.DeserializeObject(errorResponse);
+                            string message = errorJson.message?.ToString();
+
+                            if (message?.Contains("Bad credentials") == true)
+                                return (false, null);
+                        }
+                        catch { }
+                    }
+                }
+                return (false, null);
+            }
+            catch
+            {
+                return (false, null);
+            }
+        }
+        public static (int remaining, DateTime resetTime, TimeSpan timeUntilReset, string username) CheckGithubRateLimit()
         {
             try
             {
+                string gitHubToken = Helper.DecryptString(Settings.Default.GithubAPIKey);
+                (bool tokenvalid, string username) = Helper.ValidateGitHubToken(gitHubToken);
+
                 string rateUrl = "https://api.github.com/rate_limit";
                 using (WebClient client = new WebClient())
                 {
                     client.Headers.Add("User-Agent", "PriconneReTLInstaller");
-
+                    if (tokenvalid) client.Headers.Add("Authorization", $"Bearer {gitHubToken}");
                     string response = client.DownloadString(rateUrl);
                     dynamic json = JsonConvert.DeserializeObject(response);
 
@@ -338,13 +387,13 @@ namespace HelperFunctions
                     DateTime resetTime = DateTimeOffset.FromUnixTimeSeconds(resetUnix).ToLocalTime().DateTime;
                     TimeSpan timeUntilReset = resetTime - DateTime.Now;
 
-                    return (remaining, resetTime, timeUntilReset);
+                    return (remaining, resetTime, timeUntilReset, username);
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error checking rate limit: {ex.Message}");
-                return (-1, DateTime.MinValue, TimeSpan.Zero); // Fallback values on error
+                return (-1, DateTime.MinValue, TimeSpan.Zero, null); // Fallback values on error
             }
         }
 
@@ -449,6 +498,26 @@ namespace HelperFunctions
                     }
                 }
             }
+        }
+
+        public static string EncryptString(string plainText)
+        {
+            if (string.IsNullOrEmpty(plainText))
+                return plainText;
+
+            byte[] bytes = Encoding.UTF8.GetBytes(plainText);
+            byte[] protectedBytes = ProtectedData.Protect(bytes, null, DataProtectionScope.CurrentUser);
+            return Convert.ToBase64String(protectedBytes);
+        }
+
+        public static string DecryptString(string encryptedText)
+        {
+            if (string.IsNullOrEmpty(encryptedText))
+                return encryptedText;
+
+            byte[] bytes = Convert.FromBase64String(encryptedText);
+            byte[] unprotectedBytes = ProtectedData.Unprotect(bytes, null, DataProtectionScope.CurrentUser);
+            return Encoding.UTF8.GetString(unprotectedBytes);
         }
         public void ExportSettings(string filePath)
         {

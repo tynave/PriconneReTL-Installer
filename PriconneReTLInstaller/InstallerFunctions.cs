@@ -181,9 +181,12 @@ namespace InstallerFunctions
             try
             {
                 string releaseUrl = githubAPI + "/releases/latest";
+                string gitHubToken = Helper.DecryptString(Settings.Default.GithubAPIKey);
+                (bool tokenvalid, _) = Helper.ValidateGitHubToken(gitHubToken);
                 using (WebClient client = new WebClient())
                 {
                     client.Headers.Add("User-Agent", "PriconneReTLInstaller");
+                    if (tokenvalid) client.Headers.Add("Authorization", $"Bearer {gitHubToken}");
                     string response = client.DownloadString(releaseUrl);
                     dynamic releaseJson = JsonConvert.DeserializeObject(response);
                     string version = releaseJson.tag_name;
@@ -226,6 +229,8 @@ namespace InstallerFunctions
 
         public (string, string) GetLatestModloaderRelease()
         {
+            string gitHubToken = Helper.DecryptString(Settings.Default.GithubAPIKey);
+            (bool tokenvalid, _) = Helper.ValidateGitHubToken(gitHubToken);
             try
             {
                 if (latestVersion == null)
@@ -236,7 +241,7 @@ namespace InstallerFunctions
                 using (WebClient client = new WebClient())
                 {
                     client.Headers.Add("User-Agent", "PriconneReTLInstaller");
-
+                    if (tokenvalid) client.Headers.Add("Authorization", $"Bearer {gitHubToken}");
                     string refUrl = $"https://api.github.com/repos/ImaterialC/PriconneRe-TL/git/ref/tags/{latestVersion}";
                     string refResponse = client.DownloadString(refUrl);
                     dynamic responseJson = JObject.Parse(refResponse);
@@ -285,12 +290,15 @@ namespace InstallerFunctions
         }
         public (string version, string body, string assetLink, bool versionValid) GetLatestInstallerRelease()
         {
+            string gitHubToken = Helper.DecryptString(Settings.Default.GithubAPIKey);
+            (bool tokenvalid, _) = Helper.ValidateGitHubToken(gitHubToken);
             try
             {
                 string releaseUrl = "https://api.github.com/repos/tynave/PriconneReTL-Installer/releases/latest";
                 using (WebClient client = new WebClient())
                 {
                     client.Headers.Add("User-Agent", "PriconneReTLInstaller");
+                    if (tokenvalid) client.Headers.Add("Authorization", $"Bearer {gitHubToken}");
                     string response = client.DownloadString(releaseUrl);
                     dynamic releaseJson = JsonConvert.DeserializeObject(response);
                     string version = releaseJson.tag_name;
@@ -335,7 +343,8 @@ namespace InstallerFunctions
 
         public async Task DownloadPatchFiles(string assetLink, string fileToSave = null)
         {
-
+            string gitHubToken = Helper.DecryptString(Settings.Default.GithubAPIKey);
+            (bool tokenvalid, _) = Helper.ValidateGitHubToken(gitHubToken);
             try
             {
                 Log?.Invoke("Downloading compressed files...", "info", true);
@@ -343,6 +352,9 @@ namespace InstallerFunctions
 
                 using (HttpClient client = new HttpClient())
                 {
+                    client.DefaultRequestHeaders.UserAgent.ParseAdd("PriconneReTLInstaller");
+                    if (tokenvalid) client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", gitHubToken);
+
                     using (var response = await client.GetAsync(assetLink, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false))
                     {
                         response.EnsureSuccessStatusCode();
@@ -446,12 +458,15 @@ namespace InstallerFunctions
         }
         public async Task<string[]> ProcessTree(string priconnePath, string releaseTag)
         {
+            string gitHubToken = Helper.DecryptString(Settings.Default.GithubAPIKey);
+            (bool tokenvalid, _) = Helper.ValidateGitHubToken(gitHubToken);
             string[] ignoreFiles = helper.SetIgnoreFiles(priconnePath, addconfig: true);
             List<string> filePathsList = new List<string>();
 
             using (HttpClient client = new HttpClient())
             {
                 client.DefaultRequestHeaders.UserAgent.ParseAdd("PriconneReTLInstaller");
+                if (tokenvalid) client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", gitHubToken);
 
                 string treeUrl = $"{Settings.Default.patchGithubApi}/git/trees/{releaseTag}?recursive=1";
 

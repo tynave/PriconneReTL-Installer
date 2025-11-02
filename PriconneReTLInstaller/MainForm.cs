@@ -226,6 +226,10 @@ namespace PriconneReTLInstaller
 
         private void UpdateUI()
         {
+            string githubAPIToken = Helper.DecryptString(Settings.Default.GithubAPIKey);
+            (bool tokenvalid, _) = Helper.ValidateGitHubToken(githubAPIToken);
+            if (!string.IsNullOrEmpty(githubAPIToken) && !tokenvalid) logger.Log("Github API token invalid or expired! Please check and reset it!", "error");
+
             (localVersion, localVersionValid) = installer.GetInstalledPatchVersion();
             (localModLoaderVersion, localModLoaderVersionValid)= installer.GetInstalledModloaderVersion();
 
@@ -608,8 +612,15 @@ namespace PriconneReTLInstaller
 
         private void githubAPIRateLimitInfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            (int remaining, DateTime resetTime, TimeSpan timeUntilReset) = Helper.CheckGithubRateLimit();
-            MessageBox.Show($"Github API rate limit info:\nRemaining API calls: {remaining}\nResets at: {resetTime}, in: {timeUntilReset:mm\\:ss}", "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            (int remaining, DateTime resetTime, TimeSpan timeUntilReset, string username) = Helper.CheckGithubRateLimit();
+            string auth = username == null ? "No" : $"Yes (Username: {username})";
+            MessageBox.Show($"Github API rate limit info:\n\nAuthenticated: {auth}\nRemaining API calls: {remaining}\nResets at: {resetTime}, in: {timeUntilReset:mm\\:ss}", "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void gitHubAPISettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GithubForm GitHubForm = new GithubForm();
+            GitHubForm.ShowDialog();
         }
     }
 }

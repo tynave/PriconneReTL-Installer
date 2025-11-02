@@ -337,4 +337,31 @@
   <data name="exclamation_t" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\exclamation_t.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="cleartokenbutton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cleartokenbutton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cleartokenbutton_disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cleartokenbutton_disabled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="cleartokenbutton_lit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\cleartokenbutton_lit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="validatetokenbutton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\validatetokenbutton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="validatetokenbutton_disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\validatetokenbutton_disabled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="validatetokenbutton_lit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\validatetokenbutton_lit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="savetokenbutton" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\savetokenbutton.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="savetokenbutton_disabled" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\savetokenbutton_disabled.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="savetokenbutton_lit" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\savetokenbutton_lit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
