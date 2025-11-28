@@ -1,4 +1,9 @@
-﻿using System;
+﻿using InstallerFunctions;
+using LoggerFunctions;
+using Newtonsoft.Json;
+using PriconneReTLInstaller;
+using PriconneReTLInstaller.Properties;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -10,16 +15,13 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.Security.Principal;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
-using System.Security.Cryptography;
-using InstallerFunctions;
-using LoggerFunctions;
-using Newtonsoft.Json;
-using PriconneReTLInstaller;
-using PriconneReTLInstaller.Properties;
+using System.Management;
 
 namespace HelperFunctions
 {   
@@ -125,10 +127,10 @@ namespace HelperFunctions
             string[] ignoreFiles = new string[Settings.Default.ignoreFiles.Count];
             Settings.Default.ignoreFiles.CopyTo(ignoreFiles, 0);
 
-            foreach (var item in ignoreFiles)
+            /*foreach (var item in ignoreFiles)
             {
                 Console.WriteLine(item);
-            }
+            }*/
 
             if (addconfig)
             {
@@ -196,13 +198,88 @@ namespace HelperFunctions
 
             return result;
         }
-        public bool IsGameRunning()
-        {
-            // Get a list of all running processes with the specified name
-            Process[] processes = Process.GetProcessesByName("PrincessConnectReDive");
 
-            // Check if any processes with the given name are running
-            return processes.Length > 0;
+        public static bool IsGameRunning(string priconnePath)
+        {
+            string processName = "PrincessConnectReDive";
+            Process[] processes = Process.GetProcessesByName(processName);
+
+            foreach (var process in processes)
+            {
+                try
+                {
+                    string exePath = GetExecutablePath(process);
+                    string folder = Path.GetDirectoryName(exePath);
+
+                    Console.WriteLine($"Detected process path: {exePath}");
+
+                    if (string.Equals(
+                            Path.GetFullPath(folder).TrimEnd(Path.DirectorySeparatorChar),
+                            Path.GetFullPath(priconnePath).TrimEnd(Path.DirectorySeparatorChar),
+                            StringComparison.OrdinalIgnoreCase))
+                    {
+                        MessageBox.Show($"The game is currently running.\nPlease exit the game before performing any operations.", "Cannot Start", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Log if a process cannot be accessed
+                    Console.WriteLine($"Cannot access process {process.ProcessName}: {ex.Message}");
+                    MessageBox.Show($"Cannot access game process to check if it's running.\nTry running the installer in admin mode.", "Cannot Start", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static string GetExecutablePath(Process process)
+        {
+            if (Environment.OSVersion.Version.Major >= 6) // Vista+
+            {
+                return GetExecutablePathAboveVista(process.Id);
+            }
+
+            return process.MainModule.FileName;
+        }
+
+        private static string GetExecutablePathAboveVista(int processId)
+        {
+            var buffer = new StringBuilder(1024);
+            IntPtr hProcess = OpenProcess(ProcessAccessFlags.QueryLimitedInformation, false, processId);
+            if (hProcess != IntPtr.Zero)
+            {
+                try
+                {
+                    int size = buffer.Capacity;
+                    if (QueryFullProcessImageName(hProcess, 0, buffer, out size))
+                    {
+                        return buffer.ToString();
+                    }
+                }
+                finally
+                {
+                    CloseHandle(hProcess);
+                }
+            }
+
+            throw new Win32Exception(Marshal.GetLastWin32Error());
+        }
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern IntPtr OpenProcess(ProcessAccessFlags dwDesiredAccess, bool bInheritHandle, int processId);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern bool QueryFullProcessImageName(IntPtr hProcess, int dwFlags, StringBuilder lpExeName, out int size);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern bool CloseHandle(IntPtr hHandle);
+
+        [Flags]
+        private enum ProcessAccessFlags : uint
+        {
+            QueryLimitedInformation = 0x1000
         }
         public bool IsFastLauncherInstalled()
         {

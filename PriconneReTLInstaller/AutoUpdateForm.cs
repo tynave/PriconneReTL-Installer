@@ -243,9 +243,9 @@ namespace PriconneReTLInstaller
             this.Activate();
             InitializeUI();
 
-            if (helper.IsGameRunning())
+            if (Helper.IsGameRunning(priconnePath))
             {
-                MessageBox.Show($"The game is currently running.\nPlease exit the game before trying to use the autoupdater!", "Cannot Start", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //MessageBox.Show($"The game is currently running.\nPlease exit the game before trying to use the autoupdater!", "Cannot Start", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 Application.Exit();
                 return;
             }

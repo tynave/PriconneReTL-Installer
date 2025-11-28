@@ -451,17 +451,9 @@ namespace PriconneReTLInstaller
         }
         private void startButton_Click_1(object sender, EventArgs e)
         {
-            
-            if (helper.IsGameRunning())
-            {
-                MessageBox.Show($"The game is currently running.\nPlease exit the game before performing any operations.", "Cannot Start", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            else
-            {
-               installer.ProcessOperation(assetLink, installCheckBox.Checked, uninstallCheckBox.Checked, reinstallCheckBox.Checked, launchCheckBox.Checked, removeConfigCheckBox.Checked, configListBox, removeIgnoredCheckBox.Checked);
-            }
 
+            if(!Helper.IsGameRunning(priconnePath)) 
+                installer.ProcessOperation(assetLink, installCheckBox.Checked, uninstallCheckBox.Checked, reinstallCheckBox.Checked, launchCheckBox.Checked, removeConfigCheckBox.Checked, configListBox, removeIgnoredCheckBox.Checked);
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
