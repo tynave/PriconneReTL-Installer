@@ -127,11 +127,6 @@ namespace HelperFunctions
             string[] ignoreFiles = new string[Settings.Default.ignoreFiles.Count];
             Settings.Default.ignoreFiles.CopyTo(ignoreFiles, 0);
 
-            /*foreach (var item in ignoreFiles)
-            {
-                Console.WriteLine(item);
-            }*/
-
             if (addconfig)
             {
                 List<string> ignoreFilesList = new List<string>(ignoreFiles);

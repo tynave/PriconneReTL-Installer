@@ -239,7 +239,6 @@ namespace PriconneReTLInstaller
             localModloaderVersionLabel.Text = localModLoaderVersion;
 
             versioncompare = localVersion.CompareTo(latestVersion);
-            //if ((!localVersionValid || versioncompare != 0) && priconnePathValid) installCheckBox.Enabled = true; else installCheckBox.Enabled = false;
             if ((!localVersionValid || versioncompare != 0) && priconnePathValid)
             {
                 installCheckBox.Enabled = true;

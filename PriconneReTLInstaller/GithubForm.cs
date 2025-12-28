@@ -24,7 +24,6 @@ namespace PriconneReTLInstaller
                 (backButton, Resources.back_arrow, Resources.back_arrow_lit, null, null),
                 (saveButton, Resources.savetokenbutton, Resources.savetokenbutton_lit, null, null),
                 (validateButton, Resources.validatetokenbutton, Resources.validatetokenbutton_lit, null, null),
-                //(clearButton, Resources.cleartokenbutton, Resources.cleartokenbutton_lit, null, null)
             };
 
             RegisterButtonImagesBulk(buttonImageMappings);

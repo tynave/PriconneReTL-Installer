@@ -63,7 +63,6 @@ namespace InstallerFunctions
             try
             {
 
-                //string cfgFileContent = File.ReadAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dmmgameplayer5", "dmmgame.cnf"));
                 string cfgFileContent = File.ReadAllText(Settings.Default.DMMConfigPath);
                 dynamic cfgJson = JsonConvert.DeserializeObject(cfgFileContent);
 
@@ -163,7 +162,7 @@ namespace InstallerFunctions
                 {
                     return ("Invalid", false);
                 }
-                //localVersion = match.Value;
+
                 Log?.Invoke($"Found modloader version {match.Value} installed!", "info", false);
                 return (match.Value, true);
 
@@ -417,7 +416,6 @@ namespace InstallerFunctions
 
                         Log?.Invoke("Extracting: " + entry.FullName, "add", false);
                         DownloadProgress?.Invoke(counter, zip.Entries.Count);
-                        //DownloadProgressAutoUpdater?.Invoke(counter, zip.Entries.Count, Resources.kokkorowinnosquarenobg);
 
                         if (!ignoreFiles.Contains(fileName))
                         {
@@ -487,7 +485,6 @@ namespace InstallerFunctions
                             if (!ignoreFiles.Contains(trimmedPath))
                             {
                                 filePathsList.Add(trimmedPath);
-                                // Console.WriteLine($"File in 'src' Path: {trimmedPath}");
                             }
                         }
                     }
@@ -547,7 +544,6 @@ namespace InstallerFunctions
                         }
                         double percentage = ((double)counter / currentFiles.Length) * 100;
                         DownloadProgress?.Invoke(counter, currentFiles.Length);
-                        //DownloadProgressAutoUpdater?.Invoke(counter, currentFiles.Length, Resources.kyaruwinnosquarenobg);
 
                     }
 
