@@ -505,6 +505,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\wiki\validtoken.png" />
     <None Include="Resources\cancel.png" />
     <None Include="Resources\cancel_lit.png" />
     <None Include="Resources\dlbutton.png" />
@@ -520,8 +521,12 @@
     <None Include="Resources\savetokenbutton.png" />
     <None Include="Resources\savetokenbutton_disabled.png" />
     <None Include="Resources\savetokenbutton_lit.png" />
+    <Content Include="Resources\wiki\apilimitauthenticated.png" />
+    <Content Include="Resources\wiki\apilimitunautheinticated.png" />
     <Content Include="Resources\wiki\autoupdatermenu.png" />
+    <Content Include="Resources\wiki\githubapisettingswindow.png" />
     <Content Include="Resources\wiki\importexportui.png" />
+    <Content Include="Resources\wiki\invalidtoken.png" />
     <Content Include="Resources\wiki\updatericon.png" />
     <None Include="Resources\kokodance.gif" />
     <None Include="Resources\kokorun.gif" />
