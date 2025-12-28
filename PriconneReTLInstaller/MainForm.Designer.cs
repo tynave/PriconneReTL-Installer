@@ -537,7 +537,7 @@
             this.wikiMenuItem,
             this.aboutMenuItem});
             this.helpMenuStrip.Name = "contextMenuStrip1";
-            this.helpMenuStrip.Size = new System.Drawing.Size(299, 92);
+            this.helpMenuStrip.Size = new System.Drawing.Size(299, 114);
             // 
             // checkForInstallerUpdatesToolStripMenuItem
             // 
@@ -553,7 +553,7 @@
             // 
             this.githubAPIRateLimitInfoToolStripMenuItem.Name = "githubAPIRateLimitInfoToolStripMenuItem";
             this.githubAPIRateLimitInfoToolStripMenuItem.Size = new System.Drawing.Size(298, 22);
-            this.githubAPIRateLimitInfoToolStripMenuItem.Text = "Github API Rate Limit Info";
+            this.githubAPIRateLimitInfoToolStripMenuItem.Text = "GitHub API Rate Limit Info";
             this.githubAPIRateLimitInfoToolStripMenuItem.Click += new System.EventHandler(this.githubAPIRateLimitInfoToolStripMenuItem_Click);
             // 
             // wikiMenuItem
@@ -599,7 +599,7 @@
             this.importExportSettingsToolStripMenuItem,
             this.gitHubAPISettingsToolStripMenuItem});
             this.settingsMenuStrip.Name = "settingsMenuStrip";
-            this.settingsMenuStrip.Size = new System.Drawing.Size(248, 114);
+            this.settingsMenuStrip.Size = new System.Drawing.Size(248, 92);
             // 
             // editIgnoredFilesToolStripMenuItem
             // 

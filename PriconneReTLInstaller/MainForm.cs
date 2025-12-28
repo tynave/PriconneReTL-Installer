@@ -605,7 +605,7 @@ namespace PriconneReTLInstaller
         {
             (int remaining, DateTime resetTime, TimeSpan timeUntilReset, string username) = Helper.CheckGithubRateLimit();
             string auth = username == null ? "No" : $"Yes (Username: {username})";
-            MessageBox.Show($"Github API rate limit info:\n\nAuthenticated: {auth}\nRemaining API calls: {remaining}\nResets at: {resetTime}, in: {timeUntilReset:mm\\:ss}", "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"GitHub API rate limit info:\n\nAuthenticated: {auth}\nRemaining API calls: {remaining}\nResets at: {resetTime}, in: {timeUntilReset:mm\\:ss}", "About", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void gitHubAPISettingsToolStripMenuItem_Click(object sender, EventArgs e)
