@@ -7,6 +7,10 @@ Based on [PriconneTL_Updater](https://github.com/touanu/PriconeTL_Updater) by [t
 ## You can download the latest version here:  
 https://github.com/tynave/PriconneReTL-Installer/releases/latest
 
+## Are you playing Priconne on multiple accounts and/or are you fed up with DMM's launcher?  
+Check out [HetCreep](https://github.com/HetCreep)'s [PriconneMultiAccountLauncher](https://github.com/HetCreep/PriconneMultiAccountLauncher) and [his fork of the PriconneReTLInstaller](https://github.com/HetCreep/PriconneReTL-Installer) which has been modified to accomodate his multi-launcher.  
+**(Please note that development of the two installer versions is seperate and available features might differ in any eventual future updates as well.)**
+
 ## Wiki
 Refer to the [wiki](https://github.com/tynave/PriconneReTL-Installer/wiki) for more information on usage.
 
