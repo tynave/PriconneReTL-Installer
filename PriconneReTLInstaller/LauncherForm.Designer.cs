@@ -1,4 +1,4 @@
-﻿namespace PriconneReTLInstaller
+namespace PriconneReTLInstaller
 {
     partial class LauncherForm
     {
@@ -30,9 +30,7 @@
         {
             this.setLauncherLabel = new System.Windows.Forms.Label();
             this.backButton = new System.Windows.Forms.Button();
-            this.shortcutLabel = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.shortcutPathLabel = new System.Windows.Forms.Label();
             this.launcherComboBox = new System.Windows.Forms.ComboBox();
             this.setFastlauncherLinkLabel = new System.Windows.Forms.Label();
             this.dmmfastlauncherLabel = new System.Windows.Forms.Label();
@@ -40,6 +38,8 @@
             this.shortcutAddButton = new System.Windows.Forms.Button();
             this.shortcutRemoveButton = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.shortcutListBox = new System.Windows.Forms.ListBox();
+            this.shortcutListLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -72,31 +72,10 @@
             this.backButton.UseVisualStyleBackColor = false;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
-            // shortcutLabel
-            // 
-            this.shortcutLabel.AutoSize = true;
-            this.shortcutLabel.BackColor = System.Drawing.Color.Transparent;
-            this.shortcutLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.shortcutLabel.Location = new System.Drawing.Point(10, 88);
-            this.shortcutLabel.Name = "shortcutLabel";
-            this.shortcutLabel.Size = new System.Drawing.Size(87, 16);
-            this.shortcutLabel.TabIndex = 7;
-            this.shortcutLabel.Text = "Shortcut path:";
-            // 
             // openFileDialog1
             // 
             this.openFileDialog1.Filter = "Shortcut files (*.lnk)|*.lnk";
-            // 
-            // shortcutPathLabel
-            // 
-            this.shortcutPathLabel.AutoSize = true;
-            this.shortcutPathLabel.BackColor = System.Drawing.Color.Transparent;
-            this.shortcutPathLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.shortcutPathLabel.Location = new System.Drawing.Point(103, 88);
-            this.shortcutPathLabel.Name = "shortcutPathLabel";
-            this.shortcutPathLabel.Size = new System.Drawing.Size(65, 16);
-            this.shortcutPathLabel.TabIndex = 10;
-            this.shortcutPathLabel.Text = "<Not Set>";
+            this.openFileDialog1.Multiselect = true;
             // 
             // launcherComboBox
             // 
@@ -118,7 +97,7 @@
             this.setFastlauncherLinkLabel.Name = "setFastlauncherLinkLabel";
             this.setFastlauncherLinkLabel.Size = new System.Drawing.Size(271, 16);
             this.setFastlauncherLinkLabel.TabIndex = 35;
-            this.setFastlauncherLinkLabel.Text = "Set DMMGamePlayerFastLauncher shortcut:";
+            this.setFastlauncherLinkLabel.Text = "Set DMMGamePlayerFastLauncher shortcuts:";
             // 
             // dmmfastlauncherLabel
             // 
@@ -153,7 +132,7 @@
             this.shortcutAddButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.shortcutAddButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.shortcutAddButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.shortcutAddButton.Location = new System.Drawing.Point(13, 31);
+            this.shortcutAddButton.Location = new System.Drawing.Point(13, 28);
             this.shortcutAddButton.Name = "shortcutAddButton";
             this.shortcutAddButton.Size = new System.Drawing.Size(152, 48);
             this.shortcutAddButton.TabIndex = 8;
@@ -171,7 +150,7 @@
             this.shortcutRemoveButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.shortcutRemoveButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.shortcutRemoveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.shortcutRemoveButton.Location = new System.Drawing.Point(177, 31);
+            this.shortcutRemoveButton.Location = new System.Drawing.Point(177, 28);
             this.shortcutRemoveButton.Name = "shortcutRemoveButton";
             this.shortcutRemoveButton.Size = new System.Drawing.Size(152, 48);
             this.shortcutRemoveButton.TabIndex = 9;
@@ -179,18 +158,42 @@
             this.shortcutRemoveButton.EnabledChanged += new System.EventHandler(this.shortcutRemoveButton_EnabledChanged);
             this.shortcutRemoveButton.Click += new System.EventHandler(this.shortcutRemoveButton_Click);
             // 
+            // shortcutListLabel
+            // 
+            this.shortcutListLabel.AutoSize = true;
+            this.shortcutListLabel.BackColor = System.Drawing.Color.Transparent;
+            this.shortcutListLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.shortcutListLabel.Location = new System.Drawing.Point(10, 85);
+            this.shortcutListLabel.Name = "shortcutListLabel";
+            this.shortcutListLabel.Size = new System.Drawing.Size(120, 13);
+            this.shortcutListLabel.TabIndex = 37;
+            this.shortcutListLabel.Text = "Configured shortcuts:";
+            this.shortcutListLabel.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // shortcutListBox
+            // 
+            this.shortcutListBox.BackColor = System.Drawing.SystemColors.Window;
+            this.shortcutListBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.shortcutListBox.FormattingEnabled = true;
+            this.shortcutListBox.HorizontalScrollbar = true;
+            this.shortcutListBox.Location = new System.Drawing.Point(13, 101);
+            this.shortcutListBox.Name = "shortcutListBox";
+            this.shortcutListBox.Size = new System.Drawing.Size(540, 82);
+            this.shortcutListBox.TabIndex = 38;
+            this.shortcutListBox.SelectedIndexChanged += new System.EventHandler(this.shortcutListBox_SelectedIndexChanged);
+            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.Transparent;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.shortcutPathLabel);
-            this.panel2.Controls.Add(this.shortcutLabel);
+            this.panel2.Controls.Add(this.shortcutListBox);
+            this.panel2.Controls.Add(this.shortcutListLabel);
             this.panel2.Controls.Add(this.setFastlauncherLinkLabel);
             this.panel2.Controls.Add(this.shortcutRemoveButton);
             this.panel2.Controls.Add(this.shortcutAddButton);
             this.panel2.Location = new System.Drawing.Point(12, 108);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(570, 112);
+            this.panel2.Size = new System.Drawing.Size(570, 195);
             this.panel2.TabIndex = 41;
             // 
             // LauncherForm
@@ -198,7 +201,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::PriconneReTLInstaller.Properties.Resources.bg2;
-            this.ClientSize = new System.Drawing.Size(640, 233);
+            this.ClientSize = new System.Drawing.Size(640, 315);
             this.ControlBox = false;
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -218,9 +221,7 @@
 
         private System.Windows.Forms.Button backButton;
         private System.Windows.Forms.Label setLauncherLabel;
-        private System.Windows.Forms.Label shortcutLabel;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.Label shortcutPathLabel;
         private System.Windows.Forms.ComboBox launcherComboBox;
         private System.Windows.Forms.Label setFastlauncherLinkLabel;
         private System.Windows.Forms.Label dmmfastlauncherLabel;
@@ -228,5 +229,7 @@
         private System.Windows.Forms.Button shortcutAddButton;
         private System.Windows.Forms.Button shortcutRemoveButton;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.ListBox shortcutListBox;
+        private System.Windows.Forms.Label shortcutListLabel;
     }
 }

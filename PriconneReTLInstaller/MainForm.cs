@@ -1,4 +1,4 @@
-﻿using HelperFunctions;
+using HelperFunctions;
 using InstallerFunctions;
 using LoggerFunctions;
 using PriconneReTLInstaller.Properties;
@@ -552,7 +552,11 @@ namespace PriconneReTLInstaller
 
         private void MainForm_Activated(object sender, EventArgs e)
         {
-            currentLauncherLinkLabel.Text = "Launcher: " + (Settings.Default.selectedLauncher == 0 ? "DMMGamePlayer" : "DMMGamePlayerFastLauncher");
+            string launcherName = "DMMGamePlayer";
+            if (Settings.Default.selectedLauncher == 1) launcherName = "DMMGamePlayerFastLauncher";
+            else if (Settings.Default.selectedLauncher == 2) launcherName = "PriconneMultiLauncher";
+            
+            currentLauncherLinkLabel.Text = "Launcher: " + launcherName;
             checkForInstallerUpdatesToolStripMenuItem.Checked = Settings.Default.checkForInstallerUpdates;
 
         }

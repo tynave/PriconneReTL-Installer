@@ -1,4 +1,4 @@
-﻿using HelperFunctions;
+using HelperFunctions;
 using LoggerFunctions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -722,6 +722,9 @@ namespace InstallerFunctions
                             case 1:                
                                 result = StartDMMFastLauncher();
                                 break;
+                            case 2:
+                                result = StartPriconneMultiLauncher();
+                                break;
                             default:
                                 break;
                     }
@@ -800,15 +803,16 @@ namespace InstallerFunctions
             {
                 string dmmFastLauncherPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DMMGamePlayerFastLauncher");
                 string dmmFastLauncherExe = Path.Combine(dmmFastLauncherPath, "DMMGamePlayerFastLauncher.exe");
-                string fastLauncherLink = Settings.Default.fastLauncherLink;
 
                 if (File.Exists(dmmFastLauncherExe))
                 {
-
                     if (!helper.IsFastLauncherShortcutValid()) {
                         Log?.Invoke("Cannot start game! DMMGamePlayerFastLauncher shortcut invalid!", "error", true);
                         return false; 
                     }
+
+                    // Use first valid shortcut from the list
+                    string fastLauncherLink = helper.GetFastLauncherLinks().FirstOrDefault(l => System.IO.File.Exists(l));
 
                     Log?.Invoke("Starting game via DMMGamePlayerFastLauncher.", "info", true);
                     ProcessStartInfo startInfo = new ProcessStartInfo
@@ -824,6 +828,37 @@ namespace InstallerFunctions
             catch (Exception ex)
             {
                 ErrorLog?.Invoke("Error starting DMMGamePlayerFastLauncher: " + ex.Message);
+                return false;
+            }
+        }
+        public bool StartPriconneMultiLauncher()
+        {
+            try
+            {
+                string priconneLauncherPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Priconne Multi-Account Launcher");
+                string priconneLauncherExe = Path.Combine(priconneLauncherPath, "PriconneMultiLauncher.exe");
+
+                if (File.Exists(priconneLauncherExe))
+                {
+                    // Prefer the first valid custom shortcut from the list (e.g. with special arguments);
+                    // fall back to the raw exe if none are set.
+                    string firstValidLink = helper.GetFastLauncherLinks().FirstOrDefault(l => System.IO.File.Exists(l));
+                    string targetFile = !string.IsNullOrEmpty(firstValidLink) ? firstValidLink : priconneLauncherExe;
+
+                    Log?.Invoke("Starting game via PriconneMultiLauncher.", "info", true);
+                    ProcessStartInfo startInfo = new ProcessStartInfo
+                    {
+                        FileName = targetFile,
+                    };
+                    Process.Start(startInfo);
+                    return true;
+                }
+                Log?.Invoke("Cannot start game! PriconneMultiLauncher not found!", "error", true);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                ErrorLog?.Invoke("Error starting PriconneMultiLauncher: " + ex.Message);
                 return false;
             }
         }

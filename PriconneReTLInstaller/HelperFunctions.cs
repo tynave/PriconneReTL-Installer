@@ -1,4 +1,4 @@
-﻿using InstallerFunctions;
+using InstallerFunctions;
 using LoggerFunctions;
 using Newtonsoft.Json;
 using PriconneReTLInstaller;
@@ -291,11 +291,27 @@ namespace HelperFunctions
                 return false;
             }
         }
+        public bool IsPriconneMultiLauncherInstalled()
+        {
+            try
+            {
+                string priconneLauncherPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Priconne Multi-Account Launcher");
+                string priconneLauncherExe = Path.Combine(priconneLauncherPath, "PriconneMultiLauncher.exe");
+
+                if (File.Exists(priconneLauncherExe)) return true; else return false;
+            }
+            catch (Exception ex)
+            {
+                ErrorLog?.Invoke("Error checking PriconneMultiLauncher: " + ex.Message);
+                return false;
+            }
+        }
         public bool IsFastLauncherShortcutValid()
         {
-            string fastLauncherLink = Settings.Default.fastLauncherLink;
-
-            if (!File.Exists(fastLauncherLink))
+            var links = GetFastLauncherLinks();
+            // Consider valid if at least one stored link actually exists on disk
+            bool anyValid = links.Any(l => File.Exists(l));
+            if (!anyValid)
             {
                 MessageBox.Show(Settings.Default.cannotStartDMMFastLauncherError, "Cannot Start Game", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
@@ -304,22 +320,39 @@ namespace HelperFunctions
         }
         public void LogFastLauncherShortcut()
         {
-            string fastLauncherShortcut = Settings.Default.fastLauncherLink;
-
-            if (fastLauncherShortcut == "") Log?.Invoke("DMMGamePlayerFastLauncher link not set!", "info", false);
-            else Log?.Invoke("DMMGamePlayerFastLauncher link path: " + fastLauncherShortcut, "info", false);
+            var links = GetFastLauncherLinks();
+            if (links.Count == 0) Log?.Invoke("Fast launcher links not set!", "info", false);
+            else Log?.Invoke("Fast launcher links: " + string.Join(", ", links), "info", false);
+        }
+        /// <summary>Returns the full list of configured shortcut paths (merging legacy single-link if needed).</summary>
+        public System.Collections.Generic.List<string> GetFastLauncherLinks()
+        {
+            var col = Settings.Default.fastLauncherLinks;
+            var list = col == null
+                ? new System.Collections.Generic.List<string>()
+                : col.Cast<string>().ToList();
+            // Include legacy single link if not yet migrated
+            string legacy = Settings.Default.fastLauncherLink;
+            if (!string.IsNullOrEmpty(legacy) && !list.Contains(legacy))
+                list.Add(legacy);
+            return list;
         }
         public void PopulateLauncherComboBox(ComboBox comboBox)
         {
-            
             comboBox.Items.Clear();
             comboBox.Items.Add("DMMGamePlayer");
+            comboBox.Items.Add("DMMGamePlayerFastLauncher");
+            comboBox.Items.Add("PriconneMultiLauncher");
 
             if (IsFastLauncherInstalled()) 
             { 
-                comboBox.Items.Add("DMMGamePlayerFastLauncher");
                 Log?.Invoke("Found DMMGamePlayerFastLauncher!", "info", false);
             } else Log?.Invoke("DMMGamePlayerFastLauncher not installed!", "info", false);
+
+            if (IsPriconneMultiLauncherInstalled())
+            {
+                Log?.Invoke("Found PriconneMultiLauncher!", "info", false);
+            } else Log?.Invoke("PriconneMultiLauncher not installed!", "info", false);
         }
         public void PopulateConfigChecklistbox(CheckedListBox checkedListBox)
         {
@@ -601,6 +634,7 @@ namespace HelperFunctions
                     selectedLauncher = Settings.Default.selectedLauncher,
                     ignoreFiles = Settings.Default.ignoreFiles,
                     fastLauncherLink = Settings.Default.fastLauncherLink,
+                    fastLauncherLinks = Settings.Default.fastLauncherLinks,
                     LastKnownVersion = Settings.Default.LastKnownVersion,
                     checkForInstallerUpdates = Settings.Default.checkForInstallerUpdates,
                     showLogChecked = Settings.Default.showLogChecked
@@ -634,6 +668,8 @@ namespace HelperFunctions
                     Settings.Default.selectedLauncher = importedSettings.selectedLauncher;
                     Settings.Default.ignoreFiles = importedSettings.ignoreFiles;
                     Settings.Default.fastLauncherLink = importedSettings.fastLauncherLink;
+                    if (importedSettings.fastLauncherLinks != null)
+                        Settings.Default.fastLauncherLinks = importedSettings.fastLauncherLinks;
                     Settings.Default.LastKnownVersion = importedSettings.LastKnownVersion;
                     Settings.Default.checkForInstallerUpdates = importedSettings.checkForInstallerUpdates;
                     Settings.Default.showLogChecked = importedSettings.showLogChecked;
@@ -657,9 +693,9 @@ public class UserSettings
     public bool launchState { get; set; }
     public int selectedLauncher {  get; set; }
     public System.Collections.Specialized.StringCollection ignoreFiles { get; set; }
-    public string fastLauncherLink { get; set; }
+    public string fastLauncherLink { get; set; }   // legacy — kept for backward compat
+    public System.Collections.Specialized.StringCollection fastLauncherLinks { get; set; }
     public string LastKnownVersion { get; set; }
     public bool checkForInstallerUpdates { get; set; }
     public bool showLogChecked { get; set; }
-    
 }

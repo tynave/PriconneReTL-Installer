@@ -1,4 +1,4 @@
-﻿using HelperFunctions;
+using HelperFunctions;
 using InstallerFunctions;
 using LoggerFunctions;
 using PriconneReTLInstaller.Properties;
@@ -136,6 +136,15 @@ namespace PriconneReTLInstaller
                         if (result == false)
                         {
                             MessageBox.Show("Cannot start game via DMMGamePlayerFastLauncher!\nCheck logs for more details.\nFalling back to DMMGamePlayer!", "Cannot launch via DMMGamePlayerFastLauncher", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            installer.StartDMMGamePlayer();
+                            break;
+                        }
+                        break;
+                    case 2:
+                        result = installer.StartPriconneMultiLauncher();
+                        if (result == false)
+                        {
+                            MessageBox.Show("Cannot start game via PriconneMultiLauncher!\nCheck logs for more details.\nFalling back to DMMGamePlayer!", "Cannot launch via PriconneMultiLauncher", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             installer.StartDMMGamePlayer();
                             break;
                         }
