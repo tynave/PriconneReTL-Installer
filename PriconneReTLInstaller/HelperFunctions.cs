@@ -495,7 +495,10 @@ namespace HelperFunctions
             var stringCollection = new StringCollection();
             var serializer = new XmlSerializer(stringCollection.GetType());
 
-            using (var reader = new XmlTextReader(new System.IO.StringReader(serializedValue)))
+            // Harden against XXE: disable DTD processing and external entity resolution
+            // (XmlTextReader resolves them by default). Imported settings are untrusted input.
+            var settings = new XmlReaderSettings { DtdProcessing = DtdProcessing.Prohibit, XmlResolver = null };
+            using (var reader = XmlReader.Create(new System.IO.StringReader(serializedValue), settings))
             {
                 if (serializer.CanDeserialize(reader))
                 {
