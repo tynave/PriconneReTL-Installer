@@ -414,16 +414,26 @@ namespace InstallerFunctions
                         counter++;
                         string fileName = entry.FullName;
 
+                        // Zip-slip guard: the resolved destination must stay inside the game folder.
+                        // A crafted entry (e.g. "..\..\evil") must not escape priconnePath.
+                        string gameRoot = Path.GetFullPath(priconnePath).TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+                        string fullDest = Path.GetFullPath(Path.Combine(priconnePath, fileName));
+                        if (!fullDest.StartsWith(gameRoot, StringComparison.OrdinalIgnoreCase))
+                        {
+                            Log?.Invoke("Skipped suspicious zip entry (path traversal): " + fileName, "error", false);
+                            continue;
+                        }
+
                         Log?.Invoke("Extracting: " + entry.FullName, "add", false);
                         DownloadProgress?.Invoke(counter, zip.Entries.Count);
 
                         if (!ignoreFiles.Contains(fileName))
                         {
-                            string destinationPath = Path.Combine(priconnePath, Path.GetDirectoryName(fileName));
-                            if (!Directory.Exists(destinationPath))
+                            string destinationPath = Path.GetDirectoryName(fullDest);
+                            if (!string.IsNullOrEmpty(destinationPath) && !Directory.Exists(destinationPath))
                                 Directory.CreateDirectory(destinationPath);
 
-                            await Task.Run(() => ExtractZipEntry(entry, Path.Combine(priconnePath, fileName)));
+                            await Task.Run(() => ExtractZipEntry(entry, fullDest));
                         }
                     }
                 }
@@ -534,6 +544,15 @@ namespace InstallerFunctions
                         string filePath = Path.Combine(priconnePath, file);
                         string directory = Path.GetDirectoryName(filePath);
 
+                        // Removal path-guard: never delete outside the game folder (a crafted or
+                        // relative entry like "..\..\x" must not escape priconnePath).
+                        string gameRoot = Path.GetFullPath(priconnePath).TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+                        if (!Path.GetFullPath(filePath).StartsWith(gameRoot, StringComparison.OrdinalIgnoreCase))
+                        {
+                            Log?.Invoke($"Skipped suspicious remove path (outside game folder): {file}", "error", false);
+                            continue;
+                        }
+
                         if (File.Exists(filePath))
                         {
                             File.Delete(filePath);
@@ -589,6 +608,15 @@ namespace InstallerFunctions
                 {
                     string fullPath = Path.Combine(priconnePath, file);
                     string directory = Path.GetDirectoryName(fullPath);
+
+                    // Path-guard: confine deletions to the game folder.
+                    string gameRoot = Path.GetFullPath(priconnePath).TrimEnd(Path.DirectorySeparatorChar) + Path.DirectorySeparatorChar;
+                    if (!Path.GetFullPath(fullPath).StartsWith(gameRoot, StringComparison.OrdinalIgnoreCase))
+                    {
+                        Log?.Invoke($"Skipped suspicious {type} path (outside game folder): {file}", "error", false);
+                        continue;
+                    }
+
                     if (File.Exists(fullPath))
                     {
                         File.Delete(fullPath);
