@@ -711,7 +711,9 @@ namespace InstallerFunctions
                 }
                 ProcessFinish?.Invoke();
 
-                if (launch && !cancelledByUser)
+                // Only launch the game if the operation actually succeeded -- never launch a
+                // half-patched game and then exit, which would hide the failure from the user.
+                if (launch && !cancelledByUser && processSuccess)
                 {
                     bool result = false;
                     switch (Settings.Default.selectedLauncher)
